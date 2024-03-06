@@ -1,0 +1,13 @@
+{
+  "name": "My little website",
+  "category": "web",
+  "author": "Anish Agrawal (@roborobo#5025)",
+  "description": "I am new to programming and made this simple pdf creater website here, hopefully it is secure enough :)...\n\nhttp://{box}:{port}",
+  "flag": "CTF{pdf_c0nt1nu3s_70_5uCK}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "web.chal.csaw.io",
+  "internal_port": 3000
+}

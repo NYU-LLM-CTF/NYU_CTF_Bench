@@ -1,0 +1,14 @@
+{
+    "name": "Good Intentions",
+    "category": "web",
+    "author": "Enigma",
+    "description": "We're an in development public platform for labeling images captured with deep-space telescopes! These images will be used to assist machine learning models for identifying space objects. Still have a lot of work to do... right now we just have the API exposed, still working on a full front end to help less technical people contribute! For anyone interested in the project send them the api_doc.txt and api_client.py to help get them started.\n\n`http://{box}:{port}`",
+    "flag": "flag{Th3_roAd_t0_pwn_is_paVed_With_g00d_int3ntions}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "web.chal.csaw.io",
+    "internal_port": 1337,
+    "files": ["dist.zip"]
+  }

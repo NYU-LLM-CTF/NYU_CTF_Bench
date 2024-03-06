@@ -1,0 +1,14 @@
+{
+    "name": "Word Wide Web",
+    "category": "web",
+    "author": "Anish Agrawal (@roborobo#5025)",
+    "description": "Isn't the Word Wide Web a fascinating place to be in? Words.. so many words.. all linked...\nNOTE: The flag doesn't have a wrapper. It needs to be wrapped with curly brackets and please put `CTF` in front of the curly brackets.\n\nhttp://{box}:{port}",
+    "flag": "CTF{w0rdS_4R3_4mAz1nG_r1ght}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "web.chal.csaw.io",
+    "internal_port": 3000
+  }
+  

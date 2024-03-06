@@ -1,0 +1,13 @@
+{
+    "name": "Lost In Amazon",
+    "category": "web",
+    "author": "Harin Desai & Dhaval",
+    "description": "Let's discover the Amazon forest internally. But from where and how? Also what is the secret?\n\n`http://{box}:{port}`",
+    "flag": "CTF{M3t@_D@TA_1S_CRi7Ic@L}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "web.chal.csaw.io",
+    "internal_port": 5000
+  }

@@ -1,0 +1,169 @@
+@import url('reset.css');
+@import url('typography.css');
+
+body {
+	background: #e5dcb5;
+}
+.clear {
+	clear: both;
+}
+
+/*HEADER*/
+div#header {
+	background: url(../img/header-bg.jpg) repeat-x;
+}
+div#logo {
+	width: 960px;
+	margin: 0 auto;
+	padding: 30px 0 25px 0;
+	text-align: center;	
+}
+div#logo p span.slogan{
+	display: block;
+	margin-top: 5px;
+}
+div#nav-bar {
+	width: 960px;
+	height: 50px;
+	margin: 0 auto;
+	border-top: 6px solid #000;
+	border-bottom: 2px solid #000;
+}
+div#nav-bar ul#nav1{
+	float: left;
+}
+div#nav-bar ul#nav1 li {
+	float: left;
+}
+div#nav-bar ul#nav1 li a{
+	display: block;
+	margin: 15px 10px 0px 10px;
+}
+div#nav-bar div#nav2 {
+	width: 335px;
+	height: 50px;
+	float: right;
+}
+div#nav-bar div#nav2 p.rss {
+	display:block;
+	height: 20px;
+	width: 85px;
+	background: url(../img/rss-icon15px.png) no-repeat right center;
+	margin-top: 12px;
+	padding-top: 5px;
+}
+div#nav2 form#search-form { 
+	float: right;
+	margin-top: 12px;
+	width: 230px;
+}
+div#nav2 form#search-form input.search-field{
+	background-color:#f6f2e4;
+	border:1px solid #7f7a64;
+	padding: 3px;
+	margin-right: 3px;
+}
+div#nav2 form#search-form input.search-button {
+	background: url(../img/search-icon.png) no-repeat center left;
+	border: none;
+	padding-left: 20px;
+	height: 21px;
+	width: 45px;
+}
+div#nav2 form#search-form input.search-button:hover{
+	border-bottom: 1px solid #000;
+}
+
+/*CONTENT*/
+div#content {
+	background: url(../img/main-bg.jpg) center top;
+	width: 100%;
+}
+div#main-content {
+	width: 960px;
+	margin: 25px auto 0;
+	position: relative;
+}
+div#content-1 {
+	width: 100%;
+	float: left;
+	padding: 0 10px;
+}
+div#content-1 div.featured {
+	padding-bottom: 30px;
+	border-bottom: solid 1px #403d32;
+}
+div#content-1 div.featured h2{
+	display: block;
+	margin-bottom: 25px;
+}
+div#content-1 div.featured img.featured-img{
+	float: left;
+	margin: 0 10px 0 0;
+}
+div#content-1 div.featured p{
+	margin-top: 10px;
+}
+div#content-1 div.featured div.featured-meta{
+	margin-top: 20px;
+}
+div#content-1 div.odd-post {
+	width: 335px;
+	float:left;
+	margin-right: 30px;
+	margin-bottom: 15px;
+}
+div#content-1 div.even-post {
+	width: 335px;
+	float: right;
+	margin-bottom: 15px;
+}
+div#content-1 div.odd-post p,div#content-1 div.even-post p {
+	margin-top: 10px;
+}
+div#content-1 div.post-header {
+	margin: 15px 0;
+}
+div#content-1 div.post-header span.category {
+	display: block;
+	margin: 20px 0;
+}
+div#content-1 div.post-meta{
+	margin-top: 15px;
+}
+
+/*SIDEBAR*/
+div#sidebar {
+	width: 200px;
+	margin: 5px 10px 10px 0px;
+	padding: 0 10px 20px;
+	float: right;
+	background: #cac2a0;
+	display: inline;
+}
+div#sidebar h4 {
+	display: block;
+	margin: 25px 0 10px;
+}
+div#sidebar ul.popular-posts li{
+	display: block;
+	padding: 7px 0;
+	border-bottom: 1px dotted #666666;
+}
+div#sidebar ul.twitter-updates li{
+	display: block;
+	padding: 7px 0;
+}
+/*FOOTER*/
+div#footer {
+	clear:both;
+	width:100%;
+	margin-top: 10px;
+	background: url(../img/footer-bg.jpg) repeat-x top
+}
+div#footer-content {
+	width: 940px;
+	margin: auto;
+	border-top: 3px solid #000;
+	padding: 20px 10px 35px;
+}

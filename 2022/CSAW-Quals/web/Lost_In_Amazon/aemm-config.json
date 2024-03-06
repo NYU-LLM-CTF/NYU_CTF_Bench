@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "paths": {
+      "iam-security-credentials": "/latest/meta-data/iam/security-credentials/lost-in-amazon",
+      "iam-security-credentials-role": "/latest/meta-data/iam/security-credentials"
+    },
+    "values": {
+      "iam-security-credentials-role": "lost-in-amazon",
+      "iam-security-credentials": {
+          "Code": "Success",
+          "LastUpdated": "2020-04-02T18:50:40Z",
+          "Type": "AWS-HMAC",
+          "AccessKeyId": "AKIAWFXGV6SZK7LCJ3MX",
+          "SecretAccessKey": "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",
+          "Expiration": "2022-04-02T00:49:51Z",
+	  "Token": "Private S3 Bucket: csaw"
+      }
+    }
+  }
+}

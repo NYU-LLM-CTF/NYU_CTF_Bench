@@ -1,0 +1,186 @@
+/*GENERAL*/
+h1 {
+	color: #181818;
+	font-family: 'Bambi Bold', Garamond, Georgia, Times, Times New Roman, serif;
+	font-size: 60px;
+	font-weight: bold;
+}
+h1 a{
+	color: #181818;
+	text-decoration: none;
+}
+
+h2 {
+	color: #181818;
+	font-family: 'Gentium Basic', Garamond, Georgia, "Times New Roman", serif;
+	font-size: 50px;
+	font-weight: bold;
+	line-height: 54px;
+}
+h2 a{
+	color: #181818;
+	text-decoration: none;
+}
+h2 a:hover{
+	color: #736f5e;
+}
+
+h3 {
+	color: #181818;
+	font-family: 'Gentium Basic', Garamond, Georgia, "Times New Roman", serif;
+	font-size: 38px;
+	line-height: 41px;
+	font-weight: bold;
+}
+h3 a{
+	color: #181818;
+	text-decoration: none;
+}
+h3 a:hover{
+	color: #736f5e;
+}
+
+h4 {
+	color: #181818;
+	font-family: "Adobe Garamond Pro", Garamond, Georgia, Times, "Times New Roman", serif;
+	font-size: 23px;
+}
+
+p {
+	font-family: "Adobe Garamond Pro", Garamond, Georgia, Times, "Times New Roman", serif;
+	font-size: 15px; 
+	line-height: 19px;  
+}
+
+
+/*HEADER*/
+div#logo p span.slogan{
+	font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+	font-size: 12px;
+	font-style: italic;
+	color: #656565;
+	letter-spacing: 1.5em;
+}
+
+div#nav-bar ul#nav1 li a{
+	color: #181818;
+	font-family: "Adobe Garamond Pro", "Garamond Premier Pro", Garamond, Georgia, Times, "Times New Roman", serif;
+	text-transform: uppercase;	
+	font-size: 18px;
+}
+div#nav-bar ul#nav1 li a:hover{
+	color: #fff;
+}
+
+div#nav-bar div#nav2 p.rss a{
+	color: #181818;	
+	font-size: 16px;
+	text-decoration: underline;
+}
+div#nav-bar div#nav2 p.rss a:hover{
+	text-decoration: none;
+	color: #666;	
+}
+
+form#search-form input.search-field, form#search-form input.search-button{
+	font-family: "Adobe Garamond Pro", "Garamond Premier Pro", Garamond, Georgia, Times, "Times New Roman", serif;
+	font-size: 14px;
+}
+
+/*CONTENT*/
+
+div.featured p{
+	font-size: 16px; 
+	line-height: 20px;  
+}
+
+.featured-meta,.post-meta {
+	color: #7f7a64;
+}
+
+span.comments a, span.more a {
+	color: #7f7a64;
+	text-decoration:underline;
+}
+span.comments a:hover, span.more a:hover {
+	color: #000;
+}
+
+span.category {
+	font-size: 15px;
+	text-transform: uppercase;
+}
+span.category a{
+	color: #666;
+	text-decoration: underline;
+
+}
+span.category a:hover{
+	text-decoration: none;
+}
+
+/*SIDEBAR*/
+div#sidebar {
+	font-family: "Adobe Garamond Pro", "Garamond Premier Pro", Garamond, Georgia, Times, "Times New Roman", serif;
+	font-size: 14px;
+	line-height: 19px;
+}
+ul.category li a{
+	line-height: 18px;
+	text-transform: uppercase;
+	text-decoration: underline;
+	color: #505050;
+}
+ul.category li a:hover{
+	text-decoration: none;
+	color: #7f7a64;
+}
+ul.popular-posts li a{
+	color: #505050;
+}
+ul.popular-posts li a:hover{
+	text-decoration: underline;
+	color: #7f7a64;
+}
+ul.social-links li a{
+	font-style: italic;
+	font-weight: bold;
+	color: #505050;
+}
+ul.social-links li a:hover{
+	text-decoration: underline;
+	color: #7f7a64;
+}
+ul.twitter-updates li a{
+	font-style: italic;	
+	color: #505050;
+}
+ul.twitter-updates li{
+	font-style: italic;	
+	color: #505050;
+}
+ul.twitter-updates li span{
+	font-style: normal;
+
+}
+
+/*FOOTER*/
+p#footer-text {
+	font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+	font-size: 11px;
+	text-align: right;
+}
+p#footer-text a{
+	text-decoration: underline;
+	color: #000;
+}
+p#footer-text a:hover{
+	color: #7f7a64;
+}
+#sidebar ul.twitter-updates li a {
+	text-decoration: underline;
+}
+#sidebar ul.twitter-updates li a:hover {
+	text-decoration: underline;
+	color: #7f7a64;
+}
