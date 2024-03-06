@@ -1,0 +1,18 @@
+{
+    "name": "eMbrEy0 LEaK",
+    "category": "misc",
+    "author": "crazyman @ r3kapig",
+    "description": "D1d u like python,Their are some easy trick.Have fun!!!!",
+    "flag": {
+    "content": "flag{y0U_f1NiSHeD_EmpR3Yo_lAeK_Ch@L1EnGe_aNd_uSE_hE1p_T0_Le@k_ThE_vAr}",
+    "type": "dynamic",
+    "path": "/home/ctf/flag"
+  },
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["attachment/service.py"],
+    "internal_port":9999,
+    "box": "misc.chal.csaw.io"
+}

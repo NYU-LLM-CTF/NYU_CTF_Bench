@@ -1,0 +1,17 @@
+{
+  "name": "Farmlang",
+  "category": "misc",
+  "description": "Could you guess the farm's WiFi password? We hope so because it is the flag...\n\nNOTE: Please put the password in the standard flag format",
+  "flag": {
+    "content": "flag{Au+umn2022^}",
+    "type": "static",
+    "path": ""
+  },
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 20,
+  "box": "misc.chal.csaw.io",
+  "files":["farmlang.jpg"]
+}

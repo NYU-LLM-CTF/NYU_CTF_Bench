@@ -1,0 +1,17 @@
+{
+    "name": "Strange Photo",
+    "description":"One produced Two; Two produced Three; Three produced All things.",
+    "category": "misc",
+    "author": "r3kapig",
+    "flag": {
+      "content": "flag{CSAW_F3N0x95F_Ybgn2z7p3m}",
+      "type": "static",
+      "path": ""
+    },
+    "box": "misc.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["attachment/diff.jpg", "attachment/single.jpg", "attachment/Mask.zip"]
+}

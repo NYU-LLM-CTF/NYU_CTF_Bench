@@ -1,0 +1,18 @@
+{
+    "name": "SupEr GUeSsEr G@me",
+    "category": "misc",
+    "author": "crazyman @ r3kapig",
+    "description": "I heard someone say you are a super guess hacker!Let's play my game and got flag!",
+    "flag": {
+    "content": "flag{c0ool_y0u_ArE_aN_SuPer_GuE33eR_M@n!}",
+    "type": "dynamic",
+    "path": "/home/ctf/flag.txt"
+    },
+    "box": "misc.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "internal_port":9998,
+    "files": ["attachment/service.py"]
+  }
