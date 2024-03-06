@@ -1,0 +1,19 @@
+{
+    "name": "homeworkme",
+    "description": "don't tell the teachers but i found some answer keys",
+    "category": "web",
+    "requirements": { },
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":20,
+    "minimum":50,
+    "internal_port":1234,
+    "box": "web.chal.csaw.io",
+    "flag": {
+        "content": "flag{bro_can_i_use_your_chegg}",
+        "type": "static",
+        "path": ""
+    },
+    "files":["dist/source.zip"]
+}
