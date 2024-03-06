@@ -1,1 +1,0 @@
-ADMIN_ROLE = "admin"

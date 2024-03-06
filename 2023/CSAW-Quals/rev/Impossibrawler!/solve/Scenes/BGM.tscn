@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://SFX/STAGE 3.mp3" type="AudioStream" id=1]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
-stream = ExtResource( 1 )
-autoplay = true
