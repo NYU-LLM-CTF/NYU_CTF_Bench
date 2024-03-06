@@ -1,0 +1,13 @@
+{
+  "name": "Our Spy In New Terrain (OSINT)",
+  "category": "forensics",
+  "author": "elh313 and Devansh-Patel",
+  "description": "It is up to you to determine who The Enemy is going to attack next and when they plan to strike! Their newest recruit is on twitter as DarkRoom8109. Good luck.\n`nc {box} {port}`",
+  "flag": "flag{C0N6r475463N7600DW0rKN3X771M3N0PU811C53rV3r}",
+  "box": "misc.chal.csaw.io",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275
+}

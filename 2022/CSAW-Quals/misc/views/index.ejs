@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSAW Cat The Flag Challenge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+        }
+
+        #file-submit {
+            margin: 1rem auto
+        }
+
+        #token {
+            text-emphasis: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Model Upload</h1>
+    <h3>Single Zip File Upload</h3>
+    <h5>(Please upload your compressed models in h1 or h5 format)</h5>
+
+    <!-- Form for single file upload -->
+    <form action="/single" method="post" enctype="multipart/form-data">
+        <input type="file" name="mFile" required>
+        <input id="file-submit" type="submit" value="upload">
+    </form>
+
+    <% if (token) { %>
+        <h5 id="token"><%= resultVal %></h5>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "Gotta Crack Them All",
+  "category": "crypto",
+  "description": "As an intern in the security department, you want to show the admin what a major security issue there is by having all passwords being from a wordlist (even if it is one the admin created) as well as potential issues with stream ciphers.\nHere's the list of encrypted passwords (including the admin's), the encryption algorithm and your password.\nCan you crack them all and get the admin's password?\nHere is the web service that the admin made to encrypt a password: `nc {box} {port}`\n\nNOTE: The flag is just the admin's password.",
+  "flag": "1n53cu2357234mc1ph32",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "files":["encrypt.py", "leaked_password.txt", "encrypted_passwords.txt"]
+}

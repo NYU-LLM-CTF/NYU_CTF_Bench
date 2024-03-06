@@ -1,0 +1,15 @@
+{
+  "name": "noir",
+  "category": "forensics",
+  "author": "u91o",
+  "description": "I am a forest, and a night of dark trees: but he who is not afraid of my darkness, will find banks full of roses under my cypresses.\n\n(A flag submission note for hacking serenity: Please put the flag in standard format.)",
+  "flag": "flag{sil3nt_refl3ct1on}",
+  "box": "misc.chal.csaw.io",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "noir.png"
+  ]
+}

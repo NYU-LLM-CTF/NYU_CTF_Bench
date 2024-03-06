@@ -1,0 +1,13 @@
+{
+  "name": "Phi Too Much In Common",
+  "category": "crypto",
+  "author": "rollingcoconut",
+  "description": "I love playing CTFs but always fall asleep in Crypto class ... do I need a refresher on RSA??\n\n `nc {box} {port}`",
+  "flag": "flag{aR3nT_U_tH3_RSA_ninJA}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "internal_port": 5000,
+  "box": "crypto.chal.csaw.io"
+}

@@ -1,0 +1,15 @@
+{
+	"name": "Quantum Leap",
+	"category": "misc",
+	"author": "sway",
+	"description": "My friend took the quantum leap and purchased a quantum computer with two qubits. They mentioned using a quantum logic gate to input the flag and they gave me the computers output. I have been stuck and Can NOT figure out the flag.",
+	"flag": "flag{4_qu4ntum_g4t3}",
+	"type": "dynamic",
+	"initial": 500,
+	"minimum": 50,
+	"decay": 275,
+	"files": [
+		"output"
+	],
+	"box": "misc.chal.csaw.io"
+}

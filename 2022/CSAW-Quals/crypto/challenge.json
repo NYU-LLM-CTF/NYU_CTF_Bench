@@ -1,0 +1,14 @@
+{
+  "name": "Beyond_Quantum",
+  "category": "crypto",
+  "author": "N4T_20, rollingcoconut",
+  "description": "New crypto systems like NTRU can help us stay safe in the post-quantum era! Also in the post-quantum era: errore umano. `nc {box} {port}`",
+  "flag": "flag{I_h34rd_p05t-qu4ntum_crypt0_w45_h4rd_but_1t_w4s_NTRU!Or1g1n4l_NTRU_1mpl3m3nt4t10n_by_J3drz3j_Kr4uz3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "internal_port": 5000,
+  "files": ["server.py", "cipher/cipher.py", "cipher/mathutils.py"]
+}

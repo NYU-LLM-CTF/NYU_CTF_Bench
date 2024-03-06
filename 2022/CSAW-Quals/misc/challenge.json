@@ -1,0 +1,16 @@
+{
+    "name": "CatTheFlag",
+    "category": "misc",
+    "author": "Moon, Ethan",
+    "description": "This is an intro to Neural Networks and Data Analysis challenge.\n\nhttp://{box}:{port}",
+    "flag": "flag{!ts_r4In!Ng_C47$_AnD_D09z!}",
+    "internal_port": 3000, 
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "misc.chal.csaw.io",
+    "files": [
+        "inputs.zip"
+    ]
+}

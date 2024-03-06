@@ -1,0 +1,2 @@
+Pytorch is a widely used AI framework. I use it as a carrier to provide a simple and interesting game. I hope you like it.
+The format of flag is flag{md5(the shortest path of the maze)}

@@ -1,0 +1,17 @@
+{
+  "name": "Not Too Taxing",
+  "category": "crypto",
+  "author": "mastertg, macofalltrades",
+  "description": "We intercepted some email communications between a tax consultant and his client that contained some important tax documents. We were able to successfully extract two of the documents, but we can't figure out the password to the file in order to extract the data. Attached are the two extracted files, Tax_Ret_Form_Blank.pdf and Tax_Ret_Form_Nov_2021.zip, and a transcript of the emails we found, SPBlock_Email.pdf.\n\nCan you figure out the password so we can get this guy's info?",
+  "flag": "flag{1f_y0u_u53_z1pcryp70_4ny0n3_c4n_aud17_y0u}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "Tax_Ret_Form_Nov_2021.zip",
+    "Tax_Ret_Form_Blank.pdf",
+    "SPBlock_Email.pdf"
+  ],
+  "box": "crypto.chal.csaw.io"
+}
