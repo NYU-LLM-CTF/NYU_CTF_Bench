@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f5f5;
+  }
+
+  header {
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-title {
+    margin: 0;
+  }
+
+  .login-button button {
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .logout-button button {
+    background-color: #c43931;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .product {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    width: calc(25.33% - 20px);
+  }
+
+  .product h2 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .welcome{
+    margin-left: 800px;
+  }
+</style>
+<title>NYC Subway Tickets</title>
+</head>
+<body>
+
+  <style> 
+    body {
+        background-image: url(https://i.pinimg.com/originals/f4/90/78/f49078bdadc536b8d6bd32affc01ca88.gif); 
+        background-repeat: repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+
+
+  <header>
+    <h1 class="header-title">NYC Subway Tickets</h1>
+    {% if welcome and flag %}
+    <p class="welcome"><strong>Welcome:</strong> {{welcome}}</p>
+    <form action="/logout" method="POST" class="inline">
+      <div class="logout-button">
+        <button>Logout</button>
+      </div>
+    </form>
+
+    {% else %}
+    <form action="/login" method="POST" class="inline">
+      <div class="login-button">
+        <button>Login</button>
+      </div>
+    </form>
+
+    {% endif %} 
+
+  </header>
+  <div class="container">
+    <div class="product">
+      <h2>Single Ride Pass</h2>
+      <p>Ride the subway once</p>
+      <p><strong>$2.90</strong></p>
+      {% if message=='View Details' %}
+      <form action="/displaydetails" method="POST" class="inline">
+        <button name="passType" value="single">{{message}}</button>
+      </form>
+      {% else %}
+      <form action="/changeprice" method="POST" class="inline">
+        <button name="passType" value="single">{{message}}</button>
+      </form>
+      {% endif %}
+    </div>
+    <div class="product">
+      <h2>1 Week Pass</h2>
+      <p>Unlimited subway rides for a week</p>
+      <p><strong>$34</strong></p>
+      <form action="/displaydetails" method="POST" class="inline">
+        <button name="passType" value="week">{{message}}</button>
+      </form>
+    </div>
+    <div class="product">
+      <h2>1 Month Pass</h2>
+      <p>Unlimited subway rides for a month</p>
+      <p><strong>$132</strong></p>
+      <form action="/displaydetails" method="POST" class="inline">
+        <button name="passType" value="month">{{message}}</button>
+    </form>
+    </div>
+  </div>
+</body>
+</html>

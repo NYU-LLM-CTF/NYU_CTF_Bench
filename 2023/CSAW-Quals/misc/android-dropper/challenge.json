@@ -1,0 +1,16 @@
+{
+    "name": "AndroidDropper",
+    "category": "misc",
+    "author": "gchip",
+    "description": "This app does nothing! dropper.apk shasum: c281768e2373acd33e7efe445e4002d79a804bc91dc8f9c6cbf78fa150397441",
+    "flag": "csawctf{dyn4m1c_lo4deRs_r_fuN!}",
+    "internal_port": 3003,
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "android-dropper.csaw.io",
+    "files": [
+        "dropper.apk"
+    ]
+}

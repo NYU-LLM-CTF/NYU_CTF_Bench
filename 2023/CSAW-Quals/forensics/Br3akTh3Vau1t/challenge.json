@@ -1,0 +1,15 @@
+{
+    "name": "Br3akTh3V@u1t",
+    "category": "forensics",
+    "author": "k3ma5",
+    "description": "'Greed is good.'- Gordon Gekko; Come and Break My Vault",
+    "flag": "csawctf{w@11_ST_1s_n0t_n3ce$$@ry}",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "files": [
+        "runme.yml",
+        "ansible.cfg",
+        "vars/main.yml"
+    ]
+}

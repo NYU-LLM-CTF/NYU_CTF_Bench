@@ -1,0 +1,11 @@
+{
+  "name": "Baby's First",
+  "category": "intro",
+  "author": "ElykDeer",
+  "description": "Reversing means reading code. Read this file, and find the flag!",
+  "flag": "csawctf{w3_411_star7_5om3wher3}",
+  "points": 25,
+  "files": [
+    "babysfirst.py"
+  ]
+}

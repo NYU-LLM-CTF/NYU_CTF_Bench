@@ -1,0 +1,17 @@
+{
+    "name": "Linear Aggressor",
+    "category": "misc",
+    "author": "Tydut",
+    "description": "Wall Street Traders dropped a new model! I hope no one can steal it.",
+    "flag": {
+        "content": "csawctf{m0d31_5t341ing_i5_b4d}",
+        "type": "static"
+    },
+    "type": "static",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "files": [],
+    "box": "127.0.0.1",
+    "internal_port":3000
+}

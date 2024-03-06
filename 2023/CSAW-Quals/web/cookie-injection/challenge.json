@@ -1,0 +1,14 @@
+{
+    "name": "MTA Prices",
+    "category": "web",
+    "author": "Mitch Zhou",
+    "description": "The MTA has rose the single-ride subway fare to $2.90!! Log into the admin MTA account and change the price back down to $2.75. You have already collected a partial list of the column names",
+    "flag": "csawctf{cheaper_prices_in_NYC_PLZ}",
+    "internal_port": 5000,
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "rev.chal.csaw.io",
+    "files":["columns_dump.txt"]
+  }

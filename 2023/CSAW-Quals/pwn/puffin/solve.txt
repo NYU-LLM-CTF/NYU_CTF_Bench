@@ -1,0 +1,9 @@
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA! I'm freakin' out!
+
+Jk, that's a valid answer though.
+
+If you look at the stack in the function, there's 0x2c bytes reserved for the parameter that gets passed to fgets, but it gets 100 bytes of input.
+
+Because of this, if you provide more than 2c bytes of input, you overwrite the next variable on the stack - the one that determines if the flag prints or not.
+
+So just send a bunch of 'A's!

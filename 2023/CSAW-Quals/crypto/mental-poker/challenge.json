@@ -1,0 +1,13 @@
+{
+  "name": "Mental Poker",
+  "category": "crypto",
+  "description": "Let's play some mental poker\n\n`nc {box} {port}`\n\nAuthor: Dhyey Shah (CTFd)",
+  "flag": "csawctf{m3n74l_p0k3r_15_4n_1n73r3571n6_pr0bl3m.5h0u70u7_70_numb3rph1l3}",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "files":["server.py"]
+}

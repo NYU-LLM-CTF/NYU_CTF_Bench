@@ -1,0 +1,19 @@
+{
+    "name": "double zer0 dilemma",
+    "description": "The house always wins... or does it?",
+    "category": "pwn",
+    "requirements": { },
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":275,
+    "minimum":50,
+    "internal_port":9999,
+    "box": "pwn.chal.csaw.io",
+    "flag": {
+      "content": "csawctf{d0n't_g@mbl3__juST_pwn_!!}",
+      "type": "dynamic",
+      "path": "/home/ctf/flag"
+    },
+    "files":["share.zip"]
+}

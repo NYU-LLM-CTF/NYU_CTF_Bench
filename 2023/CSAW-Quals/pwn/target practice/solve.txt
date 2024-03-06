@@ -1,0 +1,3 @@
+This binary accepts a hexadecimal input value, and jumps to that value as though it's an address.
+
+Simply input the address of the "cat flag" program, and you'll get the flag!

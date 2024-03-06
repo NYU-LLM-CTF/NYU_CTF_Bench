@@ -1,0 +1,13 @@
+{
+  "name": "target_practice",
+  "category": "intro",
+  "author": "ElykDeer",
+  "description": "Aim carefully... This pwnie can JUMP!",
+  "flag": "csawctf{y0ure_a_m4s7er4im3r}",
+  "points": 50,
+  "internal_port": 31138,
+  "box": "pwn.chal.csaw.io",
+  "files": [
+    "target_practice"
+  ]
+}

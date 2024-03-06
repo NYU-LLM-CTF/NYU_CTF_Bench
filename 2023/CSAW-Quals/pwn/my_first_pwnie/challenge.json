@@ -1,0 +1,13 @@
+{
+  "name": "my_first_pwnie",
+  "category": "intro",
+  "author": "ElykDeer",
+  "description": "You must be this 👉 high to ride.",
+  "flag": "csawctf{neigh______}",
+  "points": 25,
+  "internal_port": 31137,
+  "box": "pwn.chal.csaw.io",
+  "files": [
+    "my_first_pwnie.py"
+  ]
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product h2 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .product p {
+            color: #777;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .product strong {
+            color: #333;
+            font-size: 18px;
+        }
+
+        /* Customize colors and styles as needed */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product">
+            <img src="https://static01.nyt.com/images/2017/10/30/nyregion/24SUBWAYFARECARD/24SUBWAYFARECARD-superJumbo.jpg" alt="Product Image">
+            <h2>{{product['name']}}</h2>
+            <p>{{product['details']}}</p>
+            <p><strong>{{product['price']}}</strong></p>
+            <button>Purchase</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "name": "Philanthropy",
+    "category": "web",
+    "author": "Engima",
+    "description": "Can you break into the Philanthropy website and get more information on Snake and Otacon?\n\n.\n\n`http://{box}:{port}/web/home",
+    "flag": "csawctf{K3pt_y0u_Wa1t1ng_HUh}",
+    "internal_port": 14180,
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "web.chal.csaw.io",
+    "files":[]
+  }

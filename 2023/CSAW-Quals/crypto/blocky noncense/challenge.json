@@ -1,0 +1,13 @@
+{
+  "name": "Blocky Noncense",
+  "category": "crypto",
+  "description": "I designed this foolproof signing blockchain. I'll even let you sign as many signatures as you want!\n\n`nc {box} {port}`\n\nAuthor: Cayden Liao (Zellic)",
+  "flag": "csaw{ECDSA_d03s_N0t_wORK_W1th_Cubic_C0Ngr31ial_G3n3r41oRS}",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "files":["dist.zip"]
+}

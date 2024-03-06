@@ -1,0 +1,13 @@
+{
+  "name": "rainbow_notes",
+  "category": "web",
+  "author": "arxenix",
+  "description": "I really like rainbows, so I tried making this secure note taking app. With rainbows.\nChallenge: https://rainbow-notes.csaw.io\nAdmin bot: https://rainbow-notes-admin.csaw.io",
+  "flag": "csawctf{5af5c57dd6}",
+  "points": 500,
+  "internal_port": 31137,
+  "box": "web.csaw.io",
+  "files": [
+    "handout.tar.gz"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "material-vite",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "cross-env NODE_ENV=production GENERATE_SOURCEMAP=false vite build",
+    "postbuild": "rimraf ./**/*.map",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/material": "latest",
+    "@mui/styles": "latest",
+    "@mui/icons-material": "latest",
+    "react-router-dom":"latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "axios": "latest",
+    "jsonwebtoken": "latest",
+    "terser": "latest",
+    "vite-plugin-javascript-obfuscator": "latest",
+    "cross-env": "latest",
+    "rimraf": "latest"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest"
+  }
+}

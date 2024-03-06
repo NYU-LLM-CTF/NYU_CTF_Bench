@@ -1,0 +1,14 @@
+{
+    "name": "Smug-Dino",
+    "category": "web",
+    "author": "rollingcoconut",
+    "description": "Don't you know it's wrong to smuggle dinosaurs... and other things?",
+    "flag": "csawctf{d0nt_smuggl3_Fla6s_!}",
+    "internal_port": 3009,
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "web.chal.csaw.io",
+    "files":[]
+  }

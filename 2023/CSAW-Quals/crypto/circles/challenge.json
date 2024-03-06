@@ -1,0 +1,13 @@
+{
+  "name": "Circles",
+  "category": "crypto",
+  "description": "We have this encrypted file and the only information we got is that the key follows the pattern of `1,2,4,8,16,...`. Can you figure out what the key is and decrypt this file?\n\nAuthor: Dhyey Shah (CTFd)",
+  "flag": "csawctf{p4773rn5_c4n_b3_d3c31v1n6.5h0u70u7_70_3blu31br0wn_f0r_7h3_1d34}",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "files":["server.py", "flag.enc"]
+}

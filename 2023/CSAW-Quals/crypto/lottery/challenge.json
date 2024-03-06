@@ -1,0 +1,13 @@
+{
+  "name": "Lottery",
+  "category": "crypto",
+  "description": "Can you break this lottery service and guarantee a profit in the long run?\n\n`nc {box} {port}`\n\nAuthor: Dhyey Shah (CTFd)",
+  "flag": "csawctf{f4n0_pl4n35_4r3_1n73r3571n6_70p1c5.5h0u70u7_70_m477_p4rk3r_f0r_7h3_1n5p1r4710n}",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "files":["server.py"]
+}

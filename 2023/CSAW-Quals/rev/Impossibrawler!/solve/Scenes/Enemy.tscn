@@ -1,0 +1,120 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/EnemySM.gd" type="Script" id=2]
+[ext_resource path="res://Assets/CosmicLilac_AnimatedSpriteSheet.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/HealthBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SFX/laserShoot.wav" type="AudioStream" id=5]
+[ext_resource path="res://SFX/hitHurt.wav" type="AudioStream" id=6]
+[ext_resource path="res://SFX/detected.wav" type="AudioStream" id=7]
+[ext_resource path="res://SFX/lost.wav" type="AudioStream" id=8]
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 224, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 208, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 224, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 160, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 176, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 208, 32, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 8 ), SubResource( 11 ), SubResource( 8 ) ],
+"loop": false,
+"name": "Damage",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "Death",
+"speed": 6.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 32 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 582.893
+
+[node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
+script = ExtResource( 1 )
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite2D" type="AnimatedSprite" parent="StateMachine"]
+modulate = Color( 1, 0.290196, 0.937255, 1 )
+position = Vector2( 1.90735e-06, -1.90735e-06 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 1 )
+animation = "Damage"
+frame = 3
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+visible = false
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ShootTime" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Control" parent="." instance=ExtResource( 4 )]
+margin_left = 25.0
+margin_top = -1.0
+margin_right = 25.0
+margin_bottom = 79.0
+
+[node name="dmgtimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Detected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Lost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[connection signal="health_updated" from="." to="Control" method="_on_Player_health_updated"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_PlayerDetection_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="dmgtimer" to="." method="_on_dmgtimer_timeout"]

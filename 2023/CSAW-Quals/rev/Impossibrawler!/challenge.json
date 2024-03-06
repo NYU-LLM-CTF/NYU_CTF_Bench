@@ -1,0 +1,19 @@
+{
+    "name": "Impossibrawler!",
+    "description": "How do I beat these guys?!",
+    "category": "rev",
+    "requirements": { },
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":20,
+    "minimum":50,
+    "internal_port":4657,
+    "box": "pwn.chal.csaw.io",
+    "flag": {
+      "content": "flag{302e323032323732}",
+      "type": "dynamic",
+      "path": "/home/ctf/flag.txt"
+    },
+    "files":["Impossibrawler!.pck","Impossibrawler!.exe"]
+}

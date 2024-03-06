@@ -1,0 +1,23 @@
+{
+  "name": "smug-dino",
+  "version": "1.0.0",
+  "description": "nodejs image demo",
+  "author": "rollingcoconut",
+  "license": "MIT",
+  "main": "app.js",
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express"
+  ],
+  "dependencies": {
+    "request": "2.88.2",
+    "express": "^4.16.4",
+    "ejs": "^3.1.9",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "body-parser": "^1.18.3",
+    "lodash": "^4.17.11"
+  }
+}
