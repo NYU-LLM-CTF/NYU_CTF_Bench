@@ -1,0 +1,16 @@
+{
+  "name": "unsafe-linking",
+  "category": "pwn",
+  "author": "n132",
+  "description": "You have found a mysterious notebook program running on a server. Unfortunately, the notebook program is faulty and has an issue with improperly handling memory allocation/deallocation. The notebook uses GLIBC-2.35 which implemented safelinking. Find a way to capture the flag by recovering leaked safelinking data!\n\n`nc {box} {port}`",
+  "flag": "flag{ea00610ef917558d1cffe6ce257279dcc8641b3d}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "share.zip"
+  ],
+  "box": "pwn.chal.csaw.io",
+  "internal_port": 9999
+}
