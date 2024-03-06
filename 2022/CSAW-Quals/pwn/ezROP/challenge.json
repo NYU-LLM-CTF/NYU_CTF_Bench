@@ -1,0 +1,16 @@
+{
+    "name": "ezROP",
+    "category": "pwn",
+    "author": "n132",
+    "description": "This is a simple buffer overflow challenge, but I wrote it in a reversed way :)\n\n`nc {box} {port}`",
+    "flag": "flag{53bb4218b851affb894fad151652dc333a024990454a0ee32921509a33ebbeb4}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "files": [
+      "share.zip"
+    ],
+    "box": "pwn.chal.csaw.io",
+    "internal_port": 9999
+  }

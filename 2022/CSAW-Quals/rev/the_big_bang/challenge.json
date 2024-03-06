@@ -1,0 +1,16 @@
+{
+  "name": "The Big Bang",
+  "category": "rev",
+  "author": "mastertg, amitz800",
+  "description": "Do you have a favourite number? \nI do! \n\n`nc {box} {port}`",
+  "flag": "flag{5h3ld0n_54y5_7h47_7h3_b357_numb3r_1n_7h3_w0rld_15_73,_h3_15_r16h7!!}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "rev.chal.csaw.io",
+  "internal_port": "5000",
+  "files": [
+    "challenge.py"
+  ]
+}

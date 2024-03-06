@@ -1,0 +1,14 @@
+{
+  "name": "game",
+  "category": "rev",
+  "author": "Dhyey Shah",
+  "description": "I found this game and it has a Patreon page. There are some easter eggs hidden behind a paywall. Can you get the easter eggs for me without paying for them?\n\n`nc {box} {port}`",
+  "flag": "flag{e@5+er_e995_6ehind_p@yw@115_i5_+he_dum6e5+_ide@_ever!!}",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": ["game"],
+  "box": "rev.chal.csaw.io"
+}

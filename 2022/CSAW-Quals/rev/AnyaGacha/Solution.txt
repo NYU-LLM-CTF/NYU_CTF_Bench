@@ -1,0 +1,24 @@
+There are two solutions:
+
+
+
+Binary solution:
+
+The number of coin is encrypted in memory, however stored locally. 
+If you can decrypt it and locate the value in the memory, 
+you can change the value and make 1000 lucky draws for the guaranteed Anya
+you can click the button by hand or make a program to do it :)
+
+
+Web+Crypto solution:
+
+Use Wireshark or other network monitors to capture the packet sent by the client when making a draw
+decode all the base64 and you'll find that for any packet:
+the sha256 of the value in the previous packet is the value of the current packet 
+it is actually a hash counter
+get the first value and do sha256 999 times, 
+encoded that value with b64 then send it to the server to get the flag :)
+
+
+
+

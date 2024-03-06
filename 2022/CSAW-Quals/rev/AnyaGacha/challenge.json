@@ -1,0 +1,18 @@
+{
+    "name": "Anya Gacha",
+    "category": "rev",
+    "author": "Kris C",
+    "description": "It is a Gacha game where the player spend coins to do lucky draw. If they can get the rare character Anya, she will tell the player our flag!\n\nNOTE: Flag needs to be in standard format.",
+    "flag": "flag{@nya_haha_1nakute_5amishii}",
+    "box": "rev.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "files": [
+      "win.zip",
+      "linux.zip",
+      "mac.app.zip"
+    ],
+    "internal_port": 8081
+  }

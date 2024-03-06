@@ -1,0 +1,24 @@
+We setup the server and the players downloaded the game software. 
+(Right now I only uploaded Windows version for test, 
+there will be MacOS and Linux support)
+
+It is a Gacha game where the player spend coins to do lucky draw.
+If they can get the rare character Anya, she will tell the player our flag!
+
+
+
+##For Local test
+
+the server code is in src/server
+the builded client is in build_localtest_win/ 
+
+The server address in the client executable is "localhost:8081" for testing
+
+1. Run Nodejs server
+2. Open the client (it is necessary to downloaded everything in the folder, not just that .exe file)
+
+
+
+
+
+

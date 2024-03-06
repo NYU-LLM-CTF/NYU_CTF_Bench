@@ -1,0 +1,45 @@
+Rough structure of the map
+
+Level 0:            Left (L)                Center (C)                Right (R)
+                        |                        |                        |
+                    --------                ----------                ---------
+                    |   |   |               |   |    |              |   |   |
+Level 1:            L   C   R               L   C    R              L   C   R
+                    |   |   |               |   |    |              |   |   |
+                 flag  dead -----------------   ------            dead  -----
+                                  |                |                       |
+                            -----------         ------                  -------
+                            |    |     |        |  |  |                 |  |  |
+Level 2:                    L    C     R        L  C  R                 L  C  R
+                            |    |     |        |  |  |                 |  |  |
+                            |    ----------------  ----                 -------
+                            |            |           |                     |
+                      ---------------   dead        flag                  dead
+                      |      |      |
+Level 3:              L      C      R
+                      |      |      |
+                  -------  -------  flag
+                  |  |  |  |  |  |
+Level 4:          L  C  R  L  C  R
+                  |  |  |  |  |  |
+                  ----  ----  ----
+                    |     |    |
+                  ----  dead  ----
+                  | | |       | | |
+Level 5:          L C R       L C R
+                  | | |       | | |
+                  --- --------- | |
+                   |      |     | |
+                 dead   flag    | |
+                        --------- -----------
+                        |   |   | |    |    |
+Level 6:                L   C   R L    C    R
+                        |   |   | |    |    |
+                        -----   ---    ------
+                          |      |       |
+                        flag     |      dead
+                            -----------
+                            |    |    |
+Level 7:                    L    C    R
+                            |    |    |
+                      level 3   end   level 0

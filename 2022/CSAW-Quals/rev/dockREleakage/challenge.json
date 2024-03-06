@@ -1,0 +1,15 @@
+{
+  "name": "DockREleakage",
+  "category": "rev",
+  "author": "mastertg",
+  "description": "A breach occurred and some files have been leaked. One of the leaked files named `dockREleakage.tar.gz` contains an image of one of the company's components.\nAn anonymous hacker has reached out to me and beware me that there is some serious mistake in my build image process. The hacker implies that sensitive information should be handled carefully.\nHowever, I couldn't find the mistake by myself. Please help me!",
+  "flag": "flag{n3v3r_l34v3_53n5171v3_1nf0rm4710n_unpr073c73d_w17h1n_7h3_d0ck3rf1l3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "rev.chal.csaw.io",
+  "files": [
+    "dockREleakage.tar.gz"
+  ]
+}
