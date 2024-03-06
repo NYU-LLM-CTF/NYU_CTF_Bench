@@ -1,0 +1,18 @@
+{
+    "name": "open-ELLIPTI-PH!",
+    "category": "crypto",
+    "author": "rollingcoconut",
+    "description": "Crack the curve to get a key!",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["src/chall.sage", "src/mv_ecc.sage"],
+    "flag": {
+    "content": "KeY_sIZe_Matt3Rs!",
+    "type": "dynamic",
+    "path": "/opt/chal/flag.txt"
+     },
+     "box": "crypto.chal.csaw.io",
+     "internal_port": 6000
+  }

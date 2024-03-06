@@ -1,0 +1,21 @@
+{
+  "name": "The Lengths we Extend Ourselves",
+  "category": "crypto",
+  "author": "elh313",
+  "description": "You’re out for revenge against your work-nemesis, Alice! It’s not ethical nor is it legal but you’ve intercepted a message from Alice to the Boss. You want to append ' P.S. I QUIT!' to her message but to do that you need the right hash signature! What signature do you need for this attack to work?",
+  "flag": {
+    "content": "flag{100ks_1ik3_4Lic3_i5_0ut_0f_@_j08_s0_c0n92475_i_Gu355?}",
+    "type": "dynamic",
+    "path": "/home/ctf/flag.txt"
+  },
+  "box": "crypto.chal.csaw.io",
+  "internal_port": 5050,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 20,
+  "files": [
+  "msg_log_26220.txt",
+  "message_maker.py"
+  ]
+}

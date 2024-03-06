@@ -1,0 +1,17 @@
+{
+    "name": "M@sTEr 0F PrN9",
+    "category": "crypto",
+    "author": "deebato @ r3kapig",
+    "description": "One day, I asked my mom when I would be able to become a master of PRNG.",
+    "flag": {
+      "content": "flag{_w0w_y0u_@r3_s0_g00d_@_L4t7ice_}",
+      "type": "static",
+      "path": ""
+    },
+    "box": "crypto.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["task.py"]
+  }

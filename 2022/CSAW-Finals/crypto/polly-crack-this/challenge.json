@@ -1,0 +1,18 @@
+{
+    "name": "polly-crack-this",
+    "category": "crypto",
+    "author": "rollingcoconut",
+    "description": "Administrator Polly Cracker's secret code contains the flag. Her code is the sum of the other 3 user codes -- but wait! You only get the ciphertexts??",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["src/ideal.sage"],
+    "flag": {
+    "content": "Gr0bn3rs_P0LY",
+    "type": "dynamic",
+    "path": "/opt/chal/flag.txt"
+     },
+     "box": "crypto.chal.csaw.io",
+     "internal_port": 6000
+  }
