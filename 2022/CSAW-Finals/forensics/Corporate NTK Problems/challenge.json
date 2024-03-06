@@ -1,0 +1,17 @@
+{
+  "name": "Corporate NTK Problems",
+  "category": "forensics",
+  "author": "Regulus915ap",
+  "description": "Defense contractor Big Corp has a possible security issue where classified information may have been leaked. The Governement is asking for your help to identify the possibility of the leak and if true, what has been compromised.\n\n`https://drive.google.com/file/d/1XVYMWnhgN9ykc2ikPbxMKrMuaYNxbGTk/view?usp=share_link`\n\n\n Alternative download link: `https://corporate-ntk-problems.s3.us-east-2.amazonaws.com/Corporate+NTK+Problems-disk001.vmdk`",
+  "flag": {
+    "content": "flag{NCIS G1bb$' rU13 #4}",
+    "type": "dynamic",
+    "path": "/home/ctf/flag.txt"
+  },
+  "box": "misc.chal.csaw.io",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 20
+}

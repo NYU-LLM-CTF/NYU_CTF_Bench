@@ -1,0 +1,17 @@
+{
+    "name": "M4st3r oF PnG",
+    "category": "forensics",
+    "author": "TRPH @ r3kapig",
+    "description": "who is the real png master?",
+    "flag": {
+      "content": "flag{7h3_m4st3r_0f_pn9_5truc7ur3_1s_y0ur5}",
+      "type": "static",
+      "path": ""
+    },
+    "box": "misc.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["attachment/M4st3rPnG"]
+  }
