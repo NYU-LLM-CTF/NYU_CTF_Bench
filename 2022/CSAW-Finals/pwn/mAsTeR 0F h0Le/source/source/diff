@@ -1,0 +1,189 @@
+diff --git a/src/builtins/builtins-collections-gen.cc b/src/builtins/builtins-collections-gen.cc
+index f6238e3072..17821d3124 100644
+--- a/src/builtins/builtins-collections-gen.cc
++++ b/src/builtins/builtins-collections-gen.cc
+@@ -1765,7 +1765,7 @@ TF_BUILTIN(MapPrototypeDelete, CollectionsBuiltinsAssembler) {
+                          "Map.prototype.delete");
+ 
+   // This check breaks a known exploitation technique. See crbug.com/1263462
+-  CSA_CHECK(this, TaggedNotEqual(key, TheHoleConstant()));
++  // CSA_CHECK(this, TaggedNotEqual(key, TheHoleConstant()));
+ 
+   const TNode<OrderedHashMap> table =
+       LoadObjectField<OrderedHashMap>(CAST(receiver), JSMap::kTableOffset);
+diff --git a/src/compiler/js-native-context-specialization.cc b/src/compiler/js-native-context-specialization.cc
+index 39302152ed..3193065d7d 100644
+--- a/src/compiler/js-native-context-specialization.cc
++++ b/src/compiler/js-native-context-specialization.cc
+@@ -29,13 +29,12 @@
+ #include "src/objects/feedback-vector.h"
+ #include "src/objects/heap-number.h"
+ #include "src/objects/string.h"
+-
++int times=1;
+ namespace v8 {
+ namespace internal {
+ namespace compiler {
+ 
+ namespace {
+-
+ bool HasNumberMaps(JSHeapBroker* broker, ZoneVector<MapRef> const& maps) {
+   for (MapRef map : maps) {
+     if (map.IsHeapNumberMap()) return true;
+@@ -2812,7 +2811,7 @@ JSNativeContextSpecialization::BuildPropertyStore(
+       // with this transitioning store.
+       MapRef transition_map_ref = transition_map.value();
+       MapRef original_map = transition_map_ref.GetBackPointer().AsMap();
+-      if (original_map.UnusedPropertyFields() == 0) {
++      if (original_map.UnusedPropertyFields() == 0 && times--==0) {
+         DCHECK(!field_index.is_inobject());
+ 
+         // Reallocate the properties {storage}.
+diff --git a/src/d8/d8-posix.cc b/src/d8/d8-posix.cc
+index c2571ef3a0..99f0e76234 100644
+--- a/src/d8/d8-posix.cc
++++ b/src/d8/d8-posix.cc
+@@ -734,20 +734,20 @@ char* Shell::ReadCharsFromTcpPort(const char* name, int* size_out) {
+ }
+ 
+ void Shell::AddOSMethods(Isolate* isolate, Local<ObjectTemplate> os_templ) {
+-  if (options.enable_os_system) {
+-    os_templ->Set(isolate, "system", FunctionTemplate::New(isolate, System));
+-  }
+-  os_templ->Set(isolate, "chdir",
+-                FunctionTemplate::New(isolate, ChangeDirectory));
+-  os_templ->Set(isolate, "setenv",
+-                FunctionTemplate::New(isolate, SetEnvironment));
+-  os_templ->Set(isolate, "unsetenv",
+-                FunctionTemplate::New(isolate, UnsetEnvironment));
+-  os_templ->Set(isolate, "umask", FunctionTemplate::New(isolate, SetUMask));
+-  os_templ->Set(isolate, "mkdirp",
+-                FunctionTemplate::New(isolate, MakeDirectory));
+-  os_templ->Set(isolate, "rmdir",
+-                FunctionTemplate::New(isolate, RemoveDirectory));
++//   if (options.enable_os_system) {
++//     os_templ->Set(isolate, "system", FunctionTemplate::New(isolate, System));
++//   }
++//   os_templ->Set(isolate, "chdir",
++//                 FunctionTemplate::New(isolate, ChangeDirectory));
++//   os_templ->Set(isolate, "setenv",
++//                 FunctionTemplate::New(isolate, SetEnvironment));
++//   os_templ->Set(isolate, "unsetenv",
++//                 FunctionTemplate::New(isolate, UnsetEnvironment));
++//   os_templ->Set(isolate, "umask", FunctionTemplate::New(isolate, SetUMask));
++//   os_templ->Set(isolate, "mkdirp",
++//                 FunctionTemplate::New(isolate, MakeDirectory));
++//   os_templ->Set(isolate, "rmdir",
++//                 FunctionTemplate::New(isolate, RemoveDirectory));
+ }
+ 
+ }  // namespace v8
+diff --git a/src/d8/d8.cc b/src/d8/d8.cc
+index 3816d1ac99..695e770465 100644
+--- a/src/d8/d8.cc
++++ b/src/d8/d8.cc
+@@ -3163,56 +3163,56 @@ static void AccessIndexedEnumerator(const PropertyCallbackInfo<Array>& info) {}
+ 
+ Local<ObjectTemplate> Shell::CreateGlobalTemplate(Isolate* isolate) {
+   Local<ObjectTemplate> global_template = ObjectTemplate::New(isolate);
+-  global_template->Set(Symbol::GetToStringTag(isolate),
+-                       String::NewFromUtf8Literal(isolate, "global"));
+-  global_template->Set(isolate, "version",
+-                       FunctionTemplate::New(isolate, Version));
++  // global_template->Set(Symbol::GetToStringTag(isolate),
++  //                      String::NewFromUtf8Literal(isolate, "global"));
++  // global_template->Set(isolate, "version",
++  //                      FunctionTemplate::New(isolate, Version));
+ 
+   global_template->Set(isolate, "print", FunctionTemplate::New(isolate, Print));
+-  global_template->Set(isolate, "printErr",
+-                       FunctionTemplate::New(isolate, PrintErr));
+-  global_template->Set(isolate, "write",
+-                       FunctionTemplate::New(isolate, WriteStdout));
+-  global_template->Set(isolate, "read",
+-                       FunctionTemplate::New(isolate, ReadFile));
+-  global_template->Set(isolate, "readbuffer",
+-                       FunctionTemplate::New(isolate, ReadBuffer));
+-  global_template->Set(isolate, "readline",
+-                       FunctionTemplate::New(isolate, ReadLine));
+-  global_template->Set(isolate, "load",
+-                       FunctionTemplate::New(isolate, ExecuteFile));
+-  global_template->Set(isolate, "setTimeout",
+-                       FunctionTemplate::New(isolate, SetTimeout));
+-  // Some Emscripten-generated code tries to call 'quit', which in turn would
+-  // call C's exit(). This would lead to memory leaks, because there is no way
+-  // we can terminate cleanly then, so we need a way to hide 'quit'.
+-  if (!options.omit_quit) {
+-    global_template->Set(isolate, "quit", FunctionTemplate::New(isolate, Quit));
+-  }
+-  global_template->Set(isolate, "testRunner",
+-                       Shell::CreateTestRunnerTemplate(isolate));
+-  global_template->Set(isolate, "Realm", Shell::CreateRealmTemplate(isolate));
+-  global_template->Set(isolate, "performance",
+-                       Shell::CreatePerformanceTemplate(isolate));
+-  global_template->Set(isolate, "Worker", Shell::CreateWorkerTemplate(isolate));
+-
+-  // Prevent fuzzers from creating side effects.
+-  if (!i::FLAG_fuzzing) {
+-    global_template->Set(isolate, "os", Shell::CreateOSTemplate(isolate));
+-  }
+-  global_template->Set(isolate, "d8", Shell::CreateD8Template(isolate));
+-
+-#ifdef V8_FUZZILLI
+-  global_template->Set(
+-      String::NewFromUtf8(isolate, "fuzzilli", NewStringType::kNormal)
+-          .ToLocalChecked(),
+-      FunctionTemplate::New(isolate, Fuzzilli), PropertyAttribute::DontEnum);
+-#endif  // V8_FUZZILLI
+-
+-  if (i::FLAG_expose_async_hooks) {
+-    global_template->Set(isolate, "async_hooks",
+-                         Shell::CreateAsyncHookTemplate(isolate));
+-  }
++  // global_template->Set(isolate, "printErr",
++  //                      FunctionTemplate::New(isolate, PrintErr));
++  // global_template->Set(isolate, "write",
++  //                      FunctionTemplate::New(isolate, WriteStdout));
++  // global_template->Set(isolate, "read",
++  //                      FunctionTemplate::New(isolate, ReadFile));
++  // global_template->Set(isolate, "readbuffer",
++  //                      FunctionTemplate::New(isolate, ReadBuffer));
++  // global_template->Set(isolate, "readline",
++  //                      FunctionTemplate::New(isolate, ReadLine));
++  // global_template->Set(isolate, "load",
++  //                      FunctionTemplate::New(isolate, ExecuteFile));
++//   global_template->Set(isolate, "setTimeout",
++//                        FunctionTemplate::New(isolate, SetTimeout));
++//   // Some Emscripten-generated code tries to call 'quit', which in turn would
++//   // call C's exit(). This would lead to memory leaks, because there is no way
++//   // we can terminate cleanly then, so we need a way to hide 'quit'.
++//   if (!options.omit_quit) {
++//     global_template->Set(isolate, "quit", FunctionTemplate::New(isolate, Quit));
++//   }
++//   global_template->Set(isolate, "testRunner",
++//                        Shell::CreateTestRunnerTemplate(isolate));
++//   global_template->Set(isolate, "Realm", Shell::CreateRealmTemplate(isolate));
++//   global_template->Set(isolate, "performance",
++//                        Shell::CreatePerformanceTemplate(isolate));
++//   global_template->Set(isolate, "Worker", Shell::CreateWorkerTemplate(isolate));
++
++//   // Prevent fuzzers from creating side effects.
++//   if (!i::FLAG_fuzzing) {
++//     global_template->Set(isolate, "os", Shell::CreateOSTemplate(isolate));
++//   }
++//   global_template->Set(isolate, "d8", Shell::CreateD8Template(isolate));
++
++// #ifdef V8_FUZZILLI
++//   global_template->Set(
++//       String::NewFromUtf8(isolate, "fuzzilli", NewStringType::kNormal)
++//           .ToLocalChecked(),
++//       FunctionTemplate::New(isolate, Fuzzilli), PropertyAttribute::DontEnum);
++// #endif  // V8_FUZZILLI
++
++//   if (i::FLAG_expose_async_hooks) {
++//     global_template->Set(isolate, "async_hooks",
++//                          Shell::CreateAsyncHookTemplate(isolate));
++//   }
+ 
+   if (options.throw_on_failed_access_check ||
+       options.noop_on_failed_access_check) {

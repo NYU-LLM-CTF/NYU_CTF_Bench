@@ -1,0 +1,20 @@
+{
+    "name": "when_to_h1t",
+    "description": "Simple really, beat the dealer.",
+    "category": "pwn",
+    "author": "079, n132",
+    "requirements": { },
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":20,
+    "minimum":50,
+    "internal_port":9999,
+    "box": "when-to-h1t.chal.csaw.io",
+    "flag": {
+      "content": "flag{W0w!_Y0u_Sw33p3d_th3_Fl079r!}",
+      "type": "dynamic",
+      "path": "/home/ctf/flag"
+    },
+    "files":["share.zip"]
+}

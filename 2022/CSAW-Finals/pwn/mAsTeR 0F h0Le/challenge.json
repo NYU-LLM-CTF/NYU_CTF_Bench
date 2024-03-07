@@ -1,0 +1,18 @@
+{
+    "name": "mAsTeR 0F h0Le",
+    "category": "pwn",
+    "author": "Lime @ r3kapig",
+    "description": "hole hole hole!!!\n\n",
+    "flag": {
+      "content": "flag{W0w_y0U_F1Nd_Tr1Ck_To_expL0iTeD_h0Le_tHaT_YoU_ARe_ThE_Re@l_MaStEr!!!}",
+      "type": "dynamic",
+      "path": "/home/ctf/flag-2b5d1322-519b-4abe-a5a3-b0717f37ccd6.txt"
+    },
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["attachment/mAsTeR0Fh0le.zip","attachment/runner.py"],
+    "internal_port":9999,
+    "box": "pwn.chal.csaw.io"
+  }

@@ -1,0 +1,19 @@
+{
+    "name": "CryptoPwn",
+    "description": "The first class of crypto is building your own cyrpto scheme! (NEVER DO THIS)",
+    "category": "pwn",
+    "requirements": { },
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":20,
+    "minimum":50,
+    "internal_port":9999,
+    "box": "pwn.chal.csaw.io",
+    "flag": {
+      "content": "flag{n132}",
+      "type": "dynamic",
+      "path": "/home/ctf/flag"
+    },
+    "files":["share.zip"]
+}

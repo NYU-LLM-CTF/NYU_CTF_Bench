@@ -1,0 +1,21 @@
+{
+    "name": "smoothie operator",
+    "category": "pwn",
+    "description": "Clock in for your shift at the local cafe, your patrons are waiting!\n\n(Note: software migrated to C++ on Ubuntu 20.04 after last year's memory corruption vulnerabilities)",
+    "flag": {
+      "content": "flag{Sh4r3d_ptrs_R_sm00th}",
+      "type": "dynamic",
+      "path": "/home/pwn/flag.txt"
+    },
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": [
+      "public/smoothie_operator",
+      "public/libc-2.31.so"
+    ],
+    "internal_port": 6666,
+    "box": "pwn.chal.csaw.io"
+  }
+  

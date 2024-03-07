@@ -1,0 +1,7 @@
+version: "2"
+services:
+  game1:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "12000:9999"
