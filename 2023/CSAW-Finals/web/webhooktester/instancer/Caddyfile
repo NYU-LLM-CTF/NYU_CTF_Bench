@@ -1,0 +1,15 @@
+{
+    admin 0.0.0.0:2019 {
+        origins {$CADDY_SECRET}
+        enforce_origin
+    }
+}
+
+http://instancer.{$INSTANCER_HOST} {
+    reverse_proxy http://instancer:5000
+}
+
+:80 {
+    respond "Instance not found!"
+}
+

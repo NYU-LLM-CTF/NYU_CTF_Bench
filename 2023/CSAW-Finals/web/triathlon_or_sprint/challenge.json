@@ -1,0 +1,10 @@
+{
+    "name": "Triathlon or Sprint?",
+    "description": "...",
+    "author": "simple_tuck",
+    "category": "web",
+    "flag": "csawctf{h0p1n6_17_w45_4_5pr1n7...}",
+    "files": [
+	"ftp-conn"
+    ]
+}

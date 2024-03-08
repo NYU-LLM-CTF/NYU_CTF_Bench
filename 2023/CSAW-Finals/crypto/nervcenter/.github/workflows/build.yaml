@@ -1,0 +1,21 @@
+name: Build
+on:
+  push:
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3.5.3
+      - name: Install expect
+        run: sudo apt-get install -y expect
+      - name: Get Python and build-dep
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - name: Configure, build, and test the project
+        uses: threeal/cmake-action@v1.3.0
+        with:
+          run-build: true
+          run-test: true

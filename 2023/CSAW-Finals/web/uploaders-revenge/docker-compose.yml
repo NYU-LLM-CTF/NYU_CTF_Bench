@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  bot:
+    build:
+      context: ./bot
+    environment:
+      - TITLE=Admin Bot for uploaders-revenge
+      - PORT=8000
+      - URL_CHECK_REGEX=^https?://.{1,256}$
+      # TODO update these
+      - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
+      # `SITE` will be set to the actual, publicly accessible host
+      - SITE=https://uploaders-revenge.csaw.io
+      - FLAG=csawctf{1_l0v3_0ld_br0ws3r_fe3tuRe5_2eaaf6d658}
+    init: true
+    security_opt:
+      - seccomp=seccomp.json
+    ports:
+      - "8000:8000"
+  app:
+    build:
+      context: ./app
+    ports:
+      - "5000:5000"

@@ -1,0 +1,24 @@
+ <DarkOrange3_1>┌──────────────────────────────────────────────────────────────────────────────┐
+ │                                 <reset><bold>BALTHASAR-2<DarkOrange3_1>                                  │
+ ├<rgb:23,94,74>══════════════════════<DarkOrange3_1>┬────────────────────────────────┬<rgb:23,94,74>══════════════════════<DarkOrange3_1>┤
+ │         <bold><red>提訴<reset><DarkOrange3_1>         │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│         <bold><red>決議<reset><DarkOrange3_1>         │
+ ├<rgb:23,94,74>══════════════════════<DarkOrange3_1>┤<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>├<rgb:23,94,74>══════════════════════<DarkOrange3_1>┤
+ │     <bold>CODE : 263<reset><DarkOrange3_1>       │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│                      │
+ │       FILE:MAGI_SYS  │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│                      │
+ │       EXTENTION:2004 │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│                      │
+ │       EX_MODE:OFF    │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│                      │
+ │       PRIORITY:AAA   │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│                      │
+ │                      │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│                      <DarkOrange3_1>│
+ │                      └────────────────────────────────┘                      <DarkOrange3_1>│
+ │             <reset><bold>CASPER-3<DarkOrange3_1>       <bold>╱<reset><DarkOrange3_1>        <bold>MAGI<reset><DarkOrange3_1>        <bold>╲<reset><DarkOrange3_1>      <reset><bold>MELCHIOR-1<reset>            <DarkOrange3_1>│
+ │┌────────────────────────────────┐          ┌────────────────────────────────┐│
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>├━━━━━━━━━━┤<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ ││<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>│          │<bg_rgb:117,165,215>                                <reset><DarkOrange3_1>││
+ │└────────────────────────────────┘          └────────────────────────────────┘│
+ └──────────────────────────────────────────────────────────────────────────────┘

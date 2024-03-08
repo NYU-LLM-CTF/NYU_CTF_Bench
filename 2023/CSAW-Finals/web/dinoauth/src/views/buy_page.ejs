@@ -1,0 +1,41 @@
+<h4>Hey there <%= user %> </h4>
+<h6>Available Balance: <b> <%= balance %> </b></h6>
+<h4><br></h4>
+
+<h8><i>Balance too low to make any purchases... talk to your broker</i></h8>
+
+</div>
+  <table class="table-style">
+    <tr>
+      <td>
+        <li class="list-group-item">
+        Dino Name
+        </li>
+      </td>
+      <td>
+        <li class="list-group-item">
+          Own
+        </li>
+      </td>
+    </tr>
+      
+  <% [0,1,2,3,4,5,6,7,8,9].forEach( function(i) { %>
+
+    <tr>
+    <td>
+      <li class="list-group-item">
+      <FONT COLOR="#ff0000"> 
+      <%= dinos[i].name %>
+      </li>
+    </td>
+    <td>
+      <li class="list-group-item">
+      <FONT COLOR="#ff0000"> 
+      <%= portfolio[i]%>     
+      </li>
+    </td>
+    </tr>
+  <% }) %>
+
+  </table>
+</div>

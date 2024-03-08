@@ -1,0 +1,35 @@
+
+<h4>Currently In Stock</h4>
+<h4><br></h4>
+
+<h7><%= update_time %> <i>(Last updated)</i></h7>
+<h4><br></h4>
+
+</div>
+  <table class="table-style">
+      
+  <% dinos.forEach( function(dino) { %>
+    <tr>
+    <td>
+    <li class="list-group-item">
+<FONT COLOR="#ff0000"> 
+      <%= dino.name %>
+    </li>
+    <td>
+    <td>
+    <td>
+    <li class="list-group-item">
+<FONT COLOR="#ff0000"> 
+      <%= dino.price %>     BTC
+    </li>
+    <td>
+    <td>
+    </tr>
+    </tr>
+  <% }) %>
+
+  <!--p>Last seller of Koasigsessasaurus said to keep this safe: NNSWK4C7PFXXK4S7NNXWCX3TMVZXGX3TNFTV643FMN2XEZI=</p> -->
+
+  </table>
+</div>
+

@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  bot:
+    build:
+      context: ./bot
+    environment:
+      - TITLE=Admin Bot for uploaders-revenge
+      - PORT=8000
+      - URL_CHECK_REGEX=^https?://.{1,256}$
+      - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
+      # `SITE` will be set to the actual, publicly accessible host
+      - SITE=${SITE}
+      - FLAG=${FLAG}
+    init: true
+    security_opt:
+      - seccomp=seccomp.json
+    ports:
+      - "8000:8000"
+  app:
+    build:
+      context: ./app
+    ports:
+      - "5000:5000"

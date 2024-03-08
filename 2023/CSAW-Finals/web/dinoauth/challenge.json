@@ -1,0 +1,19 @@
+{
+    "name": "dinoauth",
+    "category": "web",
+    "author": "gchip, rollingcoconut",
+    "description": "buy the flagosaurus",
+    "flag": "csawctf{l3ak7_c1!3nt5_0h_m3_0h_my}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "internal_port": [
+        3001,
+        3002
+    ],
+    "box": "web",
+    "files": [
+        ""
+    ]
+}

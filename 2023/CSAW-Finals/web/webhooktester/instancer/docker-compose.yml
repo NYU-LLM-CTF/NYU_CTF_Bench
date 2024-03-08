@@ -1,0 +1,43 @@
+version: '3'
+services:
+  caddy:
+    image: "caddy:latest"
+    restart: unless-stopped
+    ports:
+      - "9000:80"
+    environment:
+      - INSTANCER_HOST=localhost
+      - INSTANCER_PORT=9000
+      #- INSTANCER_HOST=web-chal.csaw.io
+      #- INSTANCER_PORT=9000
+      - CADDY_SECRET=230a718aa6b818e967e9
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - instancer
+      - chal-instance
+  instancer:
+    build: .
+    environment:
+      - INSTANCER_HOST=localhost
+      - INSTANCER_PORT=9000
+        #- INSTANCER_HOST=web-chal.csaw.io
+        #- INSTANCER_PORT=9000
+      - CADDY_SECRET=230a718aa6b818e967e9
+      #- TURNSTILE_SITE_KEY=A
+      #- TURNSTILE_SECRET_KEY=B
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - redis
+      - caddy
+    networks:
+      - instancer
+  redis:
+    image: "redis:alpine"
+    command: "redis-server --notify-keyspace-events Ex"
+    networks:
+      - instancer
+networks:
+  instancer:
+  chal-instance:

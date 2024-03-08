@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+
+<body>
+    <form action="<%= loginUrl %>" method="POST">
+        <div>
+            <label for="username">Username: </label>
+            <input name="username" placeholder="enter your username" />
+        </div>
+        <div>
+            <label for="password">Password: </label>
+            <input name="password" type="password" placeholder="enter your password" />
+        </div>
+        <button>Login</button>
+        <input type="hidden" name="callback_uri" value="<%= callbackUri %>">
+    </form>
+</body>
+
+</html>

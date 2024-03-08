@@ -1,0 +1,19 @@
+{
+    "name": "uploaders-revenge",
+    "category": "web",
+    "author": "arxenix",
+    "description": "I didn't realize making a safe file uploading app was this hard...\nChallenge: https://uploaders-revenge.csaw.io\nAdmin bot: https://uploaders-revenge-bot.csaw.io",
+    "flag": "csawctf{1_l0v3_0ld_br0ws3r_fe3tuRe5_2eaaf6d658}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "internal_port": [
+        8000,
+        5000
+    ],
+    "box": "web",
+    "files": [
+        "handout.tar.gz"
+    ]
+}

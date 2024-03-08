@@ -1,0 +1,13 @@
+{
+  "name": "NERV Center",
+  "category": "crypto",
+  "description": "Get into the server, Shinji. Or Rei will have to do it again.\n\n`nc {box} {port}`\n\nAuthor: Brendan Dolan-Gavitt (moyix)",
+  "flag": "csawctf{fly_m3_t0_th3_m00n_4nd_l3t_m3_h4ck_4mong_th3_st4rs}",
+  "internal_port": 2000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "nervcenter.moyix.net",
+  "files":["nervcenter"]
+}

@@ -1,0 +1,6 @@
+Hints
+
+1. To begin, the challenger could implement textbook RSA encryption (with no padding).
+2. The decryption oracle uses a padding scheme which consists of xoring the decrypted message m with a mask. The challenger should calculate the mask and implement the padding scheme in the encryption function.
+3. Note that the padding scheme is deterministic. How can a deterministic encryption scheme be attacked?
+4. Attack the scheme by leveraging the malleability of the scheme. To do this, modify the given ciphertext in a way that when decrypted by the decryption oracle, you'll only need a few operations to retrieve the plaintext.

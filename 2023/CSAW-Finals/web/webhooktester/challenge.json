@@ -1,0 +1,12 @@
+{
+  "name": "webhooktester",
+  "category": "web",
+  "author": "arxenix",
+  "description": "I made a nice and easy webapp to test your discord webhooks.\nChallenge Instancer: https://instancer.webhooktester.csaw.io",
+  "flag": "csawctf{ssRf_w1ZarrD_y0u_ar3_29f6ff0f5c}",
+  "points": 500,
+  "box": "web.csaw.io",
+  "files": [
+    "chal/handout.tar.gz"
+  ]
+}

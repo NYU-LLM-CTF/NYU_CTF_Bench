@@ -1,0 +1,3 @@
+<bold><red>╔════════╗<nonl>
+<bold><red>║  否決  ║<nonl>
+<bold><red>╚════════╝<nonl>
