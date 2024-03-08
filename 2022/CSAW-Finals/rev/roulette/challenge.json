@@ -1,0 +1,18 @@
+{
+    "name": "roulette",
+    "category": "rev",
+    "author": "nikobelic29",
+    "description": "My friend has lost a lot of money gambling to try and get the major prize, can you help him recover a bit?",
+    "flag": {
+        "content": "flag{4r3_Yu0_ph4nt0m10rd_:o}",
+        "type": "dynamic",
+        "path": "/home/ctf/flag.txt"
+    },
+    "box": "rev.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["chall.class"],
+    "internal_port":4200
+}

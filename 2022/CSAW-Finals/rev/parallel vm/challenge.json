@@ -1,0 +1,17 @@
+{
+    "name": "parallel vm",
+    "category": "rev",
+    "author": "Ysiel @ r3kapig",
+    "description": "Welcome to the parallel vm,Please submit correct input and follow the format below:flag{input}",
+    "flag": {
+      "content": "flag{sl!c3Ye5}",
+      "type": "static",
+      "path": ""
+    },
+    "box": "rev.chal.csaw.io",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["attachment/vm"]
+  }

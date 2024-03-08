@@ -1,0 +1,18 @@
+{
+    "name": "Colorblind",
+    "category": "rev",
+    "author": "n132 && Tydut",
+    "description": "Bob is a speedcuber!!!",
+    "flag": {
+        "content": "flag{wh4t_4r3_c0l0r$}",
+        "type": "dynamic",
+        "path": "/home/ctf/flag"
+    },
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 20,
+    "files": ["chal/cube"],
+    "box": "rev.chal.csaw.io",
+    "internal_port":9999
+}

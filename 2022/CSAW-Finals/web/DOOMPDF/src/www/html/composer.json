@@ -1,0 +1,11 @@
+{
+    "name": "tantosec/mytodolist",
+    "description": "My TODO List application",
+    "type": "project",
+    "license": "Apache 2.0",
+    "require": {
+        "league/commonmark": "0.18.2", 
+        "dompdf/dompdf": "2.0.0",
+        "monolog/monolog": "1.27.0"
+    }
+}

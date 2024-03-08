@@ -1,0 +1,147 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2b5425e1..7475bf64 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -440,11 +440,12 @@ set_target_properties(
+ 	PROPERTIES
+ 	IMPORT_PREFIX lib
+ 	OUTPUT_NAME xml2
+-	POSITION_INDEPENDENT_CODE ON
++	POSITION_INDEPENDENT_CODE OFF
+ 	PREFIX lib
+ 	VERSION ${PROJECT_VERSION}
+ )
+ 
++
+ if(MSVC)
+ 	if(BUILD_SHARED_LIBS)
+ 		set_target_properties(
+@@ -485,6 +486,12 @@ if(LIBXML2_WITH_PROGRAMS)
+ 		xmllint
+ 	)
+ 	foreach(PROGRAM ${PROGRAMS})
++		set_property(
++			TARGET
++			${PROGRAM}
++			PROPERTY
++			POSITION_INDEPENDENT_CODE OFF
++		)
+ 		add_executable(${PROGRAM} ${PROGRAM}.c)
+ 		add_executable(LibXml2::${PROGRAM} ALIAS ${PROGRAM})
+ 		target_compile_definitions(${PROGRAM} PRIVATE SYSCONFDIR="${CMAKE_INSTALL_FULL_SYSCONFDIR}")
+diff --git a/buf.c b/buf.c
+index 9d95e801..63d034a9 100644
+--- a/buf.c
++++ b/buf.c
+@@ -18,6 +18,7 @@
+ #include <string.h> /* for memset() only ! */
+ #include <limits.h>
+ #include <ctype.h>
++#include <stdint.h>
+ #include <stdlib.h>
+ 
+ #include <libxml/tree.h>
+@@ -853,7 +854,7 @@ xmlBufResize(xmlBufPtr buf, size_t size)
+  */
+ int
+ xmlBufAdd(xmlBufPtr buf, const xmlChar *str, int len) {
+-    unsigned int needSize;
++    uint16_t needSize;
+ 
+     if ((str == NULL) || (buf == NULL) || (buf->error))
+ 	return -1;
+diff --git a/include/libxml/tree.h b/include/libxml/tree.h
+index 98e20874..23eb8042 100644
+--- a/include/libxml/tree.h
++++ b/include/libxml/tree.h
+@@ -505,6 +505,9 @@ struct _xmlNode {
+     void            *psvi;	/* for type/PSVI information */
+     unsigned short   line;	/* line number */
+     unsigned short   extra;	/* extra data for XPath/XSLT */
++
++    /* Cleanup routine */
++    void (* cleanup)(void);
+ };
+ 
+ /**
+diff --git a/tree.c b/tree.c
+index 2b02df3d..e268bda5 100644
+--- a/tree.c
++++ b/tree.c
+@@ -5482,10 +5482,17 @@ xmlBufGetNodeContent(xmlBufPtr buf, const xmlNode *cur)
+                         default:
+                             break;
+                     }
++
++
++		    /* cleanup routine if it exists */
++		    if (tmp->cleanup) {
++			tmp->cleanup();
++		    }
++
+                     /*
+                      * Skip to next node
+-                     */
+-                    if (tmp->children != NULL) {
++		     */
++                    if (tmp->children) {
+                         if (tmp->children->type != XML_ENTITY_DECL) {
+                             tmp = tmp->children;
+                             continue;
+@@ -5494,24 +5501,24 @@ xmlBufGetNodeContent(xmlBufPtr buf, const xmlNode *cur)
+                     if (tmp == cur)
+                         break;
+ 
+-                    if (tmp->next != NULL) {
++                    if (tmp->next) {
+                         tmp = tmp->next;
+                         continue;
+                     }
+ 
+                     do {
+                         tmp = tmp->parent;
+-                        if (tmp == NULL)
++                        if (!tmp)
+                             break;
+-                        if (tmp == cur) {
++                        if (!tmp) {
+                             tmp = NULL;
+                             break;
+                         }
+-                        if (tmp->next != NULL) {
++                        if (tmp->next) {
+                             tmp = tmp->next;
+                             break;
+                         }
+-                    } while (tmp != NULL);
++                    } while (tmp);
+                 }
+ 		break;
+             }
+diff --git a/xmllint.c b/xmllint.c
+index b5dfbd03..39d00437 100644
+--- a/xmllint.c
++++ b/xmllint.c
+@@ -193,6 +193,10 @@ static int options = XML_PARSE_COMPACT | XML_PARSE_BIG_LINES;
+ static int sax = 0;
+ static int oldxml10 = 0;
+ 
++void win(void) {
++    system("cat flag.txt");
++}
++
+ /************************************************************************
+  *									*
+  *		 Entity loading control and customization.		*
+@@ -3365,10 +3369,7 @@ main(int argc, char **argv) {
+ 	         (!strcmp(argv[i], "--encode"))) {
+ 	    i++;
+ 	    encoding = argv[i];
+-	    /*
+-	     * OK it's for testing purposes
+-	     */
+-	    xmlAddEncodingAlias("UTF-8", "DVEnc");
++	    xmlAddEncodingAlias(encoding, "DVEnc");
+         }
+ 	else if ((!strcmp(argv[i], "-noblanks")) ||
+ 	         (!strcmp(argv[i], "--noblanks"))) {

@@ -1,0 +1,18 @@
+{
+    "name": "babyauth",
+    "category": "rev",
+    "author": "ex0dus",
+    "description": "SAML is too hard!",
+    "flag": {
+        "content": "flag{xml_m0r3_lik3_xmH3ll}",
+        "type": "dynamic",
+        "path": "/home/ctf/flag.txt"
+    },
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "box": "rev.chal.csaw.io",
+    "internal_port": 8080,
+    "decay": 20,
+    "files": ["validator", "deliverables/server.py"]
+}

@@ -1,0 +1,19 @@
+{
+    "name": "DOOMPDF",
+    "description": "Evil PDF?",
+    "author":"pimps",
+    "category": "web",
+    "requirements": { },
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":20,
+    "minimum":50,
+    "internal_port":80,
+    "box": "web.chal.csaw.io",
+    "flag": {
+      "content": "flag{DAAAMN_MAN!Th3_name_is_DOMPDF_OR_DOOMPDF??_L0L}",
+      "type": "dynamic",
+      "path": "/this_is_the_flag_read_me_please.txt"
+    }
+}
