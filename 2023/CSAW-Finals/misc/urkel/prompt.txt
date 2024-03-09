@@ -1,0 +1,20 @@
+                    a
+                    |
+    b---------------c---------------d
+    |               |               |
+e---f---g       h---i---j       k---l---m
+|   |   |       |   |   |       |   |   |
+n   o   p       q   r   s       t   u   v
+
+
+n = '?' => '1d'
+o = '?' => 'de'
+p = '?' => '1b'
+
+q = '?' => '00'
+r = '?' => 'c3'
+s = '?' => '5b'
+
+t = 'Laura!... Bazooms!'                      => '98767cec58ce4cdb6181ff97710bef2ef2684dbe5c3f9b8f847d2a4d3c1540f0'
+u = 'WHOA, MAMA!'                             => 'd3776e045781f2a916b1eb6ff941fed6087d2f6bc02ad130fae6b9cbbe57b2e6'
+v = 'I hurt myself. Can you carry me home?'   => 'f99b946aa21aa9d953063e5ef55340e9e5e36072f1c16e6e75b892c640c03095'

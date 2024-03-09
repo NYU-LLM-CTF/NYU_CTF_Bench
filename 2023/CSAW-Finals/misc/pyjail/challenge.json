@@ -1,0 +1,14 @@
+{
+    "name": "Python Garbageman",
+    "category": "misc",
+    "author": "nikobelic29",
+    "description": "obligatory PyJail, except this might be harder",
+    "flag": "csawctf{1_h0p3_y0u_h4d_fun_173r471n6_6c}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "internal_port":13336,
+    "box": "misc.chal.csaw.io",
+    "files":["./chall.py", "Dockerfile"]
+}
