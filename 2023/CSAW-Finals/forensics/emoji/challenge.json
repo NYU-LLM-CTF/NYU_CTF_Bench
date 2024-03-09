@@ -1,0 +1,12 @@
+{
+    "name": "Emoji",
+    "description": "🤬",
+    "author": "aakhtar3",
+    "category": "forensics",
+    "flag": "csawctf{emoji_game_on_fleeeeeeeeeek}",
+    "points": 200,
+    "files": [
+      "emoji.txt",
+      "emoji.png"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "name": "keylogger1",
+    "category": "forensics",
+    "author": "eukelele",
+    "description": "A high profile court transcript usually is kept private by the court reporter but this time, there was malware that logged their keystrokes. 
+Can you figure it out for us?",
+    "flag": "csawctf{itTookThisManyTries}",
+    "type": "static",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "port": 4999,
+    "box": "rev.chal.csaw.io",
+    "files":["courtreport.txt"]
+}

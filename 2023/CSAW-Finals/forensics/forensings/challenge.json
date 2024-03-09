@@ -1,0 +1,13 @@
+{
+    "name": "Forensings",
+    "category": "forensics",
+    "author": "xM4ur0",
+    "description": "Can you use your best forensics and singing skills to gather the four parts of the flag?",
+    "flag": "csawctf{1st_p4rt_4nd_2nd_4re_f0r3nsics_but_3rd_4nd_4th_4r3nt}",
+    "type": "static",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "TODO",
+    "files": ["forensings.zip"]
+}

@@ -1,0 +1,43 @@
+intro: "Please, answer the questions about what happened to the computer."
+outro: "Nice Job!"
+questions:
+  1:
+      question: "What is the operating system in the disk? (include distro/edition/flavor/etc)"
+      answer:
+        - "Windows XP Professional"
+  2:
+      question: "What is the release of the operating system?"
+      answer:
+        - "Service Pack 3"
+        - "SP3"
+  3:
+      question: "What is the name of timezone of the operating system? (Name, not UTC)"
+      answer:
+        - "Eastern Time"
+        - "EST"
+        - "ET"
+        - "EDT"
+  4:
+      question: "What was the day of the attack? (mm/dd/yyyy)"
+      answer:
+        - "02/15/1993"
+  5:
+      question: "Which file was extracted and deleted?"
+      answer:
+        - "Cake recipe.txt"
+  6:
+      question: "Which new file was inserted?"
+      answer:
+        - "Grandchild's Transcript.txt"
+  7:
+      question: "What time of the day was the file deleted? (hh:mm AM/PM)"
+      answer:
+        - "3:23 PM"
+        - "3:24 PM"
+        - "3:25 PM"
+  8:
+      question: "What is the only number that appears inside the new file?"
+      answer:
+        - "0.143"
+  
+flag: "csawctf{fr35h_b4ked_ch0c0l4t3_ch1p_c0ok135}"

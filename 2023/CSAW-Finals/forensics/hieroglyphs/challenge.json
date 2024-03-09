@@ -1,0 +1,17 @@
+{
+    "name": "hieroglyphs",
+    "category": "forensics",
+    "author": "bbtc33",
+    "description": "Unlock your inner Egyptologist! (This is OSIRIS Lab after all). Use the solver script to communicate with the challenge server. Answer the questions based on the image and obtain your flag. Be careful, this challenge requires proof of work and has a fairly long (~4 minute) penalty between guesses",
+    "flag": "csawctf{ma47kaR3-b3L0v3d-0F-4mun-g1v3-l1f3-f0r3v3r}",
+    "internal_port": 4500,
+    "type": "static",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "forensics.csaw.io",
+    "files": [
+        "image.png",
+	"solver.py"
+    ]
+}

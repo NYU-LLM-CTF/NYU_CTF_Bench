@@ -1,0 +1,12 @@
+The declarant expressed satisfaction in the allowance granted by their employer to utilize external keyboards with the company-issued laptop. 
+
+This privilege facilitated the pursuit of stenographic practice during working hours. 
+
+The declarant proceeded to detail the creation of a website, notable for its unique security measure. 
+
+Instead of conventional password protection, the website's access hinged on the submission of a proof of work. 
+
+The password consisted of a word that has a prefix of the number one thousand three hundred thirty-seven. 
+The password describes a system of modified spellings used primarily on the Internet and also goes by eleet.
+
+This proof of work entailed the requirement of a password that is concatenated with a specific numerical value to yield, when subjected to the sha256 cryptographic algorithm, a resultant hash with precisely five leading hexadecimal zeros.

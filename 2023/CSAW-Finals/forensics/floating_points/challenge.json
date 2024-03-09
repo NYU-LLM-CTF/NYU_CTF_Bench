@@ -1,0 +1,11 @@
+{
+  "name": "Floating Points",
+  "description": "In the fading light, Max studied the complex puzzle box, its surface a maze of curves and bits. With precision, he aligned the intricate parts, his fingers dancing deftly until a satisfying click sounded. The final piece slid into place, revealing the hidden compartment. Max's persistence had decoded the enigmatic artifact, his triumph etched in the grooves of the solved mystery.",
+  "author": "aakhtar3",
+  "category": "forensics",
+  "flag": "csawctf{did_you_try_w3schools_path_d=}",
+  "points": 75,
+  "files": [
+    "floating_points"
+  ]
+}
