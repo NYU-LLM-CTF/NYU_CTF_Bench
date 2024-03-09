@@ -1,0 +1,16 @@
+{
+    "name": "brainflop",
+    "category": "pwn",
+    "author": "ex0dus (ToB)",
+    "description": "You're invited to the closed beta of our new esoteric cloud programming environment, BRAINFLOP!",
+    "flag": "csawctf{ur_sup3r_d4ta_B4S3D!!}",
+    "type": "static",
+    "initial": 500,
+    "minimum": 275,
+    "decay": 50,
+    "internal_port": 9999,
+    "box": "pwn.chal.csaw.io",
+    "files": [
+      "share.zip"
+    ]
+}

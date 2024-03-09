@@ -1,0 +1,6 @@
+venv/
+
+*.out
+*.dSYM
+*.bndb
+.gdb_history

@@ -1,0 +1,14 @@
+{
+    "name": "obfusicated?",
+    "category": "pwn",
+    "author": "nikobelic29",
+    "description": "After taking Computer Architectures at NYU Tandon, Joel became obsessed with CPUs and Virtualization. He made a bet with me that he can make my binary unreversable. Can you help me prove him wrong? (Don't tell him I wrote a vulnerable applet) Note: The binary is the same as the one in `obfusicated`",
+    "flag": "csawctf{1_7h0u6h7_574ck_15_n07_3x3cu74bl3????pwn700l5_l13d_70_m3}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "internal_port":20001,
+    "box": "pwn.chal.csaw.io",
+    "files":["./prog", "Dockerfile"]
+}
