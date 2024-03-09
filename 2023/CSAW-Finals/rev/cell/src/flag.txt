@@ -1,0 +1,11 @@
+PS3 Challenge Ideas:
+
+For 5 seconds, do continuous polling - 
+
+Some game, need to input an exact series of inputs and your series of inputs acts as a private key for a public key to show some string. You can make the inputs whatever, and then public key (to be decrypted to) whatever), can generate the corresponding bytes after.
+
+- do a read from the screen, overwrite random parts of the buffer with graphics data
+- read a file from the PS3 SD Card, the buffers have to be the samem
+- have big memory buffer - start reading to it for some amount of time
+
+flag: csaw_ctf{when_holes_are_poked_the_beast_closes_his_eyes}

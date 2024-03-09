@@ -1,0 +1,8 @@
+1) Triangle/Cross
+2) L1/R1
+3) L2/R2
+4) Triangle/Start
+5) L1/Square
+6) R2
+7) R1/L3
+8) R3

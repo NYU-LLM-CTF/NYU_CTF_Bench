@@ -1,0 +1,12 @@
+{
+    "name": "Hells Bells",
+    "category": "rev",
+    "author": "axelm",
+    "description": "In the enigmatic challenge, where secrets may dwell,\nHells Bells toll, their riddles to quell.\nReverse the song's essence, decipher its knell,\nIn this poetic fire, your wits must excel.",
+    "flag": "csawctf{w3ll_d0n3_..._n0_b3lLs_h3RE_tHOugh}",
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "files":["./share/hells_bells.exe"]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "unobfusicated",
+    "category": "rev",
+    "author": "nikobelic29",
+    "description": "After taking Computer Architectures at NYU Tandon, I became obsessed with assembly and all it has to give. Though I am a 2 bit programmer and I forgot what my password is...",
+    "flag": "csawctf{E15_E20_xv6_x86_noice}",
+    "type": "static",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "rev.chal.csaw.io",
+    "files":["./prog"]
+}

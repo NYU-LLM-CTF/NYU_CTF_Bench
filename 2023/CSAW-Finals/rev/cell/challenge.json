@@ -1,0 +1,11 @@
+{
+    "name": "Cell",
+    "category": "rev",
+    "description": "I'm trying to test my inputs, but it keeps crashing...",
+    "author": "Aneesh Maganti",
+    "flag": "csaw_ctf{when_holes_are_poked_the_beast_closes_his_eyes}",
+    "type": "dynamic",
+    "files": [
+        "./chal/cell.pkg"
+    ]
+}

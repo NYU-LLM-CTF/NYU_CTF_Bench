@@ -1,0 +1,13 @@
+{
+    "name": "obfusicated",
+    "category": "rev",
+    "author": "nikobelic29",
+    "description": "After taking Computer Architectures at NYU Tandon, Joel became obsessed with CPUs and Virtualization. He made a bet with me that he can make my binary unreversable. Can you help me prove him wrong?",
+    "flag": "csawctf{15_7h15_53cur3_by_d3516n?}",
+    "type": "static",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "rev.chal.csaw.io",
+    "files":["./prog"]
+}
