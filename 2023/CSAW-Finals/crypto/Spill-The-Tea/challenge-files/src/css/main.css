@@ -1,0 +1,20 @@
+body {
+  /* background-color: #212121; */
+  /* background-color: black; */
+  background-color: white;
+}
+
+#render {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#key {
+  position: absolute;
+  bottom: 4em;
+}

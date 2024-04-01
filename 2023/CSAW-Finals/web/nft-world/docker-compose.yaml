@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: nft.db
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test_pass
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - '3306:3306'
+
+  server:
+    image: nft.server
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    environment:
+      SERVER_ENV: prod
+    links:
+      - 'db'
+      - 'db:nft.db'
+    ports: 
+      - '3333:3333'
+    depends_on:
+      - db

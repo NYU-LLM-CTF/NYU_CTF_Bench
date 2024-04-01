@@ -1,0 +1,14 @@
+{
+    "name": "NFT World",
+    "category": "web",
+    "author": "kablaa",
+    "description": "Enjoy our state of the art password-free NFT Marketplace.",
+    "flag": "csawcft{maYB3_W3_5H0ulD_HAV3_U53d_PA22W0rD2}}", 
+    "internal_port": 3333,
+    "type": "dynamic",
+    "initial": 500,
+    "minimum": 50,
+    "decay": 275,
+    "box": "",
+    "files":[]
+  }

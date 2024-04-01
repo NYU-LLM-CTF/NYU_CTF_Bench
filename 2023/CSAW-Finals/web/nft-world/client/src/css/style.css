@@ -1,0 +1,32 @@
+:root {
+    --color1: rgb(14, 1, 20);
+    --color2: #e4e4e4;
+    --color3: #1d1d1d;
+}
+body{
+    font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    overflow-anchor: auto;
+    height: 100%;
+}
+.nft-display-row {
+    padding-bottom: 3%;
+}
+.nft-img-col {
+    padding-left: 0%;
+}
+.nft-display-col {
+    padding-left: 0%;
+    padding-right: 5%;
+}
+.action-col {
+    padding-right: 0%;
+}
+.create-account-card {
+    width: '50%';
+}
+.error {
+    color:red;
+    font-weight: 500;
+}
