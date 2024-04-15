@@ -1,0 +1,19 @@
+{
+    "name": "Potion Seller",
+    "author": "hawkheart",
+    "description": "I made a distributed code sandboxing tool, there's no way you can escape this!\n\n`https://youtu.be/R_FQU4KzN7A`",
+    "category": "web",
+    "type":"dynamic",
+    "state":"visible",
+    "initial":500,
+    "decay":20,
+    "minimum":50,
+    "internal_port":4000,
+    "box": "web.chal.csaw.io",
+    "flag": {
+        "content": "flag{h3a1inG_31ix1r(UA):f1rST_13v31_c0njuR4710n}",
+        "type": "dynamic",
+        "path": "/app/bin/flag"
+    },
+    "files":["src.tar.gz"]
+}

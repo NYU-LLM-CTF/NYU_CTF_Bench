@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "Homepage", suffix: " · Elixir Playground" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body class="dark:bg-slate-900 dark:text-neutral-100">
+    <div class="flex flex-col items-center justify-center mt-32">
+      <div class="flex flex-col">
+          <!-- Navbar -->
+          <nav class="flex justify-around py-4 bg-white/80 dark:bg-indigo-700/80
+              backdrop-blur-md shadow-md w-full
+              fixed top-0 left-0 right-0 z-10">
+
+              <!-- Logo Container -->
+              <div class="flex items-center">
+                  <!-- Logo -->
+                  <a class="cursor-pointer flex space-x-2" href="/">
+                        <img src="/images/elixir_logo.png" alt="Elixir programming language logo" class="w-8">
+                        <h1 class="text-2xl font-medium text-blue-500 dark:text-gray-100">
+                            Playground
+                        </h1>
+                  </a>
+              </div>
+
+              <!-- Links Section -->
+              <%= if assigns[:page_title] == "Session" do %>
+                <div class="items-center hidden space-x-8 lg:flex">
+                    <a class="flex text-gray-600 hover:text-blue-500
+                                  dark:text-gray-100 dark:hover:text-blue-400
+                        cursor-pointer transition-colors duration-300" href="/">
+                        Home
+                    </a>
+
+                    <a class="flex text-gray-600
+                                  dark:text-blue-400
+                        cursor-pointer transition-colors duration-300
+                        font-semibold text-blue-600" href="/session">
+                        Session
+                    </a>
+                </div>
+              <% else %>
+                <div class="items-center hidden space-x-8 lg:flex">
+                    <a class="flex text-gray-600
+                                  dark:text-blue-400
+                        cursor-pointer transition-colors duration-300
+                        font-semibold text-blue-600" href="/">
+                        Home
+                    </a>
+
+                    <a class="flex text-gray-600 hover:text-blue-500
+                                  dark:text-gray-100 dark:hover:text-blue-400
+                        cursor-pointer transition-colors duration-300" href="/session">
+                        Session
+                    </a>
+                </div>
+              <% end %>
+          </nav>
+      </div>
+    </div>
+    <%= @inner_content %>
+  </body>
+</html>

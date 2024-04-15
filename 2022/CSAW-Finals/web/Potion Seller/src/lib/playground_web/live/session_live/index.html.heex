@@ -1,0 +1,68 @@
+<div>
+  <h1 class="text-4xl">Playground Session</h1>
+</div>
+<br />
+<div class="xl:columns-2 space-y-4">
+  <div class="w-full aspect-video dark:bg-indigo-900 border-indigo-600 p-6 rounded shadow-xl">
+    <.form let={f} for={:input} phx-submit="eval">
+      <%= submit "Evaluate", class: "bg-blue-500 hover:bg-blue-600 text-slate-200 font-bold py-2 px-4 rounded" %>
+      <br />
+      <br />
+      <div id="editor" phx-update="ignore"></div>
+      <br />
+      <%= textarea f, :code, phx_hook: "EditorForm", phx_update: "ignore", class: "hidden-element", value: @default_code %>
+
+    </.form>
+  </div>
+
+    <div id="results" class="aspect-video dark:bg-indigo-900 border-indigo-600 p-6 rounded shadow-xl">
+          <div>
+            <%= if @error do %>
+            <p class="text-red-500 whitespace-pre-wrap"><%= @error %></p>
+            <% end %>
+            <br />
+            <span class="flex before:flex-auto after:flex-auto before:border-neutral-400 after:border-neutral-400 before:border-t-2 after:border-t-2 before:m-auto after:m-auto before:mr-8 after:ml-8 dark:text-neutral-400">Output</span>
+            <%= if @results.stdout != "" do %>
+            <p class="whitespace-pre-wrap">
+              <%= @results.stdout %>
+            </p>
+            <% else %>
+            <p>
+              <span class="italic">No output.</span>
+            </p>
+            <% end %>
+            <span class="flex before:flex-auto after:flex-auto before:border-neutral-400 after:border-neutral-400 before:border-t-2 after:border-t-2 before:m-auto after:m-auto before:mr-8 after:ml-8 dark:text-neutral-400">Results</span>
+            <p class="whitespace-pre-wrap">
+              <%= inspect @results.data %>
+            </p>
+            <span class="flex before:flex-auto after:flex-auto before:border-neutral-400 after:border-neutral-400 before:border-t-2 after:border-t-2 before:m-auto after:m-auto before:mr-8 after:ml-8 dark:text-neutral-400">Variables</span>
+            <p class="py-2">
+              <table class="table table-fixed w-full">
+                <thead class="dark:bg-slate-700 dark:text-gray-200 text-left">
+                  <tr>
+                    <th class="py-1 px-7">Name</th>
+                    <th class="py-1 px-7">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= if @bindings != [] do %>
+                    <%= for {k, v} <- @bindings do %>
+                      <tr class=" border-b dark:bg-slate-800 dark:border-slate-700">
+                        <td>
+                          <button class="rounded bg-blue-500 hover:bg-blue-600 text-slate-200 rounded p-1 m-1 mr-2 shadow-xl" phx-click="delete" phx-value-key={k}>X</button>
+                          <%= k %>
+                        </td>
+                        <td><%= inspect v %></td>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr class="border-b dark:bg-slate-800 dark:border-slate-700 italic">
+                      <td colspan="2" class="pl-6">No variables</td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </p>
+          </div>
+    </div>
+</div>

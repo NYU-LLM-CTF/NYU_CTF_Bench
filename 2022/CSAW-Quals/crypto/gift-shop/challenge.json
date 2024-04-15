@@ -1,0 +1,14 @@
+{
+  "name": "Poodle Gift Shop",
+  "category": "crypto",
+  "author": "rollingcoconut, N4T_20",
+  "description": "Why not buy some poodle companions at our canine gift shop? Every order is celebrated with a plane flying overhead bearing a banner. Wait! is there something hidden in that banner?\n\n`nc {box} {port}`",
+  "flag": "flag{poodle_atk_sslv3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "internal_port": 6000,
+  "files": ["server.py"]
+}

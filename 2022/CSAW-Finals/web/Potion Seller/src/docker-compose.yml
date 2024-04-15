@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    image: potion_seller
+    container_name: potion_seller
+    ports:
+      - "4000:4000"
+    volumes:
+      - type: bind
+        source: ./flag
+        target: /app/bin/flag
+    networks:
+      playground:
+        aliases:
+          - web.playground
+    environment:
+      SECRET_KEY_BASE: AkfxqjQOEfhbdVLhUkQcKNMijFYj/EXE3nRJu3nTh34uOWHQ/iv5PfKkTuGfnlsU
+      PLAYGROUND_ROLE: web
+      PHX_HOST: web.chal.csaw.io
+      RELEASE_DISTRIBUTION: name
+      RELEASE_NODE: web@web.playground
+  executor:
+    depends_on:
+      - web
+    image: potion_seller
+    container_name: potion_seller_executor
+    networks:
+      playground:
+        aliases:
+          - executor.playground
+    environment:
+      SECRET_KEY_BASE: AkfxqjQOEfhbdVLhUkQcKNMijFYj/EXE3nRJu3nTh34uOWHQ/iv5PfKkTuGfnlsU
+      PLAYGROUND_ROLE: executor
+      PHX_HOST: web.chal.csaw.io
+      RELEASE_DISTRIBUTION: name
+      RELEASE_NODE: executor@executor.playground
+
+networks:
+  playground:
+    name: playground
