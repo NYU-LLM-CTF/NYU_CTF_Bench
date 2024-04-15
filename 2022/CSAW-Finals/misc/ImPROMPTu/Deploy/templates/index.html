@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+<title>Chat with an Amazing AI!</title>
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+td.user {
+    background-color: rgba(255, 134, 134, 0.8);
+}
+
+td.AI {
+    background-color: #d2f4d3;
+}
+
+td.name {
+    font-weight: bold;
+    vertical-align:top;
+}
+</style>
+</head>
+{% if response %}
+<p>Here's the result of your query to our amazing security expert AI:</p>
+<table width = "30%">
+    <tr><td class="name">User:</td><td class="user">{{ user_input }}</td></tr>
+    <tr><td class="name">AI:</td><td class="AI">{{ response }}</td></tr>
+</table>
+<p>If you like, you can ask another question.</p>
+{% endif %}
+<p>Talk to our amazing security expert AI!<br>
+    <form method="post">
+        <label for="user_input">Your query: </label><br>
+        <textarea name="user_input" rows="10" cols="40" placeholder="How does SQL injection work?"></textarea><br>
+        <input type="submit" value="Submit" />
+    </form>
+</p>

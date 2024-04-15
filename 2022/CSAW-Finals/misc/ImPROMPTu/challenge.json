@@ -1,0 +1,18 @@
+{
+  "name": "ImPROMPTu",
+  "category": "misc",
+  "author": "mshabana70",
+  "description": "You are given an AI chatbot with a prompt to communicate with, but this chatbot seems to be hiding a secret. See if you can get the chatbot to reveal its secret.",
+  "flag": {
+    "content": "flag{wH47_4_cH4ttY_C4aT_80t_4U4!}",
+    "type": "static",
+    "path": ""
+  },
+  "box": "misc.chal.csaw.io",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 20,
+  "files": []
+}
