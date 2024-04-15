@@ -1,0 +1,13 @@
+{
+  "name": "Smuggling Mail",
+  "category": "web",
+  "description": "Join our waitlist and we'll let you know about apartment vacancies!\n\nhttps://{box}:{port}",
+  "flag": "flag{5up3r_53cr3t_4nd_c001_f14g_g035_h3r3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": ["smuggling-mail.tar.gz"],
+  "box": "web.chal.csaw.io",
+  "internal_port": 8080
+}
