@@ -1,0 +1,185 @@
+[gd_scene load_steps=25 format=3 uid="uid://uioepndeyvtl"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1"]
+[ext_resource type="Script" path="res://Scripts/EnemySM.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://wnupf5g7aatb" path="res://Assets/Players/players red x1.png" id="3_rqcjl"]
+[ext_resource type="PackedScene" uid="uid://dduyme14pru7f" path="res://Scenes/HealthBar.tscn" id="4"]
+[ext_resource type="AudioStream" uid="uid://bpms74jiln7av" path="res://SFX/laserShoot.wav" id="5"]
+[ext_resource type="AudioStream" uid="uid://dv1vx34sw2p5s" path="res://SFX/hitHurt.wav" id="6"]
+[ext_resource type="AudioStream" uid="uid://duvchcnjgwykc" path="res://SFX/detected.wav" id="7"]
+[ext_resource type="AudioStream" uid="uid://dvbslu2xiu8tt" path="res://SFX/lost.wav" id="8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3d1yp"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(32, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0omo"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(64, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucu13"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(0, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6pp0"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(32, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hud3u"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(64, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqugu"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(96, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw0mt"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(128, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sckps"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(160, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyblr"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(192, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqhv6"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(0, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04fme"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(32, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfev5"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(64, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dea8"]
+atlas = ExtResource("3_rqcjl")
+region = Rect2(96, 320, 32, 32)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3d1yp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0omo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3d1yp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0omo")
+}],
+"loop": false,
+"name": &"Damage",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucu13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6pp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hud3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqugu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw0mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sckps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyblr")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqhv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04fme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfev5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dea8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="3"]
+radius = 1890.3
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(101, 101)
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1")
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StateMachine"]
+position = Vector2(1.90735e-06, -1.90735e-06)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("1")
+animation = &"Idle"
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("3")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ShootTime" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="Control" parent="." instance=ExtResource("4")]
+offset_left = 25.0
+offset_top = -1.0
+offset_right = 25.0
+offset_bottom = 79.0
+
+[node name="dmgtimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5")
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6")
+
+[node name="Detected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7")
+
+[node name="Lost" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 13.5)
+shape = SubResource("2")
+
+[connection signal="health_updated" from="." to="Control" method="_on_Player_health_updated"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="dmgtimer" to="." method="_on_dmgtimer_timeout"]
