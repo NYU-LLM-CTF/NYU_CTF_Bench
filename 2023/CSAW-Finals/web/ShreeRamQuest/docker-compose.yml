@@ -1,0 +1,29 @@
+version: "3"
+services:
+  nodeserver:
+    build:
+      context: . # Use the current directory as the build context
+      dockerfile: Dockerfile # Use the Dockerfile described above
+    ports:
+      - 4999:4999 # Map host port 4999 to container port 4999
+    environment:
+      - MONGO_URI=REDACTED
+      - SECRET=BharatK4B4cch4B4cch4JayShreeRamBolega
+      - FLAG=csawctf{J4y_Shr33_Ram_J4y_Shr33_Ram}
+
+  nginx:
+    container_name: webserver
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - nodeserver
+
+  # nginx:
+  #   image: nginx
+  #   ports:
+  #     - "80:80" # Map host port 80 to Nginx container port 80
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf # Mount your nginx.conf file
