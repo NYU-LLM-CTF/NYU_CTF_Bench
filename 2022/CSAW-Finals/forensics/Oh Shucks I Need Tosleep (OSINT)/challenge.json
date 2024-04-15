@@ -1,0 +1,20 @@
+{
+  "name": "Oh Shucks I Need Tosleep (OSINT)",
+  "category": "forensics",
+  "author": "elh313",
+  "description": "You have work tomorrow but your friend sent you this weird image and now you're caught in an OSINT rabbit hole! Answer all the questions to satiate your curiosity so you can log off your computer and get some sleep!",
+  "flag": {
+    "content": "flag{90g3750m35133py0u051n75up3R57@2r}",
+    "type": "dynamic",
+    "path": "/home/ctf/flag.txt"
+  },
+  "box": "misc.chal.csaw.io",
+  "internal_port": 5000,
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 20,
+  "files": [
+  "whatisthis.png"
+  ]
+}
