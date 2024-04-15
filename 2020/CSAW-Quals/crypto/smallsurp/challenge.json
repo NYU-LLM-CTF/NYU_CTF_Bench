@@ -1,0 +1,10 @@
+{
+    "name": "smallsurp",
+    "category": "crypto",
+  "description": "Your APT group scr1pt_k1tt13z breached into a popular enterprise service, but due to inexperience, you only got the usernames of the administrators of the service, and an encrypted password for the root admin. However, you learned that the company had a key agreement ceremony at some point in time, and the administrators keys are all somehow connected to the root admin's.\n\n[http://{box}:{port}](http://{box}:{port})",
+    "flag": "flag{n0t_s0_s3cur3_4ft3r_4ll}",
+    "points": 300,
+    "box": "crypto.chal.csaw.io",
+    "internal_port": 5000,
+    "files": ["database.txt", "encrypted.txt", "server_handout.py"]
+}

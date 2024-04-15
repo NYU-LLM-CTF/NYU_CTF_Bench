@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ name }} Buyify Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" integrity="sha256-vK3UTo/8wHbaUn+dTQD0X6dzidqc5l7gczvH+Bnowwk=" crossorigin="anonymous" />
+</head>
+<body>
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item is-size-4" href="/store/{{id}}/">
+      {{ name }}
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/store/{{id}}/">
+        Items
+      </a>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        Wallet: ${{ money }}
+      </div>
+      {{#if admin}}
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="/store/{{id}}/manage/settings">
+            <strong>Store Settings</strong>
+          </a>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</nav>
+  {{{body}}}
+  <footer>
+    <div class="container">
+    Powered by <a href="/">Buyify</a>
+    </div>
+  </footer>
+</body>
+</html>

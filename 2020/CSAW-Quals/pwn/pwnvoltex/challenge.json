@@ -1,0 +1,10 @@
+{
+    "name": "pwnvoltex",
+    "author": "itszn @ RET2 Systems",
+    "category": "pwn",
+    "description": "With COVID all the arcades are closed :( Luckily there is a clone of my favorite rhythm game, Sound Voltex, free and open source online!!\n\nI even charted a new flag song too! Lets play some multiplayer :3",
+    "flag": "flag{even c++ is not safe from sqli :<<}",
+    "points": 250,
+    "files": ["handout/pwnvoltex.tar.gz"],
+    "box": "pwn.chal.csaw.io"
+}

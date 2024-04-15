@@ -1,0 +1,8 @@
+{
+    "name": "easiest crackme",
+    "category": "web",
+    "description": "This will be the easiest crackme you have ever done, now with the added convience of doing it in your browser! http://crackme.web.chal.csaw.io\n\nShow us your crackme skills here to claim your flag:  http://crackme.web.chal.csaw.io/visit\nBy itszn @ Ret2 Systems",
+    "flag": "flag{post_msg_delivers_flag}",
+    "points": 200,
+    "files": []
+}

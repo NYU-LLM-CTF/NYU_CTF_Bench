@@ -1,0 +1,15 @@
+{
+  "name": "Gatekeeping",
+  "category": "web",
+  "description": "My previous flag file got encrypted by some dumb ransomware. They didn't even tell me how to pay them, so I'm totally out of luck. All I have is the site that is supposed to decrypt my files (but obviously that doesn't work either).\n\nAuthor: `itszn`, Ret2 Systems\n<server link>\n\n[http://{box}:{port}](http://{box}:{port})",
+  "flag": "flag{gunicorn_probably_should_not_do_that}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "web.chal.csaw.io",
+  "internal_port": 80,
+  "files": [
+    "gatekeeping.tar.gz"
+  ]
+}

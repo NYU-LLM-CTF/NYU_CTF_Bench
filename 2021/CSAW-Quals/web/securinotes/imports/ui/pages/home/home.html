@@ -1,0 +1,18 @@
+<template name="Home">
+    <h1 class="white-text drop-shadow ">Your notes</h1>
+    <div class="row">
+
+        {{#if no_notes}}
+        <div class="white-text c12"><i>No notes to show</i></div>
+        {{/if}}
+
+        {{#each note in notes}}
+        {{> Note note=note}}
+        {{/each}}
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
+
+    </div>
+</template>

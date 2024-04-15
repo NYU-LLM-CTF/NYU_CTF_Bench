@@ -1,0 +1,8 @@
+{
+    "name": "biometric",
+    "category": "web",
+    "description": "eyes\n\nhttp://{{.Netloc}}:{{.DescPort}}",
+    "flag": "flag{eye_see_you}",
+    "points": 50,
+    "files": ["client.zip", "server.py"]
+}

@@ -1,0 +1,19 @@
+[package]
+name = "hardcore"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+getrandom = "0.2.0"
+lazy_static = "1.4.0"
+sha2 = "0.9.5"
+generic-array = "0.14.4"
+
+[dependencies.aes]
+version = "0.7.4"
+features = ["ctr"]
+
+[dependencies.rug]
+version = "1.13.0"
+default-features = false
+features = ["integer", "rand"]

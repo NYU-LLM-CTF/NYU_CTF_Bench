@@ -1,0 +1,3 @@
+ * Sometimes setting a series of filename paths in whitelist rules will cause 
+   a crash. (requires LDW capability) (#88532)
+ * [SECURITY] Bypass of check_file allows arbitrary file execution (#95774)

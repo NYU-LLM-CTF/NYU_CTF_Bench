@@ -1,0 +1,9 @@
+{
+    "name":"FREE as in FREEdom",
+    "category":"rev",
+    "description":"We understand the not everyone can afford IDA. Instead of IDC, check out this alternative, free-as-in-freedom scripting language :)",
+    "flag":"flag{h0p3_y0u_3nj0yed_4_FREE_5cr1pting_l4nguag3}",
+    "points": 100,
+    "files":["welcome2.r2"]
+}
+

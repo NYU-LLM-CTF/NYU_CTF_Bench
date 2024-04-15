@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/highlight.css">
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+
+        <title>nKryption | iBad</title>
+    </head>
+    <body>
+
+        <div class="main-header">
+            <header>
+                <div class="left-links">
+                    <a href="#" class="site-title">nKryption</a>
+                    
+                </div>
+
+                <div class="right-links">
+                    <a href="profile">Profile</a>
+                    <a href="login">Login</a>
+                </div>
+            </header>
+        </div>
+
+        <div class="box-flex">
+            <div class="main-info">
+                <h1 class="gradient-text">iBad</h1>
+                <h2 class="gradient-text">Oh. So. New.</h2>
+
+                <p>🎉 We're proud to announce that we've upgraded our authentication systems and we've swapped out AES-CBC for the AES-GCM authentication.</p>
+            </div>
+
+<pre><code>
+    let key = aes_gcm::Key::from_slice(SECRET_KEY);
+    let cipher = aes_gcm::Aes128Gcm::new(key);
+
+    let tag_raw = base64::decode(parts[0]).unwrap();
+    let tag = aes_gcm::Tag::from_slice(tag_raw.as_slice());
+    let nonce_raw = base64::decode(parts[1]).unwrap();
+    let nonce = aes_gcm::Nonce::from_slice(nonce_raw.as_slice());
+    let mut plaintext = base64::decode(parts[2]).unwrap();
+
+</code></pre>
+
+        </div>
+
+        <div class="generic-gradient-box">
+        <div class="card shadow">
+            <h3>🔑 Passwordless authentication </h3>
+            <p>We are redefining the web, with our state-of-the-art authentication service</p>
+        </div>
+
+        <div class="card shadow">
+            <h3>🍪 AES-GCM Encryption</h3>
+            <p>All credentials are encrypted with AEAD technology. For new and legacy users alike</p>
+        </div>
+
+        <div class="card shadow">
+            <h3>🚩 Flagged protection</h3>
+            <p>Our cookies are peppered with a secret flag to add the extra layer of security nKryption customers have learnt to expect</p>
+        </div>
+        </div>
+
+    <script>hljs.highlightAll();</script>
+    </body>
+
+    <footer> 
+    <div class="name">nKryption</div>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="login">Login</a></li>
+        <li><a href="profile">Profile</a></li>
+    </ul>
+    <div class="copywrite">Copywrite © nKryption 2021</div>
+    </footer>
+
+</html>

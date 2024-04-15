@@ -1,0 +1,7 @@
+.dockerignore
+.idea/
+challenge.json
+Dockerfile
+README.md
+41289-exploiting-node.js-deserialization-bug-for-remote-code-execution.pdf
+solver.py

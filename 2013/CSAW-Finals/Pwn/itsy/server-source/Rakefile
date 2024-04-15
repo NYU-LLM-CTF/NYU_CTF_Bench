@@ -1,0 +1,38 @@
+require "rake/clean"
+
+# default definitions
+cc = "gcc"
+cflags = "-g -Wall -Wshadow -Wextra -std=c99 "
+defines = "-D_GNU_SOURCE "
+incpath = "../libctf"
+sources = FileList["*.c"]
+objects = sources.ext("o")
+
+# service-specific settings
+svcname = "itsy"
+defines += "-D_NORAND"
+cflags += "-m32"
+
+# available tasks
+CLEAN.include("*.o")
+CLOBBER.include("#{svcname}")
+task :release => "#{svcname}" do
+    sh "strip -s #{svcname}"
+end
+task :debug do
+    defines += " -D_DEBUG"
+    Rake::Task["#{svcname}"].invoke
+end
+task :default => ["#{svcname}"]
+
+# default build rules
+rule ".o" => ".c" do |t|
+    sh "#{cc} #{cflags} #{defines} -I#{incpath} -c #{t.source} -o #{t.name}"
+end
+file "libctf.o" => ["#{incpath}/ctf.h", "#{incpath}/ctf.c"] do
+    sh "#{cc} #{cflags} #{defines} -I#{incpath} -c #{incpath}/ctf.c -o libctf.o"
+end
+file "#{svcname}" => ["libctf.o", objects] do
+    sh "#{cc} #{cflags} #{defines} libctf.o #{objects} -o #{svcname}"
+end
+

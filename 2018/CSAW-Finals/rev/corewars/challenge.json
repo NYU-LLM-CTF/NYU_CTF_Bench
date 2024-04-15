@@ -1,0 +1,8 @@
+{
+    "name": "Corewars",
+    "category": "rev",
+    "description": "We must journey deep into the core of the world if we hope to find any meaning here\n\nWritten by itszn, Ret2 Systems",
+    "flag": "flag{_1t_rUn5_4s_r0o7_5nd_c4n_D0_l0ts_Of_s7up1D_Th1Ng5_!}",
+    "points": 300,
+    "files": ["corewars"]
+}

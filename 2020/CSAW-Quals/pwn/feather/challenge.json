@@ -1,0 +1,10 @@
+{
+  "name": "feather",
+  "category": "pwn",
+  "description": "I made a brand-new filesystem archive format that I think will supercede tar! Could you help me test it out? `nc {box} {port}`. Libc2.31 md5: 10fdeb77eea525914332769e9cd912ae \n\nby Hyper [https://twitter.com/hyperosonic](https://twitter.com/hyperosonic)",
+  "flag": "flag{maybe_its_time_to_switch_to_rust}",
+  "points": 450,
+  "internal_port": "8000",
+  "box": "pwn.chal.csaw.io",
+  "files": ["feather", "feather.cpp", "libc-2.31.so"]
+}

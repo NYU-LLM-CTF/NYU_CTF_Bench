@@ -1,0 +1,13 @@
+{
+  "name": "securinotes",
+  "category": "web",
+  "description": "You have access to the `SecuriNotes` application. You overheard your coworker Terry talking about how he uses it as a password manager. What could possibly go wrong...\n\nAuthor: `h34d4ch3`, RangeForce\n\n[http://{box}:{port}](http://{box}:{port})",
+  "flag": "flag{4lly0Urb4s3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "internal_port": "5000",
+  "box": "web.chal.csaw.io",
+  "files": []
+}

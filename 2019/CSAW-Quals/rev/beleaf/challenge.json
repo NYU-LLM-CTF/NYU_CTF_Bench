@@ -1,0 +1,9 @@
+{
+    "name":"beleaf",
+    "category":"rev",
+    "description":"tree sounds are best listened to by https://binary.ninja/demo or ghidra",
+    "flag":"flag{we_beleaf_in_your_re_future}",
+    "points": 50,
+    "files":["beleaf"]
+}
+

@@ -1,0 +1,24 @@
+#include "chal.h"
+#include "lib/mruntime.h"
+#include "lib/mstdlib.h"
+#include "lib/mstring.h"
+
+int load1(struct reg_t *reg) {
+  reg->r[STATE_REG] = READ_INPUT;
+  char c = reg->[POP_REG];
+
+  long long volatile file_self = 0;
+
+  switch (c) {
+  default:
+  case 0:
+    reg->r[STATE_REG] = VERIFY_CHAR;
+    JUMP_ENCODED(file_self);
+    break;
+  default:
+    RETURN_ENCODED(reg);
+  };
+
+  reg->r[STATE_REG] = FAIL_VERIFY;
+  RETURN_ENCODED(reg);
+}

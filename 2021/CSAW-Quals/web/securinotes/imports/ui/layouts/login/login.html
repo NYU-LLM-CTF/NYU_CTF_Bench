@@ -1,0 +1,84 @@
+<template name="Layout_login">
+    <div class="background">
+        <div class="navbar-fixed">
+            <nav class="indigo">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo center"><i class="large material-icons">assignment</i>SecuriNotes</a>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="row add-margin-top">
+                <div class="col m12 l6 white-text drop-shadow">
+                    <h1>Welcome!</h1>
+                    <p>Our users are already trusting us with <b>{{notescount}}</b> notes!</p>
+                </div>
+                <div class="col m12 l6">
+                    <div class="card-panel">
+                        <div class="row">
+                            <div class="col s12">
+                                <ul class="tabs">
+                                    <li class="tab col s6"><a class="active indigo-text" href="#login">Login</a></li>
+                                    <li class="tab col s6"><a class="indigo-text" href="#signup">Sign up</a></li>
+                                </ul>
+                            </div>
+                            <div id="login" class="col s12">
+                                <form class="login-form">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">mail_outline</i>
+                                            <input class="validate" id="email" type="email">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock_outline</i>
+                                            <input id="password" type="password">
+                                            <label for="password">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <a href="#" id="btn-login" class="btn-large waves-effect waves-light indigo col s12">Login</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="signup" class="col s12">
+                                <form class="signup-form">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">mail_outline</i>
+                                            <input class="validate" id="signup-email" type="email">
+                                            <label for="signup-email">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock_outline</i>
+                                            <input id="signup-password" type="password">
+                                            <label for="signup-password">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock_outline</i>
+                                            <input id="signup-password-confirm" type="password">
+                                            <label for="signup-password-confirm">Confirm Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <a href="#" id="btn-signup" class="btn-large waves-effect waves-light indigo col s12">Sign up</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

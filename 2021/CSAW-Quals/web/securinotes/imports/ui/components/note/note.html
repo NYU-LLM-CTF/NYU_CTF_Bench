@@ -1,0 +1,18 @@
+<template name="Note">
+    <div class="col s12 m6">
+        <div class="card white">
+        <div class="card-content">
+            {{#if editing}}
+                <textarea class="materialize-textarea card-body-edit" style="min-height: 125px;" placeholder="Note">{{note.body}}</textarea>
+            {{else}}
+            <div class="card-body">
+                {{{to_markdown note.body}}}
+            </div>
+            {{/if}}
+        </div>
+        <div class="card-action right-align">
+            <a class="card-delete-btn black-text" href="#">Delete</a>
+        </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Introduction - Parser Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Parser package</h2>
+
+			<p>The Parser package extends the Core View class to be able to use any type of template parser you want.</p>
+
+			<section>
+				<h2 id="intro">Introduction</h2>
+
+				<p>The Parser package changes nothing about the way you work with Views, but it will allow you to
+					use any template parser you want instead of PHP. The package comes with many drivers for parsers like
+					Mustache, Markdown, Twig and Smarty.</p>
+
+				<p>Which parser is used is chosen by the file extension of your view file. Normal views are extended
+					<kbd>.php</kbd> and will use PHP to parse the template, for these the <kbd>.php</kbd> extension may
+					also be omitted. All others have their own specific extension, for example <kbd>foo.mustache</kbd>
+					will use the Mustache driver and <kbd>foo.tpl</kbd> will use the Dwoo driver (expected extensions can
+					be changed in config).</p>
+
+				<section>
+					<h3 id="install">Installation</h3>
+
+					<p>The Parser package is included in the Fuel download. To use it you must first enable it by adding
+						it to your config:</p>
+					<pre class="php"><code>'always_load' => array(
+	'packages' => array(
+		'parser',
+	),
+),</code></pre>
+					<p>
+						While many drivers are included, most of the libraries are not. Only Mustache and Markdown are
+						included in the <kbd>vendor</kbd> directory of the package and work out of the box.
+					</p>
+					<p>
+						Mustache, Twig, MtHaml and Smarty should be installed via Composer. Simply add the libraries
+						to your project's <kbd>composer.json</kbd> then run "<kbd>php composer.phar install</kbd>":
+					</p>
+
+					<pre class="javascript"><code>{
+    "require": {
+        "mustache/mustache" : "*",
+        "smarty/smarty" : "*",
+        "twig/twig" : "*",
+        "mthaml/mthaml": "*"
+    }
+}
+</code></pre>
+				</section>
+
+				<section>
+					<h3 id="configuration">Configuration</h3>
+
+					<p>Parser can be configured in a config/parser.php file and takes the following keys:</p>
+
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>extensions</th>
+								<td>array</td>
+								<td>(array with extensions and View class which parses them)</td>
+								<td>
+									Defines which extensions are valid and what their View driver is.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h3 id="runtime_configuration">Runtime Configuration</h3>
+
+					<p>All drivers have a <kbd>parser()</kbd> method that will allow you to access the current
+						Parser object. This is a convention and not a requirement and might be different on 3rd party
+						drivers.</p>
+
+					<pre class="php"><code>// Clear the cache for a specific Smarty template
+$view = View::forge('example.smarty');
+$view->parser()->clearCache('example.smarty');
+
+// Example static usage
+View_Smarty::parser()->clearCache('example.smarty');</code></pre>
+				</section>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

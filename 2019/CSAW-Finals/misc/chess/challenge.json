@@ -1,0 +1,8 @@
+{
+    "name": "Chess",
+    "category": "misc",
+    "description": "For NY competitors: Come play against us in Chess.",
+    "flag": "flag{e4:e5:bc4:Nc6:Qh5:Nf6:Qf7#}",
+    "points": 25,
+    "files": []
+}

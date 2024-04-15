@@ -1,0 +1,16 @@
+{
+  "name": "word_games",
+  "category": "pwn",
+  "description": "I need your help. I'm writing a paper and I need some fun words to add to it! \n\n`nc {box} {port}`",
+  "flag": "flag{Y0u_pu7_7h3_FUN_1n_FUNc710N}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "word_games",
+    "libc-2.33.so"
+  ],
+  "internal_port": 5000,
+  "box": "pwn.chal.csaw.io"
+}

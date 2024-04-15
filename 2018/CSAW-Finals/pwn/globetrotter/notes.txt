@@ -1,0 +1,41 @@
+Challenge Name: globetrotter
+Point Value: 200
+Category: Exploitation
+Description: GLOBETROTTER TRAVEL LLC has deployed a new travel booking system, but somehow they're still losing ground to these 'hip' travel websites... 
+
+flag{th4nks_f0r_s0lving_my_w1nd0wz_ch4ll3ng3}
+
+-------------------------------
+
+Internal / Organizer notes:
+
+ Folder for distribution: 
+  /challenge
+
+ Folder for internal / organizers:
+  /organizers
+
+ This is a simple windows exploitation challenge. There is no windows specific 
+ knowledge required to solve this challenge.
+
+ By creating a plane (or train) ticket with a passenger name of 64 bytes (max length),
+ one can leak a code pointer via the print_reservation() function.
+
+ After creating a name that rubs up against this code pointer, one can actually 
+ overwrite it using the modify_reservation() function (only when using a max length
+ string).
+
+ The expected solution will require a simple pivot, and few gadgets of ROP to 
+ populate the registers with a pointer to the string 'flag\x00'. Finally, one
+ calls a 'print_flag' function that reads from a file of the given filename
+ (eg, print_flag('flag')) and prints it down the socket / stdin.
+
+ This is not a hard challenge. There is limited functionality, so the bug shouldn't
+ be too hard to find. If people aren't looking at it / avoiding it cuz windows, 
+ we can bumpt it up to 300 points.
+
+ Other tidbits:
+ - I developed the challenge on an x64 Windows 8.1 Enterprise VM
+ - The challenge needs to be hosted with AppJailLauncher
+ - I always like to distribute the AppJailLauncher.exe binary & serve.bat file
+   with the challenge, but that's up to you.

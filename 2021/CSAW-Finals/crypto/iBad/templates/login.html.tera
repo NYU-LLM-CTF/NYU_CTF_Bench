@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/highlight.css">
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+
+        <title>nKryption | Login</title>
+    </head>
+    <body>
+
+<div class="main-header">
+    <header>
+        <div class="left-links">
+            <a href="/" class="site-title">nKryption</a>
+            
+        </div>
+
+        <div class="right-links">
+            <a href="profile">Profile</a>
+            <a href="login">Login</a>
+        </div>
+    </header>
+</div>
+
+<div class="wrapper">
+
+<h2 class="gradient-text">Sign-in Securely</h2>
+
+<div class="login-wrapper">
+    <div class="card-login shadow">
+        <form action="/login" method="post">
+          <label for="username">Username</label><br>
+          <input type="text" id="username" name="username"><br>
+
+          <input class="shadow" type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+<h2 class="gradient-text">What's under the hood?</h2>
+
+<pre><code>
+#[post("/login", data="&lt;data>")]
+fn login_submit(data: Form&lt;LoginData&lt;'_>>, cookies: &rocket::http::CookieJar&lt;'_>) -> rocket::response::Redirect {
+
+    let key = aes_gcm::Key::from_slice(SECRET_KEY);
+    let cipher = aes_gcm::Aes128Gcm::new(key);
+    
+    let mut nonce_raw: [u8; 12] = [0; 12];
+    let _ = getrandom(&mut nonce_raw).unwrap();
+    let nonce = aes_gcm::Nonce::from_slice(&nonce_raw);
+
+    let mut ciphertext = format!("{}|regular|{}", data.username, FLAG).bytes().collect::&lt;Vec<u8>>();
+
+    let tag = cipher.encrypt_in_place_detached(nonce, b"", ciphertext.as_mut_slice()).unwrap();
+
+    cookies.add(rocket::http::Cookie::new("auth", format!("{}.{}.{}", base64::encode(tag), base64::encode(nonce), base64::encode(ciphertext))));
+    Redirect::to(uri!(profile()))
+}
+
+</code></pre>
+
+</dev>
+    <script>hljs.highlightAll();</script>
+    </body>
+
+    <footer> 
+    <div class="name">nKryption</div>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="login">Login</a></li>
+        <li><a href="profile">Profile</a></li>
+    </ul>
+    <div class="copywrite">Copywrite © nKryption 2021</div>
+    </footer>
+</html>

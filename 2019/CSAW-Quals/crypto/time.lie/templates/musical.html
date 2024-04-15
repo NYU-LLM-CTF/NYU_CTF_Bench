@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title> Your Quantumly Entangled Piece </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>New Age - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <!-- Custom styles for this template -->
+    <link href="/static/css/new-age.min.css" rel="stylesheet">
+</head>
+<body bgcolor = #000000>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="background-color: rgba(255,252,255,0.8)">
+    <div class="container">
+      <a class="navbar-brand " href="/">time.lie</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- You need to set up a local server, see README. Might fail due to CORS restrictions. -->
+<!-- (run http-server ./resources -p 8080 --cors before this) -->
+
+<script src="/static/js/opensheetmusicdisplay.min.js"></script> <!-- you need to provide the .js file, see README.md-->
+<div id="osmdCanvas"/>
+
+<script>
+  var openSheetMusicDisplay = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas");
+  openSheetMusicDisplay.load("{{ filename }}").then(
+    function() {
+        openSheetMusicDisplay.render();
+    }
+  );
+</script>
+<a href="{{ filename }}" class="btn btn-outline btn-xl js-scroll-trigger btn-warning">Download your new piece!</a>
+</body>
+</html>

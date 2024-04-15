@@ -1,0 +1,25 @@
+<%- include('header') -%>
+<div class="container container-medium">
+<h1 class="title">
+  <%= post.title %>
+</h1>
+<figure class="image">
+  <img src="<%= post.img %>">
+</figure>
+<p class="subtitle">
+  A post by <a href="/<%= post.username %>/">@<%= post.username %></a>
+</p>
+<%- post.content %>
+<p class="has-text-centered">
+<% for(let [ind,emj] of ['👍','👎','🔥','👀','👏'].entries()) { %>
+<button class="react button is-info is-inverted" data-id="<%= ind %>">
+<span><%= emj %> <%= post.reacts[ind]|0 %></span>
+</button>
+
+<% } %>
+</p>
+<p class="has-text-centered">
+<button class="mt-6 button is-danger is-inverted" id="report">Report post to Admin</button>
+</p>
+</div>
+<%- include('footer') -%>

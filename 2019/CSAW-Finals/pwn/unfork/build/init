@@ -1,0 +1,34 @@
+#!/bin/sh
+# shamelessly stolen from hack.lu's kernel chals.
+
+mount -o remount, rw /
+
+mkdir -p /dev /sys /proc /tmp
+
+mount -t devtmpfs none /dev
+mount -t sysfs sys /sys
+mount -t proc proc /proc
+mount -t tmpfs none /tmp
+
+# chown
+chown -R 0:0  /bin /etc /home /sbin /lib /root /tmp /var
+chown -R 1000:1000 /home/user
+chown 0:0 / /dev /proc /sys
+chown 0:0 /flag
+
+# chmod
+chmod -R 700 /etc /home /root /var
+chmod -R 755 /bin /sbin /lib
+chmod -R 1777 /tmp
+chmod 755 /
+chmod 755 /etc
+chmod 744 /etc/passwd /etc/group
+chmod 755 /home
+chmod 700 /etc/shadow
+
+chmod 700 /flag
+
+echo "Creds are user:password"
+su user -c /bin/sh
+
+poweroff -f -n -d 0

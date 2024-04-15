@@ -1,0 +1,50 @@
+Crypto Challenge
+
+flag{~tak3_0n3_N!bbI3_@t_@_t!m3~}
+
+Challenge Name:
+DES 2 Bites
+
+Challenge Text:
+You are taking too big of a bite.  Try to take a nibble.
+
+Challenge Attachments:
+Generator.py
+DES 2 Bytes.enc
+DES 2 Bytes.txt
+FLAG.enc
+----------------------------------------------------------------------------
+1. DES using Key 1
+
+2. DES using Key 2
+
+3. Encoding (Each hex byte is split into half-bytes/Nibble and offsetted)
+
+----------------------------------------------------------------------------
+DES KEY USED:
+FE01E01FFE01F10E  KEY 1
+FE1FFE1FFE0EFE0E  KEY 2
+
+i.e.
+
+plaintext = "flag"
+Hex encoded = "66 6c 61 67"
+
+CONSTANT = 1337
+
+Offsetted = "1343 1343 1343 1348 1343 1338 1343 1344"
+
+Ciphertext = "13431343134313481343133813431344"
+---------------------------------------------------------------------------
+
+**NOTE**
+Code does account for carry over.  If 9 is the first digit for the offset , then pad with 0
+i.e.
+
+plaintext = "flag"
+Hex encoded = "66 6c 61 67"
+
+CONSTANT = 97 
+103 103 103 108 103 098 
+
+

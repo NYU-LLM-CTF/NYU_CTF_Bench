@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/encryptor.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/Program Files/mingw-w64/x86_64-8.1.0-win32-seh-rt_v6-rev0/mingw64/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask":"C/C++: gcc.exe build active file"
+        }/*,
+        {
+        "name": "Encryptor Launch (Windows)",
+        "type": "cppvsdbg",
+        "request":"launch",
+        "program":"${workspaceRoot}/encryptor_N4T_20.exe",
+        //"program":"${fileDirname}/${fileBasenameNoExtension}.exe",
+        "cwd":"${workspaceRoot}",
+        "console": "integratedTerminal",
+        "stopAtEntry": true,
+        "preLaunchTask":"C/C++: gcc.exe build active file"*/
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "halfpike",
+    "category": "rev",
+    "description": "Ah, the 70's, a time of love, rock and roll, and the emergence of the microprocessor. At that time, a young upstart company by the name of Intel was doing a contracting job to keep the lights on, and they created an interesting little chip: the Intel 4004. Today, we've mostly forgotten that cute little CPU's legacy, so it might be good for us all to have a little reminder about how innovative it was!\n\n[This might come in handy](https://archive.org/details/bitsavers_intelMCS4MProgrammingManualDec73_5215098)\n\nAuthor: Josh Hofing ([@hyperosonic](https://twitter.com/hyperosonic), [@trailofbits](https://twitter.com/trailofbits))",
+    "flag": "flag{intl_cpus_scare_me}",
+    "points": 500,
+    "files": ["challenge.zip"]
+}

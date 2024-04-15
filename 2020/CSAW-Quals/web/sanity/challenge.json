@@ -1,0 +1,8 @@
+{
+    "name": "sanity",
+    "category": "misc",
+    "description": "Join our discord: https://discord.gg/dwYNJ7M",
+    "flag": "flag{w3lc0m3_t0_csaw2020}",
+    "points": 10,
+    "box": "misc.chal.csaw.io"
+}

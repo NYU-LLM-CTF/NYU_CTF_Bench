@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Finder::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Finder - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Finder Class</h2>
+
+			<p>The Finder class allows for searching through a search path for a given file, as well as loading a given file.</p>
+
+			<h3 id="searchorder">Search order</h3>
+
+			<p>The finder uses the following search logic to locale files:</p>
+			<ul>
+				<li>If there are any flash paths defined, these will be searched first, in order of definition</li>
+				<li>If the current request context is a module, the module will be searched next</li>
+				<li>If there are any more request paths defined, these will be the next in line, in order of definition</li>
+				<li>Next, the APPPATH is searched</li>
+				<li>All loaded packages will be searched</li>
+				<li>And finally, the COREPATH will be searched</li>
+			</ul>
+
+			<p>
+				If you have enabled <kbd>'caching'</kbd> in your app/config.php, and you have defined a valid cache path, the finder will
+				cache all files found, so it doesn't have to crawl the disk the next time a file is looked for. You can also specify the
+				cache lifetime in your config file.
+			</p>
+
+			<article>
+				<h4 class="method" id="method_forge">forge($paths = array())</h4>
+				<p>The <strong>forge</strong> method returns a new finder object.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$paths</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Array of paths to initialise this finder instance with.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Finder Object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$array = array(APPPATH, COREPATH);
+$finder = Finder::forge($array));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_instance">instance()</h4>
+				<p>
+					The <strong>instance</strong> method returns the singleton object of the Finder.
+					This instance is also used by the FuelPHP core classes to find files, and is instantiated
+					when first called with the <code>APPPATH</code> and <code>COREPATH</code> as default search paths.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							None
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Finder Object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$finder = Finder::instance();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_search">search($dir, $file, $ext = '.php', $multiple = false, $cache = true)</h4>
+				<p>The <strong>search</strong> method is a static alias for <code>locate()</code> on the default finder instance.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$dir</kbd></th>
+									<td>string</td>
+									<td>Relative directory to search in. It is appended to all search paths defined when trying to locate the file.</td>
+								</tr>
+								<tr>
+									<th><kbd>$file</kbd></th>
+									<td>string</td>
+									<td>Basename of the file to find.</td>
+								</tr>
+								<tr>
+									<th><kbd>$ext</kbd></th>
+									<td><pre class="php"><code>'.php'</code></pre></td>
+									<td>Extension of the file to find. This <strong>MUST</strong> include the leading dot.</td>
+								</tr>
+								<tr>
+									<th><kbd>$multiple</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>If false, stop searching at the first file found. If true, search all paths, and return all files found as an array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$cache</kbd></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>If true, cache the results for subsequent requests to prevent unnecessary disk access.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Mixed</th>
+						<td>
+							The fully qualified path of the file found, or <strong>false</strong> if no file was found.
+							In case of a multiple search, an array of paths found is returned, or an empty array if no files were found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// will return APPPATH/views/welcome/index.php
+$viewfile = Finder::search('views', 'welcome/index');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add_path">add_path($paths, $pos = null)</h4>
+				<p>
+					The <strong>add_path</strong> method adds a new search path to the Finder instance, at the given position.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$paths</kbd></th>
+									<td>mixed</td>
+									<td>Path or array of paths to add to the Finder's instance search paths.</td>
+								</tr>
+								<tr>
+									<th><kbd>$pos</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>
+										The position at which the path should be added to the list.
+										Possible options are:
+										<strong>null</strong> to append at the end of the list,
+										<strong>-1</strong> to prepend at the start of the list, or
+										<strong>index</strong> to insert the path <strong>AFTER</strong> in the list after the given index number.
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current object for chaining</td>
+					</tr>
+					<tr>
+						<th>Thows</th>
+						<td>OutOfBoundsException, when the given index position is out of range.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// make sure the finder searches 'mypackage' first
+Finder::instance()->add_path(PKGPATH.'mypackage', -1);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_remove_path">remove_path($path)</h4>
+				<p>
+					The <strong>remove_path</strong> method removes the given path from the Finder instance search list.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td>string</td>
+									<td>Path to remove.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current object for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// remove 'mypackage' from the search path list
+Finder::instance()->remove_path(PKGPATH.'mypackage');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_paths">paths()</h4>
+				<p>
+					The <strong>paths</strong> method returns the list of defined search paths.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							None
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array of paths</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// fetch the defined paths for the default instance.
+$paths = Finder::instance()->paths();
+print_r($paths);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_list_files">list_files($directory = null, $filter = '*.php')</h4>
+				<p>
+					The <strong>list_files</strong> method gets a list of all the files in a given directory inside
+					all of the loaded search paths (e.g. the cascading file system). This is useful for things like
+					finding all the config files in all the search paths.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$directory</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Relative path from which to list the files. The path will be appended to all defined search paths.</td>
+								</tr>
+								<tr>
+									<th><kbd>$filter</kbd></th>
+									<td><pre class="php"><code>'*.php'</code></pre></td>
+									<td>Type of files to look for.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array, list of fully qualified filenames of all files found</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// find all database config files
+$dbcfg = Finder::instance()->list_files('config', 'db.php');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					This method is aware of the current request context. This means that when the active request is an HMVC call to a module
+					controller, the module paths is dynamically added to the list of paths to search.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_locate">locate($dir, $file, $ext = '.php', $multiple = false, $cache = true)</h4>
+				<p>The <strong>locate</strong> method locates files in the defined search paths.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$dir</kbd></th>
+									<td>string</td>
+									<td>Relative directory to search in. It is appended to all search paths defined when trying to locate the file.</td>
+								</tr>
+								<tr>
+									<th><kbd>$file</kbd></th>
+									<td>string</td>
+									<td>Basename of the file to find.</td>
+								</tr>
+								<tr>
+									<th><kbd>$ext</kbd></th>
+									<td><pre class="php"><code>'.php'</code></pre></td>
+									<td>Extension of the file to find. This <strong>MUST</strong> include the leading dot.</td>
+								</tr>
+								<tr>
+									<th><kbd>$multiple</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>If false, stop searching at the first file found. If true, search all paths, and return all files found as an array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$cache</kbd></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>If true, cache the results for subsequent requests to prevent unnecessary disk access.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Mixed</th>
+						<td>
+							The fully qualified path of the file found, or <strong>false</strong> if no file was found.
+							In case of a multiple search, an array of paths found is returned, or an empty array if no files were found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// will return APPPATH/views/welcome/index.php
+$viewfile = Finder::instance()->locate('views', 'welcome/index');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

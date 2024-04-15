@@ -1,0 +1,46 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div style="display:none" id="header">
+      {{ header }}
+     </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+  {{#if flash}}
+      <article class="message is-{{flash.type}}">
+        <div class="message-header">
+          <p>{{flash.title}}</p>
+        </div>
+        <div class="message-body">
+          {{flash.body}}
+        </div>
+      </article>
+  {{/if}}
+  <div class="columns is-multiline is-mobile">
+    {{#each items}}
+    <div class="column is-3">
+    <div class="card">
+      <div class="card-content has-text-centered">
+        <p class="title">{{ name }}</p>
+        <p class="subtitle is-6">${{ price }}</p>
+      </div>
+      <form action="checkout", method="POST">
+      <footer class="card-footer">
+        <input type="hidden" name="token" value="{{token}}">
+        <a type="submit" class="card-footer-item" onclick="this.parentElement.parentElement.submit(); return false;">Purchase</a>
+      </footer>
+      </form>
+    </div>
+    </div>
+    {{/each}}
+  </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.11/purify.min.js"></script>
+<script>
+let header = document.getElementById('header');
+header.parentElement.innerHTML = DOMPurify.sanitize(header.innerText);
+</script>

@@ -1,0 +1,10 @@
+{
+    "name": "authy",
+    "category": "crypto",
+    "description": "Check out this new storage application that your government has started! It's supposed to be pretty secure since everything is authenticated...\n\n`curl {box}:{port}`",
+    "flag": "flag{h4ck_th3_h4sh}",
+    "points": 150,
+    "box": "crypto.chal.csaw.io",
+    "internal_port": 5000,
+    "files": ["handout.py"]
+}

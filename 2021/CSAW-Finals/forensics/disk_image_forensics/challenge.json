@@ -1,0 +1,12 @@
+{
+  "name": "i am afRAID of loss",
+  "category": "forensics",
+  "author": "Wyatt Roersma, SimSpace",
+  "description": "I lost my pictures of striped cats on these hard drives. You can recover it for me, right?\nhttps://csaw-final-challenges.s3.us-east-2.amazonaws.com/disk-forensics.zip \n\nAuthor: Wyatt Roersma, SimSpace",
+  "flag": "flag{D0n7_b3_4fRAID_0f_str1p3d_c4ts}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "box": "misc.chal.csaw.io"
+}

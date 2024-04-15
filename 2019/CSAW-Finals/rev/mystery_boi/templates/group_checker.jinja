@@ -1,0 +1,23 @@
+
+#include "chal.h"
+#include "lib/mruntime.h"
+#include "lib/mstdlib.h"
+#include "lib/mstring.h"
+
+int load1(struct reg_t *reg) {
+  /* {% for c in range(0, group|length) %} */
+  if (reg->r[CHECKER_REG] == {{c}}) {
+    if (reg->r[POP_REG] == '{{group[c].value}}') {
+      reg->r[GROUP_MATCH_REG] = {{group[c].key}};
+      reg->r[STATE_REG] = VERIFY_FOUND_KEY;
+      RETURN_ENCODED(reg);
+    }
+    reg->r[CHECKER_REG]++;
+    JUMP_ENCODED({{file_name}});
+  }
+  /* {% endfor %} */
+
+  reg->r[CHECKER_REG] = 0;
+  reg->r[GROUP_REG]++;
+  RETURN_ENCODED(reg);
+}

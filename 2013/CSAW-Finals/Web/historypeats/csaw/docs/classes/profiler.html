@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Profiler::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Profiler - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Profiler Class</h2>
+
+			<p>The profiler class allows you to add your own profiling information to the profiler.</p>
+
+			<article>
+				<h4 class="method" id="method_mark">mark($label)</h4>
+				<p>
+					The <strong>mark</strong> method will add a speed marker to the profiler.
+					This marker will show in the "Load Time" section of the profiler.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th>Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th>Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$label</kbd></th>
+									<td><i>required</i></td>
+									<td>A text label to describe the marker to be set.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Profiler::mark('start of this piece of code');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_mark_memory">mark_memory($var, $name)</h4>
+				<p>
+					The <strong>mark_memory</strong> method will add a memory marker to the profiler.
+					If you pass a variable, the memory usage of that variable will be logged.
+					If not, the memory usage at the time of marking will be logged.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th>Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th>Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$var</kbd></th>
+									<td><kbd>false</kbd></td>
+									<td>The variable whose size has to be logged. If false or not specified, PHP memory usage will be logged.</td>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><kbd>'Memory&nbsp;Usage'</kbd></td>
+									<td>A text label to describe the marker to be set.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Profiler::mark_memory($this, 'Controller_Welcome object');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_console">console($text)</h4>
+				<p>
+					The <strong>console</strong> method will add a log entry to the profiler.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th>Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th>Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$text</kbd></th>
+									<td><i>required</i></td>
+									<td>A text to describe the log entry to be set.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Profiler::console('start of this piece of code');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

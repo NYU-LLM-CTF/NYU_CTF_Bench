@@ -1,0 +1,15 @@
+{
+  "name": "Lazy Leaks",
+  "category": "forensics",
+  "author": "Andrew Prajogi",
+  "description": ":) Someone at a company was supposedly using an unsecured communication channel. A dump of company communications was created to find any sensitive info leaks. See if you can find anything suspicious or concerning.\n\nAuthor: Andrew Prajogi",
+  "flag": "flag{T00_L@ZY_4_$3CUR1TY}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "Lazy_Leaks.pcapng"
+  ],
+  "box": "misc.chal.csaw.io"
+}

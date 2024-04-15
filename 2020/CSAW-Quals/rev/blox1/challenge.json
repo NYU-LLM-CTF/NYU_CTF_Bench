@@ -1,0 +1,10 @@
+{
+    "name": "blox1",
+    "category": "rev",
+    "author": "pernicious @ RET2 Systems",
+    "description": "We found an old arcade machine lying around, manufactured by the RET2 Corporation. Their devs are notorious for hiding backdoors and easter eggs in their games, care to take a peek?\n\nhttps://wargames.ret2.systems/962c162fa1d2ea626d36/csaw_2020\n\n(NOTE: The WarGames site itself is not in scope, just the Bl`ox Game. If you do find a security issue on the site, feel free to send it to us at support(at)ret2.io)",
+    "flag": "flag{c0ngr4ts_0n_y0ur_S3cr3t_Gr4de_GM}",
+    "points": 300,
+    "box": "rev.chal.csaw.io",
+    "files": ["blox"]
+}

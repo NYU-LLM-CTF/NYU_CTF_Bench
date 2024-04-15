@@ -1,0 +1,106 @@
+; SPIR-V
+; Version: 1.0
+; Generator: Google Shaderc over Glslang; 7
+; Bound: 71
+; Schema: 0
+               OpCapability Shader
+          %1 = OpExtInstImport "GLSL.std.450"
+               OpMemoryModel Logical GLSL450
+               OpEntryPoint GLCompute %main "main" %gl_GlobalInvocationID
+               OpExecutionMode %main LocalSize 1 1 1
+               OpSource GLSL 450
+               OpSourceExtension "GL_GOOGLE_cpp_style_line_directive"
+               OpSourceExtension "GL_GOOGLE_include_directive"
+               OpName %main "main"
+               OpName %k "k"
+               OpName %i "i"
+               OpName %gl_GlobalInvocationID "gl_GlobalInvocationID"
+               OpName %MyBuffer "MyBuffer"
+               OpMemberName %MyBuffer 0 "array"
+               OpName %myBuffer "myBuffer"
+               OpName %Scalar "Scalar"
+               OpMemberName %Scalar 0 "x"
+               OpName %scalar "scalar"
+               OpDecorate %gl_GlobalInvocationID BuiltIn GlobalInvocationId
+               OpDecorate %_runtimearr_uint ArrayStride 4
+               OpMemberDecorate %MyBuffer 0 Offset 0
+               OpDecorate %MyBuffer BufferBlock
+               OpDecorate %myBuffer DescriptorSet 0
+               OpDecorate %myBuffer Binding 0
+               OpDecorate %gl_WorkGroupSize BuiltIn WorkgroupSize
+               OpMemberDecorate %Scalar 0 Offset 0
+               OpDecorate %Scalar Block
+       %void = OpTypeVoid
+          %3 = OpTypeFunction %void
+       %uint = OpTypeInt 32 0
+    %uint_34 = OpConstant %uint 34
+%_arr_uint_uint_34 = OpTypeArray %uint %uint_34
+%_ptr_Private__arr_uint_uint_34 = OpTypePointer Private %_arr_uint_uint_34
+          %k = OpVariable %_ptr_Private__arr_uint_uint_34 Private
+   %uint_102 = OpConstant %uint 102
+   %uint_109 = OpConstant %uint 109
+    %uint_99 = OpConstant %uint 99
+   %uint_100 = OpConstant %uint 100
+   %uint_127 = OpConstant %uint 127
+   %uint_106 = OpConstant %uint 106
+    %uint_80 = OpConstant %uint 80
+    %uint_57 = OpConstant %uint 57
+   %uint_112 = OpConstant %uint 112
+    %uint_84 = OpConstant %uint 84
+   %uint_121 = OpConstant %uint 121
+    %uint_62 = OpConstant %uint 62
+   %uint_107 = OpConstant %uint 107
+   %uint_116 = OpConstant %uint 116
+    %uint_32 = OpConstant %uint 32
+   %uint_124 = OpConstant %uint 124
+   %uint_120 = OpConstant %uint 120
+    %uint_39 = OpConstant %uint 39
+   %uint_104 = OpConstant %uint 104
+    %uint_70 = OpConstant %uint 70
+    %uint_46 = OpConstant %uint 46
+    %uint_68 = OpConstant %uint 68
+   %uint_122 = OpConstant %uint 122
+   %uint_113 = OpConstant %uint 113
+    %uint_45 = OpConstant %uint 45
+    %uint_44 = OpConstant %uint 44
+    %uint_98 = OpConstant %uint 98
+    %uint_92 = OpConstant %uint 92
+         %39 = OpConstantComposite %_arr_uint_uint_34 %uint_102 %uint_109 %uint_99 %uint_100 %uint_127 %uint_100 %uint_106 %uint_80 %uint_57 %uint_112 %uint_112 %uint_84 %uint_121 %uint_62 %uint_107 %uint_80 %uint_116 %uint_32 %uint_124 %uint_84 %uint_120 %uint_112 %uint_84 %uint_39 %uint_104 %uint_70 %uint_46 %uint_68 %uint_122 %uint_113 %uint_45 %uint_44 %uint_98 %uint_92
+%_ptr_Function_uint = OpTypePointer Function %uint
+     %v3uint = OpTypeVector %uint 3
+%_ptr_Input_v3uint = OpTypePointer Input %v3uint
+%gl_GlobalInvocationID = OpVariable %_ptr_Input_v3uint Input
+     %uint_0 = OpConstant %uint 0
+%_ptr_Input_uint = OpTypePointer Input %uint
+%_runtimearr_uint = OpTypeRuntimeArray %uint
+   %MyBuffer = OpTypeStruct %_runtimearr_uint
+%_ptr_Uniform_MyBuffer = OpTypePointer Uniform %MyBuffer
+   %myBuffer = OpVariable %_ptr_Uniform_MyBuffer Uniform
+        %int = OpTypeInt 32 1
+      %int_0 = OpConstant %int 0
+%_ptr_Private_uint = OpTypePointer Private %uint
+%_ptr_Uniform_uint = OpTypePointer Uniform %uint
+     %uint_1 = OpConstant %uint 1
+%gl_WorkGroupSize = OpConstantComposite %v3uint %uint_1 %uint_1 %uint_1
+     %Scalar = OpTypeStruct %uint
+%_ptr_PushConstant_Scalar = OpTypePointer PushConstant %Scalar
+     %scalar = OpVariable %_ptr_PushConstant_Scalar PushConstant
+       %main = OpFunction %void None %3
+          %5 = OpLabel
+          %i = OpVariable %_ptr_Function_uint Function
+               OpStore %k %39
+         %47 = OpAccessChain %_ptr_Input_uint %gl_GlobalInvocationID %uint_0
+         %48 = OpLoad %uint %47
+               OpStore %i %48
+         %55 = OpLoad %uint %i
+         %56 = OpLoad %uint %i
+         %58 = OpAccessChain %_ptr_Private_uint %k %56
+         %59 = OpLoad %uint %58
+         %60 = OpLoad %uint %i
+         %62 = OpAccessChain %_ptr_Uniform_uint %myBuffer %int_0 %60
+         %63 = OpLoad %uint %62
+         %64 = OpBitwiseXor %uint %59 %63
+         %65 = OpAccessChain %_ptr_Uniform_uint %myBuffer %int_0 %55
+               OpStore %65 %64
+               OpReturn
+               OpFunctionEnd

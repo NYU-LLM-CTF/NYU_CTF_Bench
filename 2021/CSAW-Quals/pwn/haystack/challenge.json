@@ -1,0 +1,15 @@
+{
+  "name": "haySTACK",
+  "category": "pwn",
+  "description": "Help! I've lost my favorite needle! \n\n`nc {box} {port}`",
+  "flag": "flag{4lw4YS_r3m3mB3R_2_ch3CK_UR_st4cks}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "haySTACK"
+  ],
+  "internal_port": 5000,
+  "box": "pwn.chal.csaw.io"
+}

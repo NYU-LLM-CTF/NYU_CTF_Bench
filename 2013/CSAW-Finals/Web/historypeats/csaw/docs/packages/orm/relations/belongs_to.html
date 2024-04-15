@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Belongs To - Relations - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Orm</h2>
+
+			<p>Orm is short for <a href="http://en.wikipedia.org/wiki/Object_relational_mapper" target="_blank">Object
+				Relational Mapper</a> which does 2 things: it maps your database table rows to objects and it allows you
+				to establish relations between those objects.<br />
+				It follows closely the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">
+				Active Record Pattern</a>, but was also influenced by other systems.</p>
+
+			<section>
+				<h2 id="belongs_to">Relations: Belongs To</h2>
+
+				<p>Has the primary key of the relation kept in its table, belongs to 1 related object. This is the other
+					side of a <a href="has_one.html">HasOne</a> or <a href="has_many.html">HasMany</a> relation.</p>
+
+				<h3>Example</h3>
+
+				<p>Let's say we have a model <kbd>Model_Comment</kbd> and it <em>belongs to</em> a <kbd>Model_Post</kbd>
+					(which in turn <em>has many</em> comments) the ID of the Model_Post is saved with the Model_Comment
+					instance in its own table. This means the <kbd>comments</kbd> table will have a column
+					<kbd>post_id</kbd> (or something else you configure). If you keep to the defaults all you need to do
+					is add <kbd>'post'</kbd> to the <kbd>$_belongs_to</kbd> static property of the Model_Comment:</p>
+
+				<pre class="php"><code>protected static $_belongs_to = array('post');</code></pre>
+
+				<p>Below are examples for establishing and breaking belongs-to relations:</p>
+
+				<pre class="php"><code>// both main and related object are new:
+$comment = new Model_Comment();
+$comment->post = new Model_Post();
+$comment->save();
+
+// both main and related object already exist
+$comment = Model_Comment::find(6);
+$comment->post = Model_Post::find(1);
+$comment->save();
+
+// break the relationship established above
+$comment = Model_Comment::find(6);
+$comment->post = null;
+$comment->save();</code></pre>
+
+				<h3>Full config example with defaults as values</h3>
+
+				<pre class="php"><code>// in a Model_Comment which belong to a post
+protected static $_belongs_to = array(
+	'post' => array(
+		'key_from' => 'post_id',
+		'model_to' => 'Model_Post',
+		'key_to' => 'id',
+		'cascade_save' => true,
+		'cascade_delete' => false,
+	)
+);</code></pre>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

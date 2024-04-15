@@ -1,0 +1,27 @@
+.comment-anywhere-indicator {
+  position: absolute;
+  z-index: 99999;
+  cursor: pointer;
+  background-color: red;
+  width: 10px;
+  height: 10px;
+}
+
+.comment-anywhere-comment {
+  position: absolute;
+  left: 30px;
+  background-color: white;
+  color: black;
+  z-index: 99999;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.comment-anywhere-indicator:hover .comment-anywhere-comment {
+  visibility: visible;
+  opacity: 0.7;
+}
+
+.comment-anywhere-invisible {
+  visibility: hidden;
+}

@@ -1,0 +1,9 @@
+{
+    "name": "rap",
+    "category": "rev",
+    "description": "i am a lyrical genius",
+    "flag": "flag{h3lp_1m_tr4pp3d_1n_r4pp3d_1n_44444444}",
+    "points": 100,
+    "box": "rev.chal.csaw.io",
+    "files": ["rap"]
+}

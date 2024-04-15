@@ -1,0 +1,10 @@
+{
+    "name": "jackpot",
+    "category": "crypto",
+    "description": "Here's a nice little virtual lottery machine I stole from Vegas. I'm still trying to get the prize, but can't seem to understand what's going on! A little help?\n\n`nc {box} {port}`",
+    "points": 400,
+    "flag": "flag{b4ckd00r_t0_ur_h34rt}",
+    "box": "crypto.chal.csaw.io",
+    "internal_port": 5000,
+    "files": ["jackpot"]
+}

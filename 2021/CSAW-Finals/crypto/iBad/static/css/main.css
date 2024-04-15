@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --bg:         #FFFFFF;
+    --bg-dark:    #0F172A;
+    --dim:        #ADB8C8;
+    --secondary:  #64748B;
+    --purple100:  #F5F3FF;
+    --purple500:  #BF7FFF;
+    --purple900:  #24185B;
+    --gray500:    #f8fafc;
+    --gold:       #FBBF5D;
+}
+
+.gradient-text {
+  /* Fallback: Set a background color. */
+  background-color: #BF7FFF;
+  
+  /* Create the gradient. */
+  background-image: linear-gradient(100deg, #BF7FFF, #24185B);
+  
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.gradient-text-alt {
+  /* Fallback: Set a background color. */
+  background-color: #BF7FFF;
+  
+  /* Create the gradient. */
+  background-image: linear-gradient(100deg, #FBBF5D, #DB4E53);
+  
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+
+  /* Use the text as a mask for the background. */
+  /* This will show the gradient as a text color rather than element bg. */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+html, body{
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    font-size: 16px;
+    margin: 0;
+}
+
+pre, code{
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95em;
+}
+
+pre{
+    margin: 0;
+    max-width: 100%;
+}
+
+pre code{
+    border-radius: 0.75em;
+    margin: 3em;
+
+    --shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --ring-shadow: 0 0 transparent;
+    --ring-offset-shadow;
+    box-shadow: var(--ring-offset-shadow, 0 0 transparent),var(--ring-shadow,0 0 transparent),var(--shadow);
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5em 10%;
+    margin-bottom: 5em;
+}
+
+.left-links,
+.right-links{
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.right-links a{
+    margin: 0 0.5em;
+}
+
+a{
+    color: var(--purple100);
+    font-weight: 500;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover{
+    color: var(--purple500);
+}
+
+a.site-title{
+    font-size: 1.25em;
+    color: var(--gold);
+    margin-right: 3em;
+}
+
+.main-header{
+    background-color: var(--bg-dark);
+    color: var(--bg);
+}
+
+.box-flex{
+    background-color: var(--bg-dark);
+    color: var(--purple100);
+    display: flex;
+    align-items: center;
+}
+
+.box-flex h1{
+    margin: 0;
+}
+
+.main-info h1{
+    font-size: 3em;
+}
+.main-info h2{
+    font-size: 1.4em;
+}
+
+.main-info{
+    margin: 2em;
+}
+
+.generic-gradient-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #BF7FFF;
+    background-image: linear-gradient(-196deg, #a02be4 0%, #4f46e5 144%);
+    padding: 2em;
+}
+
+.card{
+    background: var(--bg);
+    padding: 1em;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 1em;
+    margin: 2em 0;
+}
+
+.card-login{
+    background: var(--bg);
+    padding: 2em;
+    border-radius: 1em;
+    margin: 3em;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    flex-direction: column;
+}
+
+.wrapper h2{
+    margin-left: 2em;
+}
+
+.login-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--secondary);
+}
+
+form{
+    width: 400px;
+    margin: 1em 2em;
+}
+
+input[type=text]{
+    margin-top: 0.5em;
+    --shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --ring-shadow: 0 0 transparent;
+    --ring-offset-shadow: 0 0 #0000;
+    border: 1px solid rgba(209,213,219);
+    box-shadow: var(--ring-offset-shadow,0 0 #0000),var(--ring-shadow,0 0 #0000),var(--shadow);
+    border-radius: 0.25em;
+    padding: 0.5em;
+    width: calc(100% - 1em);
+}
+
+input[type=submit]{
+    padding: 0.5em;
+    border: none;
+    color: var(--purple100);
+    background-color: var(--secondary);
+    border-radius: 0.25em;
+    width: 100%;
+    margin-top: 1em;
+
+}
+
+.card h3{
+    margin: 0.25em 0;
+    color: var(--purple900);
+}
+
+.card p{
+    color: var(--secondary);
+    margin: 1em 0 0.5em 0;
+}
+
+.generic-gradient-box div:nth-child(odd) {
+    margin-left: -15%;
+}
+.generic-gradient-box div:nth-child(even) {
+    margin-right: -15%;
+}
+
+.shadow {
+    --shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    --ring-shadow: 0 0 transparent;
+    --ring-offset-shadow: 0 0 #0000;
+    box-shadow: var(--ring-offset-shadow, 0 0 transparent),var(--ring-shadow,0 0 transparent),var(--shadow);
+}
+
+footer{
+    background-color: var(--gray500);
+    padding: 2em;
+}
+
+footer a{
+    color: var(--secondary);
+    font-weight: 400;
+}
+footer a:hover{
+    color: var(--secondary);
+}
+
+footer ul{
+    list-style-type: none;
+    margin-left: -2.5em;
+}
+
+footer ul li{
+    margin-top: 0.25em;
+}
+
+footer .copywrite{
+    color: var(--secondary);
+    opacity: 0.8;
+    font-size: 0.8em;
+    text-align: center;
+}
+footer .name{
+    font-weight: 600;
+}
+
+.taunt{
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 3em;
+    margin-left: 0!important;
+}
+
+@media only screen and (max-width: 1000px) {
+    .box-flex{
+        flex-direction: column;
+    }
+
+    header{
+    padding: 1.5em 2em;
+    }
+
+    form{
+    width: 300px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .box-flex{
+        flex-direction: column;
+    }
+
+    header{
+    padding: 1.5em 2em;
+    }
+
+    form{
+    width: auto;
+    }
+}

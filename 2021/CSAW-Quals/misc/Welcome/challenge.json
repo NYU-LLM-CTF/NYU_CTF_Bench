@@ -1,0 +1,11 @@
+{
+  "name": "Welcome",
+  "category": "misc",
+  "description": "Welcome to the competition! Please go ahead and join our Discord to get the flag!\n`https://discord.gg/Zj2H6EaAkZ`",
+  "flag": "flag{W3Lcom3_7o_CS4w_D1ScoRD}",
+  "type": "dynamic",
+  "initial": 1,
+  "minimum": 1,
+  "decay": 275,
+  "box": "misc.chal.csaw.io"
+}

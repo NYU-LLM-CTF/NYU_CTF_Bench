@@ -1,0 +1,9 @@
+version: '2'
+services:
+  biometric_server:
+    build: .
+    environment:
+      - port=5001
+      - flag="YYYYY"
+    ports:
+    - "5001:5001"

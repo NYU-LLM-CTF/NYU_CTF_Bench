@@ -1,0 +1,12 @@
+{
+  "name": "Turing",
+  "category": "warm-up",
+  "author": "Moat",
+  "description": "Recruiting the next Turing. See if you can break this historic cipher!\nCiphertext: jmodtrr_tdwumtu_cydy_ynsldf\nYou might need this: M3 UKW B. Author: `moat`, Pacific Northwest National Laboratory",
+  "flag": "flag{scruffy_looking_nerf_herder}",
+  "type": "dynamic",
+  "initial": 250,
+  "minimum": 25,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io"
+}

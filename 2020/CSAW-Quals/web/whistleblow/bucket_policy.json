@@ -1,0 +1,23 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Bucket",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::016319737449:user/ctf-user"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::super-top-secret-dont-look"
+        },
+        {
+            "Sid": "Object",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::016319737449:user/ctf-user"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::super-top-secret-dont-look/*"
+        }
+    ]
+}

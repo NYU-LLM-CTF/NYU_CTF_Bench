@@ -1,0 +1,10 @@
+People participating in the CTF should be given `main.py`.
+
+Dockerfile contains the flag and the baked image will contain the copied in key. We could generate the key per container start but unless they're planning on running multiple instances not sure it matters.
+
+Server runs on port 5000 in the container, so `docker run --rm -p 80:5000 csaw` will give you a port 80 server.
+
+Title: Disastrous Security Apparatus
+Description: Good Luck, k?
+Author: Paul Kehrer, Trail of Bits
+Points: 300-400

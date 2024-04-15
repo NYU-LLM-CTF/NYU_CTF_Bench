@@ -1,0 +1,17 @@
+{
+  "name": "baby_mqtt",
+  "category": "pwn",
+  "description": "I just adopted a new MQTT client! It looks so much like its sibling (https://github.com/LiamBindle/MQTT-C).\n`nc {box} {port}`",
+  "flag": "flag{mqTT?_m0r3_l1k3_mqEZ!}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "public/mqtt_strip",
+    "public/libc.so.6",
+    "public/Dockerfile"
+  ],
+  "internal_port": 5000,
+  "box": "pwn.chal.csaw.io"
+}

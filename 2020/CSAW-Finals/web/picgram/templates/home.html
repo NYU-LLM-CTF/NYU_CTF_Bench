@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <title>Picgram</title>
+    </head>
+    <body>
+        <div class="container">
+			<br><br>
+			<div class="jumbotron">
+			  <h1 class="display-4">Picgram</h1>
+			  <p class="lead">Anonymous photo-uploading service!</p>
+			  <hr class="my-4">
+			  <p class="lead">
+				<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+			  </p>
+			</div>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="text-center">
+			<form class="custom-file" method="POST" enctype="multipart/form-data">
+			  <input type="file" class="custom-file-input" id="customFile" name="image">
+			  <label class="custom-file-label" for="customFile">Choose file</label>
+              <br><br>
+              <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+            </div>
+        </div>
+    </body>
+</html>

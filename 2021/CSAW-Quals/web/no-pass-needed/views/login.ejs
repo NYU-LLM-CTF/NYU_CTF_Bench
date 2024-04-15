@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+  <%- include('./partials/head'); %>
+</head>
+
+<body class="container">
+
+<header>
+  <%- include('./partials/header'); %>
+</header>
+
+<main>
+  <div>
+    <h2>Login</h2>
+    <p>This is but a simple webapp. Log in as the admin to get the flag.</p>
+    <% if (error) { %>
+      <p style="color:red"><%= error %></p>
+    <% } %>
+    <form class="well" method="post" action="/login">
+      <p>
+        <label>Username:</label>
+        <input type="text" class="span3" name="username" value=<%= username %>>
+      </p>
+      <p>
+        <label>Password:</label>
+        <input type="text" class="span3" name="password">
+      </p>
+      <p>
+        <button type="submit" class="btn">Login</button>
+      </p>
+    </form>
+  </div>
+
+</main>
+
+
+<footer>
+  <%- include('./partials/footer'); %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "sfc",
+  "category": "rev",
+  "description": "After safecore was compromised in CSAW quals, the Schlami in the OSIRIS Lab have come up with the Spectral Finite Core! Three wrong attempts at going to _emode_ and the core bricks. Oh, and SFC also has branch prediction, a HW perf counter to count cycles, and a cache which make it super-cool. Take that, ChipZilla. \n\n`nc {box} {port}`",
+  "flag": "flag{hI_iM_mR_mi6_l00k_@_mee!}",
+  "box": "rev.chal.csaw.io",
+  "type": "dynamic",
+  "internal_port": 8000,
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "ncore_tb.v"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "hybrid2",
+    "category": "crypto",
+    "description": "Here are some funky numbers I got from sniffing around where I'm not suppose to. Could you get the flag for me?\n(this replaces the previous hybrid challenge)",
+    "points": 300,
+    "flag": "flag{u5e_b1gg3r_e_pl34s3}",
+    "box": "crypto.chal.csaw.io",
+    "files": ["encrypted_flag.txt", "values.txt", "RSA.py"]
+}

@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Str::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Str - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Str Class</h2>
+
+			<p>The str class is a set of methods to help with the manipulation of strings.</p>
+
+			<article>
+				<h4 class="method" id="method_increment">increment($str, $first = 1)</h4>
+				<p>The <strong>increment</strong> method allows you to append a number to the end of a string or increment that number if it already exists.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>required</em></td>
+										<td>The string to increment.</td>
+									</tr>
+									<tr>
+										<th><kbd>$first</kbd></th>
+										<td><pre class="php"><code>1</code></pre></td>
+										<td>The first number to increment with.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>$string = "filename";
+Str::increment($string); // returns filename_1
+
+$string = "filename_1";
+Str::increment($string); // returns filename_2
+
+$string = "filename";
+Str::increment($string, 3); // returns filename_3
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_random">random($type = 'alnum', $length = 8)</h4>
+				<p>The <strong>random</strong> method generates a random string based on the type given.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><em>alnum</em></td>
+										<td>The type of string to generate. Your choices are alnum, numeric, nozero, alpha, distinct, hexdec, unique, sha1 and uuid.</td>
+									</tr>
+									<tr>
+										<th><kbd>$length</kbd></th>
+										<td><pre class="php"><code>16</code></pre></td>
+										<td>The number of characters you would like the final string to be (unique, sha1 and uuid ignore this parameter).</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// alnum (uppercase and lowercase letters mixed with numbers)
+Str::random('alnum', 16);
+// Returns: SvZi9Dh3lq7zQYim
+
+// numeric (just numbers)
+Str::random('numeric', 16);
+// Returns: 1045343964672481
+
+// nozero (just numbers excluding zero)
+Str::random('nozero', 16);
+// Returns: 3244623373994515
+
+// alpha (just uppercase and lowercase letters)
+Str::random('alpha', 16);
+// Returns: LuVAXbmxQbbWoYqz
+
+// distinct (uppercase letters and numbers that cannot be confused)
+Str::random('distinct', 16);
+// Returns: R79MPKMH4KTRN35J
+
+// hexdec (hexadecimal characters a-f, 0-9)
+Str::random('hexdec', 16);
+// Returns: 09c34e42f36547f8
+
+// unique (32 character string based on md5)
+Str::random('unique');
+// Returns: ed4bb844a35b7a4edb7eed0d3795d328
+
+// sha1 (40 character string based on sha1)
+Str::random('sha1');
+// Returns: af5c5a8cc3be9a3180205c1ed2975015cd6cf1e7
+
+// uuid (version 4 - random)
+Str::random('uuid');
+// Returns: f47ac10b-58cc-4372-a567-0e02b2c3d479</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_truncate">truncate($string, $limit, $continuation = '...', $is_html = false)</h4>
+				<p>The <strong>truncate</strong> method allows you to limit characters and provide a continuation string without breaking html.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>required</em></td>
+										<td>The string to truncate.</td>
+									</tr>
+									<tr>
+										<th><kbd>$limit</kbd></th>
+										<td><em>required</em></td>
+										<td>The number of characters to allow in the string.</td>
+									</tr>
+									<tr>
+										<th><kbd>$continuation</kbd></th>
+										<td><pre class="php"><code>'...'</code></pre></td>
+										<td>The string to append to the end of the truncated string.</td>
+									</tr>
+									<tr>
+										<th><kbd>$is_html</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>If the string contains html. Setting this as true will make the method not break html.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>$string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+Str::truncate($string, 15); // returns Lorem ipsum dol...
+
+$string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+Str::truncate($string, 15, '...Read More'); // returns Lorem ipsum dol...Read More
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_alternator">alternator(*$args)</h4>
+				<p>Returns a closure that will alternate the values you've passed to this method as arguments, unless you
+					call the closure with <kbd>false</kbd> as argument - in which case it will just return the value
+					without moving to the next and return the same value on the next call.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>*$args</kbd></th>
+										<td><em>required</em></td>
+										<td>As many arguments as you need to alternate</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Closure</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>$alt = Str::alternator('one', 'two', 'three', 'four');
+echo $alt(); // outputs 'one'
+echo $alt(); // outputs 'two'
+echo $alt(false); // outputs 'three', but doens't move to the next as you can see in the next call
+echo $alt(); // outputs 'three'
+echo $alt(); // outputs 'four'
+echo $alt(); // outputs 'one'
+// etc...</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_upper">upper($str, $encoding = null)</h4>
+				<p>The <strong>upper</strong> method converts all characters to uppercase. It is equivalent to PHP's strtoupper() for your specific character encoding.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+									<tr>
+										<th><kbd>$encoding</kbd></th>
+										<td><em>string</em></td>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The character encoding.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::upper('User Data'); // returns 'USER DATA'</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_lower">lower($str, $encoding = null)</h4>
+				<p>The <strong>lower</strong> method converts all characters to lowercase. It is equivalent to PHP's strtolower() for your specific character encoding.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+									<tr>
+										<th><kbd>$encoding</kbd></th>
+										<td><em>string</em></td>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The character encoding.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::lower('User Data'); // returns 'user data'</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_tr">tr($string, $array = array())</h4>
+				<p>The <strong>tr</strong> method parse the params from given string using PHP's strtr().</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+									<tr>
+										<th><kbd>$array</kbd></th>
+										<td><em>array</em></td>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>params to str_replace.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::tr('Hello :name', array('name' => 'World')); // returns 'Hello World'</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_is_json">is_json($string)</h4>
+				<p>The <strong>is_json</strong> method check if a string is json encoded.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::is_json('{"0":"An","encoded":["string"]}'); // returns true</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_is_serialized">is_serialized($string)</h4>
+				<p>The <strong>is_serialized</strong> method check if a string is serialized.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::is_serialized('a:2:{i:0;s:2:"An";s:7:"encoded";a:1:{i:0;s:6:"string";}}');
+// returns true</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_is_html">is_html($string)</h4>
+				<p>The <strong>is_html</strong> method check if a string is html.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::is_html('Lorem ipsum &lt;b>dolor sit amet&lt;/b>, consectetur &lt;u>adipiscing&lt;/u> elit.');
+// returns true</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_is_xml">is_xml($string)</h4>
+				<p>The <strong>is_xml</strong> method check if a string is a valid xml. Requires the <a href="http://www.php.net/manual/en/ref.libxml.php" target="_blank">libxml extension</a>.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>string</em></td>
+										<td><em>Required</em></td>
+										<td>The input string.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::is_xml('&lt;?xml version="1.0" encoding="utf-8"?>&lt;xml>&lt;foo>bar&lt;/foo>&lt;/xml>');
+// returns true</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_starts_with">starts_with($str, $start, $ignore_case = false)</h4>
+				<p>The <strong>starts_with</strong> method checks whether a string has a precific beginning.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$str</kbd></th>
+										<td><em>required</em></td>
+										<td>The string to check.</td>
+									</tr>
+									<tr>
+										<th><kbd>$start</kbd></th>
+										<td><em>required</em></td>
+										<td>The beginning to check for.</td>
+									</tr>
+									<tr>
+										<th><kbd>$ignore_case</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>Whether to ignore the case.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>$string = "Lorem ipsum dolor sit amet";
+
+Str::starts_with($string, 'Lorem'); // returns true
+Str::starts_with($string, 'lorem'); // returns false
+Str::starts_with($string, 'lorem', true); // returns true
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_ends_with">ends_with($str, $end, $ignore_case = false)</h4>
+				<p>The <strong>ends_with</strong> method checks whether or not a string has a precific ending.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$str</kbd></th>
+										<td><em>required</em></td>
+										<td>The string to check.</td>
+									</tr>
+									<tr>
+										<th><kbd>$end</kbd></th>
+										<td><em>required</em></td>
+										<td>The ending to check for.</td>
+									</tr>
+									<tr>
+										<th><kbd>$ignore_case</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>Whether to ignore the case.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>$string = "Lorem ipsum dolor sit amet";
+
+Str::ends_with($string, 'amet'); // returns true
+Str::ends_with($string, 'Amet'); // returns false
+Str::ends_with($string, 'Amet', true); // returns true
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_sub">sub($str, $start, $length = null, $encoding = null)</h4>
+				<p>The <strong>sub</strong> method returns the portion of the string specified. It is equivalent to PHP's substr() for your specific character encoding.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$str</kbd></th>
+										<td><em>required</em></td>
+										<td>The input string.</td>
+									</tr>
+									<tr>
+										<th><kbd>$start</kbd></th>
+										<td><em>required</em></td>
+										<td>Position of first character. See <a href="http://php.net/substr" target="_blank">php.net</a> for detailed usage.</td>
+									</tr>
+									<tr>
+										<th><kbd>$length</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>Maximum number of characters. See <a href="http://php.net/substr" target="_blank">php.net</a> for detailed usage.</td>
+									</tr>
+									<tr>
+										<th><kbd>$encoding</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The character encoding.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Str::sub('User Data', 3, -1); // returns 'r Dat'</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

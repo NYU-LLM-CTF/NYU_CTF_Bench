@@ -1,0 +1,12 @@
+https://super-top-secret-dont-look.s3.us-east-2.amazonaws.com/
+
+.sorry/.for/.nothing/flag.txt
+?X-Amz-Algorithm=AWS4-HMAC-SHA256
+&X-Amz-Credential=AKIAQHTF3NZUTQBCUQCK%2F20200909
+
+%2Fus-east-2%2Fs3%2Faws4_request
+
+&X-Amz-Date=20200909T195323Z
+&X-Amz-Expires=604800
+&X-Amz-SignedHeaders=host
+&X-Amz-Signature=3560cef4b02815e7c5f95f1351c1146c8eeeb7ae0aff0adc5c106f6488db5b6b

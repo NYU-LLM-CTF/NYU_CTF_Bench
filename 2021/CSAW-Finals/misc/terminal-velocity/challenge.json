@@ -1,0 +1,13 @@
+{
+  "name": "terminal velocity",
+  "category": "misc",
+  "description": "Text doesn't have to be UTF8 to be fun!\nAuthor: Jordan Wiens, Vector35\n\n`nc {box} {port}`",
+  "flag": "flag{WithYourCapabilitiesCombinedIAmCaptainTerminal}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [],
+  "box": "misc.chal.csaw.io",
+  "internal_port": 3535
+}

@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Num::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Num - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2 id="num_class">Num Class</h2>
+
+			<p>The Num class provides additional formatting methods for working with numeric values</p>
+
+			<h3 id="config">Configuration</h3>
+
+			<p>
+				The Num class provides different methods to format certain types of numbers.
+				Formats are strings where zero's represent the numeric parts of the returned value.
+			</p>
+
+			<p class="note">
+				<strong>Note:</strong> when changing the num config, copy the file to app/config/num.php and change
+				the settings there to allow easy upgrading without loosing your custom settings.
+			</p>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Key</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<th>phone</th>
+						<td>string</td>
+						<td><pre class="php"><code>'(000) 000-0000'</code></pre></td>
+						<td>
+							The default phone number formatting.
+						</td>
+					</tr>
+					<tr>
+						<th>smart_phone</th>
+						<td>array</td>
+						<td><pre class="php"><code>array(
+	7  => '000-0000',
+	10 => '(000) 000-0000',
+	11 => '0 (000) 000-0000',
+),</code></pre></td>
+						<td>
+							Phone number formatting based on the length of the phonenumber. array(length => formatting)
+						</td>
+					</tr>
+					<tr>
+						<th>exp</th>
+						<td>string</td>
+						<td><pre class="php"><code>'00-00'</code></pre></td>
+						<td>
+							Default formatting for credit card expiration date.
+						</td>
+					</tr>
+					<tr>
+						<th>credit_card</th>
+						<td>string</td>
+						<td><pre class="php"><code>'00-00'</code></pre></td>
+						<td>
+							Default formatting for credit card number masking.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<article>
+				<h4 class="method" id="method_bytes">bytes($size = 0)</h4>
+				<p>
+					The <strong>bytes</strong> method converts a (file size) number to a byte value. File sizes are
+					defined in the format: SB, where S is the size (1, 8.5, 300, etc.) and B is the byte unit
+					(K, MiB, GB, etc.). All valid byte units are defined in <em>core/lang/en/byte_units.php</em>
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$size</kbd></th>
+										<th><em>string|int|float</em></th>
+										<td><pre class="php"><code>0</code></pre></td>
+										<td>The string to convert.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>float</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::bytes('200K');  // 204800
+echo Num::bytes('5MiB');  // 5242880
+echo Num::bytes('1000');  // 1000
+echo Num::bytes('2.5GB'); // 2684354560</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_format_bytes">format_bytes($bytes = 0, $decimals = 0)</h4>
+				<p>
+					The <strong>format_bytes</strong> method converts a number of bytes to a human readable format.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$bytes</kbd></th>
+										<th><em>int</em></th>
+										<td><pre class="php"><code>0</code></pre></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$decimals</kbd></th>
+										<th><em>int</em></th>
+										<td><pre class="php"><code>0</code></pre></td>
+										<td>The number of decimals to round up to.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string|false</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::format_bytes('204800');     // 200 kB
+echo Num::format_bytes('214901', 1);  // 209.9 kB
+echo Num::format_bytes('2249010', 1); // 2.1 MB
+echo Num::format_bytes('badbytes');   // false
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_quantity">quantity($num, $decimals = 0)</h4>
+				<p>
+					The <strong>quantity</strong> method converts a number to a human readable format.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$num</kbd></th>
+										<th><em>int</em></th>
+										<td><em>required</em></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$decimals</kbd></th>
+										<th><em>int</em></th>
+										<td><pre class="php"><code>0</code></pre></td>
+										<td>The number of decimals to round up to.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string|false</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::quantity(7000);        // 7K
+echo Num::quantity(7500);        // 8K
+echo Num::quantity(7500, 1);     // 7.5K
+echo Num::quantity('badnumber'); // false
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_format">format($string = '', $format = '')</h4>
+				<p>
+					The <strong>format</strong> method converts a number to a given format.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$format</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The format.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::format('1234567890', '(000) 000-0000'); // (123) 456-7890
+echo Num::format('1234567890', '000.000.0000');   // 123.456.7890
+echo Num::format('1234567890', '000.000.0000');   // 123.456.7890
+echo Num::format('1', '000.000.000');             // 1..
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_mask_string">mask_string($string = '', $format = '', $ignore = ' ')</h4>
+				<p>
+					The <strong>mask_string</strong> method converts a number to a given format.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$format</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$ignore</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>Characters to ignore.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::mask_string('1234567812345678', '************0000');
+// ************5678
+
+echo Num::mask_string('1234567812345678', '**** **** **** 0000');
+// **** **** **** 5678
+
+echo Num::mask_string('1234567812345678', '**** - **** - **** - 0000', ' -');
+// **** - **** - **** - 5678
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_format_phone">format_phone($string = '', $format = null)</h4>
+				<p>
+					The <strong>format_phone</strong> method converts a number to a phone number format.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$format</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The format. When <em>null</em> it defaults to the <strong>format_phone</strong> config setting.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::format_phone('0612345678');
+// (061) 234 5678
+
+echo Num::format_phone('0612345678', '(00) 000 000 00');
+// (06) 123 456 78
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_smart_format_phone">smart_format_phone($string)</h4>
+				<p>
+					The <strong>smart_format_phone</strong> method converts a number
+					to a phone number format based on the length of the number.
+				</p>
+				<p class="note">
+					<strong>Note:</strong> the numbers are formatted based on length,
+					these are defined in the <a href="#config">num config</a>.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<th><em>string</em></th>
+										<td><em>required</em></td>
+										<td>The number to format.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::smart_format_phone('1234567');
+// 123-4567
+
+echo Num::smart_format_phone('01234567890');
+// 0 (123) 456-7890
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_format_exp">format_exp($string, $format = null)</h4>
+				<p>
+					The <strong>format_exp</strong> method converts a number to a credit card expiration string.
+				</p>
+				<p class="note">
+					<strong>Note:</strong> this method expects 4 digits to be supplied.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<th><em>string</em></th>
+										<td><em>required</em></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$format</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The format. When <em>null</em> it defaults to the <strong>exp</strong> config setting.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::format_exp('1234');
+// 12-34
+
+echo Num::format_exp('1234', '00/00');
+// 12/34
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_mask_credit_card">mask_credit_card($string, $format = null)</h4>
+				<p>
+					The <strong>mask_credit_card</strong> method masks a credit card number.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The number to format.</td>
+									</tr>
+									<tr>
+										<th><kbd>$format</kbd></th>
+										<th><em>string</em></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The format. When <em>null</em> it defaults to the <strong>credit_card</strong> config setting.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>echo Num::mask_credit_card('1234263583742938');
+// **** **** **** 2938
+
+echo Num::mask_credit_card('1234123412341234', '0000 **** **** ****');
+// 1234 **** **** ****</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Dockerfile
+.dockerignore
+README.md
+dist/
+src/
+challenge.json
+sol.sage

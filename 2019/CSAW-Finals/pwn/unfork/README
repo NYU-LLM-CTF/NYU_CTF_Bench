@@ -1,0 +1,17 @@
+# unfork
+
+## Intended Solution
+
+* Review included patch file
+* Note stray `fput` if `__alloc_fd` fails
+* Create a program which
+    * sets fd rlimit to 6
+    * repeatedly (~10x)
+        * forks
+        * child opens /dev/null (or anything else) and calls unfork (leaving fd 3 dangling)
+        * parent sets fd rlimit to cur+3
+    * parent forks again, child execs `passwd`
+    * eventually `/etc/shadow` will get opened RW
+    * parent signals all original children which attempt to write to fd 3 (one of them should have the shadow fd)
+        * overwrite some known root password
+    * `su root` and `cat /flag`

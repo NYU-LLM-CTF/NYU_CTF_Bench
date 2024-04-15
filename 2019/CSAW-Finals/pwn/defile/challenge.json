@@ -1,0 +1,8 @@
+{
+    "name": "defile",
+    "category": "pwn",
+    "description": "wild handlock main btw\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{me_you_in_room_1337_tonight}",
+    "points": 100,
+    "files": ["defile", "libc.so.6"]
+}

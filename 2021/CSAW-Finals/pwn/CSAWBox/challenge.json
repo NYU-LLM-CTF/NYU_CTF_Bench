@@ -1,0 +1,15 @@
+{
+  "name": "CSAWBox",
+  "category": "pwn",
+  "description": "Our latest version of CSAWBox has been released! \n\n`nc {box} {port}`",
+  "flag": "flag{c0n6r47ul47105n_f0r_34c4p1n6_fr0m_7h3_b0x}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "share.zip"
+  ],
+  "internal_port": 8888,
+  "box": "pwn.chal.csaw.io"
+}

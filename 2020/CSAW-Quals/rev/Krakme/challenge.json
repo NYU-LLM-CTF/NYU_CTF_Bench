@@ -1,0 +1,9 @@
+{
+    "name": "krakme",
+    "category": "rev",
+    "description": "x86 assembly? Pshh. I think I built myself a pretty uncrackable program, don't you think?",
+    "flag": "flag{m33t_m3_in_blips_n_ch3atz}",
+    "points": 200,
+    "box": "rev.chal.csaw.io",
+    "files": ["krakme.exe"]
+}

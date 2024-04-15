@@ -1,0 +1,8 @@
+{
+    "name": "steady_counting",
+    "category": "rev",
+    "description": "this challenge is all about counting that dough",
+    "flag": "flag{ins_count_is_handy_for_ws}",
+    "points": 200,
+    "files": ["counting"]
+}

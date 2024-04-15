@@ -1,0 +1,8 @@
+{
+    "name": "wrangly",
+    "category": "rev",
+    "description": "Got lazy, here's the flag, but it's just a little wrangled up. \n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{u_unwr4ngl3d_m3}",
+    "points": 50,
+    "files": ["unwrangle_me"]
+}

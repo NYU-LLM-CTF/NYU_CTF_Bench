@@ -1,0 +1,9 @@
+{
+    "name": "Comment Anywhere",
+    "category": "web",
+    "description": "This is a cool new Chrome extension i'm working on which lets you leave a comment anywhere on any page that others using the extension can see. Check it out!\n\nNOTE: The server resets itself every few minutes. If you think you have a full chain working and it doesn't land, try again.\n\nNOTE: It should also go without saying, but please don't install this in a chromium installation you care about.",
+    "points": 300,
+    "flag": "flag{h0w_many_l@yers_of_yavaScr1pt_r_u_0n?}",
+    "box": "web.chal.csaw.io",
+    "files": ["extension.crx", "server/app.py"]
+}

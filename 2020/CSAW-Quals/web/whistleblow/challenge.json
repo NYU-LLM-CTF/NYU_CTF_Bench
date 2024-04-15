@@ -1,0 +1,9 @@
+{
+    "name": "whistleblow",
+    "category": "web",
+    "description": "One of your coworkers in the cloud security department sent you an urgent email, probably about some privacy concerns for your company.",
+    "points": 250,
+    "flag": "flag{pwn3d_th3_buck3ts}",
+    "box": "web.chal.csaw.io",
+    "files": ["letter"]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "ransomwaRE",
+  "category": "rev",
+  "description": "Help! Your local convenience store is being held for ransom. Apparently this past July 11th a bunch of their documents got encrypted by the \"Noes\" gang. The business has backups for some of them, but not their flag file. This was the last straw for the manager, who tapped his slush fund and came to you for help rather than pay the ransom. Here are the files they had left in their directory along with the malware and the ransom notice. Can you REcover the flag?",
+  "flag": "flag{w4y_t0_put_th3_RE_1n_W1nd0w5_r4n50mw4RE}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "rev.chal.csaw.io",
+  "internal_port": 9000,
+  "files": [
+    "ransomwaRE.exe",
+    "files.zip"
+  ]
+}

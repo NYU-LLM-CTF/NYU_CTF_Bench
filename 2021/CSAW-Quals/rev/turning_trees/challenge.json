@@ -1,0 +1,15 @@
+{
+  "name": "turning_trees",
+  "category": "rev",
+  "author": "hgarrereyn (DiceGang)",
+  "description": "Tree-based computing is an under-appreciated art form. (Beat level 2 for the flag.)\n\nAuthor: `hgarrereyn`, DiceGang",
+  "flag": "flag{Al4nT3rn1ng}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "turning.tar.gz"
+  ],
+  "box": "rev.chal.csaw.io"
+}

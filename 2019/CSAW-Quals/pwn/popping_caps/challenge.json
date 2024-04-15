@@ -1,0 +1,8 @@
+{
+  "name": "Popping Caps",
+  "category": "pwn",
+  "description": "You ever wonder why cowboys have 7-shooters and not an even number?\n\n`nc {{.Netloc}} {{.DescPort}}`",
+  "flag": "flag{1tsh1ghn000000000n}",
+  "points": 300,
+  "files": ["popping_caps", "libc.so.6"]
+}

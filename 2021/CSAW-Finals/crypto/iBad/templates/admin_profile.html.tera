@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/highlight.css">
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+
+        <title>nKryption | Admin Profile</title>
+    </head>
+    <body>
+
+<div class="main-header">
+    <header>
+        <div class="left-links">
+            <a href="/" class="site-title">nKryption</a>
+            
+        </div>
+
+        <div class="right-links">
+            <a href="profile">Profile</a>
+            <a href="login">Login</a>
+        </div>
+    </header>
+</div>
+
+<div class="wrapper">
+
+
+<h2 class="gradient-text-alt taunt">Are you sure you should be here?</h2>
+
+<pre><code>
+#[get("/profile")]
+fn profile(_admin : Admin) -> Template {
+    // You are here?!
+    Template::render("admin_profile", HashMap::&lt;(), ()>::new())
+}
+
+#[get("/profile", rank=2)]
+fn regular_profile() -> Template {
+    Template::render("profile", HashMap::&lt;(), ()>::new())
+}
+
+</code></pre>
+
+</div>
+
+    <script>hljs.highlightAll();</script>
+    </body>
+
+    <footer> 
+    <div class="name">nKryption</div>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="login">Login</a></li>
+        <li><a href="profile">Profile</a></li>
+    </ul>
+    <div class="copywrite">Copywrite © nKryption 2021</div>
+    </footer>
+</html>

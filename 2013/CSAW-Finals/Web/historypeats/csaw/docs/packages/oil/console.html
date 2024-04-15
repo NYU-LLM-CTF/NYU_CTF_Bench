@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Console - Oil Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<section>
+
+				<h2 id="console">Console</h2>
+
+				<p>
+					The console is the quickest way to test out new classes, models and quick code without even having to open up an IDE.
+					The shell is interactive but due to limitations in PHP it's not quite as interactive as the bash shell unless you
+					enable the readline extension. Either way it works, readline just makes it better.
+				</p>
+
+				<pre class="cli"><code>$ php oil console
+Fuel 1.0.0-dev - PHP 5.3.3 (cli) (Aug 22 2010 19:27:08) [Darwin]
+>>> "Hello World!"
+Hello World!
+>>> 1+5
+6
+>>> $i = 1
+>>> ++$i
+2
+>>> json_encode(array('foo', 'bar'));
+["foo","bar"]
+>>> $monkey = Model_Monkey::find('first');
+>>> $monkey->title
+Bobby the Gibbon</code></pre>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

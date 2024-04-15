@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/highlight.css">
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+
+        <title>nKryption | User Profile</title>
+    </head>
+    <body>
+
+<div class="main-header">
+    <header>
+        <div class="left-links">
+            <a href="/" class="site-title">nKryption</a>
+            
+        </div>
+
+        <div class="right-links">
+            <a href="profile">Profile</a>
+            <a href="login">Login</a>
+        </div>
+    </header>
+</div>
+
+<div class="wrapper">
+
+<h2 class="gradient-text">Have you read the source yet?</h2>
+
+<pre><code>
+#[rocket::async_trait]
+impl&lt;'r> FromRequest&lt;'r> for Admin {
+    type Error = &'static str;
+
+    async fn from_request(req: &'r Request&lt;'_>) -> Outcome&lt;Self, Self::Error> {
+        match req.cookies().get("auth") {
+            Some(auth) => {
+                let parts = auth.value().split(".").collect::&lt;Vec<&str>>();
+                let mut decrypted = match parts.len() {
+                    2 => { // Legacy path
+                        let iv = base64::decode(parts[0]).unwrap();
+                        let ciphertext = base64::decode(parts[1]).unwrap();
+
+                        let cipher = Aes128Cbc::new_from_slices(SECRET_KEY.as_ref(), &iv).unwrap();
+
+                        cipher.decrypt_vec(ciphertext.as_ref()).unwrap()
+                    },
+                    3 => { // Upgraded encryption
+                        let key = aes_gcm::Key::from_slice(SECRET_KEY);
+                        let cipher = aes_gcm::Aes128Gcm::new(key);
+
+                        let tag_raw = base64::decode(parts[0]).unwrap();
+                        let tag = aes_gcm::Tag::from_slice(tag_raw.as_slice());
+                        let nonce_raw = base64::decode(parts[1]).unwrap();
+                        let nonce = aes_gcm::Nonce::from_slice(nonce_raw.as_slice());
+                        let mut plaintext = base64::decode(parts[2]).unwrap();
+
+                        cipher.decrypt_in_place_detached(nonce, b"", plaintext.as_mut_slice(), tag).unwrap();
+                        plaintext
+                    },
+                    _ => return Outcome::Failure((rocket::http::Status::Unauthorized, "invalid cookie format"))
+                };
+
+                for _ in 0..decrypted.len() {
+                    if decrypted.starts_with(b"|admin|") {
+                        return Outcome::Success(Admin());
+                    }
+                    decrypted.rotate_left(1);
+                }
+                Outcome::Forward(())
+            },
+            None => Outcome::Failure((rocket::http::Status::Unauthorized, "No cookie"))
+        }
+    }
+}
+
+</code></pre>
+
+</div>
+<h2 class="taunt gradient-text-alt">There's a flag waiting for you!</h2>
+
+    <script>hljs.highlightAll();</script>
+    </body>
+
+    <footer> 
+    <div class="name">nKryption</div>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="login">Login</a></li>
+        <li><a href="profile">Profile</a></li>
+    </ul>
+    <div class="copywrite">Copywrite © nKryption 2021</div>
+    </footer>
+</html>

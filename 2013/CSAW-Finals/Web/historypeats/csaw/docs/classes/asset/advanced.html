@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Asset::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Asset Advanced - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Asset Class</h2>
+
+			<p>The asset class is a set of methods to help with the collection, grouping and displaying of assets (js, css, img).</p>
+
+			<section>
+				<h3>Advanced usage</h3>
+
+				<p>
+					The Asset class supports the use of multiple instances. This might prove useful if you are using themes, where
+					every theme has its own set of assets, or you are developing a modular application where each module provides
+					its own set of assets.
+				</p>
+				<p>
+					In these cases, it would not be handy to have only a single instance and use search paths, since the chances of
+					a duplicate asset name are quite high, causing your application to load the wrong asset.
+				</p>
+				<p>
+					You can use the same methods on an asset instance as you would when you the static methods. For the method
+					definition see the <a href="./usage.html">class usage</a> page.
+				</p>
+
+				<article>
+					<h4 class="method" id="method_forge">forge($config = array())</h4>
+					<p>
+						The <strong>forge</strong> method allows you to manually instantiate an asset instance.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th>Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$name</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>
+											Name of the instance requested. If it doesn't exist, it will be forged. If no name is
+											given, the default instance is returned.
+										</td>
+									</tr>
+									<tr>
+										<th><kbd>$config</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>
+											You can pass a custom configuration when forging a new asset instance. The configuration array
+											has the same structure as the asset configuration file. The custom config will be merged with
+											a default configuration as documented <a href="./config.html">here</a> and with the
+											configuration in your asset config file, so you only have to pass values you want changed.
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>object - The instantiated asset object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// instantiate a asset object with a custom search path
+$asset = Asset::forge('custom', array('paths' => 'custom/assets/');
+
+// define some css files
+$asset->css(array('header.css', 'footer.css'), array(), 'layout', false);</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_instance">instance($name = null)</h4>
+					<p>
+						The <strong>instance</strong> method allows you load a named instance of the asset class. 
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th>Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$name</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>
+											Name of the instance requested. If it doesn't exist, false is returned. If no name is
+											given, the default instance is returned.
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed - The named asset instance or false if the instance does not exist.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// instantiate a named asset object with a custom search path
+Asset::forge('custom', array('paths' => 'custom/assets/'));
+
+// define some css files using the defined instance
+Asset::instance('custom')->css(array('header.css', 'footer.css'), array(), 'layout', false);</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<p class="note">
+					 The static methods of the Asset class will also use the default instance. Remember this if you
+					 alter the configuration (for example search paths) of the default instance!
+				</p>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

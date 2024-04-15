@@ -1,0 +1,1 @@
+flag{maybe_its_time_to_switch_to_rust}

@@ -1,0 +1,8 @@
+{
+    "name": "bdos",
+    "category": "rev",
+    "description": "Bee-based denial of service. Maybe eventually this will print out a flag...",
+    "flag": "flag{the bee movie but every time they say bee it recurses....!}",
+    "points": 450,
+    "files": ["bdos.tar.gz"]
+}

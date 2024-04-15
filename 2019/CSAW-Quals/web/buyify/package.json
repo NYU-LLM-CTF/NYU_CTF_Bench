@@ -1,0 +1,20 @@
+{
+  "name": "buyify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "handlebars": "4.2.0",
+    "express": "4.17.1",
+    "express-handlebars":"3.1.0",
+    "jsonwebtoken":"8.5.1",
+    "express-session":"1.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

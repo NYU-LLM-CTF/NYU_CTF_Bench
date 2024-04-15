@@ -1,0 +1,1 @@
+AppJailLauncher.exe /outbound /port:4321 /timeout:120 /key:flag globetrotter.exe

@@ -1,0 +1,7 @@
+# word games
+
+This challenge is an x86-64 ELF binary linked against glibc-2.33. glibc-2.33 implements new security measures such as tcache & fastbins pointer alignment verification and "safe-linking".  The docker image is built with the latest Arch Linux image as Ubuntu and Debian have not upgraded to libc-2.33 as of yet.
+
+The vulnerability is a misordered call to free which results in a memory leak opportunity as well as freeing of the `tcache_perthreat_struct` structure. Challengers must correctly leak a glibc address from `main_arena` and then manipulate `tcache_perthread_struct` entries to return a `malloc`d pointer to a controllable execution flow, such as `__malloc_hook` or `__free_hook`.  Typical attempts at overwriting tcache entries within fastbins or tcache pointer metadata will fail unless the user has correctly reversed the encryption scheme protecting the pointers.   
+
+## TODO: Exploit was tested within an Arch Linux container and it succeeded. Need to test deployment and also consider creating a docker image for challengers to pull so that they do not need to create their own Arch Linux environment or other container utilizing the glibc-2.33 library.  Also need to test to make sure the program does not crash easily on random input.

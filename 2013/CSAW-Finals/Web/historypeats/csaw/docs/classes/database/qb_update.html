@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = 'Query_Builder_Update::';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Query Builder Update - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2 id="introduction">Query_Builder_Update class</h2>
+
+			<p>(extends <a href="qb_where.html">Query_Builder_Where</a>)</p>
+
+			<p>
+				The Query_Builder_Update class handles all the update operations for the query building process. It extends the
+				Query_Builder_Where class, so all the methods are inherited.
+			</p>
+
+			<article>
+				<h4 class="method" id="method_table">table($table)</h4>
+				<p>The <strong>table</strong> method sets/changes the table to update.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><em>string</em></td>
+										<td><em>required</em></td>
+										<td>the table name</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the current instance.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// prepare an update statement
+$query = DB::update('users');
+
+// Set the table to update
+$query->table('admins');
+
+// UPDATE `admins` ...
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+
+			<article>
+				<h4 class="method" id="method_value">value($column, $value)</h4>
+				<p>The <strong>value</strong> method sets a column and value to update.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$column</kbd></th>
+										<td><em>string</em></td>
+										<td><em>required</em></td>
+										<td>the column to update</td>
+									</tr>
+									<tr>
+										<th><kbd>$value</kbd></th>
+										<td><em>mixed</em></td>
+										<td><em>required</em></td>
+										<td>the new value</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the current instance.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// prepare an update statement
+$query = DB::update('users');
+
+// Set the columns
+$query->value('name', 'Frank');
+
+// UPDATE `users` SET `name` = "Frank"
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set">set(array $pairs)</h4>
+				<p>The <strong>set</strong> method sets the columns and values to update.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$pairs</kbd></th>
+										<td><em>array</em></td>
+										<td><em>required</em></td>
+										<td>associative array of columns and values</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the current instance.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// prepare an update statement
+$query = DB::update('users');
+
+// Set the columns and vales
+$query->set(array(
+	'name' => 'John',
+	'surname' => 'Doe',
+));
+
+// UPDATE `users` SET `name` = "John", `surname` = "Doe"
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_compile">compile(\Database_Connection$db)</h4>
+				<p>The <strong>compile</strong> method returns the update SQL query as a string.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><em>object</em></td>
+										<td><em>required</em></td>
+										<td>A database connection</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the SQL query as a string.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// prepare an update statement
+$query = DB::update('users');
+
+// Set two values
+$query->set(array(
+	'name' => 'Bert',
+	'surname' => 'Klaassen',
+));
+
+// Get the database connection
+$connection = Database_Connection::instance();
+
+// Get the sql query
+$sql = $query->compile($connection);
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_reset">reset()</h4>
+				<p>The <strong>reset</strong> method resets all values of the current instance.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<em>None</em>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the current instance.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// prepare an update statement
+$query = DB::update('users');
+
+// Set two values
+$query->set(array(
+	'name' => 'Bert',
+	'surname' => 'Klaassen',
+));
+
+// Reset it
+$query->reset();
+
+// Just set one
+$query->value('name', 'Hank');
+
+// Get the database connection
+$connection = Database_Connection::instance();
+
+// Get the sql query
+$sql = $query->compile($connection);
+
+// UPDATE `users` SET `name` = "Hank"
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_join">join($table, $type = null)</h4>
+				<p>The <strong>join</strong> method appends tables to join.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><em>mixed</em></td>
+										<td><em>required</em></td>
+										<td>table name or array($table, $alias)</td>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><em>mixed</em></td>
+										<td><pre class="php"><code>true</code></pre></td>
+										<td>join type (LEFT, RIGHT, INNER, etc)</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the current instance.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<a href="#join_example">View example here</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_on">on($c1, $op, $c2)</h4>
+				<p>The <strong>on</strong> method adds "ON ..." conditions for the last created JOIN statement.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Type</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$c1</kbd></th>
+										<td><em>mixed</em></td>
+										<td><em>required</em></td>
+										<td>table name or array($table, $alias)</td>
+									</tr>
+									<tr>
+										<th><kbd>$op</kbd></th>
+										<td><em>string</em></td>
+										<td><em>required</em></td>
+										<td>logical operator</td>
+									</tr>
+									<tr>
+										<th><kbd>$c2</kbd></th>
+										<td><em>mixed</em></td>
+										<td><em>required</em></td>
+										<td>table name or array($table, $alias)</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the current instance.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre id="join_example" class="php"><code>// prepare an update statement
+$query = DB::update('users');
+
+// Join a table
+$query->join('profiles');
+$query->on('users.id', '=', 'profiles.user_id');
+
+// Use a Database_Expression so the value does not get escaped.
+$query->value('users.profile_type', \DB::expr('`profiles`.`type`'));
+
+// UPDATE `users` JOIN `profiles` ON `users`.`id` = `profiles`.`user_id` SET `users`.`profile_type` = `profiles`.`type`
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

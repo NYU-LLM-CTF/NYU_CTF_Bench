@@ -1,0 +1,198 @@
+diff --git a/src/bootstrapper.cc b/src/bootstrapper.cc
+index 30450b1..6d1fdb2 100644
+--- a/src/bootstrapper.cc
++++ b/src/bootstrapper.cc
+@@ -1779,6 +1779,8 @@ void Genesis::InitializeGlobal(Handle<JSGlobalObject> global_object,
+                           false);
+     SimpleInstallFunction(isolate_, proto, "reduceRight",
+                           Builtins::kArrayReduceRight, 1, false);
++    SimpleInstallFunction(isolate_, proto, "replaceIf",
++                          Builtins::kArrayReplaceIf, 3, false);
+   }
+ 
+   {  // --- A r r a y I t e r a t o r ---
+diff --git a/src/builtins/builtins-array.cc b/src/builtins/builtins-array.cc
+index ceeee5f..2fdebd6 100644
+--- a/src/builtins/builtins-array.cc
++++ b/src/builtins/builtins-array.cc
+@@ -1400,6 +1400,125 @@ MaybeHandle<JSArray> Fast_ArrayConcat(Isolate* isolate,
+ 
+ }  // namespace
+ 
++BUILTIN(ArrayReplaceIf) {
++  HandleScope scope(isolate);
++
++  if (args.length() < 4)
++    return isolate->heap()->ToBoolean(false);
++
++  // 1. Let O be ? ToObject(this value).
++  Handle<JSReceiver> receiver;
++  ASSIGN_RETURN_FAILURE_ON_EXCEPTION(
++      isolate, receiver,
++      Object::ToObject(isolate, args.receiver(), "Array.prototype.replaceIf"));
++
++  // 2. Let len be ? ToLength(? Get(O, "length")).
++  int length;
++  Handle<Object> raw_length_number;
++  ASSIGN_RETURN_FAILURE_ON_EXCEPTION(
++      isolate, raw_length_number,
++      Object::GetLengthFromArrayLike(isolate, receiver));
++
++  if (!ClampedToInteger(isolate, *raw_length_number, &length))
++    return isolate->heap()->ToBoolean(false);
++
++  // 3. Let index be ? ToInteger(arg[1])
++  int index;
++  if (!ClampedToInteger(isolate, args[1], &index))
++    return isolate->heap()->ToBoolean(false);
++
++  // 4. Ensure index is less than length
++  if (index >= length)
++    return isolate->heap()->ToBoolean(false);
++
++  // 5. Ensure arg[2] is callable
++  if (!args[2]->IsCallable())
++    return isolate->heap()->ToBoolean(false);
++
++  Object* func_obj = args[2];
++  Handle<Object> func(&func_obj);
++
++  // 6. If IsProxy(O), let A be ToProxy(O).target(), else let A be O
++  // This is done for performance reasons. Proxied arrays would normally
++  // take the slow path, we bypass this to take the fast path
++  Handle<JSReceiver> array_object;
++  if (receiver->IsJSProxy()) {
++    Handle<JSProxy> proxy = Handle<JSProxy>::cast(receiver);
++    Handle<JSReceiver> obj(JSReceiver::cast(proxy->target()), isolate);
++    array_object = obj;
++  } else {
++    array_object = receiver;
++  }
++
++  // 7. Check if fast path can be taken
++  bool fast = EnsureJSArrayWithWritableFastElements(isolate, array_object, nullptr, 0, 0);
++
++  // 8. Let E be ? Get(A, index)
++  Handle<Object> element;
++  if (fast) {
++    // Fast path (packed elements)
++    Handle<JSArray> array = Handle<JSArray>::cast(array_object);
++    ElementsAccessor* accessor = array->GetElementsAccessor();
++    element = accessor->Get(array, index);
++  } else {
++    // Slow path
++    Handle<String> index_str = isolate->factory()->NumberToString(
++        isolate->factory()->NewNumber(index));
++
++    ASSIGN_RETURN_FAILURE_ON_EXCEPTION(
++        isolate, element,
++        Object::GetPropertyOrElement(isolate, array_object, index_str));
++  }
++
++  // 9. Let S be ? arg[2](E)
++  Handle<Object> argv[] = {element};
++  Handle<Object> raw_should_replace;
++  ASSIGN_RETURN_FAILURE_ON_EXCEPTION(
++    isolate, raw_should_replace,
++    Execution::Call(isolate, func, receiver, 1, argv));
++
++  bool should_replace = raw_should_replace->BooleanValue(isolate);
++
++  // 10. If !S, return false
++  if (!should_replace)
++      return isolate->heap()->ToBoolean(false);
++
++  // 11. Let len be ? ToLength(? Get(O, "length")).
++  // We check again to account for changes during the jscall
++  ASSIGN_RETURN_FAILURE_ON_EXCEPTION(
++      isolate, raw_length_number,
++      Object::GetLengthFromArrayLike(isolate, receiver));
++
++  if (!ClampedToInteger(isolate, *raw_length_number, &length))
++    return isolate->heap()->ToBoolean(false);
++
++  // 12. Ensure index is less than length
++  if (index >= length)
++    return isolate->heap()->ToBoolean(false);
++
++  // 13. Check if fast path can be taken
++  // We check again to account for changes during the jscall
++  fast = EnsureJSArrayWithWritableFastElements(isolate, array_object, nullptr, 0, 0);
++
++  // 14. Set(O, index, arg[3])
++  if (fast) {
++    // Fast path (packed elements)
++    Handle<JSArray> array = Handle<JSArray>::cast(array_object);
++    ElementsAccessor* accessor = array->GetElementsAccessor();
++    accessor->Set(array, index, args[3]);
++  } else {
++    // Slow path
++    Handle<String> index_str = isolate->factory()->NumberToString(
++        isolate->factory()->NewNumber(index));
++    Handle<Object> new_obj(&args[3]);
++    RETURN_FAILURE_ON_EXCEPTION(
++        isolate,
++        Object::SetPropertyOrElement(isolate, array_object, index_str, new_obj, LanguageMode::kStrict));
++  }
++
++  return isolate->heap()->ToBoolean(true);
++}
++
+ // ES6 22.1.3.1 Array.prototype.concat
+ BUILTIN(ArrayConcat) {
+   HandleScope scope(isolate);
+diff --git a/src/builtins/builtins-definitions.h b/src/builtins/builtins-definitions.h
+index 62765b8..b4cf469 100644
+--- a/src/builtins/builtins-definitions.h
++++ b/src/builtins/builtins-definitions.h
+@@ -415,6 +415,7 @@ namespace internal {
+   TFJ(ArrayPrototypeFlat, SharedFunctionInfo::kDontAdaptArgumentsSentinel)     \
+   /* https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap */   \
+   TFJ(ArrayPrototypeFlatMap, SharedFunctionInfo::kDontAdaptArgumentsSentinel)  \
++  CPP(ArrayReplaceIf)                                                          \
+                                                                                \
+   /* ArrayBuffer */                                                            \
+   /* ES #sec-arraybuffer-constructor */                                        \
+diff --git a/src/compiler/typer.cc b/src/compiler/typer.cc
+index 7627d27..0fdccf5 100644
+--- a/src/compiler/typer.cc
++++ b/src/compiler/typer.cc
+@@ -1601,6 +1601,8 @@ Type Typer::Visitor::JSCallTyper(Type fun, Typer* t) {
+       return Type::Receiver();
+     case BuiltinFunctionId::kArrayUnshift:
+       return t->cache_.kPositiveSafeInteger;
++    case BuiltinFunctionId::kArrayReplaceIf:
++      return Type::Boolean();
+ 
+     // ArrayBuffer functions.
+     case BuiltinFunctionId::kArrayBufferIsView:
+diff --git a/src/flag-definitions.h b/src/flag-definitions.h
+index 69ec747..777a22b 100644
+--- a/src/flag-definitions.h
++++ b/src/flag-definitions.h
+@@ -705,12 +705,7 @@ DEFINE_BOOL(incremental_marking_wrappers, true,
+ DEFINE_BOOL(trace_unmapper, false, "Trace the unmapping")
+ DEFINE_BOOL(parallel_scavenge, true, "parallel scavenge")
+ DEFINE_BOOL(trace_parallel_scavenge, false, "trace parallel scavenge")
+-#if defined(V8_TARGET_ARCH_ARM) || defined(V8_TARGET_ARCH_ARM64)
+-#define V8_WRITE_PROTECT_CODE_MEMORY_BOOL false
+-#else
+-#define V8_WRITE_PROTECT_CODE_MEMORY_BOOL true
+-#endif
+-DEFINE_BOOL(write_protect_code_memory, V8_WRITE_PROTECT_CODE_MEMORY_BOOL,
++DEFINE_BOOL(write_protect_code_memory, false,
+             "write protect code memory")
+ #ifdef V8_CONCURRENT_MARKING
+ #define V8_CONCURRENT_MARKING_BOOL true
+diff --git a/src/objects.h b/src/objects.h
+index c848e92..8877921 100644
+--- a/src/objects.h
++++ b/src/objects.h
+@@ -2959,6 +2959,7 @@ class AsyncGeneratorRequest : public Struct {
+   V(Array.prototype, some, ArraySome)                       \
+   V(Array.prototype, splice, ArraySplice)                   \
+   V(Array.prototype, unshift, ArrayUnshift)                 \
++  V(Array.prototype, replaceIf, ArrayReplaceIf)             \
+   V(Date, now, DateNow)                                     \
+   V(Date.prototype, getDate, DateGetDate)                   \
+   V(Date.prototype, getDay, DateGetDay)                     \

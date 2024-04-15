@@ -1,0 +1,8 @@
+{
+    "name": "macrypto",
+    "category": "crypto",
+    "description": "wrote this cipher for a vendor, who demanded it in rust. should be solid, but audit it for me?\n\nnc {{.Netloc}} {{.DescPort}}",
+    "flag": "flag{th3_c1ph3r_w4s_a_lil_rusty}",
+    "points": 250,
+    "files": ["macrypto", "macrypto.rs"]
+}

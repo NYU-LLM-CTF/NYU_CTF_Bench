@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}404{% endblock %}
+{% block body %}
+<nav id="nav-contain" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="nav-bar" class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item ml-auto">
+        <a class="nav-link" href="/"><i id="logo" class="fas fa-cat"></i></a>
+      </li>
+      <li class="nav-item dropdown ml-auto">
+        <a id="profile" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user-circle"></i></a>
+        <div class="dropdown-menu neko-offset" aria-labelledby="profile">
+          <a class="dropdown-item" href="login">Login</a>
+          <a class="dropdown-item" href="register">Register</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div id="big-neko"><i class="fas fa-cat"></i></div>
+    </div>
+    <div class="col-sm-6">
+      <div id="error-container">
+        <h4>404 NOT FOUND</h4>
+        MEOWWWWWWWW????
+        <br>
+        MEOW MEOW MEEEEOOOOWWWW?????
+        <br>
+        MEOWWWWW???
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

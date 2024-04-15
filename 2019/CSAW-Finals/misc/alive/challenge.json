@@ -1,0 +1,8 @@
+{
+    "name": "A Poem For You",
+    "category": "misc",
+    "description": "Roses are red\n\nviolets are blue\n\nCSAW CTF is not CSAW RED\n\nflag{we_hope_you_enjoy_ctf_finals_too}",
+    "flag": "flag{we_hope_you_enjoy_ctf_finals_too}",
+    "points": 1,
+    "files": []
+}

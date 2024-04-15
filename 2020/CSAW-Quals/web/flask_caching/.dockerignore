@@ -1,0 +1,10 @@
+venv
+docker-compose.yml
+Dockerfile
+.idea
+.gitignore
+.dockerignore
+README.md
+challenge.json
+solve.py
+dump.rdb

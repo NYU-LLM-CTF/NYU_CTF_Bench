@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Coding Standards - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Coding Standards</h2>
+
+			<p>These standards for code formatting and documentation must be followed by anyone contributing to Fuel. Any
+				contributions that do not meet these guidelines will not be accepted.</p>
+
+			<h3 id="file_formatting">File Formatting</h3>
+
+			<h5 id="closing_php_tag">Closing PHP Tag</h5>
+
+			<p>Files containing only PHP code should always omit the closing PHP tag (?>). This prevents many of the
+				elusive white screens of death.</p>
+
+			<h5 id="indentation">Indentation</h5>
+
+			<p>All indentation should be done using real tabs, NOT spaces.<br />
+				But aligning things after the indentation should be done using spaces, NOT tabs.</p>
+
+			<pre class="php"><code>		// indented 2 tabs
+		$var       = 'something';  // indented with tabs and aligned value &amp; comments
+		$variable  = 'else';       // with those above/below using spaces</code></pre>
+
+			<h5 id="line_endings">Line Endings</h5>
+
+			<p>Line endings should be Unix-style LF.</p>
+
+			<h5 id="file_naming">File Naming</h5>
+
+			<p>All file names must be all lower case. No exceptions.</p>
+
+			<h5 id="encoding">Encoding</h5>
+
+			<p>Files should be saved with UTF-8 encoding and the BOM should not be used.</p>
+
+			<h3 id="naming_conventions">Naming Conventions</h3>
+
+			<h5 id="namespaces">Namespaces</h5>
+
+			<p>All core classes must be under the Fuel\Core namespace.</p>
+
+			<pre class="php"><code>namespace Fuel\Core;</code></pre>
+
+			<h5 id="classes">Classes</h5>
+
+			<p>Class names should use underscores to separate words, and each word in the class name should begin with a
+				capital letter. An underscore will, however, be converted to a directory separator during autoloading. The
+				use of camelcase is discouraged but cannot be prevented in some cases when putting the class in a
+				subdirectory makes no sense.</p>
+
+			<pre class="php"><code>namespace Fuel\Core;
+
+class Session
+{
+
+}</code></pre>
+
+			<pre class="php"><code>namespace Fuel\Core;
+
+class Session_Cookie extends Session_Driver
+{
+
+}</code></pre>
+
+			<p>This would result in the following file path:</p>
+
+			<pre class="php"><code>core/classes/session.php
+core/classes/session/cookie.php</code></pre>
+
+			<h5 id="methods_standards">Methods</h5>
+
+			<p>Like class names, method names should use underscores to separate words, not CamelCase. Method names should
+				also be all lower case. Visibility should always be included (public, protected, private).<br />
+				An underscore can be used at the beginning of the name to make it clear the method is protected/private or
+				to signify it should be considered as such when you need it public.</p>
+
+			<pre class="php"><code>class Session
+{
+
+	public static function get_flash($name, $data)
+	{
+		// Some code here
+	}
+
+}</code></pre>
+
+			<pre class="php"><code>class View
+{
+
+	// Array of global view data
+	protected static $_global_data = array();
+
+	protected static function capture($view_filename, array $view_data)
+	{
+		// Some code here
+	}
+
+}</code></pre>
+
+			<h5 id="variables">Variables</h5>
+
+			<p>Variable names should be concise and contain only lower case letters and underscores. Loop iterators should
+				be short, preferably a single character.</p>
+
+			<pre class="php"><code>$first_name
+$buffer
+for ($i = 0; $i &lt; $max; $i++)</code></pre>
+
+			<h5 id="constants">Constants</h5>
+
+			<p>Constants follow the same guide lines as variables with the exception that constants should be all upper
+				case.</p>
+
+			<pre class="php"><code>MY_CONSTANT
+TEMPLATE_PATH
+TEXT_DEFAULT</code></pre>
+
+			<h3 id="keywords">Keywords</h3>
+
+			<p>Keywords such as <kbd>true</kbd>, <kbd>false</kbd>, <kbd>null</kbd>, <kbd>as</kbd>, etc should be all lower case, as upper case is reserved for
+				constants. Same goes for primitive types like <kbd>array</kbd>, <kbd>integer</kbd>, <kbd>string</kbd>.</p>
+
+			<pre class="php"><code>$var = true;
+$var = false;
+$var = null;
+foreach ($array as $key => $value)
+public function my_function(array $array)
+function my_function($arg = null)</code></pre>
+
+			<h3 id="control_structures">Control Structures</h3>
+
+			<p>The structure keywords such as <kbd>if</kbd>, <kbd>for</kbd>, <kbd>foreach</kbd>, <kbd>while</kbd>, <kbd>switch</kbd> should be followed by a space as should
+				parameter/argument lists and values. Braces should be placed on a new line, and <kbd>break</kbd> should have the same
+				tab as its case.</p>
+
+			<pre class="php"><code>if ($arg === true)
+{
+	//do something here
+}
+elseif ($arg === null)
+{
+	//do something else here
+}
+else
+{
+	//catch all do something here
+}
+
+foreach ($array as $key => $value)
+{
+	//loop here
+}
+
+for ($i = 0; $i &lt; $max; $i++)
+{
+	//loop here
+}
+
+while ($i &lt; $max)
+{
+	//loop here
+}
+
+do
+{
+	//loop here
+}
+while ($i &lt; $max)
+
+switch ($var)
+{
+	case 'value1':
+		//do something here
+	break;
+	default :
+		//do something here
+	break;
+}</code></pre>
+
+			<h5 id="alternative_if">Alternative if statements</h5>
+
+			<p>In some cases, a full <kbd>if</kbd> statement is a bit too much code for a simple conditional assignment or function
+				call. In those cases, you can use PHP's execution logic to use a shorter boolean-operator based syntax.
+				Using <kbd>and</kbd> means the second part only gets evaluated if the first part were true, using
+				<kbd>or</kbd> means the second part only gets executed if the first part were false.<br />
+				Don't use this when both <kbd>if</kbd> and <kbd>else</kbd> are needed, just in cases like single conditional statements.</p>
+
+			<pre class="php"><code>// instead of if (isset($var)) { Config::set('var', $var); }
+isset($var) and Config::set('var', $var);
+
+// instead of if ( ! isset($var)) { $var = Config::get('var'); }
+isset($var) or $var = Config::get('var');
+
+// DON'T DO THIS
+Uri::segment(3) and $var = Uri::segment(3);
+Uri::segment(3) or $var = 'default';
+
+// This is better:
+if (Uri::segment(3))
+{
+	$var = Uri::segment(3);
+}
+else
+{
+	$var = 'default';
+}
+
+// Or this:
+$var = Uri::segment(3) ? Uri::segment(3) : 'default';
+// Or actually this:
+$var = Uri::segment(3) ?: 'default';</code></pre>
+
+			<h3 id="comparison_logical">Comparisons, Logical operators</h3>
+
+			<p>Comparing function/method returns and variables should be type aware, for example some functions may return
+				<kbd>false</kbd>, and when comparing this return the type sensitive operators such as <kbd>===</kbd> or <kbd>!==</kbd>. Additionally, use of
+				<kbd>and</kbd> or <kbd>or</kbd> is preferred over <kbd>&amp;&amp;</kbd> or <kbd>||</kbd> for readability. In some cases, this cannot be avoided and the use of
+				<kbd>&amp;&amp;</kbd> or <kbd>||</kbd> as its required may be used. The <kbd>!</kbd> should have spaces on both sides when used.</p>
+
+			<pre class="php"><code>if ($var == false and $other_var != 'some_value')
+if ($var === false or my_function() !== false)
+if ( ! $var)</code></pre>
+
+			<h5 id="class_interface">Class/Interface Declarations</h5>
+
+			<p>Class/interface declarations have the opening brace on the following line:</p>
+
+			<pre class="php"><code>class Session
+{
+
+}</code></pre>
+			<p>In case the class is empty, braces will be on the same line as the definition:</p>
+
+			<pre class="php"><code>class Empty_Class { }</code></pre>
+
+			<h5 id="function_method">Function/Method/Closure Declarations</h5>
+
+			<p>The function/method/closure opening brace must always begin on a new line and have the same indentation as its
+				structure.</p>
+
+			<pre class="php"><code>class Session
+{
+
+	public static function get_flash($name, $data)
+	{
+		$closure = function($a, $b)
+		{
+			// Your closure code here
+		}
+	}
+
+}</code></pre>
+
+			<h5 id="variables">Variables</h5>
+
+			<p>When initializing variables, one variable should be declared per line. To enhance code readability, these
+				should each be on a separate line. Align values and comments when appropriate.</p>
+
+			<pre class="php"><code>$var        = ''; // do each on its own line
+$other_var  = ''; // do each on its own line</code></pre>
+
+			<h5 id="brackets_parenthesis">Brackets and Parenthesis</h5>
+
+			<p>No space should come before or after the initial bracket/parenthesis. There should not be a space before closing bracket/parenthesis.</p>
+
+			<pre class="php"><code>$array = array(1, 2, 3, 4);
+$array['my_index'] = 'something';
+for ($i = 0; $i < $max; $i++)</code></pre>
+
+			<h5 id="quotation">String quotation</h5>
+
+			<p>Single quotes are preferred over double quotes.</p>
+
+			<h5 id="concatenation">Concatenation</h5>
+
+			<p>String concatenation should not contain spaces around the joined parts.</p>
+
+			<pre class="php"><code>//yes
+$string = 'my string '.$var.' the rest of my string';
+
+//no
+$string = 'my string ' . $var . ' the rest of my string';</code></pre>
+
+			<h5 id="operators">Operators</h5>
+
+			<pre class="php"><code>$var = 'something';
+if ($var == 'something') //space before and after logical operator
+$var = $some_var + $other_var; //space before and after math operator
+$var++; // no space before increment
+++$var; //no space after increment</code></pre>
+
+			<h5 id="dot-notation">Array dot-notation</h5>
+
+			<p>
+				Although strictly speaking it's not a coding standard, it's used a lot within the frameworks classes and this documentation,
+				and since it's not a common PHP notation, it might confuse people new to the framework.
+			</p>
+			<pre class="php"><code>// when you see "always_load.packages = array()", it is shorthand for:
+array("always_load" => array("packages" => array(...) ) );
+</code></pre>
+
+			<p>This notation is used by the Arr class, but also the Lang, Config and Session classes, to quickly access individual elements from a multi-dimensional array.</p>
+			<pre class="php"><code>// when you have an array structure like this
+$array = array(
+    "always_load" => array(
+        "packages" => array(
+            "orm",
+            "package" => "/my/special/package.php",
+        )
+     )
+);
+
+// then this will return "/my/special/package.php":
+$path = Arr::get($array, 'always_load.packages.package');
+</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

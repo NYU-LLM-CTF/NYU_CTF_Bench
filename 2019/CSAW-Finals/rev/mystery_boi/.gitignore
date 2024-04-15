@@ -1,0 +1,8 @@
+*.o
+*.pyc
+bin/
+include/
+tags/
+tags.temp/
+tags.lock/
+.gdb_history

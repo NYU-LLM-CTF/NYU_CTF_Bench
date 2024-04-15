@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Cache::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Cache Config - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Cache Class</h2>
+
+			<p>The cache class allows you to cache the result of a resource heavy operation.</p>
+
+			<section>
+				<h3 id="config">Configuration</h3>
+
+				<p>The cache class's defaults are configured through the fuel/core/config/cache.php configuration file. It
+				is already populated with a default configuration. You can override this configuration adding a config file
+				with the same name to your application config directory, and set the values you want to change there. These
+				will overwrite the core config but keep what you didn't overwrite.</p>
+
+				<p>The following global configuration values can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>driver</th>
+							<td>string</td>
+							<td><pre class="php"><code>'file'</code></pre></td>
+							<td>
+								The default storage driver used for saving the caches.
+							</td>
+						</tr>
+						<tr>
+							<th>expiration</th>
+							<td>int</td>
+							<td><pre class="php"><code>null</code></pre></td>
+							<td>
+								The default number of seconds until expiration, used when no lifetime is given. When set to
+								null it won't expire.
+							</td>
+						</tr>
+						<tr>
+							<th>(type)_handler</th>
+							<td>string</td>
+							<td><pre class="php"><code>serialize</code></pre></td>
+							<td>
+								When caching strings nothing special happens unless when caching more complex things like
+								objects, or even more primitive like doubles. For those cases there are "content handlers"
+								included which can ensure you'll get your object back as the right kind of object. By
+								default handlers are included for using PHP serialization and JSON encoding.<br />
+								You can add your own or handle different kinds of objects/primitive types in different ways
+								by adding handlers for each of them: 'int_handler' => 'json', 'string_handler' => 'string',
+								'Model_Post' => 'serialize', etc...
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p>For each of the cache storage drivers, a separate configuration section exists. This section contains
+				the driver specific parameters.</p>
+
+				<section>
+					<h5 id="file_driver_config">File driver configuration</h5>
+
+					<p>Saves the caches to the filesystem.</p>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>path</th>
+								<td>string</td>
+								<td><pre class="php"><code>APPPATH.'cache/'</code></pre></td>
+								<td>Basepath for saving the caches.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="memcache_driver_config">MemCached driver configuration</h5>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>cache_id</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fuel'</code></pre></td>
+								<td>Unique id to distinguish fuel cache items from others stored on the same server(s).</td>
+							</tr>
+							<tr>
+								<th>servers</th>
+								<td>string</td>
+								<td><pre class="php"><code>array(
+		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100)
+	)</code></pre></td>
+								<td>Array of servers and portnumbers that run the memcached service.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="redis_driver_config">Redis driver configuration</h5>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>database</th>
+								<td>string</td>
+								<td><pre class="php"><code>'default'</code></pre></td>
+								<td>Name of the redis database to use (as configured in config/db.php)</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

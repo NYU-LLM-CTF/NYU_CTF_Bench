@@ -1,0 +1,15 @@
+{
+  "name": "Hardskull I",
+  "category": "rev",
+  "author": "TheKidofArcrania",
+  "description": "I broke a metal skull I brought back from DEF CON one year, and all I could do at that point was forge a head! Anyway, can you reverse this hard skull? Author: theKidOfArcrania (Perfect Blue)",
+  "flag": "flag{h4rdsk3ll_is_s0_much_fun_to_rev3rs3_lol_<3!!}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "handout.tar.gz"
+  ],
+  "box": "rev.chal.csaw.io"
+}

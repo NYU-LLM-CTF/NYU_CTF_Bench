@@ -1,0 +1,7 @@
+FROM ubuntu:18.04
+
+#RUN adduser --home /home/user --shell /bin/sh --uid 1000 --password $6$Sk3Y1.rR$w1nM.HOf4dNxeEi1AeDW7uRCxqYyfa5iBjUXviqMxHXtGp2jBiCjWrPnNVQb9TPbufgIxUqrbUL/xlpKm9g1Z0 user
+RUN useradd -m -s /bin/sh -u 1000 -p '$6$Sk3Y1.rR$w1nM.HOf4dNxeEi1AeDW7uRCxqYyfa5iBjUXviqMxHXtGp2jBiCjWrPnNVQb9TPbufgIxUqrbUL/xlpKm9g1Z0' user
+
+COPY ./init /sbin
+COPY ./flag /

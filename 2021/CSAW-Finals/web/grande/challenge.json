@@ -1,0 +1,15 @@
+{
+  "name": "grande",
+  "category": "web",
+  "author": "itszn",
+  "description": "I tried to report a bug in this popular blogging site. But it seems like the admin did not appreciate it :(\n\nhttps://grande-blog.site\n\nNote: The admin is using Chrome.\n\nAuthor: `itszn`, Ret2 Systems",
+  "flag": "flag{__is__proto__a__feature__or__a__bug__}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "grande.tar.gz"
+  ],
+  "box": "web.chal.csaw.io"
+}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Generate - Oil Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<section>
+
+				<h2 id="refine">Refine</h2>
+
+				<p>
+					Refine is a tool that lets you run tasks. The idea behind the name is you "refine" Oil to make Fuel. You can read more
+					specifically about <a href="../../general/tasks.html">Tasks</a> to see how they are made and what they can be used for.
+				</p>
+
+				<h3 id="tasks">Included tasks</h3>
+
+				<p>
+					FuelPHP comes with several tasks to make your life just that little bit easier:
+				</p>
+				<ul>
+					<li><strong>install</strong>: Allows you to install a new deployment of FuelPHP. Requires <code>git</code> to clone the repositories.</li>
+					<li><strong>migrate</strong>: Run database migrations from the commandline.</li>
+					<li><strong>session</strong>: Allows you to manipulate the database table required for the Session class.</li>
+					<li><strong>fromdb</strong>: Allows you to generate models, migrations, scaffolding or admin code from existing database tables.</li>
+				</ul>
+
+				<p>
+					All tasks will provide some help information when you run them with the help command:
+				</p>
+				<pre class="cli"><code>$ php oil refine &lt;taskname&gt;:help</code></pre>
+
+				<h3 id="example">Example</h3>
+
+				<p>An example task can be found here <kbd>fuel/app/tasks/</kbd> called robots.</p>
+
+				<pre class="cli"><code>$ php oil refine robots
+
+					"KILL ALL HUMANS!"
+			          _____     /
+			         /_____\
+			    ____[\*---*/]____
+			   /\ #\ \_____/ /# /\
+			  /  \# \_.---._/ #/  \
+			 /   /|\  |   |  /|\   \
+			/___/ | | |   | | | \___\
+			|  |  | | |---| | |  |  |
+			|__|  \_| |_#_| |_/  |__|
+			//\\  <\ _//^\\_ />  //\\
+			\||/  |\//// \\\\/|  \||/
+			      |   |   |   |
+			      |---|   |---|
+			      |---|   |---|
+			      |   |   |   |
+			      |___|   |___|
+			      /   \   /   \
+			     |_____| |_____|
+			     |HHHHH| |HHHHH|
+</code></pre>
+
+				<p>
+					Not the most useful example in the world, but it works as a useful example. But you can use
+					the <a href="../../classes/cli.html">Cli class</a> to make things more interactive or just run basic model
+					interaction for cron jobs.
+				</p>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "Bane of IT",
+  "category": "misc",
+  "author": "Andrew Prajogi",
+  "description": "You have received an IT ticket to repair a server that refuses to boot. Administrator John Doe would like to to fix it ASAP on behalf of Generic Company.\nMake sure it boots and then log in as John to complete this challenge. John has given us no details about the problem and has forgotten his own password. (Sigh)\nHis only words of wisdom were that \"the answer will be found in pieces throughout the day.\"\n\n`https://csaw-final-challenges.s3.us-east-2.amazonaws.com/bane_of_it.zip`\n\nAuthor: `Regulus915ap`",
+  "flag": "flag{7h15_15_why_1T_p30p13_@r3_m3@n}",
+  "box": "misc.chal.csaw.io",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": []
+}

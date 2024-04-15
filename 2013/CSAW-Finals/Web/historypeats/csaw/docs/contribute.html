@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./assets/css/combined.css">
+	<link rel="shortcut icon" href="./favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './';
+	</script>
+	<script src="./assets/js/combined.js"></script>
+	<title>Contribute - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Contribute</h2>
+
+			<h3 id="introduction">Introduction</h3>
+
+			<p>
+				Fuel is a community driven framework and is open for contributions from anyone who feels they
+				can improve it or add a feature that will bring the framework to a higher level. There
+				are multiple forms in which this can be achieved. From writing tutorials, writing and
+				releasing packages, to contributing to the official parts of Fuel (Core, Orm, Docs, etc..).
+			</p>
+
+			<h3 id="contribute_code">Contribute code</h3>
+
+			<p>
+				When you encounter a bug or see one in the issues list that you can or have resolved,
+				and you want to contribute it back to the framework. Use GitHub to send a pull request.
+				Depending on which version you are running the branch you pull on. Follow the next couple
+				of steps to when you request a pull:
+			</p>
+
+			<ul>
+				<li>
+					<strong>Is the release I am currently using still supported?</strong><br/>
+					If not, upgrade to the current release, and see if the bug is still exists.
+				</li>
+				<li>
+					<strong>Is the bug still present in the current release?</strong><br/>
+					If so, upgrade to the current develop branch, and see if the bug is fixed there.
+				</li>
+				<li>
+					<strong>If not, checkout the current development branch on your local repository</strong><br/>
+					<code class="cli">$ git checkout -b 1.7/develop origin/1.7/develop</code>
+				</li>
+				<li>
+					<strong>Fix the bug and commit it in your local repository</strong><br/>
+					Use a descriptive and understandable commit message, and make sure you sign it off.<br/>
+					<code class="cli">$ git commit -m "This is my awesome description."</code>
+				</li>
+				<li>
+					<strong>Push it to your GitHub account</strong><br/>
+					<code class="cli">$ git push</code>
+				</li>
+				<li>
+					<strong>Request the pull</strong><br/>
+					Request the pull on the same branch as you are on (= the current develop branch).
+					Use the "update commit range" interface to direct you request to the correct branch.
+					Pull requests are only accepted on the current release develop branch (1.5/develop).
+				</li>
+				<li>
+					<strong>Wait for your moment of fame</strong><br/>
+					As soon as your request is merged you'll be part of the contributors list of Fame.
+				</li>
+			</ul>
+
+			<p class="note">You can find this procedure described in more detail on <a href="https://github.com/fuel/fuel/wiki/Contributing">Github</a>.</p>
+
+			<h3 id="enhancements">Non-bug contributions</h3>
+
+			<p>
+				Non-bug contributions are new features, optimizations and all other alterations. All of these request must be made on the
+				latest development branch. So pull the 1.7/develop branch, make the changes and request a pull.
+			</p>
+			<p>
+				For large and/or completely new features, or features that will take some time to complete, it might be wise
+				to setup a separate feature branch. Contact one of the core developers via email or on IRC to discuss the options.
+			</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

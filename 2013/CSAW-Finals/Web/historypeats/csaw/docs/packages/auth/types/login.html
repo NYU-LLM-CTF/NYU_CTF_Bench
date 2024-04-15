@@ -1,0 +1,571 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+		var class_prefix = "$object->";
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Login - Driver types - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Auth package</h2>
+
+			<p>The Auth package provides a standardized interface for authentication in Fuel. This allows our users to
+			write their own drivers and easily integrate a new driver to work with old code by keeping the basic methods
+			consistent.</p>
+
+			<section>
+				<h2 id="driver_types">Auth_Login_Driver</h2>
+
+				<p>
+					This driver is the base class for all Auth login drivers. It is defined as an abstract class which contains
+					all methods generic to all login drivers, and abstract method definitions for all methods any login driver
+					MUST implement.
+				</p>
+
+				<h3 id="driver_config">Driver configuration</h3>
+
+				<p>
+					A group driver can load additional drivers that it depends on. Generally, these are Group drivers. But your implementation
+					could introduce and use custom driver types as well. To do so, add this structure to your driver class:
+				</p>
+
+								<pre class="php"><code>// autoload the Simplegroup group driver when loading this login driver
+// this also defines the additional user record fields this driver has a getter for
+	protected $config = array(
+		'drivers' => array('group' => array('Simplegroup')),
+		'additional_fields' => array('profile_fields'),
+	);
+</code></pre>
+				<h3 id="static">Static interface</h3>
+
+				<p>For ease of use, the Auth package provides a static interface on the public methods of the Login driver.
+				for this reason, the login base driver also defines the methods <kbd>member()</kbd> and <kbd>has_access()</kbd>,
+				which provide static access to these methods in the group and ACL driver.</p>
+
+				<p>Using the static interface, you can do</p>
+
+								<pre class="php"><code>// returns 'simpleauth'
+$id = Auth::get_id();
+</code></pre>
+
+				<p>instead of</p>
+
+								<pre class="php"><code>// returns 'simpleauth'
+$id = Auth::instance()->get_id();
+</code></pre>
+				<p class="note">This only works if "verify_multiple_logins" is set to <kbd>false</kbd> in the Auth config, as you can
+				not map a static interface to multiple active login drivers!</p>
+
+				<h3 id="generic_methods">Generic methods</h3>
+
+				<p>
+					Generic methods are defined in the login base driver, and are available to all Auth login drivers through
+					extension. These methods provide functions to create and retrieve instances, to set and get configuration
+					values, as well as generic method for password hashing and access to the <a href="acl.html">ACL</a> and <a href="group.html">Group</a> drivers.
+				</p>
+				<p class="note">The methods defined in the classes but not documented here are used internally, and should not be called directly.</p>
+
+				<article>
+					<h4 id="method_get_id" class="method">get_id()</h4>
+					<p>Returns the drivers unique id. This can be used to identify the driver, or to select a specific driver instance.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>The drivers id string.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns 'simpleauth'
+$id = Auth::instance('simpleauth')->get_id();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_set_config" class="method">set_config($key, $value)</h4>
+					<p>Sets a driver configuration value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$key</kbd></th>
+										<td>required</td>
+										<td>Configuration key name</td>
+									</tr>
+									<tr>
+										<th><kbd>$value</kbd></th>
+										<td>required</td>
+										<td>Value for this configuration key</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// set a config value
+Auth::instance()->set_config('key', 'value');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_get_config" class="method">get_config($key, $default = null)</h4>
+					<p>Gets a driver configuration value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$key</kbd></th>
+										<td>required</td>
+										<td>Configuration key name</td>
+									</tr>
+									<tr>
+										<th><kbd>$default</kbd></th>
+										<td><i>null</i></td>
+										<td>Default value to be returned if the requested key does not exist</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get a config value, return false if it doesn't exist
+$key = Auth::instance()->get_config('key', false);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_guest_login" class="method">guest_login()</h4>
+					<p>Returns if the driver supports guest logins (a non-authenticated guest user).</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None.
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// check if the default instance supports guests
+if (Auth::instance()->guest_login())
+{
+	// this driver supports guest logins!
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+
+					<p class="note">By default, this method returns 'false'. If your login driver supports guest logins, overload this
+						method in your driver class.</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_user_array" class="method">get_user_array(Array $additional_fields = array())</h4>
+					<p>Returns an array describing the current logged in user, always includes at least a screenname and
+					an emailaddress. Additional fields can be configured in the driver config or requested through the
+					$additional_fields array, but they must have a get_user_<em>fieldname</em>() method within the driver
+					to be gettable.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$additional_fields</kbd></th>
+										<td><i>array()</i></td>
+										<td>an array with fieldnames to fetch</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>array</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// call the method on the default instance
+$user = Auth::instance()->get_user_array();
+
+// call the method on a specific instance
+$user = Auth::instance('simpleauth')->get_user_array();
+
+// static call (if "verify_multiple_logins" is set to false)
+$user = Auth::get_user_array();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+
+					<p class="note">You can define the 'additional_fields' in the driver configuration array to have them included by default when you call this method.</p>
+				</article>
+
+				<article>
+					<h4 id="method_hash_password" class="method">hash_password($password)</h4>
+					<p>Returns a base64 encoded hash of the given password. This method uses the very secure <a href="http://en.wikipedia.org/wiki/PBKDF2">pbkdf2</a> hashing algorithm.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$password</kbd></th>
+										<td>required</td>
+										<td>The password to hash</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// hash a users password
+$password = Auth::instance()->hash_password($password);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<h3 id="abstract_methods">Abstract methods</h3>
+
+				<p>
+					Every login driver you develop MUST provide all of these methods, and the MUST return the values documented here.
+				</p>
+
+				<article>
+					<h4 id="method_perform_check" class="method">perform_check()</h4>
+					<p>Internal class method which checks if there is a valid session for the current user. It is up to you how your driver will determine this.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean, <strong>true</strong> if there is a valid user session, <strong>false</strong> if there isn't.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">This method is called by Auth::check(), it should not be called directly by the application.</p>
+				</article>
+
+				<article>
+					<h4 id="method_validate_user" class="method">validate_user()</h4>
+					<p>The <strong>validate_user</strong> method validates a login request. It is up to you how your driver will do this.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. it should return <strong>false</strong> if the user didn't pass validation. Any value that evaluates to true is considered to be valid.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">Applications calling this method should not make assumptions about the return value if it isn't <strong>false</strong>!</p>
+				</article>
+
+				<article>
+					<h4 id="method_login" class="method">login()</h4>
+					<p>The <strong>login</strong> method performs a login request. It should call the validate_user() to validate the request. It is up to you how your driver will do this.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the login was succesful, <strong>false</strong> otherwise.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If your driver has guest user support, it must setup the guest before returning <strong>false</strong>.</p>
+				</article>
+
+				<article>
+					<h4 id="method_logout" class="method">logout()</h4>
+					<p>The <strong>logout</strong> method logs out the current logged-in user. It is up to you how your driver will do this.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the logout was succesful, <strong>false</strong> otherwise.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If your driver has guest user support, it must setup the guest as current user after a succesful logout.</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_user_id" class="method">get_user_id()</h4>
+					<p>The <strong>get_user_id</strong> method returns an array structure containing the drivers id value, and the id of the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns an array in the form <strong>array(driver_id, user_id)</strong> if a user is logged in, or <strong>false</strong> otherwise.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If your driver has guest user support, it must return the array with the (dummy) user_id of your guest, and not <strong>false</strong>!</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_groups" class="method">get_groups()</h4>
+					<p>The <strong>get_groups</strong> method returns the user groups assigned to the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns an array in the form <strong>array(array(driver_id, group_id), array(driver_id, group_id), etc)</strong> if a user is logged in, or <strong>false</strong> otherwise.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If your driver has guest user support, it must return the array your guest user groups, and not <strong>false</strong>!</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_email" class="method">get_email()</h4>
+					<p>The <strong>get_email</strong> method returns the email address assigned to the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns an email address if a user is logged in, or <strong>false</strong> if no email address is defined for the current user, or there is no user logged-in.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If your driver has guest user support, don't forget to return <strong>false</strong> if the guest does not have an email address defined!</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_screen_name" class="method">get_screen_name()</h4>
+					<p>The <strong>get_screen_name</strong> method returns the screen- or display name of the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns a string containing the name, or <strong>false</strong> if there is no user logged-in.</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If your driver has guest user support, it must return the guests display name, and not <strong>false</strong>!</p>
+				</article>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

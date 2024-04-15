@@ -1,0 +1,9 @@
+TITLE:
+Quirky Emulation
+
+DESCRIPTION:
+I was pretty sure that this program wasn't vulnerable, but someone is reporting that it is being
+exploited on their configuration. Can you investigate?
+
+PORT:
+4242

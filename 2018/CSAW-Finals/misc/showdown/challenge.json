@@ -1,0 +1,8 @@
+{
+    "name": "Showdown",
+    "category": "etc",
+    "description": "A lone figure appears at sundown. Are you a bad enough dude to accept his challenge?\n\nNOTE: This is not a resource exhaustion bug, pls be kind to our server - perhaps run it locally first.",
+    "flag":"flag{this namespace aint big enough for the two of us 9b74f055}",
+    "points": 150,
+    "files": ["showdown.tar.gz"]
+}

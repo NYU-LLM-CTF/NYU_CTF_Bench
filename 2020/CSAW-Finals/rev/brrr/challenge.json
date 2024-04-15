@@ -1,0 +1,9 @@
+{
+    "name": "brrr",
+    "category": "rev",
+    "description": "I'm sick of these new age fuzz hippies sending me crash reports",
+    "flag": "flag{such_pr1m1t1v3_t3chn0l0gy}",
+    "points": 100,
+    "box": "rev.chal.csaw.io",
+    "files": ["brrr"]
+}

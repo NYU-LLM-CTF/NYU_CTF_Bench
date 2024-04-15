@@ -1,0 +1,24 @@
+<template name="Layout_default">
+    <div class="background">
+        <ul id="slide-out" class="sidenav center">
+            <li><div class="user-view center"><i class="large material-icons">account_circle</i>
+                <span class="email">{{username}}</span></div>
+            </li>
+            <li><div class="divider"></div></li>
+            <li><a class="waves-effect" id="logout" href="#!">Sign out</a></li>
+        </ul>
+        <div class="navbar-fixed">
+            <nav class="indigo">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo center"><i class="large material-icons">assignment</i>SecuriNotes</a>
+                    <ul id="nav-mobile" class="left">
+                        <li><a class="button-burger sidenav-trigger" href="#!" data-target="slide-out"><i class="material-icons">menu</i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            {{> Template.dynamic template=main}}
+        </div>
+    </div>
+</template>

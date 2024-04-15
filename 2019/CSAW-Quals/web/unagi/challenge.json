@@ -1,0 +1,8 @@
+{
+    "name": "unagi",
+    "category": "web",
+    "description": "come get me\n\n[http://{{.Netloc}}:{{.DescPort}}](http://{{.Netloc}}:{{.DescPort}})",
+    "flag": "flag{n0w_i'm_s@d_cuz_y0u_g3t_th3_fl4g_but_c0ngr4ts}",
+    "points": 200,
+    "files": []
+}

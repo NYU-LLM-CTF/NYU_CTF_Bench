@@ -1,0 +1,27 @@
+<%- include('header') -%>
+<h1 class="title">
+  <% if (is_me) { %>
+    My Posts
+  <% } else { %>
+    <%= username %>'s Posts
+  <% } %>
+</h1>
+<% if(posts.length == 0) { %>
+<p class="subtitle">
+  <% if (is_me) { %>
+    You have no posts
+  <% } else { %>
+    This user has no posts
+  <% } %>
+</p>
+<% } else { %>
+<div class="columns is-multiline">
+  <% for(let post of posts) { %>
+  <div class="column is-3">
+    <%- include('post_card', {post}) -%>
+  </div>
+  <% } %>
+</div>
+<% } %>
+<%- include('footer') -%>
+

@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Input::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Input - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Input Class</h2>
+
+			<p>The input class allows you to access HTTP parameters, load server variables and user agent details.</p>
+
+			<article>
+				<h4 class="method" id="method_uri">uri()</h4>
+				<p>The <strong>uri</strong> method detects the current URI to build the correct string.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string - the current URI with forward slash prefix</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example URL: http://localhost/controller/method
+echo Input::uri(); // returns /controller/method</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_json">json($index = null, $default = null)</h4>
+				<p>The <strong>json</strong> method returns a json_decoded (and cleaned) value from the json request body.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the json request body. Multi-dimensional arrays can be accessed by separating the levels by a dot (.)</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array - Format::from_json result array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$value = \Input::json('key');
+
+// Set a default for when no value is present:
+$value = \Input::json('key', 'backup-value');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_xml">xml($index = null, $default = null)</h4>
+				<p>The <strong>xml</strong> method returns a XML decoded (and cleaned) value from the XML request body.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the XML request body. Multi-dimensional arrays can be accessed by separating the levels by a dot (.)</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array - Format::from_json result array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$value = \Input::xml('key');
+
+// Set a default for when no value is present:
+$value = \Input::xml('key', 'backup-value');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_cookie">cookie($index = null, $default = null)</h4>
+				<p>The <strong>cookie</strong> method allows you to read $_COOKIE variables. Call without params to fetch the
+				full cookie array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the $_COOKIE array. Multi-dimensional arrays can be accessed by separating the levels by a dot (.)</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::cookie('foo', 'bar');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($index = null, $default = null)</h4>
+				<p>The <strong>delete</strong> method allows you to read parameters from php://input stream when called via DELETE. Call without params to fetch the full array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the php://input stream.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::delete('foo', 'bar');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_put">put($index = null, $default = null)</h4>
+				<p>The <strong>put</strong> method allows you to read parameters from php://input stream when called via PUT.
+				Call without params to fetch the full array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the php://input stream.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::put('foo', 'bar');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_patch">patch($index = null, $default = null)</h4>
+				<p>The <strong>patch</strong> method allows you to read parameters from php://input stream when called via PATCH.
+				Call without params to fetch the full array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the php://input stream.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::patch('foo', 'bar');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get">get($index = null, $default = null)</h4>
+				<p>The <strong>get</strong> method allows you to read $_GET variables. Call without params to fetch the full array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the $_GET array. Multi-dimensional arrays can be accessed by separating the levels by a dot (.)</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::get('foo', 'bar');
+
+// You can go multiple levels deep as well.
+// This will return $_GET['somevar']['foo']['bar']
+Input::get('somevar.foo.bar');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_post">post($index = null, $default = null)</h4>
+				<p>The <strong>post</strong> method allows you to read $_POST variables. Call without params to fetch the full array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the $_POST array. Multi-dimensional arrays can be accessed by separating the levels by a dot (.)</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::post('foo', 'bar');
+
+// You can go multiple levels deep as well.
+// This will return $_POST['somevar']['foo']['bar']
+Input::post('somevar.foo.bar');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_is_ajax">is_ajax()</h4>
+				<p>The <strong>is_ajax</strong> method returns true if the controller is called via AJAX.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::is_ajax(); // false</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_method">method($default = 'GET')</h4>
+				<p>The <strong>method</strong> method returns the HTTP method used to call the controller. If the header X-HTTP-Method-Override has been sent, the specified method will be returned instead.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>'GET'</code></pre></td>
+									<td>Default HTTP method.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::method(); // "GET"</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_protocol">protocol()</h4>
+				<p>The <strong>protocol</strong> method returns the HTTP protocol used to call the controller.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::protocol(); // "HTTP"</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_ip">ip()</h4>
+				<p>The <strong>ip</strong> method returns the public IP address of the user. If the user operates from behind a proxy server, the IP address of that server is returned.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">echo Input::ip(); // 73.194.37.104 (public IP address)</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_real_ip">real_ip($default = '0.0.0.0', $exclude_reserved = false)</h4>
+				<p>The <strong>real_ip</strong> method returns the 'real' IP address of the user. If a proxy server is detected, it will attempt to determine the user's private IP address from the information the proxy adds to the header. If this information is not present, the public IP address is returned.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>'0.0.0.0'</code></pre></td>
+									<td>The value to be returned if no valid IP address was detected.</td>
+								</tr>
+								<tr>
+									<th><kbd>$exclude_reserved</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>If true, exclude private and reserved IP ranges, and return only public IP addresses.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">echo Input::real_ip(); // 10.76.12.199 (private IP behind a proxy server)</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">When $exclude_reserved is true, the following ranges will be excluded from the result:</p>
+<pre><code>IPv4:
+10.0.0.0/8     // private use network (rfc1918)
+172.16.0.0/12  // private use network (rfc1918)
+192.168.0.0/16 // private use network (rfc1918)
+0.0.0.0/8      // "this" network (rfc1700)
+169.254.0.0/16 // link local network (rfc3927)
+192.0.2.0/24   // test net (rfc3330)
+224.0.0.0/4    // Multicast (rfc3171)
+240.0.0.0/4    // Reserved for Future Use (rfc1700)
+
+IPv6:
+fc00::/7       // unique-local addresses (rfc4193)
+::/128         // unspecified address (rfc4291)
+::1/128        // loopback address (rfc4291)
+fe80::/10      // link local unicast (rfc4291)
+2001:db8::/32  // documentation addresses (rfc3849)
+5f00::/8       // 6Bone
+3ffe::/16      // 6Bone
+::ffff:0:0/96  // IPv4-Mapped addresses (rfc4291)
+2001:10::/28   // ORCHID addresses (rfc4843)
+::/0           // default unicast route address
+</code></pre>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_server">server($index = null, $default = null)</h4>
+				<p>The <strong>server</strong> method allows you to read parameters from the $_SERVER array with default
+					values. Call without params to fetch the full array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the $_SERVER array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">Input::server('HTTP_HOST'); // "localhost:8080"</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_referrer">referrer($default = '')</h4>
+				<p>The <strong>referrer</strong> method allows you to read the referrer from the $_SERVER array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Input::referrer();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_user_agent">user_agent($default = '')</h4>
+				<p>The <strong>user_agent</strong> method allows you to read the user agent from the $_SERVER array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Input::user_agent();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_all">all()</h4>
+				<p>The <strong>all</strong> returns all of the GET, POST, PUT and DELETE variables.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Input::all();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_file">file($index = null, $default = null)</h4>
+				<p>The <strong>file</strong> method allows you to fetch an item from the FILE array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the $_FILE array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string|array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Input::file();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_param">param($index = null, $default = null)</h4>
+				<p>The <strong>param</strong> method allows you to fetch an item from either the GET, POST, PUT or DELETE array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The key in the $_GET, $_POST, $_PUT or $_DELETE array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string|array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Input::param();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_extension">extension()</h4>
+				<p>The <strong>extension</strong> method returns the current URI extension.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string|null</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">// Example URL: http://localhost/test/
+echo Input::extension(); // NULL
+
+// Example URL: http://localhost/test.html
+echo Input::extension(); // 'html'
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_headers">headers($index = null, $default = null)</h4>
+				<p>The <strong>headers</strong> method returns a specific or all HTTP headers of the current request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$index</kbd></th>
+									<td><i>optional</i></td>
+									<td>The name of the HTTP header.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><i>optional</i></td>
+									<td>What value should be returned if the header entry is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre><code class="php">// check if there was a content length specified
+if ($headers = \Input::headers() and array_key_exists('Content-Length', $headers))
+{
+	echo 'The content length set on this request is', $headers['Content-Length'];
+}
+
+// or fetch it directly
+if ($header = \Input::headers('Content-Length', false))
+{
+	echo 'The content length set on this request is', $header;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "name": "autobots1.1",
+    "category": "pwn",
+    "description": "http://gph.is/1CtEetH\n`nc pwn.chal.csaw.io 8888`",
+    "flag": "flag{autobots_will_return}",
+    "points": 250,
+    "files": [],
+    "autodeploy":false
+}

@@ -1,0 +1,21 @@
+#include "chal.h"
+#include "lib/mruntime.h"
+#include "lib/mstdlib.h"
+
+// Dispatcher of character input -> group
+int loadl(struct reg_t *reg) {
+  if (reg->r[STATE_REG] == VERIFY_FOUND_KEY) {
+    RETURN_ENCODED(reg);
+  }
+  /* {% for g in range(0, uniq_names|length) %} */
+  if (reg->r[GROUP_REG] == {{ g }}) {
+    CALL_ENCODED(reg, {{ uniq_names[g][1] }});
+  }
+  /* {% endfor %} */
+  if (reg->r[LEN_REG] == FLAG_LEN) {
+    JUMP_ENCODED(BOI1_BIN);
+  }
+
+  reg->r[STATE_REG] = FAIL_VERIFY;
+  RETURN_ENCODED(reg);
+}

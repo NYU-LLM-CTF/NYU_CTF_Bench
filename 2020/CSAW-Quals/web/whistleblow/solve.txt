@@ -1,0 +1,4 @@
+Bucket Name: `3a00dd08-541a-4c9f-b85e-ade6839aa4c0/3fa52aaa-78ed-4261-8bcc-04fc0b817395/4bcd2707-48db-4c04-9ec7-df522de2ccd7.txt`
+Path: `7092a3ec-8b3a-4f24-bdbd-23124af06a41/7db7f9b0-ab6a-4605-9fc1-1cc8ba7877a1/1b56b43a-7525-429a-9777-02602b52dc1e.txt`
+Access Key: `c9bf9d72-8f62-4233-9cd6-1a0f8805b0af/acbad485-dd20-4295-99fa-f45e3d5bdb45/1eaddd5d-fe24-4deb-8e6e-5463f395fa03.txt`
+Signature: `6c748996-e05a-408a-8ed8-925bf01be752/c1fe922c-aec8-4908-a97d-398029d39236/77010958-c8ed-4a7b-802a-f189d0f76ec0.txt`

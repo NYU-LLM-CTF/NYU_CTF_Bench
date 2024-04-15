@@ -1,0 +1,4 @@
+<Files flag.txt>
+Order deny,allow
+Deny from all
+</Files>

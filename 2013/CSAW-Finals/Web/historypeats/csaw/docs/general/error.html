@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Error Handling - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Error Handling</h2>
+
+			<h3 id="intro">Introduction</h3>
+			<p>
+				As you all (should) know <a href="http://en.wikipedia.org/wiki/Exception_handling">error handling</a>
+				is a very important part in the development process. Not only does it show the user that the page he/she/it
+				requested is not available, it's also a way to inform machines (browsers and such) about what’s going
+				on by providing a HTTP error status.
+			</p>
+
+			<h3 id="code_errors">Code errors</h3>
+
+			<p>
+				FuelPHP's internal error handling is based on Exceptions. This allows you to catch them in your code, so your
+				application can handle the exception that occured gracefully and the user can continue using the application.
+			</p>
+			<p>
+				FuelPHP also alters the default PHP behaviour when it comes to PHP errors (which are not exceptions) from the
+				old procedural functions. Instead of continuing on all non-fatal errors, <strong>FuelPHP will throw a PhpErrorException
+				on all of these errors</strong>. This will force you to solve all errors, even an E_NOTICE which in the old days you
+				might have ignored. It will also allow you to catch PHP errors. For example to catch syntax errors in view files
+				when you have non-programmers creating views.
+			</p>
+			<p>
+				You can alter this behaviour by adding PHP error types (like E_NOTICE or E_STRICT) to the <a href="./configuration.html#config">errors.continue_on</a> key
+				in your applications config/config.php file. Errors defined here will allow your script to continue. No exception
+				is being thrown for these errors, so you can no longer catch these.
+			 </p>
+			 <p class="note">
+				 It is strongly adviced not to continue on errors, as it might lead to bugs in your code that are
+				 very difficult to find once your application moves into production!
+			 </p>
+
+			<h3 id="application_errors">Application logic errors</h3>
+
+			<h4 id="config">Error 404</h4>
+
+			<p>
+				The 404 route is set in <em>app/config/routes.php</em> and must point to the controller/method
+				that handles the 404 pages. <a href="routing.html">Read more about it in the routing section.</a>
+			</p>
+
+			<h4 id="throw">Throwing a 404</h4>
+
+			<p>
+				There may be times when one needs to throw a 404 error, such as when handling the routing yourself.
+				This is simply done by throwing a <kbd>HttpNotFoundException</kbd>. Fuel will <kbd>exit</kbd> for
+				you once it has run the 404 page.
+			</p>
+
+			<pre class="php"><code>throw new HttpNotFoundException;</code></pre>
+
+			<p class="note">
+				This exception is caught and processed in your applications index.php file. When caught, it will do
+				a lookup for the defined 404 route, and if found, it will forge a new request using the route found
+				as the URI for the request. As this is a normal request, the URI will be <strong>routed like any
+				other request!</strong>
+			</p>
+
+			<p>
+				If you don't want this behaviour, change your index.php file to read
+			</p>
+
+			<pre class="php"><code>// Generate the request, execute it and send the output.
+try
+{
+	$response = Request::forge()->execute()->response();
+}
+catch (HttpNotFoundException $e)
+{
+	$route = array_key_exists('_404_', Router::$routes) ? Router::$routes['_404_']->translation : Config::get('routes._404_');
+	if ($route)
+	{
+		// add 'false' to the forge request do disable the routing engine
+		$response = Request::forge($route, false)->execute()->response();
+	}
+	else
+	{
+		throw $e;
+	}
+}
+</code></pre>
+
+			<h4 id="404_handling">404 handling</h4>
+
+			<p>
+				When a request is made and after the router looked for possible matches and there is no match, the 404
+				handling comes into play. By default the <strong>_404_</strong> route points to <em>welcome/404</em>,
+				let's take a look at that method:
+			</p>
+
+			<pre class="php"><code>// Inside Controller_Welcome
+
+/**
+ * The 404 action for the application.
+ *
+ * @access  public
+ * @return  void
+ */
+public function action_404()
+{
+	$messages = array('Aw, crap!', 'Bloody Hell!', 'Uh Oh!', 'Nope, not here.', 'Huh?');
+	$data['title'] = $messages[array_rand($messages)];
+
+	// Set a HTTP 404 output header
+	return Response::forge(View::forge('welcome/404', $data), 404);
+}</code></pre>
+
+			<p>
+				Here you can see what's going on inside the 404 handler. As you can see it's a normal controller action.
+				What's nice about this is that it allows you to show whatever content you like on the page. You can
+				load your own views with data fetched from a database.
+			</p>
+
+			<p class="note">
+				Note that Fuel doesn't set the 404 status, your response must set this. Return <em>Response::forge(ViewModel::forge('welcome/404'), 404);</em>
+				in order to send the correct status header.
+			</p>
+
+			<h4 id="catch_all">Catch all</h4>
+
+			<p>
+				Because Fuel doesn't set the 404 response status, you can use it as a catch all function.
+				You might have have a page model that can fetch the page from a database by uri.
+				Here is an example to illustrate the possibilities:
+			</p>
+
+			<pre class="php"><code>// Inside your 404 controller
+
+public function action_my404()
+{
+	$original_uri = \Input::uri();
+	$result = \DB::select()->from('pages')->where('uri', $original_uri)->execute();
+	if(count($result) === 1)
+	{
+		// display that page in whatever way you like
+	}
+	else
+	{
+		// display your general 404 page
+		$messages = array('Aw, crap!', 'Bloody Hell!', 'Uh Oh!', 'Nope, not here.', 'Huh?');
+		$data['title'] = $messages[array_rand($messages)];
+		return Response::forge(View::forge('welcome/404', $data), 404);
+	}
+}</code></pre>
+
+			<h4 id="throw_500">Throwing a 500</h4>
+
+			<p>
+				There may be moments where your applications simply need to stop and show an error to
+				indicate that something has gone wrong on the server. Normally this is a
+				<a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_Server_Error">500 Internal
+				Server Error</a>.
+			</p>
+
+			<p>
+				Similar to throwing a 404, one can throw a 500 error.
+			</p>
+
+			<pre class="php"><code>throw new HttpServerErrorException;</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

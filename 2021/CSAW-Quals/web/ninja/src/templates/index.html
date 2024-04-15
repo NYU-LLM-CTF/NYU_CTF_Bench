@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSAW</title>
+
+    <h1>Welcome to my website</h1>
+    <h6>Enter your name below to be greeted by me.</h6>
+
+</head>
+
+
+<style>
+
+    *{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background-color: #dbf9d8;
+    }
+
+    h1,h6 {
+        text-align: center;
+        color:#4CAF50;
+    }
+
+    h6{
+        color:#124975;
+    }
+
+
+    input[type=text] {
+        width: 100%;
+        border: 2px solid #007cb8;
+        border-radius: 4px;
+        height: 50px;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    input[type=submit] {
+        margin:auto;
+        display: block;
+        border: 1px solid #007cb8;    
+        border-radius: 12px;
+        transition-duration: 0.4s;
+        font-size: 24px;
+        color:green;
+        background-color: white;
+
+    }
+
+    input[type=submit]:hover {
+        background-color: #007cb8;
+        /* Green */
+        color: white;
+    }
+</style>
+
+
+<body>
+
+    <form action="submit" method="GET">
+        <input type="text" name="value" />
+
+        <input type="submit" value="Submit" />
+    </form>
+
+
+
+</body>
+
+</html>

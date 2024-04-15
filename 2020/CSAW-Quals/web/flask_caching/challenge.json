@@ -1,0 +1,10 @@
+{
+  "name": "flask_caching",
+  "category": "web",
+  "description": "cache all the things (this is python3) \n\n[http://{box}:{port}](http://{box}:{port})",
+  "points": 300,
+  "internal_port": 5000,
+  "box": "web.chal.csaw.io",
+  "flag": "flag{f1@sK_10rD}",
+  "files": ["app.py"]
+}

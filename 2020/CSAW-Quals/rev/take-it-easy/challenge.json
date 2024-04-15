@@ -1,0 +1,10 @@
+{
+    "name": "take-it-easy",
+    "author": "@yossarian from Trail of Bits",
+    "category": "rev",
+    "description": "x86 was a mistake, and one of its mistakes is in this binary. If you can find it, maybe you'll be rewarded with a flag. Hmm, maybe the title is also a key of some sort...\n\nBy @yossarian from Trail of Bits",
+    "flag": "flag{immanuel-kant-says-wear-a-mask}",
+    "points": 250,
+    "box": "rev.chal.csaw.io",
+    "files": ["wireshark"]
+}

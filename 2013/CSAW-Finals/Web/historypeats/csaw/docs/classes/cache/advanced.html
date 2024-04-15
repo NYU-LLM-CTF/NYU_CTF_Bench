@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Cache::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Cache Advanced - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Cache Class</h2>
+
+			<p>The cache class allows you to cache the result of a resource heavy operation.</p>
+
+			<section>
+				<h3>Advanced usage</h3>
+
+                                <p>Using cache as an object instance.</p>
+                                <pre><code>$options = array(...); //These are the same as in the cache config file.
+
+$cache = Cache::forge('my_cache', $options)</code></pre>
+                                <p>Data can then be saved to the cache using the <kbd>set()</kbd> function.</p>
+                                <pre id="php"><code>$cache-&gt;set($myData, 604800);</code></pre>
+                                <p>This sets the data in one block and sets the expiration time to one week (604800 seconds). If the second parameter is set to null then the cache will never expire.</p>
+                                <p>Data can be retrieved in the same way as when using <kbd>Cache</kbd> statically.</p>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

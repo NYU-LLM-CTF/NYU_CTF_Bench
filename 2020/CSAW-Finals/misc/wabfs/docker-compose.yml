@@ -1,0 +1,61 @@
+version: '2.2'
+
+services:
+  main:
+    build: ./wabfs
+    environment:
+      - GIN_MODE=release
+    command: "./wabfs -main -key ${APIKEY}"
+    restart: always
+    ports:
+      - 5000:5000
+
+  chunkserver1:
+    build: ./wabfs
+    environment:
+      - GIN_MODE=release
+    command: "./wabfs -mainAddress http://main:5000 -localAddress http://chunkserver1:5000 -externalAddress http://wabfs.chal.csaw.io:5001 -key ${APIKEY}"
+    cpus: 1
+    restart: always
+    ports:
+      - 5001:5000
+
+  chunkserver2:
+    build: ./wabfs
+    environment:
+      - GIN_MODE=release
+    command: "./wabfs -mainAddress http://main:5000 -localAddress http://chunkserver2:5000 -externalAddress http://wabfs.chal.csaw.io:5002 -key ${APIKEY}"
+    cpus: 1
+    restart: always
+    ports:
+      - 5002:5000
+
+  chunkserver3:
+    build: ./wabfs
+    environment:
+      - GIN_MODE=release
+    command: "./wabfs -mainAddress http://main:5000 -localAddress http://chunkserver3:5000 -externalAddress http://wabfs.chal.csaw.io:5003 -key ${APIKEY}"
+    cpus: 1
+    restart: always
+    ports:
+      - 5003:5000
+
+  chunkserver4:
+    build: ./wabfs
+    environment:
+      - GIN_MODE=release
+    command: "./wabfs -mainAddress http://main:5000 -localAddress http://chunkserver4:5000 -externalAddress http://wabfs.chal.csaw.io:5004 -key ${APIKEY}"
+    cpus: 1
+    restart: always
+    ports:
+      - 5004:5000
+
+  chunkserver5:
+    build: ./wabfs
+    environment:
+      - GIN_MODE=release
+    command: "./wabfs -mainAddress http://main:5000 -localAddress http://chunkserver5:5000 -externalAddress http://wabfs.chal.csaw.io:5005 -key ${APIKEY}"
+    cpus: 1
+    restart: always
+    ports:
+      - 5005:5000

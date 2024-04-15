@@ -1,0 +1,39 @@
+@import '/app/node_modules/materialize-css/sass/materialize.scss';
+
+body {
+    height: 100%;
+}
+.background {
+    position: absolute;
+    background-image: url(img/background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.brand-logo {
+    padding-left: 12px !important;
+}
+
+.full-height {
+    min-height: 100vh;
+}
+
+.add-margin-top {
+    margin-top: 100px;
+}
+
+.tabs .indicator {
+    background-color: indigo;
+}
+
+.drop-shadow {
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.card, .card-panel {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
+}

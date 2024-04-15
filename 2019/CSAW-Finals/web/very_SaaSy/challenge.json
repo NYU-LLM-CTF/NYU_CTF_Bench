@@ -1,0 +1,8 @@
+{
+    "name": "very SaSy",
+    "category": "web",
+    "description": "I thought my SaaS was really cool, but 3 users complained that it was too slow for them :(\nAnd before I could fix it, they sent me the flag that I hid!\nAfter I changed the flag, I fixed SaaS; it should scale WAY better now.\n\nThe flag is still at /flag on the web server, totally separate from the server the void is on.\nNot that it will matter, since nobody will ever get it!\n\n[http://web.chal.csaw.io:8080](http://web.chal.csaw.io:8080)\n\nAuthor: negasora",
+    "flag": "flag{hope_y0u_eNjoYed_tHe_sequel}",
+    "points": 400,
+    "files": ["handout/info.tar.gz"]
+}

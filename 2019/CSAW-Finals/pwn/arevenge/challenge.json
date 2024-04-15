@@ -1,0 +1,8 @@
+{
+    "name": "arevenge",
+    "category": "pwn",
+    "description": "Hello, fresh recruit.\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{i_pad_my_exploits_with_i}",
+    "points": 200,
+    "files": ["a.out", "libc-2.27.so"]
+}

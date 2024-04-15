@@ -1,0 +1,18 @@
+{
+  "name": "chaff_mqtt",
+  "category": "pwn",
+  "description": "Baby MQTT has entered adolescence, complete with chaff! See `notes.txt` for more description of this challenge.\n\n`nc {box} {port}`",
+  "flag": "flag{MY_b4by_15_4LL_gr0w3d_up:(}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "public/mqtt_strip",
+    "public/libc.so.6",
+    "public/Dockerfile",
+    "notes.txt"
+  ],
+  "internal_port": 5000,
+  "box": "pwn.chal.csaw.io"
+}

@@ -1,0 +1,5 @@
+# haySTACK
+
+This challenge is an x86-64 ELF binary with a simple array index underflow.  Contestants are asked to search for a randomly chosen haystack indexed between 0 and 0x100000.  The random seed is calculated correctly so the choice is non-deterministic.  Contestants only have three guesses otherwise the challenge will exit, thus eliminating brute forcing.  
+
+The contestants need to recognize that the array is stored on the stack in a previous stack frame while the desired index is calculated and stored in the current stack frame.  This ensures that the index is stored on the stack below the array of haystacks.  The top bound is checked but the lower bound is neglected.  Static or dynamic analysis can be used to calculate the offset, i.e. the negative index (-22).  Once leaked, a shell is popped for the user after they guess the correct index.

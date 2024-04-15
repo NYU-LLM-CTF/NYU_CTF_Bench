@@ -1,0 +1,15 @@
+{
+  "name": "Password Checker",
+  "category": "warm-up",
+  "description": "Charlie forgot his password to login into his Office portal. Help him to find it. (This challenge was written for the person on your team who has never solved a binary exploitation challenge before! Welcome to pwning.)\n\n`nc {box} {port}`",
+  "type": "dynamic",
+  "initial": 250,
+  "minimum": 25,
+  "decay": 275,
+  "internal_port": 5000,
+  "box": "pwn.chal.csaw.io",
+  "flag": "flag{ch4r1i3_4ppr3ci4t35_y0u_f0r_y0ur_h31p}",
+  "files": [
+    "password_checker"
+  ]
+}

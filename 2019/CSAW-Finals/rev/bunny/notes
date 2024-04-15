@@ -1,0 +1,34 @@
+Key: YOUAREAMAZE
+Variants: ENTERANDFINDTHEKEYISYOUAREAMAZE, ANDFINDTHEKEYISYOUAREAMAZE
+
+How to solve:
+- There is a single .cpp file with a lot of generated code.
+- At the end there is an ENTER function, and a comment referencing a
+libFuzzer harness entrypoint.
+- Fill in that harness, call ENTER, compile and start fuzzing.
+- There *should* only be one control flow that crashes and the stack
+trace prints.
+ENTER
+AN
+DF
+IN
+DT
+HE
+KE
+YI
+SY
+OU
+AR
+EA
+MA
+ZE
+
+What could go wrong: I have not formally verified there is only one
+crash path. But I've fuzzed several times with several input seeds and
+they all crash on this path. The codegen logic has some context to
+enforce this is the only correct path but I tried to make it
+non-obvious to angr/cfg-inspect/etc so there is a chance I introduced
+a bug.
+
+If someone crashes it with another stack trace, I can verify if they
+provide the base64 of the input.

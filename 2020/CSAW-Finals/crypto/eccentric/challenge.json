@@ -1,0 +1,10 @@
+{
+    "name": "eccentric",
+    "category": "crypto",
+    "description": "'Don't worry, I'm using ECC.' - every crypto script kiddy ever\n\n`nc {box} {port}`",
+    "points": 100,
+    "flag": "flag{wh0_sa1d_e11ipt1c_curv3z_r_s3cur3??}",
+    "box": "crypto.chal.csaw.io",
+    "internal_port": 5000,
+    "files": ["handout"]
+}

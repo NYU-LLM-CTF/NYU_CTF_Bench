@@ -1,0 +1,9 @@
+{
+    "name": "ezbreezy",
+    "category": "rev",
+    "description": "This binary has nothing to hide!",
+    "flag": "flag{u_h4v3_r3c0v3r3d_m3}",
+    "points": 100,
+    "box": "rev.chal.csaw.io",
+    "files": ["app"]
+}

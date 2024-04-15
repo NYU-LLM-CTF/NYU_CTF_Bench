@@ -1,0 +1,18 @@
+version: "2"
+services:
+  sql-challenge:
+    build: ./app
+    container_name: sql-challenge
+    links:
+      - sql-challenge-db
+    ports:
+      - "8080:80"
+
+  sql-challenge-db:
+    image: mysql:5.7
+    container_name: sql-challenge-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 851759d5bde93de7252229b38ce2fd9c8d1ba76199e59ec058eac7ab059e
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./db/my.cnf:/etc/mysql/conf.d/custom.cnf

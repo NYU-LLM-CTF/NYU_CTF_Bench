@@ -1,0 +1,15 @@
+{
+  "name": "Control",
+  "category": "rev",
+  "author": "hgarrereyn",
+  "description": "What even are opcodes?\n\nAuthor: [`hgarrereyn`](https://twitter.com/hgarrereyn) (DiceGang)",
+  "flag": "flag{wh0_n33ds_opc0des_wh3n_you_h4ve_CONTROL?}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "handout.zip"
+  ],
+  "box": "rev.chal.csaw.io"
+}

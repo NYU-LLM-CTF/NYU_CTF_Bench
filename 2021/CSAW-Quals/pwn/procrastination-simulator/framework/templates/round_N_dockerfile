@@ -1,0 +1,15 @@
+FROM debian:stretch
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y socat && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -M chal
+
+WORKDIR /opt/chal
+
+COPY round_2 .
+COPY flag.txt .
+
+RUN chmod 444 flag.txt && chmod 555 round_2
+
+EXPOSE 9002
+CMD ["socat", "-T60", "TCP-LISTEN:9002,reuseaddr,fork", "EXEC:./round_2"]

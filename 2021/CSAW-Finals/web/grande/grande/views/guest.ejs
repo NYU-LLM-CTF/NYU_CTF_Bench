@@ -1,0 +1,25 @@
+<%- include('header') -%>
+<div class="container container-small">
+<h1 class="title">
+  Register New Guest
+</h1>
+<p class="subtitle">
+  Registering as an author is current disabled, but you may register as a guest:
+</p>
+<form method="POST">
+  <div class="field">
+    <label class="label">Guest Username</label>
+    <div class="control">
+      <input class="input <% if(error){ %>is-danger<% } %>" name="name" type="text" placeholder="Username">
+    </div>
+    <% if (error) { %>
+      <p class="help is-danger"><%= error %></p>
+    <% } %>
+  </div>
+  <div class="control">
+    <button class="button is-link is-fullwidth">Continue</button>
+  </div>
+</form>
+</div>
+<%- include('footer') -%>
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+  <%- include('./partials/head'); %>
+</head>
+
+<body class="container">
+
+<header>
+  <%- include('./partials/header'); %>
+</header>
+
+<main>
+  <div class="container">
+      
+      <% if(detail) { %>
+        <p><a href="/players/">Back</a></p>
+      <% } %>
+
+      <div>
+        <h2><%= title %></h2>
+      </div>  
+    
+      <div class="p-2 bg-light border" style="background-color: #f5f5f5;;padding:15px">
+        <table class="table table-sm caption-top">
+            <thead>
+              <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Specialty</th>
+              </tr>
+          </thead>
+          <tbody>
+            <% players.forEach(function(player){ %>
+                <tr scope="row">
+                    <td><%= player.rowid %></td>
+                    <td><a href="/players/<%= player.rowid %>-P"><%= player.first + " " + player.last %></a></td>
+                    <td><%= player.specialty %></td>
+                </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+    <% if(detail) { %>
+      <div style="margin-top:15px">
+        <h3>Bio</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur accumsan luctus. Mauris vel dapibus ex, ut dignissim dui. Suspendisse pharetra elit a pretium sodales. Nullam nec aliquam metus. Praesent ultricies ante quis lectus sollicitudin, ac aliquam ex dapibus. Sed non velit ante. Maecenas commodo posuere facilisis. Ut diam justo, sollicitudin non diam non, consequat malesuada turpis. Pellentesque eleifend augue nec risus pellentesque sollicitudin. Suspendisse quis massa vel lacus tincidunt pretium. Proin feugiat urna orci, vitae finibus quam imperdiet vitae. Duis volutpat scelerisque tempor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam lacinia nunc vel lectus placerat, nec congue est egestas.</p>
+        <p>Fusce sodales ante nec turpis ornare tincidunt. Praesent sed purus varius, congue erat in, maximus lacus. Donec egestas, tellus vel cursus viverra, quam libero sodales elit, ac mollis ipsum eros at ante. Quisque vulputate tincidunt ultricies. Aliquam ac neque et diam tempor gravida. Nulla facilisi. Nulla id neque mattis, dapibus purus sed, scelerisque lectus. Vestibulum tempus euismod dictum. Vestibulum vulputate bibendum sodales. In vitae ultricies mi. Morbi mollis odio metus, et mollis nisl fermentum ut. Nam at mollis elit, sit amet euismod purus. Quisque iaculis bibendum nunc, vel fringilla ante malesuada et. Maecenas ac lorem dolor. Proin aliquam blandit scelerisque. Cras pellentesque purus enim, vitae sollicitudin ex cursus nec.</p>
+      </div>
+    <% } %>
+
+    </div>
+  </div>
+</main>
+<br/>
+
+<footer>
+  <%- include('./partials/footer'); %>
+</footer>
+
+</body>
+</html>

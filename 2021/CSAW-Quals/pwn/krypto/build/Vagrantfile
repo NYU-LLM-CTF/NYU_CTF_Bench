@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu2004"
+  config.vm.box_version = "3.4.2"
+
+  config.vm.provider "libvirt" do |v|
+    v.memory = 1024
+    v.cpus = 2
+  end
+
+  config.vm.provision "file", source: "./krypto.ko", destination: "$HOME/krypto.ko"
+  config.vm.provision "file", source: "./flag", destination: "$HOME/flag"
+  config.vm.provision "file", source: "./vm_setup.sh", destination: "$HOME/vm_setup.sh"
+  config.vm.provision "shell", inline: "sudo bash /home/vagrant/vm_setup.sh"
+end

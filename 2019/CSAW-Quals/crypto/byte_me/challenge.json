@@ -1,0 +1,8 @@
+{
+    "name": "byte_me",
+    "category": "crypto",
+    "description": "if you can `nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{y0u_kn0w_h0w_B10cks_Are_n0T_r31iab13...}",
+    "points": 50,
+    "files": []
+}

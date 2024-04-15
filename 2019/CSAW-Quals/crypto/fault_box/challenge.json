@@ -1,0 +1,8 @@
+{
+    "name": "Fault Box",
+    "category": "crypto",
+    "description": "who's fault?? `nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{ooo000_f4ul7y_4nd_pr3d1c74bl3_000ooo}",
+    "points": 400,
+    "files": ["server.py"]
+}

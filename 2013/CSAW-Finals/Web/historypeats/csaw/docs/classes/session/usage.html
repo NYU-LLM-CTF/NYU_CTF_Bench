@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Session::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Session Usage - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Session Class</h2>
+
+			<p>
+				The session class allows you to maintain state for your application in the stateless environment of the web.
+				It allows you to store variables on the server using a variety of storage solutions, and recall these variables on the next page request.
+			</p>
+			<p>
+				The static methods documented on this page use the session driver configured in the configuration via the <kbd>driver</kbd> setting.
+				When you have set the <kbd>auto_initialize</kbd> setting to <kbd>true</kbd>, a session will be initialized when the Session class is loaded.
+				If it is set to <kbd>false</kbd>, you will have to use one of the methods below, or start a session instance manually, to initialize the session.
+			</p>
+			<p class="note">
+				If your application needs session support, either "<kbd>always_load</kbd>" your session class, or make sure your (base) controllers
+				will load it. If you do load it, but you choose not to <kbd>auto_initialize</kbd> the session, and you don't use any of the session methods,
+				the session will not be refreshed! This can cause unexpected behaviour of your application due to an expired session.
+			</p>
+
+			<h3 id="gc">Garbage Collection</h3>
+
+			<p>
+				There session drivers have a built-in garbage collection mechanism to remove stale entries. Storage backends that
+				have built-in support for data expiration, such as APC, Memcached or Redis, will use that feature, and
+				will auto expire stale cache entries.
+			</p>
+			<p>
+				Storage backends that don't, for example the database or file system drivers, use the gc_probability setting to determine if
+				garbage collection is needed. If so, they will run it in a shutdown event, after the page has been send to the user.
+				Downside of this method is that if this takes some time, the page will not finished to be "loading..." until GC is completed.
+			</p>
+
+			<p class="note">
+				When using sessions, make <strong>ABSOLUTELY</strong> sure that the timezone configured in your <em>app/config/config.php</em> and/or your
+				<em>php.ini</em> file matches the timezone set on your server. Since cookie expiry timestamps are in GMT, expiry time calculation goes
+				horribly wrong when you have a timezone mismatch, ranging from not expiring properly to session cookies not set at all because they arrive
+				at the browser already expired.
+			</p>
+
+			<article>
+				<h4 class="method" id="method_instance">instance($instance = null)</h4>
+				<p>The <strong>instance</strong> method returns the default session instance, or a specific instance, identified by name.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$instance</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Cookiename (as defined in config/session.php) that identifies the required session instance.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed - session object, or <kbd>false</kbd> in case the requested instance does not exist.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the default session instance (identified by the 'driver' configuration setting).
+$session = Session::instance();
+
+// get a specific session instance
+$session = Session::instance('myappcookie');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set">set($variable, $value = null)</h4>
+				<p>The <strong>set</strong> method allows you to set a session variable.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><em>string|array</em></td>
+									<td><em>required</em></td>
+									<td>Name of the session variable to set or associative array of values.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><em>mixed</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>
+										The session variables value.<br />
+										This can be any data type, but pay attention when storing objects in the session, as session data is serialized, and there are restrictions to serializing an object.
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// store the userid in the session
+Session::set('userid', $userid);
+
+// you can also store more complex values
+Session::set('array', array('varA', 'varB', 'varC' => array('val1', 'val2'));
+
+// you can also use an array to set multiple values at the same time
+Session::set(array(
+	'userid' => $userid,
+	'has_cookies' => function()
+	{
+		return (bool) \Cookie::get('has_them', false);
+	}
+));
+
+// You can also chain on calls to set values
+Session::set('userid', $userid)->set('foo', 'bar');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get">get($variable = null, $default = null)</h4>
+				<p>The <strong>get</strong> method allows you to retrieve stored variables from the session.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Name of the session variable to get. If not specified, all session variables are returned.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Default value to return in case the requested variable does not exist. If no default is given, the method will return <kbd>null</kbd>.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed - Dependent on the type of the stored <var>$variable</var>. The method returns <kbd>null</kbd> if the requested variable does not exist.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the stored userid from the session
+$userid = Session::get('userid');
+if ( $userid === false )
+{
+	echo "no user is logged in";
+}
+
+// you can retrieve the entire array stored
+$arr = Session::get('array');
+
+// or get a specific key from the array
+$arr = Session::get('array.varC');
+
+// get all session variables
+$vars = Session::get();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($variable)</h4>
+				<p>The <strong>delete</strong> method allows you to delete a stored session variable.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><em>required</em></td>
+									<td>Name of the session variable to delete.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// delete the stored userid from the session
+Session::delete('userid');
+
+// you can also delete a specific key from the array
+Session::delete('array.varC');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_flash">set_flash($variable, $value = null)</h4>
+				<p>The <strong>set_flash</strong> method allows you to set a session flash variable. Flash variables have a limited lifespan. Depending on the configuration, they will be deleted after the next page request, or after they are retrieved.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><em>required</em></td>
+									<td>Name of the session flash variable to set.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>
+										The session flash variables value.<br />
+										This can be any data type, but pay attention when storing objects in the session, as session data is serialized, and there are restrictions to serializing an object.
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// tell the next page request which step to process
+Session::set_flash('step', 2);
+
+// you can also store more complex values
+Session::set_flash('array', array('varA', 'varB', 'varC' => array('val1', 'val2'));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					This method supports limited 'dot-notation' to save an element in a multidimensional array. Only the top-level is versioned, the
+					entire multidimensional array will expire at the same time.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_flash">get_flash($variable, $default = null, $expire = false)</h4>
+				<p>The <strong>get_flash</strong> method allows you to get a session flash variable. Flash variables have a limited lifespan. Depending on the configuration, they will be deleted after the next page request, or after they are retrieved.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><em>required</em></td>
+									<td>Name of the session variable to get.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Default value to return in case the requested variable does not exist. If no default is given, the method will return <kbd>null</kbd>.</td>
+								</tr>
+								<tr>
+									<th><kbd>$expire</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>if <kbd>true</kbd>, the session variable expires immediately, even if it is set in the same request.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed - Dependent on the type of the stored <var>$variable</var>. The method returns <kbd>null</kbd> if the requested variable does not exist.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// find out which step to process
+$step = Session::get_flash('step');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">This method supports 'dot-notation' to retrieve an element from a multidimensional array.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_keep_flash">keep_flash($variable)</h4>
+				<p>The <strong>keep_flash</strong> method resets a flash variable stored in the session to an 'unrequested' state. This allows you to get a flash variable, and still pass it on to the next page request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><em>required</em></td>
+									<td>Name of the flash variable to keep.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// keep the step value for one more page request
+Session::keep_flash('step');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete_flash">delete_flash($variable)</h4>
+				<p>The <strong>delete_flash</strong> method allows you to delete a stored flash variable.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$variable</kbd></th>
+									<td><em>required</em></td>
+									<td>Name of the flash variable to delete.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// delete the step from the session
+Session::delete_flash('userid');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_create">create()</h4>
+				<p>The <strong>create</strong> method allows you to create a new session. If a session is already present, it will be destroyed when the new one is created.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// create a new session
+Session::create();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_destroy">destroy()</h4>
+				<p>The <strong>destroy</strong> method allows you to destroy an existing session.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// destroy a session
+Session::destroy();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_read">read()</h4>
+				<p>The <strong>read</strong> method allows you to manually read a session. The session is automatically read when the session class is initialized, so under normal circumstances there is no need to use this method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// read the session
+Session::read();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_write">write()</h4>
+				<p>The <strong>write</strong> method allows you to manually write the session. Under normal circumstances, the session is automatically written when the script ends.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// write the session
+Session::write();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_rotate">rotate()</h4>
+				<p>
+					The <strong>rotate</strong> method allows you to manually rotate the session id.
+					Under normal circumstances, the session id is automatically rotated periodically,
+					as defined in the configuration. You might want to manually rotate it as an extra
+					security measure, for example when you change the rights of the logged-in user.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>FuelCoreSession_Driver - is chainable</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// rotate the session
+Session::rotate();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_key">key()</h4>
+				<p>
+					The <strong>key</strong> method allows you retrieve elements of the session key,
+					which uniquely identifies the session.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><em>optional</em></td>
+									<td>
+										Name of the key element. By default, it is set to 'session_id'.
+										Other elements that may be available are 'ip_hash', 'created', 'updated'
+										'user_agent' and 'payload'.
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed - element value, or <kbd>false</kbd> if the requested element does not exist.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the current session id
+$session_id = Session::key('session_id');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

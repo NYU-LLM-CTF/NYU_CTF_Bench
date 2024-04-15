@@ -1,0 +1,17 @@
+{
+  "name": "cold",
+  "category": "pwn",
+  "author": "Josh Hofing",
+  "description": "Brrr..... I found a freezing cold flash drive with a binary, a hostname, and a port number on it. It's weird how many of these things are just lying around! Can you help me break into whatever's on the other side?\n\n`nc {box} {port}` \n\nAuthor: Josh Hofing (Trail of Bits. twitter.com/hyperosonic) ",
+  "flag": "flag{y0ure_r3ally_st4rting_t0_th4w_a_b1t}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "cold",
+    "libc.so.6"
+  ],
+  "internal_port": 5000,
+  "box": "pwn.chal.csaw.io"
+}

@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Pagination::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Pagination - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Pagination Class</h2>
+
+			<p>The pagination class allows you to easily setup pagination for records you display.</p>
+
+			<section>
+				<h3 id="how_to">How To</h3>
+				<p>A simple example on how to use the Pagination class. You can put this inside your action methods in your controller.</p>
+
+				<pre class="php"><code>$config = array(
+	'pagination_url' => 'http://localhost/fuel/welcome/index/',
+	'total_items'    => 10,
+	'per_page'       => 5,
+	'uri_segment'    => 3,
+	// or if you prefer pagination by query string
+	//'uri_segment'    => 'page',
+);
+
+// Create a pagination instance named 'mypagination'
+$pagination = Pagination::forge('mypagination', $config);
+
+$data['example_data'] = DB::select('id', 'value')
+							->from('pagination')
+							->limit($pagination->per_page)
+							->offset($pagination->offset)
+							->execute()
+							->as_array();
+
+// we pass the object, it will be rendered when echo'd in the view
+$data['pagination'] = $pagination;
+
+// return the view
+return \View::forge('welcome/index', $data);</code></pre>
+			</section>
+
+			<section>
+				<h3 id="configuration">Configuration</h3>
+
+				<p>
+					You can configure the pagination instance in several ways. You can pass an array with the configuration when you
+					<kbd>forge</kbd> the instance, or you can update the properties directly on the instance.
+				</p>
+				<p>The following configuration settings can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>pagination_url</th>
+							<td>string</td>
+							<td><pre class="php"><code>null</code></pre></td>
+							<td>
+								The URL of page where you have pagination. If null, Fuel tries to detect it from the current URL.
+							</td>
+						</tr>
+						<tr>
+							<th>uri_segment</th>
+							<td>integer|string</td>
+							<td><pre class="php"><code>3</code></pre></td>
+							<td>
+								The URI segment containing the page number (if integer). The query string field containing the page number (if string).
+							</td>
+						</tr>
+						<tr>
+							<th>num_links</th>
+							<td>integer</td>
+							<td><pre class="php"><code>5</code></pre></td>
+							<td>
+								The total number of links to show.
+							</td>
+						</tr>
+						<tr>
+							<th>total_items</th>
+							<td>integer</td>
+							<td><pre class="php"><code>0</code></pre></td>
+							<td>
+								The total number of items. Usually this is the result of a count() query.
+							</td>
+						</tr>
+						<tr>
+							<th>per_page</th>
+							<td>integer</td>
+							<td><pre class="php"><code>10</code></pre></td>
+							<td>
+								The number of items per page.
+							</td>
+						</tr>
+						<tr>
+							<th>current_page</th>
+							<td>integer</td>
+							<td><pre class="php"><code>null</code></pre></td>
+							<td>
+								The page to load if no page number is present in the URI. If not given, it defaults to 1.
+							</td>
+						</tr>
+						<tr>
+							<th>show_first</th>
+							<td>bool</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								Generates a 'to the first page' link if true and not already on the first page.
+							</td>
+						</tr>
+						<tr>
+							<th>show_last</th>
+							<td>bool</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								Generates a 'to the last page' link if true and not already on the last page.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section>
+				<h3 id="templating">Templating</h3>
+
+				<p>
+					Every pagination instance uses a template to generate the HTML needed to create the pagination markup.
+					You can store your standard templates in the <em>config/pagination.php</em> file. Copy the file from the
+					core config folder to your app config folder before you make any modifications. The default configuration
+					file comes with two templates, the FuelPHP default, and a Twitter Bootstrap v2 compatible template.
+				</p>
+				<p>The following template entries must be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr>
+							<th>wrapper</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;div class="pagination"&gt;\n\t{pagination}\n&lt;/div&gt;\n</code></pre></td>
+							<td>
+								Markup that will wrap the generated pagination markup.
+							</td>
+						</tr>
+						<tr>
+							<th>first</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="first"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the first page markup.
+							</td>
+						</tr>
+						<tr>
+							<th>first-inactive</th>
+							<td>string</td>
+							<td>none</td>
+							<td>
+								Markup that will be used to generate the first page markup, if this page is first or single.
+							</td>
+						</tr>
+						<tr>
+							<th>first-inactive-link</th>
+							<td>string</td>
+							<td>none</td>
+							<td>
+								Markup that will be used to generate the first page link, if this page is first or single.
+							</td>
+						</tr>
+						<tr>
+							<th>first-marker</th>
+							<td>string</td>
+							<td><pre class="html"><code>&amp;laquo;&amp;laquo;</code></pre></td>
+							<td>
+								Markup that will be used to generate the marker of first page.
+							</td>
+						</tr>
+						<tr>
+							<th>first-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the first page link.
+							</td>
+						</tr>
+						<tr>
+							<th>previous</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="previous"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the previous page markup.
+							</td>
+						</tr>
+						<tr>
+							<th>previous-marker</th>
+							<td>string</td>
+							<td><pre class="html"><code>&amp;laquo;</code></pre></td>
+							<td>
+								Markup that will be used to generate the marker of previous page.
+							</td>
+						</tr>
+						<tr>
+							<th>previous-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}" rel="prev"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the previous page link.
+							</td>
+						</tr>
+						<tr>
+							<th>previous-inactive</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="previous-inactive"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the previous page markup for inactive links.
+							</td>
+						</tr>
+						<tr>
+							<th>previous-inactive-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}" rel="prev"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the previous page markup for inactive links.
+							</td>
+						</tr>
+						<tr>
+							<th>regular</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the markup for other pages.
+							</td>
+						</tr>
+						<tr>
+							<th>regular-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the markup for other page links.
+							</td>
+						</tr>
+						<tr>
+							<th>active</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="active"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the markup for the current page.
+							</td>
+						</tr>
+						<tr>
+							<th>active-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the markup for the link to the current page.
+							</td>
+						</tr>
+						<tr>
+							<th>next</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="next"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the next page markup.
+							</td>
+						</tr>
+						<tr>
+							<th>next-marker</th>
+							<td>string</td>
+							<td><pre class="html"><code>&amp;raquo;</code></pre></td>
+							<td>
+								Markup that will be used to generate the marker of next page.
+							</td>
+						</tr>
+						<tr>
+							<th>next-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}" rel="next"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the next page link.
+							</td>
+						</tr>
+						<tr>
+							<th>next-inactive</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="next-inactive"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the next page markup for inactive links.
+							</td>
+						</tr>
+						<tr>
+							<th>next-inactive-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}" rel="next"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the next page link for inactive links.
+							</td>
+						</tr>
+						<tr>
+							<th>last</th>
+							<td>string</td>
+							<td><pre class="html"><code>&lt;span class="last"&gt;\n\t{link}\n&lt;/span&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the last page markup.
+							</td>
+						</tr>
+						<tr>
+							<th>last-marker</th>
+							<td>string</td>
+							<td><pre class="html"><code>&amp;raquo;&amp;raquo;</code></pre></td>
+							<td>
+								Markup that will be used to generate the marker of last page.
+							</td>
+						</tr>
+						<tr>
+							<th>last-link</th>
+							<td>string</td>
+							<td><pre class="html"><code>\t\t&lt;a href="{uri}"&gt;{page}&lt;/a&gt;\n</code></pre></td>
+							<td>
+								Markup that will be used to generate the last page link.
+							</td>
+						</tr>
+						<tr>
+							<th>last-inactive</th>
+							<td>string</td>
+							<td>none</td>
+							<td>
+								Markup that will be used to generate the last page markup, if this page is last or single.
+							</td>
+						</tr>
+						<tr>
+							<th>last-inactive-link</th>
+							<td>string</td>
+							<td>none</td>
+							<td>
+								Markup that will be used to generate the last page link, if this page is last or single.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					In the template, <strong>{uri}</strong> will be replaced by the generated pagination link
+					(by <strong>#</strong> if inactive template), and <strong>{page}</strong> by the page number
+					or the previous / next marker. If you want to use an image for these markers, just modify the corresponding
+					link definitions in the template, replacing <strong>{page}</strong> by the markup for the image.
+				</p>
+				<p class="note">
+					The configuration you pass when you forge the pagination instance will be merged with the default
+					template defined in your configuration file. This will allow you to only pass the values you want
+					to override. If your template in the configuration file is not complete, the default values as
+					mentioned above will be used.
+				</p>
+			</section>
+
+			<section>
+				<article>
+					<h4 class="method" id="method_forge">forge($name = 'default', $config = array())</h4>
+					<p>The <strong>forge</strong> method allows you to create a new pagination instance, and configure it by passing an array.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$name</kbd></th>
+										<td><i>Required</i></td>
+										<td>The name of the instance to be created. If no name is given, the 'default' instance is created.</td>
+									</tr>
+									<tr>
+										<th><kbd>$config</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>The configuration array.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Pagination</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// create a new pagination instance
+$pagination = Pagination::forge('mypagination', array(
+    'pagination_url' => 'http://docs.fuelphp.com/',
+	'uri_segment' => 2,
+	'total_items' => 10,
+	'per_page' => 20,
+));</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_instance">instance($name = null)</h4>
+					<p>The <strong>instance</strong> method allows you retrieve a previously forged instance, or return the default instance if no name was given.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$name</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the instance to be returned. If no name is given, the 'default' instance is created.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. a Pagination object, or false if the requested instance does not exist.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch the previously forged instance
+$pagination = Pagination::instance('mypagination');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_render">render($raw = false)</h4>
+					<p>The <strong>render</strong> method generates the markup to display the pagination links in the view.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$raw</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>If true, an array with raw pagination data is returned instead of the rendered pagination markup.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch a previously forged instance, and render it
+echo Pagination::instance('mypagination')->render();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+
+					<p class="note">
+						The pagination object contains an __toString() method, that will cause the render() method to be called
+						when you echo the object, or cast it to string.
+					</p>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_first">first($marker = null)</h4>
+					<p>
+						The <strong>first</strong> method generates the markup to display a "First page" link for pagination.
+						If no string is given to be used as marker, the "first-marker" value from the template will be used.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$marker</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The text to be displayed in the link. Defaults to the 'first-marker' template value.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch a previously forged instance, and render the "first page" link
+echo Pagination::instance('mypagination')->first();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">
+						The "First page" link will only be shown if there is a first page, and you're not already on it.
+						Note that by default there is no inactive link defined for 'first'.
+					</p>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_previous">previous($marker = null)</h4>
+					<p>
+						The <strong>previous</strong> method generates the markup to display a "Previous" link for pagination.
+						If no string is given to be used as marker, the "previous-marker" value from the template will be used.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$marker</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The text to be displayed in the link. Defaults to the 'previous-marker' template value.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch a previously forged instance, and render the "previous page" link
+echo Pagination::instance('mypagination')->previous();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_next">next($marker = null)</h4>
+					<p>
+						The <strong>next</strong> method generates the markup to display a "Next" link for pagination.
+						If no string is given to be used as marker, the "next-marker" value from the template will be used.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$marker</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The text to be displayed in the link. Defaults to the 'next-marker' template value.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch a previously forged instance, and render the "next page" link
+echo Pagination::instance('mypagination')->next();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_last">last($marker = null)</h4>
+					<p>
+						The <strong>last</strong> method generates the markup to display a "Last page" link for pagination.
+						If no string is given to be used as marker, the "last-marker" value from the template will be used.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$marker</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The text to be displayed in the link. Defaults to the 'last-marker' template value.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch a previously forged instance, and render the "last page" link
+echo Pagination::instance('mypagination')->last();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">
+						The "Last page" link will only be shown if there are any pages, and you're not already on the last one.
+						Note that by default there is no inactive link defined for 'last'.
+					</p>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_pages_render">pages_render()</h4>
+					<p>The <strong>pages_render</strong> method generates the markup that displays the page links between previous and next links for pagination.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch a previously forged instance, and render the "pages" link
+echo Pagination::instance('mypagination')->pages_render();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+			</section>
+
+			<section>
+				<h3 id="static">Static interface</h3>
+
+				<p>
+					For your convinience, the Pagination class also has a static interface that operates on the default
+					instance only.
+				</p>
+
+				<article>
+					<h4 class="method" id="method_get">get($name)</h4>
+					<p>The <strong>get</strong> method allows you to get a configuration item on the default instance.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$name</kbd></th>
+										<td>Required</td>
+										<td>The name of the property to fetch.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed, properly value, or <kbd>null</kbd> if the property doesn't exist.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// fetch the current page number
+$page_number = Pagination::get('current_page');
+
+// this is an alias of
+$page_number = Pagination::instance()->current_page;</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_set">set($name, $value)</h4>
+					<p>The <strong>set</strong> method allows you to set a configuration item on the default instance to the given value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$name</kbd></th>
+										<td>Required</td>
+										<td>The name of the property to set.</td>
+									</tr>
+									<tr>
+										<th><kbd>$value</kbd></th>
+										<td>Required</td>
+										<td>The value to set the property to.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// set the total number of rows
+$page_number = Pagination::set('total_items', 610);
+
+// this is an alias of
+Pagination::instance()->total_items = 610;</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<p class="note">
+					For backward compatibility, the static methods <kbd>set_config()</kbd>, <kbd>create_links()</kbd>,
+					<kbd>next_link()</kbd> and <kbd>prev_link()</kbd> will be emulated on the default instance, minimizing
+					the migration effort needed when upgrading an existing application to FuelPHP v1.4+.
+				</p>
+				<p>Note that there is no possible way to emulate direct access to static class properties at the moment,
+				so if your application uses that, you'll have to change them:</p>
+								<pre class="php"><code>// pre v1.4 usage:
+Pagination::$per_page = 10;
+
+// new usage:
+Pagination::set('per_page', 10);
+
+// pre v1.4 usage:
+Model_Article::find()
+	->order_by('date', 'ASC')
+	->rows_offset(\Pagination::$offset)
+	->rows_limit(\Pagination::$per_page)
+	->get();
+
+// new usage:
+Model_Article::query()
+	->order_by('date', 'ASC')
+	->rows_offset(\Pagination::get('offset'))
+	->rows_limit(\Pagination::get('per_page'))
+	->get();
+</code></pre>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

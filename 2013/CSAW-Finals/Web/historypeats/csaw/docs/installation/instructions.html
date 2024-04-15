@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Instruction - Installation - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h5>Choose One: <a href="#command">Command Line Installation</a> | <a href="#manual">Manual Installation</a></h5>
+			<br />
+			<h3 id="command">Command Line Installation</h3>
+		    <p class="note">This currently only works on *nix systems (Linux, OS X, Unix, etc).</p>
+			<p>Our quick installer is a stripped down interface for the Oil package.  It allows you to create a new project with one command.  You will also no longer need to use 'php' in your oil commands.</p>
+
+			<p>To install the quick installer, simply open up a shell and run the following command:</p>
+
+			<pre class="cli"><code>$ curl get.fuelphp.com/oil | sh</code></pre>
+
+			<p class="note">This will ask for your password, as it installs the script to /usr/bin.</p>
+
+			<p>Now you can just use 'oil' instead of 'php oil' in your projects.</p>
+
+			<p class="note">If you had installed the oil script before version 1.6, you have to re-install it to have it run composer too!</p>
+
+			<p>To create a new project simply run:</p>
+
+			<pre class="cli"><code>$ oil create &lt;project_name&gt;</code></pre>
+
+			<p>This will create a folder in the directory you are in with the project name you gave.  It will then clone the repository and all submodules into that directory.</p>
+
+			<p>
+				Note: This will also run <code class="cli">$ oil refine install</code> which makes the necessary directories writable,
+				and <code class="cli">$ php composer.phar update</code> to pull in the defined composer dependencies.
+			</p>
+
+			<h3 id="manual">Manual Installation Instructions</h3>
+
+			<p>This will create the default installation of the Fuel framework on your web server.</p>
+
+			<h4 id="from_github">Clone from github</h4>
+
+<pre class="cli"><code>$ cd /where/ever/your/webserver/root/is
+$ git clone --recursive git://github.com/fuel/fuel.git
+</code></pre>
+
+			<p>This will create a folder called <strong>fuel</strong> in your webserver root, containing the entire FuelPHP installation,
+			including all core packages.</p>
+
+			<h4 id="from_zip">Download the zip file</h4>
+
+			<ol>
+				<li><a href="download.html">Download the Fuel Framework</a></li>
+				<li>Unzip/Extract the download</li>
+				<li>Move the files to your server
+					<ul>
+						<li>Note the public directory in the source equals your web server's public document directory i.e.
+						public_html, public, htdocs, etc. Move its contents to there or a subdirectory of the webroot
+						where you want to use Fuel.</li>
+						<li>Placing the fuel directory outside of the public document directory is encouraged for security
+						reasons.</li>
+						<li>Edit the paths in index.php to point to your app, core &amp; packages directories.</li>
+					</ul>
+<pre class="plain"><code>/
+  fuel/
+    app/
+    core/
+    packages/
+  public/
+    .htaccess
+    assets/
+    index.php
+  oil
+</code></pre>
+				</li>
+			</ol>
+
+			<p>After installation, make sure the permissions are correct on folders that the framework needs access to. There is an oil task
+			available to set the default folders writable:</p>
+<pre class="cli"><code>$ php oil refine install
+	Made writable: APPPATH/cache
+	Made writable: APPPATH/logs
+	Made writable: APPPATH/tmp
+	Made writable: APPPATH/config
+</code>
+</pre>
+
+			<h2 id="composer">Composer</h2>
+
+			<p>
+				As of version 1.6, FuelPHP uses the <a href="http://getcomposer.org">Composer</a> package manager to dynamically pull dependencies it,
+				either from <a href="http://packagist.org">Packagist</a>, from Github, or from a custom defined location. Composer is controlled via
+				the composer.json file, which you will find in the root of your FuelPHP installation. For your convienience, we have included the
+				composer.phar library so you can run composer directly:
+			</p>
+
+<pre class="cli"><code>$ php composer.phar self-update
+$ php composer.phar update
+</code>
+</pre>
+			<p class="note">If you don't execute this step, FuelPHP will not start, as vital framework components are being loaded through composer!</p>
+
+			<h2 id="configuration">Configuration</h2>
+
+			<p>The main configuration can be found at app/config/config.php. Edit it to your liking.</p>
+
+			<h2 id="install_inside_root">Install inside the document root</h2>
+
+			<p>As explained in point 3, for security reasons it is strongly advised <strong>NOT</strong> to install Fuel inside your webserver's document root.</p>
+			<p>
+				However, there are cases where you would like to do that, for example for a (local) development environment where Apache's dynamic mass virtual hosting module
+				is used to quickly setup new development environments without the need to restart the webserver.
+			</p>
+			<p>
+				If you need this, install FuelPHP in the folder you have designated to be the installation root. After you have done that, go into the public folder,
+				move everything in the public folder one level up, and remove the public folder. The only purpose of that folder is to provide an anchor point for
+				your webservers DocumentRoot. You don't need that anymore, since you have installed FuelPHP in the folder that is the DocumentRoot.
+			</p>
+			<p>After the move, change the location of the application in your index.php to:</p>
+			<pre class="php"><code>define('APPPATH', realpath(__DIR__.'/fuel/app/').DIRECTORY_SEPARATOR);</code></pre>
+
+			<h3 id="install_inside_root2">What about several folders deep?</h3>
+
+			<p>That doesn't make a difference, the procedure remains exactly the same.</p>
+
+			<p>
+				In this case however, accessing your application might be a bit more complicated due to the folder structure involved. But you can't just put
+				a simple .htaccess in, you probably still want to access other stuff installed in that same folder structure.
+			</p>
+			<p>
+				Assuming you have installed FuelPHP in the folder "/deep/sub/folder" of your DocumentRoot, you would normally have to access your FuelPHP application
+				using the URL http://example.org/deep/sub/folder.
+			</p>
+
+			<p>
+				By placing this .htaccess into one of the higher folders, you can have the browser redirect to your FuelPHP application if no match was found on
+				file or	directory name:</p>
+<pre class="plain"><code>&lt;IfModule mod_rewrite.c>
+	RewriteEngine on
+
+	# Send request to the subfolder, if its not a real file, folder or it's a root request
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d [OR]
+	RewriteCond $1 ^$
+
+	RewriteRule ^(.*)$ /deep/sub/folder [R=301,L]
+&lt;/IfModule>
+</code>
+</pre>
+			<p>Note that this does a redirect, it therefore does not hide the subfolders in the path from the user. If you want that, use this instead:</p>
+
+<pre class="plain"><code>&lt;IfModule mod_rewrite.c>
+	RewriteEngine on
+
+	# Send request to the subfolder, if its not a real file, folder or it's a root request
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d [OR]
+	RewriteCond $1 ^$
+
+	RewriteRule ^(.*)$ /deep/sub/folder [QSA,L]
+&lt;/IfModule>
+</code>
+</pre>
+			<p>Obviously, if you place it in the "sub" folder, you can hide "sub/folder" from the URL, but not "deep"...</p>
+
+			<h2 id="setting_the_environment">Setting the Environment</h2>
+
+			<p>
+				By default, the environment is set to Development mode. Fuel uses the environment to define which database settings to use, but you can use it for other things.
+			</p>
+			<p>
+				To set the environment, drop the following line into your .htaccess file.
+			</p>
+			<pre class="plain"><code>SetEnv FUEL_ENV production</code></pre>
+			<p>
+				Available options are detailed in the <a href="../classes/fuel.html#class_constants">Class constants</a> of the Fuel Class.
+			</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

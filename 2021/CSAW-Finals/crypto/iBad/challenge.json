@@ -1,0 +1,16 @@
+{
+  "name": "iBad",
+  "category": "crypto",
+  "author": "Cryptohack (Robin_Jadoul and jack)",
+  "description": "We only ever use the best technology for the job, so when something new comes out, we take the upgrade!\n`http://{box}:{port}`\n\nAuthor: CryptoHack (`Robin_Jadoul` and `jack`)",
+  "flag": "flag{upgr4ding_d1stingu1sh3rs_t0_d3crypt10n_hehehe}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "dist.zip"
+  ],
+  "internal_port": 8000,
+  "box": "crypto.chal.csaw.io"
+}

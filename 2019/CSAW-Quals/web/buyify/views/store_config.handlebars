@@ -1,0 +1,62 @@
+<section class="section">
+  <div class="container">
+      {{#if flash}}
+      <article class="message is-{{flash.type}}">
+        <div class="message-header">
+          <p>{{flash.title}}</p>
+        </div>
+        <div class="message-body">
+          {{flash.body}}
+        </div>
+      </article>
+      {{/if}}
+    <div class="columns">
+      <div class="column is-6">
+      <div class="card">
+      <div class="card-content">
+
+        <p class="title">Change Header</p>
+
+        <form action="settings" method="post">
+        <div class="field">
+        <textarea class="textarea" placeholder="Header" name="header" style="height:148px">{{ template }}</textarea>
+      </div>
+        <div class="field">
+          <button class="button is-info is-fullwidth">Update Header</button>
+      </div>
+        </form>
+
+      </div>
+      </div>
+      </div>
+
+      <div class="column is-6">
+      <div class="card">
+      <div class="card-content">
+
+        <p class="title">Create New Item</p>
+
+        <form action="item" method="post">
+        <div class="field">
+          <label class="label">Item Name</label>
+          <div class="control">
+            <input class="input" name="name" placeholder="Item Name">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Item Price</label>
+          <div class="control">
+            <input min=0 type="number" class="input" name="price" placeholder="Item Price">
+          </div>
+        </div>
+        <div class="field">
+          <button class="button is-info is-fullwidth">Create Item</button>
+        </div>
+        </form>
+
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>

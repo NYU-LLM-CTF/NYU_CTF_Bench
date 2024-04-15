@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- Derived from https://github.com/webrtc/samples/blob/gh-pages/src/content/datachannel/basic/index.html -->
+<!-- I apologize for my abysmal HTML/CSS skills -->
+<html>
+    <head>
+        <title>Real Time Chat</title>
+    </head>
+
+    <body>
+        <div id="container">
+            <h1>Real Time Chat</h1>
+
+            <h3 id="status"></h3>
+
+            <textarea id="dataChannelReceive" style="width: 100%" disabled></textarea>
+            <br/>
+            <br/>
+
+            <div id="send">
+                <input type="text" id="dataChannelSend" placeholder="Send a message" disabled></input>
+                <button id="sendButton" disabled>Send</button>
+            </div>
+            <hr/>
+
+            <button id="closeButton" disabled>Disconnect</button>
+        </div>
+
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="static/rtc.js"></script>
+    </body>
+</html>

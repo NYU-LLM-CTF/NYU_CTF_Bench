@@ -1,0 +1,10 @@
+{
+    "name": "applicative",
+    "category": "pwn",
+    "description": "Learning to code, here's my calculator. I'm not sure how to use it.\n\n`nc {box} {port}`",
+    "flag": "flag{d1d_y0u_m4th_^_d1d_u_h4k}",
+    "points": 100,
+    "box": "pwn.chal.csaw.io",
+    "internal_port": 8000,
+    "files": ["applicative"]
+}

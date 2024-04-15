@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Agent::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Agent Config - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Agent Class</h2>
+
+			<p>The agent class allows you to retrieve information about browser type, version, platform or operating system, etc, based on the clients User Agent string.</p>
+
+			<section>
+				<h3 id="config">Configuration</h3>
+
+				<p>
+					The agent class uses the PHP function <a href="http://php.net/manual/en/function.get-browser.php">get_browser()</a>,
+					which attempts to determine the capabilities of the user's browser, by looking up the browser's information in the browscap.ini file.
+				</p>
+
+				<p>The following global configuration values can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>browscap</th>
+							<td>array</td>
+							<td><pre class="php"><code>array(
+	'enabled' => true,
+	'url'     => 'http://browsers.garykeith.com/stream.asp?BrowsCapINI',
+	 'method' => 'wrapper',
+	 'file'   => '/tmp/php_browscap.ini',
+)</code></pre>
+							</td>
+							<td>
+								browscap.ini retrieval configuration.
+							</td>
+						</tr>
+						<tr>
+							<th>cache</th>
+							<td>array</td>
+							<td><pre class="php"><code>array(
+	'driver'     => '',
+	'expiry'     => 604800,
+	'identifier' => 'fuel.agent',
+)</code></pre>
+							</td>
+							<td>
+								browscap.ini caching configuration.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<section>
+					<h5 id="browsercap_config">Browscap.ini configuration</h5>
+
+					<p>
+						If PHP has not been configured to use the browscap.ini file, the agent class will retrieve the file from the location defined in
+						the <strong>config/agent.php</strong> config file, and cached locally for re-use. This cache will be updated on a regular basis, based
+						on the timeout value defined in the configuration.
+					</p>
+
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>enabled</th>
+								<td>boolean</td>
+								<td><pre class="php"><code>true</code></pre></td>
+								<td>Enable download of the browscap.ini file. If disabled, and PHP has not been configured to the browscap functionality through get_browser(), browser detection is disabled, and the agent class will return 'unknown'.</td>
+							</tr>
+							<tr>
+								<th>method</th>
+								<td>string</td>
+								<td><pre class="php"><code>'wrapper'</code></pre></td>
+								<td>
+									Method used to retrieve the browscap.ini file. Supported methods are:<ul style="margin:0;">
+										<li>'wrapper': This method uses <strong>file_get_contents()</strong>. This is the preferred option, but it might be disabled by your hosting provider.</li>
+										<li>'curl': This method <strong>curl</strong> extensions. You can use this in case the 'wrapper' method doesn't work.</li>
+										<li>'local': Use an external method to download the browscap.ini file (for example a cron job).</li>
+										<li>'sockets': <em><strong>reserved for future use</strong></em></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<th>url</th>
+								<td>string</td>
+								<td><pre class="php"><code>'http://browsers.garykeith.com/stream.asp?BrowsCapINI'</code></pre></td>
+								<td>For the methods 'wrapper', 'curl' and 'sockets', the url to download an update of the browscap.ini file.</td>
+							</tr>
+							<tr>
+								<th>file</th>
+								<td>string</td>
+								<td><pre class="php"><code>'/tmp/php_browscap.ini'</code></pre></td>
+								<td>For the method 'local', the name and location of the browscap.ini file on a local storage system.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="cache_config">Cache configuration</h5>
+
+					<p>
+						It the agent class is configured to process a browscap.ini file, it will cache the result of both the ini file parser and individual user agent requests
+						in order to increase the response time of the class. These configuration settings determine how the data is cached. For more information, see the <a href="../cache/config.html">Cache</a> class documentation.
+					</p>
+
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>driver</th>
+								<td>string</td>
+								<td><pre class="php"><code>''</code></pre></td>
+								<td>Cache driver to use to cache the agent data. If you leave this empty, the default cache driver, configured in the cache configuration, will be used.</td>
+							</tr>
+							<tr>
+								<th>expiry</th>
+								<td>integer</td>
+								<td><pre class="php"><code>604800</code></pre></td>
+								<td>Number of seconds until the cached data expires. By default, this is 7 days, since the browscap.ini file doesn't change that often. It is recommended not to refresh more frequent than once a day.
+									<br />The minumum setting is 7200 seconds (two hours), your server will be banned from the browscap website if you download more often!</td>
+							</tr>
+							<tr>
+								<th>identifier</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fuel.agent'</code></pre></td>
+								<td>Prefix to name of the cache.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

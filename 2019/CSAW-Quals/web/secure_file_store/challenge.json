@@ -1,0 +1,8 @@
+{
+    "name": "Secure File Storage",
+    "category": "web",
+    "description": "get the admin's files\n\n\n\nHINT: The admin checks the site frequently!\n\n<a href=\"http://web.chal.csaw.io:{{.DescPort}}\" target=\"_blank\">http://web.chal.csaw.io:{{.DescPort}}</a>",
+    "flag": "flag{fddb53d704808cb859862d3eb9e9609bae3711bb}",
+    "points": 300,
+    "files": ["dist/client.py"]
+}

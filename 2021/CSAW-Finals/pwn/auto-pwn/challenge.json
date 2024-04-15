@@ -1,0 +1,14 @@
+{
+  "name": "ROPcrastination",
+  "category": "pwn",
+  "description": "Okay I did it again! Just because it's CSAW Finals doesn't mean I can't procrastinate. This one is just two levels but has a heap of challenges. (Brownie points but not actual points for whoever starts on this during the last hour of the competition.) `nc auto-pwn.chal.csaw.io 11001` with password `8d16635db965bc4e0a97521e8105fad2`",
+  "flag": "flag{ROPcr4st1n4t10n_sh0uld_b3_4_b4nd_n4m3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "libc-2.24.so"
+  ],
+  "box": "pwn.chal.csaw.io"
+}

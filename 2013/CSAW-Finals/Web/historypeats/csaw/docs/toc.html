@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./assets/css/combined.css">
+	<link rel="shortcut icon" href="./favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './';
+	</script>
+	<script src="./assets/js/combined.js"></script>
+	<title>Table of Contents - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Table of Contents</h2>
+
+			<h3>Basic</h3>
+			<ul class="toc">
+				<li><a href="index.html">Home</a> - Framework introduction</li>
+				<li><a href="requirements.html">Requirements</a> - What do I need to run FuelPHP?</li>
+				<li><a href="license.html">License</a> - Source code license</li>
+				<li><a href="contribute.html">Contribute</a> - How to contribute</li>
+				<li><a href="credits.html">Credits</a> - A thank you to those that make FuelPHP great!</li>
+			</ul>
+
+			<h3>Installation</h3>
+			<ul class="toc">
+				<li><a href="installation/instructions.html">Instructions</a> - How to install the FuelPHP framework</li>
+				<li><a href="installation/download.html">Download</a> - Download a version of the framework as a zip file</li>
+				<li><a href="installation/upgrade.html">Upgrade</a> - How do I upgrade an existing FuelPHP application</li>
+				<li><a href="installation/tutorials.html">Tutorials</a> - External tutorials, courses and screencasts</li>
+				<li><a href="installation/troubleshooting.html">Troubleshooting</a> - An overview of common problems</li>
+			</ul>
+
+			<h3>General</h3>
+			<ul class="toc">
+				<li>Classes
+					<ul>
+						<li><a href="general/classes.html">Introduction</a> - Structure and definition of classes in FuelPHP</li>
+						<li><a href="general/extending_core.html">Extending Core</a> - How to add your code to a FuelPHP core class</li>
+					</ul>
+				</li>
+				<li><a href="general/coding_standards.html">Coding Standards</a> - Make sure you read this before sending a pull request!</li>
+				<li><a href="general/configuration.html">Configuration</a> - Global framework configuration</li>
+				<li><a href="general/constants.html">Constants</a> - Available constants</li>
+				<li><a href="general/environments.html">Environments</a> - Running your application in different environments</li>
+				<li><a href="general/mvc.html">Model-View-Controller</a> - Introduction to the Model-View-Controller principle</li>
+				<li><a href="general/models.html">Models</a> - What are they, and how are they used?</li>
+				<li><a href="general/views.html">Views</a> - Creating output</li>
+				<li><a href="general/viewmodels.html">ViewModels</a> - Separating display logic from your view templates</li>
+				<li>Controllers
+					<ul>
+						<li><a href="general/controllers/base.html">Base</a> - What are controllers, how do they work?</li>
+						<li><a href="general/controllers/template.html">Template</a> - A base controller for templated output</li>
+						<li><a href="general/controllers/rest.html">Rest</a> - A base controller for RESTful API's</li>
+						<li><a href="general/controllers/hybrid.html">Hybrid</a> - A base controller for combined template output and a RESTful API</li>
+					</ul>
+				</li>
+				<li><a href="general/routing.html">Routing</a> - Route a URI request to a controller action</li>
+				<li><a href="general/security.html">Security</a> - Making sure you build secure applications</li>
+				<li><a href="general/modules.html">Modules</a> - Making your applications modular, and modules portable</li>
+				<li><a href="general/packages.html">Packages</a> - Extending the core</li>
+				<li><a href="general/hmvc.html">HMVC Requests</a> - Have controllers call other controllers, to ensure loose coupling</li>
+				<li><a href="general/migrations.html">Migrations</a> - Incremental changes to your application environment, such as the database schema</li>
+				<li><a href="general/tasks.html">Tasks</a> - Run background tasks from the commandline or via a scheduler</li>
+				<li><a href="general/unit_testing.html">Unit Testing</a> - Test your code with PHPUnit</li>
+				<li><a href="general/error.html">Error handling</a> - Handling errors in your application</li>
+				<li><a href="general/profiling.html">Profiling</a> - Where does my memory go? What queries are generated? Which ones are slow?</li>
+			</ul>
+
+			<h3>Third party</h3>
+			<ul class="toc">
+				<li><a href="vendor/intro.html">Introduction</a> - An overview of the vendor packages used, and their license information</li>
+				<li><a href="vendor/htmlawed.html">htmLawed</a> - Filtering and screening of posted data</li>
+				<li><a href="vendor/markdown.html">Markdown</a> - A parser for Markdown text</li>
+				<li><a href="vendor/phpquickprofiler.html">PHPQuickProfiler</a> - The basis of the FuelPHP profiler</li>
+				<li><a href="vendor/phpseclib.html">PHPSecLib</a> - Everything related to encryption and secure communication</li>
+				<li><a href="vendor/spyc.html">spyc</a> - A HAML parser</li>
+			</ul>
+
+			<h2>FuelPHP Core</h2>
+
+			<h3>Classes</h3>
+			<ul class="toc">
+				<li>Agent - User agent information
+					<ul>
+						<li><a href="classes/agent/config.html">Configuration</a></li>
+						<li><a href="classes/agent/usage.html">Usage</a></li>
+					</ul>
+				</li>
+				<li><a href="classes/arr.html">Arr</a> - Utility class for array operations</li>
+				<li>Asset - Work with images, scripts, CSS files
+					<ul>
+						<li><a href="classes/asset/config.html">Configuration</a></li>
+						<li><a href="classes/asset/usage.html">Usage</a></li>
+						<li><a href="classes/asset/advanced.html">Advanced</a></li>
+					</ul>
+				</li>
+				<li><a href="classes/autoloader.html">Autoloader</a></li>
+				<li>Cache - Cache data in a variety of storage backends
+					<ul>
+						<li><a href="classes/cache/config.html">Configuration</a></li>
+						<li><a href="classes/cache/usage.html">Usage</a></li>
+						<li><a href="classes/cache/advanced.html">Advanced</a></li>
+					</ul>
+				</li>
+				<li><a href="classes/cli.html">Cli</a> - Utility class to interact with user on the commandline</li>
+				<li><a href="classes/config.html">Config</a> - Access your applications configuration</li>
+				<li><a href="classes/cookie.html">Cookie</a> - Work with cookies</li>
+				<li><a href="classes/crypt.html">Crypt</a> - Encryption and Decryption</li>
+				<li>Database - An object oriented Query Builder
+					<ul>
+						<li><a href="classes/database/introduction.html">Introduction</a></li>
+						<li><a href="classes/database/usage.html">Usage</a></li>
+						<li><a href="classes/database/db.html">DB class</a></li>
+						<li><a href="classes/database/dbutil.html">DBUtil class</a></li>
+						<li>Query Building
+							<ul>
+								<li><a href="classes/database/qb.html">Introduction</a></li>
+								<li><a href="classes/database/usage.html">Insert builder</a></li>
+								<li><a href="classes/database/db.html">Select builder</a></li>
+								<li><a href="classes/database/dbutil.html">Update builder</a></li>
+								<li><a href="classes/database/db.html">Delete builder</a></li>
+								<li><a href="classes/database/db.html">Where builder</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><a href="classes/date.html">Date</a> - Working with dates, times and timezones</li>
+				<li><a href="classes/debug.html">Debug</a> - Utility class with debugging features</li>
+				<li><a href="classes/event.html">Event</a> - Create an event-driven application</li>
+				<li>Error</li>
+				<li>Exception</li>
+				<li><a href="classes/fieldset.html">Fieldset</a> - An object oriented way to generate HTML forms</li>
+				<li><a href="classes/finder.html">Finder</a> - Locate and load files</li>
+				<li><a href="classes/form.html">Form</a> - Utility class to generate HTML form elements</li>
+				<li><a href="classes/format.html">Format</a> - Convert data between formats</li>
+				<li><a href="classes/ftp.html">Ftp</a> - Send or receive files using FTP</li>
+				<li><a href="classes/fuel.html">Fuel</a> - FuelPHP framework bootstrap class</li>
+				<li><a href="classes/html.html">Html</a> - Utility class to generate HTML elements</li>
+				<li><a href="classes/image.html">Image</a> - Image manipulation using GD or ImageMagick</li>
+				<li><a href="classes/inflector.html">Inflector</a></li>
+				<li><a href="classes/input.html">Input</a> - Processes input from all sources</li>
+				<li><a href="classes/lang.html">Lang</a> - Make your application support multiple languages</li>
+				<li><a href="classes/log.html">Log</a> - Static interface on the Monolog logger package</li>
+				<li><a href="classes/markdown.html">Markdown</a> - Markdown parser class</li>
+				<li><a href="classes/migrate.html">Migrate</a> - List and run migrations</li>
+				<li>Model_Crud - Basic base model for database table interaction
+					<ul>
+						<li><a href="classes/model_crud/config.html">Configuration</a></li>
+						<li><a href="classes/model_crud/methods.html">Methods</a></li>
+						<li>Usage</li>
+					</ul>
+				</li>
+				<li><a href="classes/module.html">Module</a> - Load, unload and list available modules</li>
+				<li>Mongo_Db - Interface to Mongo DB
+					<ul>
+						<li><a href="classes/mongo/introduction.html">Introduction</a></li>
+						<li><a href="classes/mongo/methods.html">Methods</a></li>
+						<li>Usage</li>
+					</ul>
+				</li>
+				<li><a href="classes/num.html">Num</a> - Utility class for dealing with numberss</li>
+				<li><a href="classes/package.html">Package</a> - Load, unload and list available packages</li>
+				<li><a href="classes/pagination.html">Pagination</a> - Generate the HTML for paginating your tables</li>
+				<li><a href="classes/profiler.html">Profiler</a> - Profile your application</li>
+				<li><a href="classes/Redis.html">Redis_Db</a> - Interface to Redis</li>
+				<li>Request - Fire additional requests
+					<ul>
+						<li><a href="classes/request/request.html">URI requests</a> - Internal MVC or HMVC calls</li>
+						<li><a href="classes/request/curl.html">Curl</a> - Load external (RESTful) data using the Curl library</li>
+						<li><a href="classes/request/soap.html">Soap</a> - Application interaction using SOAP</li>
+					</ul>
+				</li>
+				<li><a href="classes/response.html">Response</a> - Response to be returned</li>
+				<li><a href="classes/router.html">Router</a> - FuelPHP request routing engine</li>
+				<li><a href="classes/security.html">Security</a> - Utility class to make it easy to secure your application</li>
+				<li>Session - Maintain state in a stateless environment
+					<ul>
+						<li><a href="classes/session/config.html">Configuration</a></li>
+						<li><a href="classes/session/usage.html">Usage</a></li>
+						<li><a href="classes/session/advanced.html">Advanced</a></li>
+					</ul>
+				</li>
+				<li><a href="classes/str.html">Str</a> - Utility class for string operations</li>
+				<li>Theme - Take generating output to the next level by theming your application
+					<ul>
+						<li><a href="classes/theme/introduction.html">Introduction</a></li>
+						<li><a href="classes/theme/methods.html">Methods</a></li>
+						<li><a href="classes/theme/advanced.html">Advanced</a></li>
+					</ul>
+				</li>
+				<li>Unzip - Unzip zip files</li>
+				<li>Upload - Validate and process uploaded files
+					<ul>
+						<li><a href="classes/upload/config.html">Configuration</a></li>
+						<li><a href="classes/upload/usage.html">Usage</a></li>
+					</ul>
+				</li>
+				<li><a href="classes/uri.html">Uri</a> - Utility class for URI and URL handling</li>
+				<li>Validation - Validate data using easy to define rules
+					<ul>
+						<li><a href="classes/validation/validation.html">Introduction</a></li>
+						<li><a href="classes/validation/methods.html">Methods</a></li>
+						<li><a href="classes/validation/errors.html">Errors</a></li>
+					</ul>
+				</li>
+				<li><a href="classes/view.html">View</a> - Object oriented output</li>
+			</ul>
+
+			<h2>Auth Package</h2>
+
+			<ul class="toc">
+				<li><a href="packages/auth/intro.html">Introduction</a></li>
+				<li><a href="packages/auth/drivers.html">Writing drivers</a></li>
+				<li>Driver types
+					<ul>
+						<li><a href="packages/auth/types/login.html">Login</a></li>
+						<li><a href="packages/auth/types/group.html">Group</a></li>
+						<li><a href="packages/auth/types/acl.html">ACL</a></li>
+					</ul>
+				</li>
+				<li>Simpleauth
+					<ul>
+						<li><a href="packages/auth/simpleauth/intro.html">Introduction</a></li>
+						<li><a href="packages/auth/simpleauth/usage.html">Usage</a></li>
+					</ul>
+				</li>
+				<li>Ormauth
+					<ul>
+						<li><a href="packages/auth/ormauth/intro.html">Introduction</a></li>
+						<li><a href="packages/auth/ormauth/usage.html">Usage</a></li>
+					</ul>
+				</li>
+				<li>Opauth
+					<ul>
+						<li><a href="packages/auth/opauth/intro.html">Introduction</a></li>
+						<li><a href="packages/auth/opauth/usage.html">Usage</a></li>
+					</ul>
+				</li>
+				<li>Examples
+					<ul>
+						<li><a href="packages/auth/examples/auth.html">Auth controller</a></li>
+						<li><a href="packages/auth/examples/opauth.html">Opauth controller</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<h2>Email Package</h2>
+
+			<ul class="toc">
+				<li><a href="packages/email/introduction.html">Introduction</a></li>
+				<li><a href="packages/email/usage.html">Usage</a></li>
+				<li><a href="packages/email/methods.html">Methods</a></li>
+				<li><a href="packages/email/troubleshooting.html">Troubleshooting</a></li>
+			</ul>
+
+			<h2>Oil Package</h2>
+
+			<ul class="toc">
+				<li><a href="packages/oil/intro.html">Introduction</a></li>
+				<li><a href="packages/oil/generate.html">Generate</a></li>
+				<li><a href="packages/oil/refine.html">Refine</a></li>
+				<li><a href="packages/oil/package.html">Package</a></li>
+				<li><a href="packages/oil/test.html">Test</a></li>
+				<li><a href="packages/oil/console.html">Console</a></li>
+			</ul>
+
+			<h2>Orm Package</h2>
+
+			<ul class="toc">
+				<li><a href="packages/orm/intro.html">Introduction</a></li>
+				<li><a href="packages/orm/creating_models.html">Creating Models</a></li>
+				<li><a href="packages/orm/crud.html">CRUD</a></li>
+				<li>Relating models
+					<ul>
+						<li><a href="packages/orm/relations/intro.html">Introduction</a></li>
+						<li><a href="packages/orm/relations/belongs_to.html">Belongs To</a></li>
+						<li><a href="packages/orm/relations/has_one.html">Has One</a></li>
+						<li><a href="packages/orm/relations/has_many.html">Has Many</a></li>
+						<li><a href="packages/orm/relations/many_many.html">Many to Many</a></li>
+					</ul>
+				</li>
+				<li>Extended models
+					<ul>
+						<li><a href="packages/orm/model/soft.html">Soft Delete</a></li>
+						<li><a href="packages/orm/model/temporal.html">Temporal/Revisions</a></li>
+						<li><a href="packages/orm/model/nestedset.html">NestedSets</a></li>
+					</ul>
+				</li>
+				<li><a href="packages/orm/eav.html">EAV containers</a></li>
+				<li>Observers
+					<ul>
+						<li><a href="packages/orm/observers/intro.html">Introduction</a></li>
+						<li><a href="packages/orm/observers/included.html">Included observers</a></li>
+						<li><a href="packages/orm/observers/creating.html">Writing your own</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<h2>Parser Package</h2>
+
+			<ul class="toc">
+				<li><a href="packages/parser/intro.html">Introduction</a></li>
+			</ul>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

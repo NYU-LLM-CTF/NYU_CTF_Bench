@@ -1,0 +1,14 @@
+{
+  "name": "scp-terminal",
+  "category": "web",
+  "author": "itszn",
+  "description": "Every since you started working this administrative government job, things have gotten strange.\nIt's not just because your day is spent cataloging an archive of anomalous objects. In your dreams you see a burning number: `31337`\nMaybe this terminal can help uncover the meaning of these dreams.\n\nhttps://scp-terminal.foundation/\n\nAuthor: `itszn` (Ret2 Systems)\n\nNOTE: This challenge is intended to be solved without using auto-scanning tools such as `dirbuster`. Please do not use them. We reserve the right to drop connections from people who are using them.",
+  "flag": "flag{CSP_def3a7s_SCP_n0t_s0_s3cure_n0w_huh}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [],
+  "box": "web.chal.csaw.io",
+  "internal_port": 5000
+}

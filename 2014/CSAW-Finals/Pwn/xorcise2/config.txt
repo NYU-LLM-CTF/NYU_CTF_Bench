@@ -1,0 +1,2 @@
+password:PW_IS_NOT_Flag!
+port:24002

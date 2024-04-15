@@ -1,0 +1,43 @@
+Dump of assembler code for function main:
+   0x0000000000001119 <+0>:     push   rbp
+   0x000000000000111a <+1>:     mov    rbp,rsp
+   0x000000000000111d <+4>:     sub    rsp,0x18
+   0x0000000000001121 <+8>:     mov    QWORD PTR [rbp-0x8],0x4f
+   0x0000000000001129 <+16>:    movabs rax,0x14be74f15
+   0x0000000000001133 <+26>:    mov    QWORD PTR [rbp-0x10],rax
+   0x0000000000001137 <+30>:    mov    QWORD PTR [rbp-0x18],0x4
+   0x000000000000113f <+38>:    mov    QWORD PTR [rbp-0x20],0x3
+   0x0000000000001147 <+46>:    mov    QWORD PTR [rbp-0x28],0x13
+   0x000000000000114f <+54>:    mov    QWORD PTR [rbp-0x30],0x115
+   0x0000000000001157 <+62>:    movabs rax,0x77cf4b645b61
+   0x0000000000001161 <+72>:    mov    QWORD PTR [rbp-0x38],rax
+   0x0000000000001165 <+76>:    mov    QWORD PTR [rbp-0x40],0x2
+   0x000000000000116d <+84>:    mov    QWORD PTR [rbp-0x48],0x11
+   0x0000000000001175 <+92>:    mov    QWORD PTR [rbp-0x50],0x21c1
+   0x000000000000117d <+100>:   mov    QWORD PTR [rbp-0x58],0x182265e9
+   0x0000000000001185 <+108>:   mov    QWORD PTR [rbp-0x60],0x833
+   0x000000000000118d <+116>:   mov    QWORD PTR [rbp-0x68],0xaab
+   0x0000000000001195 <+124>:   mov    QWORD PTR [rbp-0x70],0x8daaad
+   0x000000000000119d <+132>:   mov    rax,QWORD PTR [rbp-0x8]
+   0x00000000000011a1 <+136>:   imul   rax,QWORD PTR [rbp-0x10]
+   0x00000000000011a6 <+141>:   mov    QWORD PTR [rbp-0x78],rax
+   0x00000000000011aa <+145>:   mov    rax,QWORD PTR [rbp-0x18]
+   0x00000000000011ae <+149>:   imul   rax,QWORD PTR [rbp-0x20]
+   0x00000000000011b3 <+154>:   imul   rax,QWORD PTR [rbp-0x28]
+   0x00000000000011b8 <+159>:   imul   rax,QWORD PTR [rbp-0x30]
+   0x00000000000011bd <+164>:   imul   rax,QWORD PTR [rbp-0x38]
+   0x00000000000011c2 <+169>:   mov    QWORD PTR [rbp-0x80],rax
+   0x00000000000011c6 <+173>:   mov    rax,QWORD PTR [rbp-0x40]
+   0x00000000000011ca <+177>:   imul   rax,QWORD PTR [rbp-0x48]
+   0x00000000000011cf <+182>:   imul   rax,QWORD PTR [rbp-0x50]
+   0x00000000000011d4 <+187>:   imul   rax,QWORD PTR [rbp-0x58]
+   0x00000000000011d9 <+192>:   mov    QWORD PTR [rbp-0x88],rax
+   0x00000000000011e0 <+199>:   mov    rax,QWORD PTR [rbp-0x60]
+   0x00000000000011e4 <+203>:   imul   rax,QWORD PTR [rbp-0x68]
+   0x00000000000011e9 <+208>:   imul   rax,QWORD PTR [rbp-0x70]
+   0x00000000000011ee <+213>:   mov    QWORD PTR [rbp-0x90],rax
+   0x00000000000011f5 <+220>:   mov    eax,0x0
+   0x00000000000011fa <+225>:   leave
+   0x00000000000011fb <+226>:   ret
+End of assembler dump.
+

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Profiling - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Profiling</h2>
+
+			<p>The application profiler bundled with FuelPHP is based on <a href="http://particletree.com/features/php-quick-profiler/">PHP Quick Profiler</a>.</p>
+
+			<h3 id="what_is_profiling">What is profiling?</h3>
+
+			<p>
+				The profiler provides profiling and debugging related information without having to add a lot of programmatic overhead
+				to the code. You only need to toggle one config setting to true and you have access to an automated tool to help create a
+				faster and more consistent review experience. Since anyone can use it, the profiler also gives you an idea of where the code
+				stands before the review.
+			</p>
+
+			<p>The profiler provides you with a tabbed interface, in which you can find the following information:</p>
+			<ul>
+				<li>Console. This is the default tab, and gives you information about errors, log entries, memory usage or execution timings.</li>
+				<li>Load time. This is the request load time. It will display execution details in the body of the tab.</li>
+				<li>Database. The number of queries executed, the execution time, and if supported, a query analysis.</li>
+				<li>Memory. Total peak memory used by the request.</li>
+				<li>Files. The fully qualified name of all PHP files included, and their size.</li>
+				<li>Config. The contents of the configuration store at the end of the request.</li>
+				<li>Session. The contents of the session store at the end of the request.</li>
+				<li>GET. The contents of the $_GET array.</li>
+				<li>POST. The contents of the $_POST array.</li>
+			</ul>
+
+			<p>A typical profiler screen looks like this:<img width="850" src="../assets/img/profiler.png" /></p>
+
+			<p>At the bottom of the profiler screen, you will find three options:</p>
+			<ul>
+				<li>Bottom. By default, the profiler is an overlay. Click on this option if you want to see all output, the profiler will move past the end of your output. Click again and it will move back.</li>
+				<li>Height. Toggle between a large (like in the screenshot) or small profiler panel.</li>
+				<li>Details. Toggle the profiler details. If switched off, only the tab bar will be visible.</li>
+			</ul>
+
+			<h3 id="application_profiling">Application profiling</h3>
+
+				<p>
+					Profiling your application is disabled by default. You can configure Fuel to activate the profiler via your applications config/config.php file.
+				</p>
+				<pre class="php"><code>'profiling'  => true,
+</code></pre>
+				<p>
+					After the profiler has been enabled, you will see it pop up at the bottom of your browser window.
+				</p>
+
+			<h3 id="database_profiling">Database profiling</h3>
+
+				<p>
+					Database profiling is disabled by default too. Database profiling is activated per defined database, and is
+					activated by setting the 'profiling' option of the database configuration you want to profile in your
+					config/&lt;environment&gt;/db.php to true.
+				</p>
+
+				<pre class="php"><code>'profiling'  => true,
+</code></pre>
+				<p class="note">If you use multiple environments, make sure to select the correct db.php configuration file.</p>
+
+			<h3 id="adding_profiler_information">Add information to the profiler</h3>
+
+				<p>See the documentation of the <a href="../classes/profiler.html">Profiler</a> class to see how you can interact with the profiler.</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

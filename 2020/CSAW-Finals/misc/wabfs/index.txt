@@ -1,0 +1,1 @@
+I skimmed the gfs whitepaper then wrote this. To make it authentic, I wrote it in go. What a mistake that turned out to be.

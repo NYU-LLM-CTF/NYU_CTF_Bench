@@ -1,0 +1,20 @@
+<%- include('header') -%>
+<h1 class="title">
+  Grande is a place to write, read, and connect
+</h1>
+<p class="subtitle">
+  It's easy and free to post your thoughts on any topic and connect with <%= USER_COUNT %> readers.
+</p>
+<p>
+* We are currently not accepting new authors
+</p>
+<br/>
+<h2 class="title">Our top posts:</h2>
+<div class="columns is-multiline">
+  <% for(let post of TOP_POSTS) { %>
+  <div class="column is-3">
+    <%- include('post_card', {post}) -%>
+  </div>
+  <% } %>
+</div>
+<%- include('footer') -%>

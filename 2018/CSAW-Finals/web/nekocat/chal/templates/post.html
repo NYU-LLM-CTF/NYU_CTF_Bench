@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block title %}Meow{% endblock %}
+
+{% block body %}
+<nav id="nav-contain" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="nav-bar" class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item ml-auto">
+        <a class="nav-link" href="/"><i id="logo" class="fas fa-cat"></i></a>
+      </li>
+      <li class="nav-item dropdown ml-auto">
+        <a id="profile" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user-circle"></i></a>
+        <div class="dropdown-menu" aria-labelledby="profile">
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="nav-link btn meow" data-toggle="modal" data-target="#submit-modal">Meow</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div>
+  <div class="post-container">
+    <div class="post container-fluid">
+      <div class="dropdown report-button-container">
+        <button class="btn btn-secondary dropdown-toggle report-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-angle-down"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <h8 class="dropdown-header report-header">Report</h8>
+          <a class="dropdown-item" href="report?id={{ post.id }}&instance={{ post.instance }}">Inappropriate Content</a>
+          <a class="dropdown-item" href="report?id={{ post.id }}&instance={{ post.instance }}">Offensive Language</a>
+          <a class="dropdown-item" href="report?id={{ post.id }}&instance={{ post.instance }}">Broken Link</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1">
+          <div class="post-profile"><i class="fas fa-user"></i></div>
+        </div>
+        <div class="col-sm-11">
+          <div class="post-info">
+            <span class="post-user">{{ post.posted_name }}</span>
+            <br>
+            <span class="post-tag">@{{ post.posted_by }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-11">
+          <div class="post-content">
+            {{ post.content }}
+            {% if post.link %}
+              <a id="post-link" class="post-quote" href="{{ post.link }}">
+                <div class="post-quote-info">
+                  {{ post.link }}
+                </div>
+                {% if post.preview %}
+                  <div class="post-quote-text">
+                    {{ post.preview }}
+                  </div>
+                {% endif %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

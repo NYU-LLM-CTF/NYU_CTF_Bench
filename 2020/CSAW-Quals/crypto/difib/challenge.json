@@ -1,0 +1,10 @@
+{
+    "name": "difib",
+    "category": "crypto",
+    "description": "Welcome to crypto. We start with the classics! Deliver the decrypted form of the message to the guard on your journey.\n\n`nc {box} {port}`",
+    "flag": "flag{t0ld_y4_1t_w4s_3z}",
+    "points": 50,
+    "box": "crypto.chal.csaw.io",
+    "internal_port": 8000,
+    "files": ["message", "ramblings"]
+}

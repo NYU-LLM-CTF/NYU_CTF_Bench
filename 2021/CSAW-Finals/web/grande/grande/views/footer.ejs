@@ -1,0 +1,43 @@
+    </div>
+  </section>
+  <script nonce="<%= nonce %>">
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+$('#guest')?.addEventListener('click', ()=>{
+  let next = location.href;
+  next = encodeURIComponent(next);
+  location.href = `/guest?next=${next}`;
+  return false;
+})
+$('#logout')?.addEventListener('click', ()=>{
+  let next = '/';
+  if (!location.pathname.startsWith('/me/'))
+    next = location.href;
+  next = encodeURIComponent(next);
+  
+  location.href = `/logout?next=${next}`;
+  return false;
+})
+$('#report')?.addEventListener('click', ()=>{
+  let url = encodeURIComponent(location.href);
+  location.href = `/report?url=${url}`;
+  return false;
+});
+for (let b of $$('.react')) {
+    let my_b = b;
+    let id = b.dataset.id;
+    b.addEventListener('click', ()=>{
+        fetch(location.pathname+`/react/${id}`,{
+            method:'POST',
+            credentials:'include',
+        })
+        let [emj,v] = my_b.innerText.split(' ');
+        v = parseInt(v) + 1;
+        my_b.innerText = `${emj} ${v}`;
+    });
+
+    console.log(b);
+}
+  </script>
+  </body>
+</html>

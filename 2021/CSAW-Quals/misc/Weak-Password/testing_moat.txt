@@ -1,0 +1,3 @@
+Tested the provided password hash and mask in Windows and Linux. Neither seemed to work. Made an MD5 hash with the flag "Aaron19800321".
+The resulting hash was 7f4986da7d7b52fa81f98278e6ec9dcb
+Placed the hash in hash.txt and ran the provided hashcat mask in Linux to check if it would work. The flag was successfully cracked and gave Aaron19800321.

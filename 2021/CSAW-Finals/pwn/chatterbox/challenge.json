@@ -1,0 +1,20 @@
+{
+  "name": "chatterbox",
+  "category": "pwn",
+  "author": "cts",
+  "description": "it's a chat server, go pwn it. enough said\n\nRemote: `chatterbox.chal.csaw.io`, choose any port from 1300-1399\n- Windows Server 2019 Version 1809 Build 17763.2237\n- Default server configuration\n\nAuthor: [cts](https://twitter.com/gf_256) (Perfect Blue)",
+  "flag": "CSAW{th1s_s0me_g00d_heap_sprayyyyyyyyyyyy_lmao}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "public/MyChatApplication.exe",
+    "public/MyChatApplication.pdb",
+    "public/Server.exe",
+    "public/Server.pdb",
+    "binaries/kernel32.dll",
+    "binaries/ws2_32.dll"
+  ],
+  "box": "pwn.chal.csaw.io"
+}

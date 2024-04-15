@@ -1,0 +1,8 @@
+{
+    "name":"Holywater 2: Lacroix",
+    "category":"crypto",
+    "value":600,
+    "flag":"flag{clear_aa_water}",
+    "description":"See description.txt",
+    "files":["description.txt"]
+}

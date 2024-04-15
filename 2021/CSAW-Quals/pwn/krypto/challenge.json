@@ -1,0 +1,15 @@
+{
+  "name": "krypto",
+  "category": "pwn",
+  "author": "Nick Gregory, Sophos",
+  "description": "I've always wanted to get into kernel development, and messing around with the new crypto subsystem seems like a great first idea. I even thought of a really catchy name for it!\n\nFollow instructions at `nc krypto.chal.csaw.io 23750`.\n\n[disk.dist.img](https://chal-files.s3.us-east-2.amazonaws.com/disk.dist.img)\n\nAuthor: Nick Gregory (Sophos)",
+  "flag": "flag{N3ver_trust_the_user...l@nd}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "krypto.c"
+  ],
+  "box": "pwn.chal.csaw.io"
+}

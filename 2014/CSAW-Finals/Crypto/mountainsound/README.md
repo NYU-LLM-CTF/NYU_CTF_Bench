@@ -1,0 +1,27 @@
+# Mountain Sound
+## Author
+Stortz
+## Points
+300
+## Category
+Crypto
+## Description
+
+## Flag
+`key{It's not the one that goes 'huuuhh!'}`
+## Solution
+`x.py`
+To solve the challenge, you need to extract the python bytecode out of mountainsound executable. Then run dis.dis on it.
+You should notice that the it imports xmlrpc and 3 methods are defined: hello, ls, and rats. hello only returns a string. ls returns the contents of "/home/mountainsound". Rats takes a payload called sc and a sha1 based signature. If the signature is valid, it evals the sc payload and returns the results.
+Take the RSA modulus, factor it (it took me about 8minutes on my 2013 Macbook Pro), calculate phi and d with gmpy.
+Hash the shellcode string with sha1, convert that to an integer, sign that with pow(hash, d, N). Then call rats(sc, sig).
+## Setup
+A remote administration server with a small rsa key. You talk to the server via xmlrpc. The binary is distributed as a python "frozen" executable for Ubuntu 14.04.
+Distribute `mountainsound.xz-fb6f2a861d0ee19e2ea7fea55b7950027b483d29`
+
+1. Create a mountainsound user with the home directory /home/mountainsound
+2. Copy key there.
+3. chown root:root key
+4. chmod 644 key
+5. Copy the dist folder somewhere else (like /home/ubuntu)
+6. sudo ./mountainsound (it drops privs to mountainsound and chroots to its home folder)

@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: bls-lib
+Version: 1.0.0
+Summary: A simple Python implementation of threshold BLS signatures.
+Home-page: https://pypi.org/project/bls-lib
+Author: Alberto Sonnino
+Author-email: alberto.sonnino@ucl.ac.uk
+License: UNKNOWN
+Project-URL: Source, https://github.com/asonnino/bls
+Project-URL: Paper, https://iacr.org/archive/asiacrypt2001/22480516.pdf
+Project-URL: Bug Reports, https://github.com/asonnino/bls
+Keywords: cryptography signatures digital-signatures threhshold-cryptography
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Security :: Cryptography
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Description-Content-Type: text/markdown
+Requires-Dist: petlib
+Requires-Dist: bplib
+
+# BLS Signatures
+[![license](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](https://github.com/asonnino/bls/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/asonnino/bls.svg?branch=master)](https://travis-ci.org/asonnino/bls)
+
+A simple Python implementation of threshold BLS signatures.
+
+A link to the full paper is available at the following address: [https://iacr.org/archive/asiacrypt2001/22480516.pdf](https://iacr.org/archive/asiacrypt2001/22480516.pdf)
+
+
+## Pre-requisites
+This implementation is built on top of [petlib](https://github.com/gdanezis/petlib) and [bplib](https://github.com/gdanezis/bplib), make sure to follow [these instructions](https://github.com/gdanezis/petlib#pre-requisites) to install all the pre-requisites.
+
+
+## Install
+If you have `pip` installed, you can install **bls** with the following command:
+```
+$ pip install bls-lib
+```
+otherwise, you can build it manually as below:
+```
+$ git clone https://github.com/asonnino/bls
+$ cd bls
+$ pip install -e .
+```
+
+
+## Test
+Tests can be run as follows:
+```
+$ pytest -v --cov=bls tests/
+```
+or simply using tox:
+```
+$ tox
+```
+
+## License
+[The GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html)
+

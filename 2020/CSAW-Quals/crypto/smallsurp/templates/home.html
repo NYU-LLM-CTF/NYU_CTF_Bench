@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/sign-in/">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+    <link href="/static/signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <!-- WIP: our engineering team is very behind, what does this even do?? -->
+    <form class="form-signin" method="post" id="form">
+	  <div class="form-group">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="username" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+      </div>
+      <div>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      </div>
+      <hr>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	  <br>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		{% for message in messages %}
+		  <p>{{ message }}</p>
+		{% endfor %}
+	  {% endif %}
+	{% endwith %}
+    </form>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function() {
+        {% set a = gen_seed() %}
+        var A = "{{ modular_pow(2, a, N) }}";
+
+		$('#form').submit(function() {
+            $('<input />').attr('type', 'hidden')
+                .attr('name', "token1")
+                .attr('value', A)
+                .appendTo('#form');
+    	    return true;
+		});
+
+        // Yikes! Our engineers are very lazy and don't want to complete this project! I guess the only people that should be able to login have to know what they're doing :)
+
+        // SECURITY ENGINEERS:
+        // We are trying a new way to securely communicate sensitive information without sending it serverside. `/` should be your point of contact! Initiate a session with it, get some info from the server, and
+        // send back a request with params `username` and `computed` (created from the server's info), and if all good, you should get a landing page with info!
+
+        // Oh and here's some stuff you might need:
+        // g: 2, k: 3, N: 00ab76f585834c3c2b7b7b2c8a04c66571539fa660d39762e338cd8160589f08e3d223744cb7894ea6b424ebab899983ff61136c8315d9d03aef12bd7c0486184945998ff80c8d3d59dcb0196fb2c37c43d9cbff751a0745b9d796bcc155cfd186a3bb4ff6c43be833ff1322693d8f76418a48a51f43d598d78a642072e9fff533
+    });
+  </script>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Crypt::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Crypt - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Crypt Class</h2>
+
+			<p>
+				The Crypt class allows encrypt or decrypt a string. The Crypt class is also used internally by for example the Fuel Sessions class.
+			</p>
+			<p>It uses the encryption and hashing methods provided by PHPSecLib, so it's not dependent on external modules being available, such as mcrypt.</p>
+
+			<section>
+				<h3 id="configuration">Configuration</h3>
+
+				<p>
+					The Crypt class is configured through the <kbd>app/config/crypt.php</kbd> configuration file. It will be generated and populated with random values when you first use the Crypt class or if one of the required configuration values is missing.
+				</p>
+				<p class="note">
+					Note that this will require write access to app/config/crypt.php! If this is not possible, make sure all configuration settings are set!
+				</p>
+				<p>The following configuration settings can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>crypto_key</th>
+							<td>string</td>
+							<td>n/a</td>
+							<td>
+								Random encryption key value used in the encryption routines. Make sure you set this to something unique and random!
+							</td>
+						</tr>
+						<tr>
+							<th>crypto_iv</th>
+							<td>string</td>
+							<td>n/a</td>
+							<td>
+								Random encryption initialisation vector used in the encryption routines. Make sure you set this to something unique and random!
+							</td>
+						</tr>
+						<tr>
+							<th>crypto_hmac</th>
+							<td>string</td>
+							<td>n/a</td>
+							<td>
+								Random value used in the Hash-based Message Authentication Code (HMAC) routines. Make sure you set this to something unique and random!
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					If you assign keys manually, note that they are base64_encoded, and the length must be a multiple of 4 to be able to decode it. Make sure the length is correct!
+				</p>
+			</section>
+
+			<article>
+				<h4 class="method" id="method_encode">encode($value, $key = false)</h4>
+				<p>The <strong>encode</strong> method encrypts a string value, optionally with a custom encryption key.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>String value to encode.</td>
+								</tr>
+								<tr>
+									<th><kbd>$key</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>Optional custom key value to be used to encode the value passed. If false, the config value '<strong>crypto_key</strong>' is used.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// encode a variable with a custom key
+$value = Crypt::encode($value, 'R@nd0mK~Y');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_decode">decode($value, $key = false)</h4>
+				<p>The <strong>decode</strong> method decrypts a string value, optionally with a custom key.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>String value to decode.</td>
+								</tr>
+								<tr>
+									<th><kbd>$key</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>Optional custom key value to be used to decode the value passed. If false, the config value '<strong>crypto_key</strong>' is used.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed - String value with the decoded value, or <kbd>false</kbd> if the value could not be decoded.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// decode a variable with a custom key
+$value = Crypt::decode($value, 'R@nd0mK~Y');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

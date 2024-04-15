@@ -1,0 +1,47 @@
+diff --git a/Make.Rules b/Make.Rules
+index ec1c474..1090003 100644
+--- a/Make.Rules
++++ b/Make.Rules
+@@ -46,12 +46,13 @@ MINOR=24
+ # Compilation specifics
+ 
+ KERNEL_HEADERS := $(topdir)/libcap/include/uapi
+-IPATH += -fPIC -I$(KERNEL_HEADERS) -I$(topdir)/libcap/include
++BUILD_IPATH += -fPIC -I$(KERNEL_HEADERS) -I$(topdir)/libcap/include
++IPATH := -shared $(BUILD_IPATH)
+ 
+ CC := gcc
+ CFLAGS := -O2 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ BUILD_CC := $(CC)
+-BUILD_CFLAGS := $(CFLAGS) $(IPATH)
++BUILD_CFLAGS := $(CFLAGS) $(BUILD_IPATH)
+ AR := ar
+ RANLIB := ranlib
+ DEBUG = -g #-DDEBUG
+diff --git a/libcap/Makefile b/libcap/Makefile
+index 20ab00f..4d9ff11 100644
+--- a/libcap/Makefile
++++ b/libcap/Makefile
+@@ -49,7 +49,7 @@ cap_names.h: _makenames
+ 	./_makenames > cap_names.h
+ 
+ $(GPERF_OUTPUT): cap_names.list.h
+-	perl -e 'print "struct __cap_token_s { const char *name; int index; };\n%{\nconst struct __cap_token_s *__cap_lookup_name(const char *, unsigned int);\n%}\n%%\n"; while ($$l = <>) { $$l =~ s/[\{\"]//g; $$l =~ s/\}.*// ; print $$l; }' < $< | gperf --ignore-case --language=ANSI-C --readonly --null-strings --global-table --hash-function-name=__cap_hash_name --lookup-function-name="__cap_lookup_name" -c -t -m20 $(INDENT) > $@
++	perl -e 'print "struct __cap_token_s { const char *name; int index; };\n%{\nconst struct __cap_token_s *__cap_lookup_name(const char *, unsigned int);\n%}\n%%\n"; while ($$l = <>) { $$l =~ s/[\{\"]//g; $$l =~ s/\}.*// ; print $$l; }' < $< | gperf --ignore-case --language=ANSI-C --readonly --null-strings --global-table --hash-function-name=__cap_hash_name --lookup-function-name="__cap_lookup_name" -c -t -m20 $(INDENT) | sed 's/size_t/unsigned int/g' > $@
+ 
+ cap_names.list.h: Makefile $(KERNEL_HEADERS)/linux/capability.h
+ 	@echo "=> making $@ from $(KERNEL_HEADERS)/linux/capability.h"
+--- a/libcap/include/uapi/linux/capability.h	2020-01-15 00:59:46.217863100 -0500
++++ b/libcap/include/uapi/linux/capability.h	2020-01-15 00:57:40.122360361 -0500
+@@ -343,7 +343,11 @@
+ 
+ #define CAP_BLOCK_SUSPEND    36
+ 
+-#define CAP_LAST_CAP         CAP_BLOCK_SUSPEND
++#define CAP_AUDIT_READ       37
++
++#define CAP_LDW_RULE         38
++
++#define CAP_LAST_CAP         CAP_LDW_RULE
+ 
+ #define cap_valid(x) ((x) >= 0 && (x) <= CAP_LAST_CAP)

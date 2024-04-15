@@ -1,0 +1,10 @@
+{
+    "name": "picgram",
+    "category": "web",
+    "description": "Check out this new photo upload service! Hopefully you won't be able to do anything spooky with it.\n\n[http://{box}:{port}](http://{box}:{port})",
+    "points": 100,
+    "flag": "flag{th4t_w4s_s0m3_sp00ky_scr1pt1ng}",
+    "box": "web.chal.csaw.io",
+    "internal_port": 5000,
+    "files": ["Dockerfile", "app.py"]
+}

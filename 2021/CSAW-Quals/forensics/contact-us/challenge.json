@@ -1,0 +1,16 @@
+{
+  "name": "Contact Us",
+  "category": "forensics",
+  "author": "`moat`",
+  "description": "Veronica sent a message to her client via their website's Contact Us page. Can you find the message?\n\nAuthor: `moat`, Pacific Northwest National Laboratory",
+  "flag": "flag{m@r$hm3ll0w$}",
+  "box": "misc.chal.csaw.io",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "ContactUs.pcap",
+    "sslkeyfile.txt"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "superfly",
+    "category": "pwn",
+    "description": "Super Fly is an automatic Stand that imprisons its user, Toyohiro, inside it, making it a nuisance. Its power of damage reflection means that it is powerful and invulnerable, but anyone is free to exploit the tower when fighting inside it. \n\nHint: These files are LD_PRELOAD-ed.\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{part_6_needs_to_happen_for_part_7}",
+    "points": 100,
+    "files": ["libsuperfly.so", "libjemalloc.so.2", "libc-2.27.so"]
+}

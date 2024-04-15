@@ -1,0 +1,8 @@
+{
+    "name": "ASR4CR",
+    "category": "crypto",
+    "description": "What does it look like?\n\n`nc crypto.chal.csaw.io {PORT}`",
+    "flag": "FLAG{RC4_I3_D3AD_BUT_1T_1S_G00D_T0_KN0W}",
+    "points": 50,
+    "files": ["asr4cr_fake.py"]
+}

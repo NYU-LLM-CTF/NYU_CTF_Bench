@@ -1,0 +1,5 @@
+.mypy_cache
+a.out
+emu/emu
+chal.rom
+*.pyc

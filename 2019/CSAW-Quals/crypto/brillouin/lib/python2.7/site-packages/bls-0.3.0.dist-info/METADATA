@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: bls
+Version: 0.3.0
+Summary: A library to access Bureau of Labor Statistics data
+Home-page: https://github.com/OliverSherouse/bls
+Author: Oliver Sherouse
+Author-email: oliver@oliversherouse.com
+License: UNKNOWN
+Keywords: economics policy government labor data
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Requires-Dist: pandas
+Requires-Dist: requests
+
+UNKNOWN
+
+

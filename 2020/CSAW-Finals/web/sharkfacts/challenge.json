@@ -1,0 +1,9 @@
+{
+    "name": "Shark Facts",
+    "category": "web",
+    "description": "Sharks are all the rage right now, so people are craving shark facts. Unfortunately the shark fact maintainer went AWOL and is not accepting pull requests anymore :(\n\nhttp://sharks.alternativefacts.systems/",
+    "points": 250,
+    "box": "web.chal.csaw.io",
+    "flag": "flag{Shark Fact #81: 97 Percent of all sharks are completely harmless to humans}",
+    "files": ["server.py"]
+}

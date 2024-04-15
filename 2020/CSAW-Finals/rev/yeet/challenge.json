@@ -1,0 +1,9 @@
+{
+    "name": "yeet",
+    "category": "rev",
+    "description": "Free flags for everyone!",
+    "points": 150,
+    "flag": "flag{1ts_ok_t0_b3_rusty_4t_RE}",
+    "box": "rev.chal.csaw.io",
+    "files": ["yeet"]
+}

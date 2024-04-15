@@ -1,0 +1,9 @@
+{
+    "name": "sourcery",
+    "category": "rev",
+    "description": "Leaked part of this new startup's source code. Help me find interesting stuff from it!",
+    "points": 300,
+    "flag": "flag{ctf_pl4y3rz_g1t_1t_d0n3}",
+    "box": "rev.chal.csaw.io",
+    "files": ["sourcery.zip"]
+}

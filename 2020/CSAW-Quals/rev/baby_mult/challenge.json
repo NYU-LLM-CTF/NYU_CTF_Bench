@@ -1,0 +1,9 @@
+{
+    "name": "baby_mult",
+    "category": "rev",
+    "description": "Welcome to reversing! Prove your worth and get the flag from this neat little program!",
+    "points": 50,
+    "flag": "flag{sup3r_v4l1d_pr0gr4m}",
+    "box": "rev.chal.csaw.io",
+    "files": ["program.txt"]
+}

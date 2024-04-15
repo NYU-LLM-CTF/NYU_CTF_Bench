@@ -1,0 +1,9 @@
+{
+  "name": "Perfect Secrecy",
+  "category": "crypto",
+  "description": "Alice sent over a couple of images with sensitive information to Bob, encrypted with a pre-shared key. It is the most secure encryption scheme, theoretically...",
+  "flag": "flag{0n3_t1m3_P@d!}",
+  "points": 50,
+  "box": "crypto.chal.csaw.io",
+  "files": ["image1.png", "image2.png"]
+}

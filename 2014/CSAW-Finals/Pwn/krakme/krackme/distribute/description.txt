@@ -1,0 +1,8 @@
+Someone installed a crackme device driver (/dev/krackme) on this vm!
+Can you crack it?
+
+nc 127.0.0.1 9999
+
+----^
+give the actual ip address though ;)
+

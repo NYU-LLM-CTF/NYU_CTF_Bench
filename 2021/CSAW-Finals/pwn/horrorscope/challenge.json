@@ -1,0 +1,17 @@
+{
+  "name": "horrorscope",
+  "category": "pwn",
+  "description": "Receive a fortune and learn your future from the new and improved Oracle! (release version 2.34) \n\n`nc {box} {port}`",
+  "flag": "flag{S4f3-l1nk1nG_Do35n7_pr073c7_ur_GL0B4L5}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "public/horrorscope",
+    "public/libc-2.34.so",
+    "Dockerfile"
+  ],
+  "internal_port": 6666,
+  "box": "pwn.chal.csaw.io"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Interoperable",
+  "category": "crypto",
+  "author": "Cryptohack (jack)",
+  "description": "Let's use standard curves to ensure interoperability.\n\n`nc {box} {port}`\n\nAuthor: CryptoHack (`jack`)",
+  "flag": "flag{curv3_sh1ft1ng_t0_sm00th_0rder!}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "chal.py"
+  ],
+  "internal_port": 5000,
+  "box": "crypto.chal.csaw.io"
+}

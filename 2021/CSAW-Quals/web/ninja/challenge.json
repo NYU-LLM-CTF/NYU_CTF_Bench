@@ -1,0 +1,13 @@
+{
+  "name": "ninja",
+  "category": "web",
+  "description": "Hey guys come checkout this website i made to test my ninja-coding skills.\n\n[http://{box}:{port}](http://{box}:{port})",
+  "flag": "flag{m0mmy_s33_1m_4_r34l_n1nj4}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [],
+  "box": "web.chal.csaw.io",
+  "internal_port": 5000
+}

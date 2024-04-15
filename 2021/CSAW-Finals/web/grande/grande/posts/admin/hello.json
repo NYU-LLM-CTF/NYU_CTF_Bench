@@ -1,0 +1,7 @@
+{
+    "name":"hello_world",
+    "title":"Hello World",
+    "content":"<h1>Hello world!</h1>",
+    "img":"https://upload.wikimedia.org/wikipedia/commons/0/0b/HelloWorld_Maktivism_ComputerProgramming_LEDs.jpg",
+    "draft":false
+}

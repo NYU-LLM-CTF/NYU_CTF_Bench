@@ -1,0 +1,41 @@
+#!/bin/bash 
+
+set -e
+
+prog=$0
+function get_sym() {
+  if ! grep " $1$" $SYSTEM_MAPS > /dev/null 2> /dev/null; then
+    echo "$prog: Couldn't find \`$1'" >&2
+    exit 1
+  fi
+  grep " $1$" $SYSTEM_MAPS | awk '{print $1}'
+}
+
+
+
+if [ -z "$SYSTEM_MAPS" ]; then
+  echo 'Requires $SYSTEM_MAPS env' >&2
+  exit 1
+fi
+
+bash -c "exec -a $0 cat $SYSTEM_MAPS" > /dev/null
+
+echo '#ifndef _SYM_H'
+echo '#define _SYM_H'
+echo ''
+echo '#include <linux/types.h>'
+echo ''
+
+val=$(get_sym "printk")
+echo "#define __printk_at 0x$val" 
+echo ''
+
+for sym in $@; do
+  val=$(get_sym "$sym")
+  def=DEF_$(echo $sym | tr a-z A-Z)
+
+  echo "#define $def (0x$val - __printk_at + (uintptr_t)&printk)"
+done
+
+echo ''
+echo '#endif'

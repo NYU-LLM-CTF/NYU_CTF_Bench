@@ -1,0 +1,13 @@
+{
+  "name": "poem-collection",
+  "category": "warm-up",
+  "description": "Hey! I made a cool website that shows off my favorite poems. See if you can find `flag.txt` somewhere!\n\n[http://{box}:{port}](http://{box}:{port})",
+  "flag": "flag{l0c4l_f1l3_1nclusi0n_f0r_7h3_w1n}",
+  "type": "dynamic",
+  "initial": 250,
+  "minimum": 25,
+  "decay": 275,
+  "files": [],
+  "box": "web.chal.csaw.io",
+  "internal_port": 80
+}

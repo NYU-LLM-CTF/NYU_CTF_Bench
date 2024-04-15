@@ -1,0 +1,13 @@
+FROM python:3.7
+
+RUN apt-get update && apt-get install -y xvfb chromium
+RUN pip3 install pyppeteer
+
+RUN mkdir /opt/stuff
+WORKDIR /opt/stuff
+
+ADD xvfb_admin.sh .
+ADD admin_bot.py .
+ADD extension ./extension
+
+CMD "./xvfb_admin.sh"

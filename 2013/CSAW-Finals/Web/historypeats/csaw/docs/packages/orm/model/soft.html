@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Soft Delete Model - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+            <div id="main">
+                <section>
+                    <h2 id="introduction">Introduction</h2>
+                    <p>Soft deleting is essentially the ability to hide an entry in the database instead of removing every trace of the entry. This means that data can be retrieved for use at a later date. Another way to think of it is archiving the data.</p>
+                    <p>For example you might have a system that records employee working hours. Every day an employee logs their time so reports can be generated to weed out lazy people. If a person gets fired you no longer want them to be able to access the system but it may still be useful to retain the data on hours worked.</p>
+                    <p>If the employee is soft deleted then, as far as the system is concerned, the employee no longer exists. The soft delete model provides a way to query this archived data so reports can still be generated using this “deleted” data.</p>
+                    <p>Some people advocate avoiding soft (or logical) deletes. This model does not force you to use soft delete but provides a way for a quick implementation in your project if you decide that soft delete is for you.</p>
+                </section>
+
+                <section>
+                    <h2>Basic use</h2>
+                    <p>Using the soft delete model is as easy as extending <kbd>Orm\Model_Soft</kbd> instead of <kbd>Orm\Model</kbd>. This marks your model as being a soft delete model and changes the default behaviour of the <kbd>delete()</kbd> and <kbd>find()</kbd> methods.</p>
+                    <pre id="php"><code>class Model_Employee extends \Orm\Model_Soft
+{
+    ...
+}</code></pre>
+                    <p>The model is then set up like a normal <a href="../creating_models.html">ORM model</a>, including any relations or other properties that you wish to use.</p>
+                </section>
+
+                <section>
+                    <h2 id="settings">Settings</h2>
+                    <p>There are currently two extra settings that can be set for soft delete models.</p>
+                    <p><kbd>deleted_field</kbd> is the field that stores the timestamp. In the database this should be either a MySQL or unix timestamp and default to <kbd>NULL</kbd>. Any entries with a <kbd>NULL</kbd> timestamp are not deleted. The column name defaults to deleted_at.</p>
+                    <p><kbd>mysql_timestamp</kbd> is if the timestamp generated should be a MySQL timestamp or a unix timestamp. This defaults to <kbd>false</kbd> (use a unix timestamp).</p>
+                    <p>Example model with default settings:</p>
+                    <pre id="php"><code>class Model_Employee extends \Orm\Model_Soft
+{
+    protected static $_soft_delete = array(
+        'deleted_field' => 'deleted',
+        'mysql_timestamp' => false,
+    );
+}</code></pre>
+                </section>
+
+                <section>
+                    <h2 id="delete">Deleting</h2>
+                    <p>To trigger the soft delete just call the normal <kbd>delete()</kbd> function on the object after selecting. This updates the database entry with the current timestamp and mark the entry as deleted. The entry will no longer show up in <kbd>find()</kbd> queries.</p>
+                    <pre id="php"><code>$employee = Model_Employee::find(1);
+$employee->delete(); //The employee has now been soft deleted.</code></pre>
+                </section>
+
+                <section>
+                    <h2 id="delete">Permanently Deleting</h2>
+                    <p>To delete a record permanently, call the <kbd>purge()</kbd> function on the object after selecting. This deletes the record permanently from the database.</p>
+                    <pre id="php"><code>$employee = Model_Employee::find(1);
+$employee->purge(); //The employee has now been deleted.</code></pre>
+                </section>
+
+                <section>
+                    <h2 id="find">Find</h2>
+                    <p>Soft deleted entries are not listed with <kbd>find()</kbd> requests, they are excluded from the returned results because they have, as far as <kbd>Model_Soft</kbd> is concerned, been deleted. It is possible to query deleted entries by using <kbd>find_deleted()</kbd> or <kbd>deleted()</kbd>. These both work the same as <kbd>find()</kbd> and expect the same parameters.</p>
+                </section>
+
+                <section>
+                    <h2 id="restore">Restoring</h2>
+                    <p>Entries that have been soft deleted can be restored at a later date. Say that one of our employees returns, we can just restore the soft deleted entry and have everything working for her again without having to create a new employee.</p>
+                    <p>This is done simply by calling <kbd>restore()</kbd> or <kbd>undelete()</kbd> on a deleted entry.</p>
+                    <pre id="php"><code>$employee = Model_Employee::find_deleted(1);
+// OR
+$employee = Model_Employee::deleted(1);
+
+$employee->restore(); //The employee is no longer deleted.
+$employee->undelete(); //Does the same as above.</code></pre>
+                </section>
+
+                <section>
+                    <h2 id="relations">Relations</h2>
+                    <h1>Delete</h1>
+                    <p>The delete function will soft delete related models providing that <kbd>cascade_delete</kbd> is true. If the related model is not soft delete as well then a <kbd>RelationNotSoft</kbd> exception is thrown.</p>
+                    <h1>Restore</h1>
+                    <p>The restore function will also restore related entries providing the <kbd>cascade_delete</kbd> is true for the relation.</p>
+                </section>
+            </div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

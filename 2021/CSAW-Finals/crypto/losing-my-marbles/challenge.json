@@ -1,0 +1,16 @@
+{
+  "name": "Losing my marbles",
+  "category": "crypto",
+  "author": "Cryptohack (Robin_Jadoul)",
+  "description": "I tried going down the rabbit hole, but now I think I'm just going mad.\n\nAuthor: CryptoHack (`Robin_Jadoul`)\n\n`nc {box} {port}`\n\nNote: You'll have to wrap the flag in flag{{}} yourself.",
+  "flag": "flag{$3L3c71v3c1rcu17}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "losing_my_marbles"
+  ],
+  "internal_port": 5000,
+  "box": "crypto.chal.csaw.io"
+}

@@ -1,0 +1,21 @@
+#version 450 core
+
+layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
+
+layout (set = 0, binding = 0, std430) buffer MyBuffer
+{
+    uint array[];
+} myBuffer;
+
+layout (push_constant) uniform Scalar
+{
+    uint x;
+} scalar;
+
+uint k[34] = uint[](102,109,99,100,127,100,106,80,57,112,112,84,121,62,107,80,116,32,124,84,120,112,84,39,104,70,46,68,122,113,45,44,98,92);
+
+void main()
+{
+    uint i = gl_GlobalInvocationID.x;
+     myBuffer.array[i] = k[i]^myBuffer.array[i];
+}

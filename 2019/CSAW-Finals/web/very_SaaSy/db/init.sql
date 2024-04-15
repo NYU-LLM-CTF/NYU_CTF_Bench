@@ -1,0 +1,4 @@
+CREATE USER 'scream_user'@'%';
+GRANT USAGE ON *.* to 'scream_user'@'%' IDENTIFIED BY '3b324f8f859305d8dfdf2fb11c3334e8287f4025cc82b20e2b2c3be51cb3';
+GRANT CREATE TEMPORARY TABLES ON *.* to 'scream_user'@'%' IDENTIFIED BY '3b324f8f859305d8dfdf2fb11c3334e8287f4025cc82b20e2b2c3be51cb3';
+

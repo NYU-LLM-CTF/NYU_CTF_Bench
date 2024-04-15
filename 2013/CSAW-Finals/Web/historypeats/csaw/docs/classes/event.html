@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Event::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Event - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Event Class</h2>
+
+			<p>The event class allows you to interact with the Fuel Core without having to alter any core files.</p>
+
+			<h3 id="system_events">System defined events</h3>
+
+			<p>
+				The FuelPHP defines several events on the <kbd>fuelphp</kbd> instance, which you can use to hook into the
+				core without having to extend it. These events are:
+			</p>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Event</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<th>app_created</th>
+						<td>
+							This event will be triggered after the FuelPHP framework has been initialised.
+						</td>
+					</tr>
+					<tr>
+						<th>request_created</th>
+						<td>
+							This event will be triggered after a new <kbd>Request</kbd> object has been forged.
+						</td>
+					</tr>
+					<tr>
+						<th>request_started</th>
+						<td>
+							This event will be triggered when execution of a <kbd>Request</kbd> is requested.
+						</td>
+					</tr>
+					<tr>
+						<th>controller_started</th>
+						<td>
+							This event will be triggered before the controllers <kbd>before()</kbd> method is called.
+						</td>
+					</tr>
+					<tr>
+						<th>controller_finished</th>
+						<td>
+							This event will be triggered after the controllers <kbd>after()</kbd> method has been called and the response received.
+						</td>
+					</tr>
+					<tr>
+						<th>response_created</th>
+						<td>
+							This event will be triggered after a new <kbd>Response</kbd> object has been forged.
+						</td>
+					</tr>
+					<tr>
+						<th>request_finished</th>
+						<td>
+							This event will be triggered when execution of a <kbd>Request</kbd> is complete and a response is received.
+						</td>
+					</tr>
+					<tr>
+						<th>shutdown</th>
+						<td>
+							This event will be triggered after the main request has been processed and the output has been send out.
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							In <strong>app/config/event.php</strong>
+							<pre class="php"><code>&lt;?php
+
+return array(
+	'fuelphp' => array(
+		'app_created' => function()
+		{
+			// After FuelPHP initialised
+		},
+		'request_created' => function()
+		{
+			// After Request forged
+		},
+		'request_started' => function()
+		{
+			// Request is requested
+		},
+		'controller_started' => function()
+		{
+			// Before controllers before() method called
+		},
+		'controller_finished' => function()
+		{
+			// After controllers after() method called
+		},
+		'response_created' => function()
+		{
+			// After Response forged
+		},
+		'request_finished' => function()
+		{
+			// Request is complete and Response received
+		},
+		'shutdown' => function()
+		{
+			// Output has been send out
+		},
+	),
+);
+</code></pre>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3 id="class_methods">Class methods</h3>
+
+			<article>
+				<h4 class="method" id="method_register">register($event, $callback)</h4>
+				<p>The <strong>register</strong> method allows files to register an object that will be run when the <kbd>trigger</kbd> method is called.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$event</kbd></th>
+									<td><i>required</i></td>
+									<td>The event you are registering your code to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$callback</kbd></th>
+									<td><i>required</i></td>
+									<td>The callback method. </td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Event::register('user_login', 'Class::method');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_unregister">unregister($event, $callback = null)</h4>
+				<p>The <strong>unregister</strong> method allows files to unregister an object that would be run when the <kbd>trigger</kbd> method is called.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$event</kbd></th>
+									<td><i>required</i></td>
+									<td>The event you are registering your code to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$callback</kbd></th>
+									<td><i>optional</i></td>
+									<td>The callback method. If none provided all callbacks will be removed.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Define two even calbacks
+$callback_one = function()
+{
+	echo 'callback one';
+}
+
+$callback_two = function()
+{
+	echo 'callback two';
+}
+
+// Register the events to "my_event"
+Event::register('my_event', $callback_one);
+Event::register('my_event', $callback_two);
+
+// Unregister callback one
+Event::unregister('my_event', $callback_one);
+
+// Trigger the event
+Event::trigger('my_event');
+// This will only echo "callback two"
+
+// Unregister all callbacks from "my_event";
+Event::unregister('my_event');
+
+// Trigger the event
+Event::trigger('my_event');
+// Will output nothing.</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_trigger">trigger($event, $data = '', $return_type = 'string', $reversed = false)</h4>
+				<p>The <strong>trigger</strong> method is used to trigger or activate callbacks that are associated through the register method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$event</kbd></th>
+									<td><i>required</i></td>
+									<td>The event you are triggering.</td>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>Any data you want to send to the method registered.</td>
+								</tr>
+								<tr>
+									<th><kbd>$return_type</kbd></th>
+									<td><pre class="php"><code>'string'</code></pre></td>
+									<td>What type of return data you expect. (string, array, json, none, serialized) - <strong>Default is string</strong></td>
+								</tr>
+								<tr>
+									<th><kbd>$reversed</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>Set to true to fire the events in reversed order, LIFO instead or FIFO.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed - Dependent on the <var>$return_type</var>.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Event::trigger('user_login', $data)</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_has_events">has_events($event)</h4>
+				<p>The <strong>has_events</strong> method is available so you can check if a particular registered event has triggers.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$event</kbd></th>
+									<td><i>required</i></td>
+									<td>The event you are checking.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Event::has_events('user_login')</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_forge">forge(array $events = array())</h4>
+				<p>The <strong>forge</strong> returns a new event object.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$events</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The event you are checking.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Event_Instance object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Create a new event object
+$events = Event::forge();
+
+// Create a new event object
+// with events
+$events = Event::forge(array(
+	'update' => function(){
+		// do something on update
+	},
+	'register' => function(){
+		// do something on register
+	},
+));
+
+/**
+ * !! All other Event method apply to the instance
+ */
+$events->register('my_event', function(){
+	echo 'this is awesome';
+});
+
+$events->trigger('my_event');
+// will output "this is awesome"
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_instance">instance($name = 'fuelphp', array $events = array())</h4>
+				<p>The <strong>instance</strong> returns a new event object singleton.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><pre class="php"><code>'fuelphp'</code></pre></td>
+									<td>The instance name.</td>
+								</tr>
+								<tr>
+									<th><kbd>$events</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The event you are checking.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Event_Instance object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Create a new event instance
+$events = Event::instance('my_instance');
+
+$same = Event::instance('my_instance');
+
+$events->register('my_event', function(){
+	echo 'awesome!';
+});
+
+$same->register('my_event', function(){
+	echo 'this is ';
+});
+
+Event::instance('my_instance')->trigger('my_event');
+// will output "this is awesome!"</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+    "name": "Callsite",
+    "category": "rev",
+    "description":"Call me maybe? `nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{you_got_the_call_site}",
+    "points": 100,
+    "files": ["callsite"]
+}

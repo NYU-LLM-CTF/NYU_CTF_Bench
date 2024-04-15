@@ -1,0 +1,8 @@
+{
+    "name": "small_boi",
+    "category": "pwn",
+    "description": "you were a baby boi earlier, can you be a small boi now?\n\n `nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{sigrop_pop_pop_pop}",
+    "points": 100,
+    "files": ["small_boi"]
+}

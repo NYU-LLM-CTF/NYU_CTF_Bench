@@ -1,0 +1,11 @@
+{
+  "name": "Survey Says...",
+  "category": "misc",
+  "description": "Thank you for playing! We would appreciate your completing this brief evaluation survey [link redacted from public release] so that we can improve our CTF each year.",
+  "flag": "flag{7H4nk5_f0R_PL4yIn9!h0PE_70_5ee_y0u_NEx7_YE4R}",
+  "type": "dynamic",
+  "initial": 10,
+  "minimum": 10,
+  "decay": 275,
+  "box": "misc.chal.csaw.io"
+}

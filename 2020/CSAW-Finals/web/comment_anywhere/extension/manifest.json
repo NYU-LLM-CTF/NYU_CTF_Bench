@@ -1,0 +1,23 @@
+{
+  "name": "Comment Anywhere",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Leave a comment on any page!",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"],
+    "css": ["content.css"],
+    "run_at": "document_end"
+  }],
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+    "tabs",
+    "webNavigation",
+    "contextMenus"
+  ]
+}

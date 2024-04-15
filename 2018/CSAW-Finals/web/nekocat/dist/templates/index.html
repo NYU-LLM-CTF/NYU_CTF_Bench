@@ -1,0 +1,215 @@
+{% extends "layout.html" %}
+{% block title %}Meow{% endblock %}
+{% block body %}
+<nav id="nav-contain" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div id="nav-bar" class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item ml-auto">
+        <a class="nav-link" href="/"><i id="logo" class="fas fa-cat"></i></a>
+      </li>
+      <li class="nav-item dropdown ml-auto">
+        <a id="profile" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-user-circle"></i></a>
+        <div class="dropdown-menu" aria-labelledby="profile">
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="nav-link btn meow" data-toggle="modal" data-target="#submit-modal">Meow</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div id="neko-body" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="neko-card">
+        <div id="profile-card">
+          <div id="bg-picture"></div>
+          <div id="profile-info-container">
+            <div id="profile-picture"><i class="fas fa-user"></i></div>
+            <div id="profile-info">
+              <p id="name">{{ name }}</p>
+              <p id="tag">@{{ username }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="neko-card">
+        <div class="submission">
+          <div class="container-fluid submission-container">
+            <div class="submission-row row">
+              <div class="col-sm-1">
+                <div class="submission-profile"><i class="fas fa-user"></i></div>
+              </div>
+              <div class="submission-col col-sm-11">
+                <textarea id="submit-text" placeholder="meow meow meow meow?" name="submission-text" class="submission-text" form="submit-form"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" id="submission-link" class="btn submission-link"><i class="fas fa-link"></i></button>
+          <form id="submit-form" action="newpost" method="post">
+            <button id=type="submit" class="meow btn submission-button">Meow</button>
+          </form>
+        </div>
+        <ul id="post-container">
+          {% for post in posts %}
+          <li>
+            <div class="post container-fluid" onclick="location.href='/post?instance={{ post.instance }}&id={{ post.id }}'">
+              <div class="dropdown report-button-container">
+                <button class="btn btn-secondary dropdown-toggle report-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-angle-down"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <h8 class="dropdown-header report-header">Report</h8>
+                  <a class="dropdown-item" href="report?id={{ post.id }}&instance={{ post.instance }}">Inappropriate Content</a>
+                  <a class="dropdown-item" href="report?id={{ post.id }}&instance={{ post.instance }}">Offensive Language</a>
+                  <a class="dropdown-item" href="report?id={{ post.id }}&instance={{ post.instance }}">Broken Link</a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+                  <div class="post-profile"><i class="fas fa-user"></i></div>
+                </div>
+                <div class="col-sm-11">
+                  <div class="post-info">
+                    <span class="post-user">{{ post.posted_name }}</span> <span class="post-tag">@{{ post.posted_by }}</span>
+                  </div>
+                  <div class="post-content">
+                    {{ post.content }}
+                    {% if post.link %}
+                      <a class="post-quote" href="{{ post.link }}">
+                        <div class="post-quote-info">
+                          {{ post.link }}
+                        </div>
+                        {% if post.preview %}
+                          <div class="post-quote-text">
+                            {{ post.preview }}
+                          </div>
+                        {% endif %}
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="neko-card">
+        <div id="users-container">
+          <h1>Users</h1>
+          <ul id="users-list">
+            {% for user in users %}
+            <li>
+              <div class="users-card container-fluid">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="users-profile"><i class="fas fa-user"></i></div>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="users-info">
+                      <span class="users-user">{{ user.name }}</span>
+                      {% if user.verified %}
+                        <span class="users-verified"><i class="fas fa-paw"></i></span>
+                      {% endif %}
+                      <br>
+                      <span class="users-tag">@{{ user.username }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="submit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content submission-modal-content">
+      <div class="modal-header submission-modal-header">
+        <h5 class="modal-title">Meow Meow Meow</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body submission-modal-body">
+        <div class="submission">
+          <div class="container-fluid submission-container">
+            <div class="submission-row row">
+              <div class="col-sm-1">
+                <div class="submission-profile"><i class="fas fa-user"></i></div>
+              </div>
+              <div class="submission-col col-sm-11">
+                <textarea id="submit-text-modal" placeholder="meow meow meow meow?" name="submission-text" class="submission-text" form="submit-form-modal"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" id="submission-link-modal" class="submission-link btn"><i class="fas fa-link"></i></button>
+          <form id="submit-form-modal" action="newpost" method="post">
+            <button type="submit" class="meow btn submission-button">Meow</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.getElementById("submit-form").addEventListener('submit', function(e) {
+    e.preventDefault();
+    var text = document.getElementById("submit-text").value;
+    if (text.length > 280) {
+      alert("Posts cannot be longer than 280 characters");
+      return;
+    }
+
+    if (text.length == 0) {
+      return;
+    }
+
+    this.submit();
+  });
+
+  document.getElementById("submission-link").addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById("submit-text").value += '[link]'
+    document.getElementById("submit-text").focus();
+  });
+
+  document.getElementById("submit-form-modal").addEventListener('submit', function(e) {
+    e.preventDefault();
+    var text = document.getElementById("submit-text-modal").value;
+    if (text.length > 280){
+      alert("Posts cannot be longer than 280 characters");
+      return;
+    }
+
+    if (text.length == 0) {
+      return;
+    }
+
+    this.submit();
+  });
+
+  document.getElementById("submission-link-modal").addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById("submit-text-modal").value += '[link]';
+    document.getElementById("submit-text-modal").focus();
+  });
+
+</script>
+
+{% endblock %}

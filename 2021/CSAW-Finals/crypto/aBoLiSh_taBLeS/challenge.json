@@ -1,0 +1,16 @@
+{
+  "name": "aBoLiSh taBLeS",
+  "category": "crypto",
+  "author": "CryptoHack (jack and Robin_Jadoul)",
+  "description": "I believe that DLOG > CDH > DDH, strictly. So to increase security, I never reveal my signatures. (Note there is about a five-second delay in connecting to the box. That is normal and is Sage starting in the background.)\n\n`nc {box} {port}`\n\nAuthor: CryptoHack (`jack` and `Robin_Jadoul`)",
+  "flag": "flag{Baby_steps_have_been_aBoLiShed_by_our_cofactor_overlords}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "chal.sage"
+  ],
+  "internal_port": 5000,
+  "box": "crypto.chal.csaw.io"
+}

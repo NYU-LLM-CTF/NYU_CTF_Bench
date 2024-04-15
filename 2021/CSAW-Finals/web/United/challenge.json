@@ -1,0 +1,12 @@
+{
+  "name": "United",
+  "category": "web",
+  "description": "NYU United, NYU's 3rd best CTF team, is off to a rocky 2021 CTF season. If I were an admin, I'd make some changes to the roster.\n\n[http://{box}:{port}](http://{box}:{port})",
+  "flag": "flag{United_w3_leek_the_d4tabas3}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "internal_port": 3000,
+  "box": "web.chal.csaw.io"
+}

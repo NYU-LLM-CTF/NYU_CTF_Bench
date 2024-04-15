@@ -1,0 +1,7 @@
+{
+    "name":"some_draft",
+    "title":"Some draft",
+    "content":"No one can see this! The flag is in one of the admin's drafts!",
+    "img":"",
+    "draft":true
+}

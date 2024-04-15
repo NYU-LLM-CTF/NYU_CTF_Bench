@@ -1,0 +1,8 @@
+{
+    "name": "tvm_2_final",
+    "category": "crypto",
+    "description": "# TVM 2.0\n\n##  Crypto (and maybe RE) - 400\n\nAfter experiencing some trust issues with the first iteration of the TVM, we developed a newer, even more secure TVM. Introducing TVM 2.0: now with authentication!\n\nUpdated documentation has been provided, along with a new header file.\n\nAuthor: krx (River Loop Security)\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{f0rg1ng_ur_W4y_1nt0_A_TVM}",
+    "points": 400,
+    "files": ["dist/TVM_2.0.pdf", "dist/tvm", "dist/tvm.h"]
+}

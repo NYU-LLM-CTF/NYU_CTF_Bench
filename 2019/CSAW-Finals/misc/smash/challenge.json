@@ -1,0 +1,8 @@
+{
+    "name": "Smash",
+    "category": "misc",
+    "description": "For NY competitors: Come play against us in Smash.",
+    "flag": "flag{le0ns_falcon_st1ll_sucks}",
+    "points": 25,
+    "files": []
+}

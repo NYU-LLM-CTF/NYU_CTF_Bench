@@ -1,0 +1,8 @@
+{
+    "name": "Wic Wac Woe 2",
+    "category": "pwn",
+    "description": "WASM is the future of the web! JS devs will be writting c++, what could go wrong?\n\n<a href=\"https://github.com/itszn/chrome-wasm-debugger\">This debugger might help kinda _shrug emoji_</a>\n\nWritten by itszn, Ret2 systems\n\nHINT: You can get source via /test.wasm.map and /test.cpp",
+    "flag": "flag{CFI_byp4ss_mor3_like_d4ta_at7acks_4m_I_write??}",
+    "points": 350,
+    "files": []
+}

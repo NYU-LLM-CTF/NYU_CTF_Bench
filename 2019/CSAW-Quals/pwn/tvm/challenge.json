@@ -1,0 +1,8 @@
+{
+  "name": "TVM",
+  "category": "pwn",
+  "description": "Who needs a physical TPM when you can emulate one! The brand new TVM is a fully custom TPM that runs entirely in software.\n\nWe found some documentation about the TVM architechture, but when we looked for the source code all we found was one header file.\n\nNOTE: The goal is NOT to get a shell. This is also a crypto challenge.\n\nAuthors: krx & tulipszs\n\n\n\nWe'd love to hear from you if you solve the challenge! Feel free to send an email to team+&lt;flag&gt;@riverloopsecurity.com\n\n`nc {{.Netloc}} {{.DescPort}}`\n\nWE HAVE UPDATED THE PDF! Please download it again.",
+  "flag": "flag{C4nt_3vEn_Tru5t_4_GCM_TVM}",
+  "points": 400,
+  "files": ["dist/tvm", "dist/tvm.h", "dist/TVM.pdf"]
+}

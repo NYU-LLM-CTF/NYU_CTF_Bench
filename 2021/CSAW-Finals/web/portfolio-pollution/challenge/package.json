@@ -1,0 +1,18 @@
+{
+    "name": "portfolio-pollution",
+    "version": "1.0.0",
+    "description": "",
+    "license": "",
+    "repository": "",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "lowdb": "^3.0.0",
+        "merge-objects": "^1.0.5",
+        "puppeteer": "^10.4.0",
+        "xss": "^1.0.9"
+    }
+}

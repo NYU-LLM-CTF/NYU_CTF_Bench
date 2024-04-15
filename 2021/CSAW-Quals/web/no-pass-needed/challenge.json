@@ -1,0 +1,12 @@
+{
+  "name": "no-pass-needed",
+  "category": "web",
+  "description": "It's all about who you know and I know 'admin'.\n\n[http://{box}:{port}](http://{box}:{port})",
+  "flag": "flag{wh0_n3ed5_a_p4ssw0rd_anyw4y}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "internal_port": 3000,
+  "box": "web.chal.csaw.io"
+}

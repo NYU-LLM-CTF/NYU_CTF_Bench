@@ -1,0 +1,8 @@
+{
+  "name": "Pop Goes the Printer",
+  "category": "pwn",
+  "description": "totally not based on printer software that a lot of universities use that is buggy af\nNOTE: This challenge isn't meant to be an exercise in heap massaging. Use the provided Dockerfile when you need to replicate the env that is running on the server. Your heap offsets may seem not to change, but they will change remotely :P\n\nnc {{.Netloc}} {{.DescPort}}",
+  "flag": "flag{1_0bjective_s3e_wh4t_y0u_d1d_ther3}",
+  "points": 500,
+  "files": ["pgtp", "libs_release.tar.gz", "Dockerfile"]
+}

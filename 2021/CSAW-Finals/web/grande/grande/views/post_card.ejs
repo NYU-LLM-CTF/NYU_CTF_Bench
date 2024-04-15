@@ -1,0 +1,19 @@
+<div class="card">
+  <a href="/<%= post.username %>/<%= post.name %>">
+  <div class="card-image">
+    <figure class="image is-4by3">
+      <img src="<%= post.img %>">
+    </figure>
+  </div>
+  </a>
+  <header class="card-content">
+    <p class="title is-5">
+      <a href="/<%= post.username %>/<%= post.name %>">
+      <%= post.title %>
+      </a>
+    </p>
+    <p class="subtitle right">
+      By <a href="/<%= post.username %>/">@<%= post.username %></a>
+    </p>
+  </header>
+</div>

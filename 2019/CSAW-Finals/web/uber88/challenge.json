@@ -1,0 +1,8 @@
+{
+    "name": "Uber88",
+    "category": "web",
+    "description": "Where we are going, we don't need roads.\n\nhttps://www.youtube.com/watch?v=pd_b-ecraF8",
+    "flag": "flag{thought_go_was_memory_safe_didnt_ya}",
+    "points": 500,
+    "files": ["uber88-v0.0.3.apk"]
+}

@@ -1,0 +1,100 @@
+!!! 5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title CAFEBABE or BEBAFECA
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='/css/bootstrap.css', rel='stylesheet')
+    style(type='text/css')
+      body {
+      padding-top: 20px;
+      padding-bottom: 40px;
+      }
+      .form-signin {
+      max-width: 300px;
+      padding: 19px 29px 29px;
+      margin: 0 auto 20px;
+      background-color: #fff;
+      border: 1px solid #e5e5e5;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+      margin-bottom: 10px;
+      }
+      .form-signin input[type="object"]
+      .form-signin input[type="text"] {
+      font-size: 16px;
+      height: auto;
+      margin-bottom: 15px;
+      padding: 7px 9px;
+      }
+      /* Custom container */
+      .container-narrow {
+      margin: 0 auto;
+      max-width: 700px;
+      }
+      .container-narrow > hr {
+      margin: 30px 0;
+      }
+      /* Main marketing message and sign up button */
+      .jumbotron {
+      margin: 60px 0;
+      text-align: center;
+      }
+      .jumbotron h1 {
+      font-size: 72px;
+      line-height: 1;
+      }
+      .jumbotron .btn {
+      font-size: 21px;
+      padding: 14px 24px;
+      }
+      /* Supporting marketing content */
+      .marketing {
+      margin: 60px 0;
+      }
+      .marketing p + h4 {
+      margin-top: 28px;
+      }
+    link(href='/css/bootstrap-responsive.css', rel='stylesheet')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', href='/ico/favicon.png')
+  body
+    .container
+      //.masthead
+      //  //ul.nav.nav-pills.pull-right
+      //  //  li.active
+      //  //    a(href='#') home
+      //  //  li
+      //  //    a(href='http://twitter.com/timjreynolds') twitter
+      //  //  li
+      //  //    a(href='http://github.com/timReynolds') github
+      //  h3.muted
+      hr
+      .jumbotron
+        h1 CAFEBABE or BEBAFECA !
+        p.lead
+          | SeNd Us YoUr FaVoRiTe InDiAn ToKeN
+      hr
+      .container
+
+        form(action='/signup',method='post').form-signin
+          h2.form-signin-heading choose your destiny
+          input.input-block-level(id='name', type='text', placeholder='CAFEBABE or BEBAFECA', name='name')
+          input.input-block-level(id='token', type='text', placeholder='Token', name= 'token')
+          button.btn.btn-large.btn-primary(type='submit') Send
+      hr
+      .footer
+        p © Company CSAW 2018
+  include partials/scripts

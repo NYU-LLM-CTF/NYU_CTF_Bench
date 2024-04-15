@@ -1,0 +1,10 @@
+{
+    "name": "slithery",
+    "category": "pwn",
+    "description": "Setting up a new coding environment for my data science students. Some of them are l33t h4ck3rs that got RCE and crashed my machine a few times :(.\nCan you help test this before I use it for my class? Two sandboxes should be better than one...\n\n`nc {box} {port}`",
+    "flag": "flag{y4_sl1th3r3d_0ut}",
+    "points": 100,
+    "box": "pwn.chal.csaw.io",
+    "internal_port": 8000,
+    "files": ["sandbox.py"]
+}

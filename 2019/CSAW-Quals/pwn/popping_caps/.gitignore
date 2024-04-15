@@ -1,0 +1,5 @@
+*.id*
+*.til
+*.nam
+*.i64
+.gdb_history

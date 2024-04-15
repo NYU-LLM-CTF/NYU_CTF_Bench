@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>EAV Containers - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>EAV containers</h2>
+
+			<p>
+				"Entity–attribute–value model (EAV) is a data model to describe entities where the number of attributes (properties, parameters)
+				that can be used to describe them is potentially vast, but the number that will actually apply to a given entity is relatively
+				modest. In mathematics, this model is known as a sparse matrix. EAV is also known as object–attribute–value model, vertical
+				database model and open schema."</p>
+			<p><em>Source: <a href="http://en.wikipedia.org/wiki/Entity%E2%80%93attribute%E2%80%93value_model">Wikipedia</a>.</em></p>
+
+			<section>
+				<h2 id="intro">Introduction</h2>
+
+				<p>Most people already get lost in that first paragraph, so let's try to explain this with an example.</p>
+
+				<p>
+					You will typically use an EAV container when you have an entity (a record in ORM terms) that has a number of
+					related attributes as it's children. But for every record, these attibutes can be different. This makes it
+					impossible to define these attributes as column in the entity's table, because there would be too many, most
+					of them will not have data, and you can't deal with dynamic attributes at all (because columns need to be
+					pre-defined).
+				</p>
+
+				<p>
+					To solve this issue 'relational' style, you would create a child table, and relate that to the 'entity' table
+					using a One-to-Many relation, where every attribute would become a record in the child table. Downside of
+					this approach however is that to be able to get a specific attribute value, you'll have to loop over all
+					related records, compare the value of the attribute column with the attribute you look for, and if a match
+					is found, get the contents of the value column.
+				</p>
+
+				<p>
+					The ORM EAV container uses this same implementation, but allows you to merge the attributes with the entity,
+					so the attributes become properties of the entity record, thus emulating the variable number of columns that
+					is required for an EAV implementation.
+				</p>
+
+			</section>
+
+			<section>
+				<h2 id="implementation">Implementation</h2>
+
+				<p>
+					To enable the EAV container on a model, the model needs a child table with attribute and value column,
+					which needs to be defined as either a One-to-Many or Many-to-Many relation.
+				</p>
+
+				<p>
+					Let's create an example of a hospital patient, of which the hospital keeps a record of statistics.
+					Which depends on the illness of the patient, they can't be predicted up front.
+				</p>
+				<pre class="php"><code>class Patient extends \Orm\Model
+{
+	// list of properties for this model, shortened for this example
+	protected static $_properties = array(
+		'id',				// primary key
+	);
+
+	// set up the statistics relation the usual way
+	protected static $_has_many = array(
+		'statistics' => array(
+			'key_from' => 'id',		// key in this model
+			'key_to' => 'patient_id',	// key in the related model
+			'cascade_save' => true,	// update the related table on save
+			'cascade_delete' => true,	// delete the related data when deleting the parent
+		)
+	);
+
+	// define the EAV container like so
+	protected static $_eav = array(
+		'statistics' => array(		// we use the statistics relation to store the EAV data
+			'attribute' => 'key',	// the key column in the related table contains the attribute
+			'value' => 'value',		// the value column in the related table contains the value
+		)
+	);
+}
+
+class Statistics extend \Orm\Model
+{
+	// list of properties for this model
+	protected static $_properties = array(
+		'id',				// primary key
+		'patient_id',			// foreign key
+		'key',				// attribute column
+		'value',			// value column
+	);
+}</code></pre>
+
+			<p>
+				You can define multiple EAV containers that link to different related tables. If you do, a request for
+				an attribute will search through all containers in the order in which they are defined, until a match
+				is found. As this is just an additional location of model properties, the handling of undefined properties
+				in the model has remain unchanged: it will throw an exception.
+			</p>
+
+			</section>
+
+			<section>
+				<h2 id="example">Example</h2>
+
+				<p>Using the configuration above, let's assume we have the following datasets:</p>
+				<pre class="php"><code>// SELECT * FROM patient
++----+-----------+
+| id | name      |
++----+-----------+
+|  1 | MisterIll |
+|  2 | MissIll   |
++----+-----------+
+
+// SELECT * FROM statistics
++----+------------+---------------+----------------+
+| id | patient_id | key           | value          |
++----+------------+---------------+ ---------------+
+|  1 |          1 | Temperature   |           38.4 |
+|  2 |          1 | Coughing      |            yes |
+|  3 |          1 | Headache      |             no |
+|  4 |          2 | Temperature   |           37.9 |
+|  5 |          2 | Heartbeat     |             98 |
++----+------------+---------------+----------------+
+</code></pre>
+			<p>Given this data you can access the data like so:</p>
+<pre class="php"><code>// create some objects to work with
+$mr = Patient::find(1);
+$ms = Patient::find(2);
+
+// you can now get the attributes directly
+echo $mr->Temperature;		// '38.4'
+echo $ms->Temperature;		// '37.9'
+echo $mr->Headache;		// 'yes'
+echo $ms->Headache;		// throws a property not found exception
+
+// or set them directly
+$mr->Temperature = '36.9';	// our patient seems to have improved
+$mr-save();			// updates the patient record, and the updated EAV records
+
+// you can still access the data the old-fashioned way
+foreach ($mr->statistics as $statistic)
+{
+	// do something with each statistic value here...
+}
+</code></pre>
+				<p class="note">
+					Note that at the moment you CAN NOT use this access method to create new attributes
+					in the related table the EAV container maps too. You will have to do that the classic
+					way, by using $mr->statistics[] = Statistics::forge($newdata);
+				</p>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

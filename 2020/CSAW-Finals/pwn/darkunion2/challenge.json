@@ -1,0 +1,8 @@
+{
+    "name": "darkunion 2",
+    "category": "pwn",
+    "description": "You should only be here if you complete the first part. The flag from there should be enough to help you out :) \n\nBy: @theKidOfArcrania",
+    "flag": "flag{Welcome_2_the_dark_union_you_are_finally_not_r00t_heres_a_flag}",
+    "points": 400,
+    "box": "pwn.chal.csaw.io"
+}

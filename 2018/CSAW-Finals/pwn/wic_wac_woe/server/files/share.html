@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+  </head>
+  <body>
+    <h2>Shere your games with me</h2>
+    <p>I love looking at Tic-Tac-Toe games, send me the most interesting ones!</p>
+    <form action="/share" method="POST">
+      <input name="game" id="gamesave" type="hidden">
+      <div class="g-recaptcha" data-sitekey="6Lc8ymwUAAAAAM7eBFxU1EBMjzrfC5By7HUYUud5"></div>
+      <button type="submit">Send Replay</button>
+    </form>
+    <script>document.getElementById('gamesave').value = location.hash.slice(1);</script>
+  </body>
+</html>
+
+

@@ -1,0 +1,8 @@
+{
+    "name": "unfork",
+    "category": "pwn",
+    "description": "NAME\n    unfork - uncreate a child process\n\nSYNOPSIS\n    void unfork(void);\n\nDESCRIPTION\n    unfork() undoes the operation performed by fork(2).\n\nRETURN VALUE\n    unfork() does not return a value.\n\nATTRIBUTES\n    TODO: thread-safety table\n\nCONFORMING TO\n    This call is specific to Linux on CSAW systems, and should not be used in programs intended to be portable. It was introduced in Linux Kernel version 5.3.\n\nBUGS\n    Nobody knows precisely what unfork() does; avoid it in portable programs. Or avoid it altogether: use exit(2) instead, if that is what you mean. Do not use unfork().\n\nAUTHOR\n    Written by Nick Gregory (@kallsyms, @capsule8) and Josh Hofing (@hyperosonic, @trailofbits).\n\nSEE ALSO\n    fork(2), exit(2)\n\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{we_actually_started_on_this_before_whitequark}",
+    "points": 450,
+    "files": ["unfork.patch", "bzImage", "run.sh", "dist/disk.img"]
+}

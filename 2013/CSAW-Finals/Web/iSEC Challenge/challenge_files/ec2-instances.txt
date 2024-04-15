@@ -1,0 +1,16 @@
+Team 01: ec2-50-19-167-195.compute-1.amazonaws.com
+Team 02: ec2-54-204-184-249.compute-1.amazonaws.com
+Team 03: ec2-54-227-207-44.compute-1.amazonaws.com
+Team 04: ec2-54-224-17-25.compute-1.amazonaws.com
+Team 05: ec2-174-129-51-78.compute-1.amazonaws.com
+Team 06: ec2-107-20-30-123.compute-1.amazonaws.com
+Team 07: ec2-54-204-190-50.compute-1.amazonaws.com
+Team 08: ec2-23-20-215-183.compute-1.amazonaws.com
+Team 09: ec2-54-221-25-224.compute-1.amazonaws.com
+Team 10: ec2-204-236-208-47.compute-1.amazonaws.com
+Team 11: ec2-54-234-203-39.compute-1.amazonaws.com
+Team 12: ec2-67-202-58-236.compute-1.amazonaws.com
+Team 13: ec2-54-204-239-75.compute-1.amazonaws.com
+Team 14: ec2-23-22-114-135.compute-1.amazonaws.com
+Team 15: ec2-54-224-178-159.compute-1.amazonaws.com
+Team XX: ec2-54-204-223-232.compute-1.amazonaws.com (Testing)

@@ -1,0 +1,8 @@
+{
+    "name":"Gibberish Check",
+    "category":"rev",
+    "description":"FIRST EVER CHALLLENNGEEEEEEEawedfhjawe;hfj\n\n`nc rev.chal.csaw.io {{.DescPort}}`",
+    "flag":"flag{first_ever_challenge}",
+    "points": 200,
+    "files":["gibberish_check"]
+}

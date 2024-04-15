@@ -1,0 +1,10 @@
+{
+    "name": "darkunion 1",
+    "category": "pwn",
+    "description": "I dug up the source code for a *proprietary* kernel module that is part of a certain unknown application whitelist software, with a few rashly documented vulnerabilities. No one got a chance to exploit the vulns before the project got altogether dropped. Maybe you could take a shot at it? \n\n`nc {box} {port}`\n\nBy: @theKidOfArcrania",
+    "flag": "flag{G00d_but_can_you_also_r00t_th1s_box_also_hmmmmmmmm???}",
+    "points": 250,
+    "internal_port": 5000,
+    "box": "pwn.chal.csaw.io",
+    "files": ["handout.tar.gz"]
+}

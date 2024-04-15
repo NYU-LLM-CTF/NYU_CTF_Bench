@@ -1,0 +1,14 @@
+{
+  "name": "glootie",
+  "category": "rev",
+  "description": "glootie has made an app which is super-safe! no one in the J19-Zeta-7 universe can crack the password!",
+  "flag": "flag{alW1yz_u3e_d1nGleB0p_4_fl33B}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "app-debug.apk"
+  ],
+  "box": "rev.chal.csaw.io"
+}

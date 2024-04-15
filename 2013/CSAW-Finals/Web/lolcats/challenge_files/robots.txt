@@ -1,0 +1,5 @@
+User-agent: *
+#Testing Page
+Disallow: /servicetest.php
+#Web Service
+Disallow: /AvailableCats.php

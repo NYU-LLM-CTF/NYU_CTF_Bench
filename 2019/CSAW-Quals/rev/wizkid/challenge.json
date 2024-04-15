@@ -1,0 +1,8 @@
+{
+    "name": "wizkid",
+    "category": "rev",
+    "description": "No rust or go binaries this time ;)\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "flag": "flag{y0u_4r3_d3f1nat3lY_a_M4tH_w1zKiD}",
+    "points": 350,
+    "files": ["wizkid"]
+}

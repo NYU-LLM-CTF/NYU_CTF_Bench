@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Router::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Router - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Router Class</h2>
+
+			<p>The <kbd>Router</kbd> class determines which controller needs to be loaded, based on the request passed to it, and the routes defined.</p>
+
+			<article>
+				<h4 class="method" id="method_process">process(\Request $request, $route = true)</h4>
+				<p>
+					The <strong>process</strong> method takes a request object, and will try to find a route match for the URI contained in the request.
+					If no route can be matched, the router will create a new route based on the information in the URI, and following the controller/method or
+					module/controller/method URI scheme. It will not check if the determined route is valid!
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$request</kbd></th>
+									<td><i>required</i></td>
+									<td>A valid Request object.</td>
+								</tr>
+								<tr>
+									<th><kbd>$route</kbd></th>
+									<td><code>true</code></td>
+									<td>
+										If 'true', the loaded routes will be used to find a match. If 'false', the loaded routes will be ignored and a new
+										route will be constructed. This is used for HMVC calls to controllers that are not routeable from the URL.
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>Route object, or null if no valid route object could be constructed</i></td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">
+					Under normal circumstances you won't be needing this method, it is used internally in the framework to load
+					controllers.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add">add($path, $options = null, $prepend = false, $case_sensitive = null)</h4>
+				<p>
+					The <strong>add</strong> method allows you to manually add new routes at runtime. You might need this if you want to load
+					controllers that don't follow the normal URI scheme, or if you want to load routes from other sources then the routes.php
+					configuration files.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><i>required</i></td>
+									<td>The URI path to be matched. This is the left side of your routes.php route definition.</td>
+								</tr>
+								<tr>
+									<th><kbd>$options</kbd></th>
+									<td><i>string|array|Route</i></td>
+									<td>Either the translation for $path, an array for verb routing (like the right side of your routes.php rout definition) or an instance of Route.</td>
+								</tr>
+								<tr>
+									<th><kbd>$prepend</kbd></th>
+									<td><code>false</code></td>
+									<td>If true, the new route will be prepended to the already loaded routes.</td>
+								</tr>
+								<tr>
+									<th><kbd>$case_sensitive</kbd></th>
+									<td><code>null</code></td>
+									<td>If false, the new route will be matched against the URI without regards to case. If true, the match will be case sensitive. If not given, the configured default will be used.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>void</i></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// load a new route for 'this/that' => 'something/else'
+Router::add('this/that', 'something/else');
+
+// force it to be case sensitive
+Router::add('this/that', 'something/else', true);
+
+// manually create a Route instance which is treated as not case sensitive
+$path = 'this/that';
+Router::add($path, new Route($path, 'something/else', false));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get">get($name, $named_params = array())</h4>
+				<p>
+					The <strong>get</strong> method allows you to do reverse routing for a named route. Based on the name passed,
+					it will retrieve the defined path for it, and return a URI that you can use in your views.
+					This means that if you change your routes, the links in your views will be updated accordingly.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Name of the route to load.</td>
+								</tr>
+								<tr>
+									<th><kbd>$named_params</kbd></th>
+									<td><code>array()</code></td>
+									<td>Array of parameters to be added to the URI created.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>bool|array</kbd></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// if your routes are defined like this:
+return array(
+	'_root_'  => 'welcome/index',  // The default route
+	'_404_'   => 'welcome/404',    // The main 404 route
+
+	'hello(/:name)?' => array('welcome/hello', 'name' => 'hello'),
+);
+
+// this call will return 'http://your_base_url/welcome/hello'
+echo Router::get('hello');
+</code></pre>
+<br />
+<p>
+	You can also do this if your route contains a named parameters, a regex, or a combination of both.
+</p>
+							<pre class="php"><code>// if your route is defined like this:
+return array(
+    'thread/(?P&lt;thread_id&gt;\d+?)/post' => array('post', 'name' => 'post'),
+);
+
+// these will return 'thread/1/post':
+echo Router::get('post', array('thread_id' => 1));
+echo Router::get('post', array('$1' => 1));
+echo Router::get('post', array(1));
+
+// if your route is defined like this:
+return array(
+    'country/(?P&lt;country&gt;\d+?)/state/(?P&lt;state&gt;\d+?)/location' => array('location', 'name' => 'location'),
+);
+
+// these will return 'country/japan/state/tokyo/location':
+echo Router::get('location', array('country' => 'japan', 'state' => 'tokyo'));
+echo Router::get('location', array('$1' => 'japan', '$2' => 'tokyo'));
+echo Router::get('location', array('japan', 'tokyo'));
+echo Router::get('location', array('country' => 'japan', 'tokyo'));
+echo Router::get('location', array('$1' => 'japan', 'tokyo'));
+</code></pre>
+<br />
+<p class="note">
+	Note that if your route contains a mix of a traditional regex and a named parameter or a regex shortcut,
+	they will be replaced together, which might lead to unexpected results.
+</p>
+							<pre class="php"><code>// if your route is defined like this:
+return array(
+	'hello/(:name)(/:segment)' => array('welcome/user', 'name' => 'user'),
+);
+
+// note that "(/:segment)" will be replaced in its entirely by "article", so
+// this call will return 'http://your_base_url/welcome/user/johnarticle' !
+echo Router::get('user', array('name' => 'john', 'article'));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($path, $case_sensitive = null)</h4>
+				<p>
+					The <strong>delete</strong> method allows you to manually delete existing routes at runtime.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><i>required</i></td>
+									<td>The URI path to be matched. This is the left side of your routes.php route definition.</td>
+								</tr>
+								<tr>
+									<th><kbd>$case_sensitive</kbd></th>
+									<td><code>null</code></td>
+									<td>If false, the given route path will be matched against the URI without regards to case. If true, the match will be case sensitive. If not given, the configured default will be used.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>void</i></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// delete the route for 'this/that'
+Router::delete('this/that');
+
+// force it to be case sensitive
+Router::delete('this/that', true);
+
+// delete all routes that point to a module controller
+Router::delete('module/controller(:any)');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

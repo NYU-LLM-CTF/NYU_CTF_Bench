@@ -1,0 +1,9 @@
+{
+    "name": "Snail Race 1",
+    "category": "web",
+    "description": "With everything crazy going on, I can only think to the snail and how their slow pace is also a metaphor for a simpler life.\n\nSo I took those snails and made them race against each other, bc if we can't be happy they can't either!\n\nhttps://snail.racecraft.cf\n\nBy @itszn (RET2)",
+    "points": 150,
+    "box": "web.chal.csaw.io",
+    "flag": "flag{I bet you abused my poor, innocent, sessions huh >:(}",
+    "files": ["snailrace.tar.gz"]
+}

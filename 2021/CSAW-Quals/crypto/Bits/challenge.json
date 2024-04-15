@@ -1,0 +1,16 @@
+{
+  "name": "Bits",
+  "category": "crypto",
+  "author": "CryptoHack (Robin_Jadoul and jack)",
+  "description": "I wrote this oracle in rust so that it can't sue companies over java stuff.\n\nAuthor: CryptoHack (`Robin_Jadoul` and `jack`)\n\n`nc {box} {port}`",
+  "flag": "flag{https://www.youtube.com/watch?v=uhTCeZasCmc}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "internal_port": 5000,
+  "files": [
+    "src/main.rs"
+  ],
+  "box": "crypto.chal.csaw.io"
+}

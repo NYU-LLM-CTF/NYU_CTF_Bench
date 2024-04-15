@@ -1,0 +1,15 @@
+{
+  "name": "Collision Course",
+  "category": "crypto",
+  "author": "Kroll",
+  "description": "A database administrator wrote a script to create unique IDs from the original numeric IDs contained within a database. While doing so, they decided to use the original IDs to encrypt their password, since they were sure the original IDs couldn't be recovered. Prove the administrator wrong and recover the password.\n\nAuthor: Kroll (`Sean Straw`)",
+  "flag": "flag{d0nt_g3t_2_s4lty}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "handout.zip"
+  ],
+  "box": "crypto.chal.csaw.io"
+}

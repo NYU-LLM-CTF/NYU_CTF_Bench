@@ -1,0 +1,16 @@
+{
+  "name": "No Time to Register",
+  "category": "forensics",
+  "author": "Andrew Prajogi and an OSIRIS Lab member",
+  "description": "James Bonderman has retrieved some files from an enemy agent's system. As one of R Branch's support engineers, Bonderman is trusting you to find any information relevant to his investigation. R has sent you a checklist of what he wants you to find. That should be easy for an agent such as yourself.\n\n`nc {box} {port}`\n\nAuthor: `Regulus915ap`",
+  "flag": "flag{H1570rY 12'N7 k1ND 70 7h053 wh0 Pl4Y g0d}",
+  "box": "misc.chal.csaw.io",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "files": [
+    "007_Retrieved_Files.7z"
+  ],
+  "internal_port": 5000
+}

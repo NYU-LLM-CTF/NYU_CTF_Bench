@@ -1,0 +1,11 @@
+{
+  "name": "Weak Password",
+  "category": "misc",
+  "description": "Can you crack Aaron’s password hash? He seems to like simple passwords. I’m sure he’ll use his name and birthday in it. Hint: Aaron writes important dates as YYYYMMDD rather than YYYY-MM-DD or any other special character separator. Once you crack the password, prepend it with `flag{{` and append it with `}}` to submit the flag with our standard format. Hash: `7f4986da7d7b52fa81f98278e6ec9dcb`.\n\nAuthor: `moat`, Pacific Northwest National Laboratory (and an OSIRIS Lab member)",
+  "flag": "flag{Aaron19800321}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "misc.chal.csaw.io"
+}

@@ -1,0 +1,105 @@
+flag{this_is_a_flag_lol}
+
+each page gets one of:
+fla
+g{t
+his
+_is
+_a_
+fla
+g_l
+ol}
+
+which, split into nibbles is:
+0x6 0x6 0x6 0xc 0x6 0x1
+0x6 0x7 0x7 0xb 0x7 0x4
+0x6 0x8 0x6 0x9 0x7 0x3
+0x5 0xf 0x6 0x9 0x7 0x3
+0x5 0xf 0x6 0x1 0x5 0xf
+0x6 0x6 0x6 0xc 0x6 0x1
+0x6 0x7 0x5 0xf 0x6 0xc
+0x6 0xf 0x6 0xc 0x7 0xd
+
+
+Each set is processed in a small vm:
+1 4-bit PC
+16 4-bit registers
+    - r0 - r5 = flag nibbles
+    - r6 - r11 = data nibbles
+
+operations are encoded as op|a|b|c, each a nibble
+opcodes:
+0: fail r1, r2, imm
+    if r1 != r2:
+        FAILED ||= imm
+        READY_TO_STOP = true
+1: rol r1, imm
+    rol r1, imm
+2: ld r1, loc
+    r1 = *loc
+3: xori r1, imm
+    r1 ^= imm
+4: stri imm0, r1
+    mem[imm0] = r1
+5: rst
+    ip = 0
+6: skipifneq r1, r2
+    if r1 != r2:
+        ip++
+7: add r1, rimm0
+    r1 += imm0
+
+There are 8 programs (one for each chunk) that run on input:
+
+1: strcmp
+    fail r0, r6, 1
+    fail r1, r7, 1
+    ...
+
+2: xor with constant, cmp
+    xori r0, Imm0
+    fail r0, r6, 1
+    xori r1, Imm1
+    fail r1, r7, 1
+    ...
+
+3: self modifying strcmp loop
+    fail r0, r6, 1
+    0x6c12 ; ld r12, r1, r2 (used for constants)
+    ld r12, 7
+    add r12, 1
+    stri 1, r12
+    ld r12, 8
+    add r12, 1
+    stri 2, r12
+    ld r12, 5
+    ld r13, 1
+    skipifneq r12, r13
+    fail r0, r15, 0
+    rst
+
+4: self modifying xor cmp loop
+    xori r0, Imm0
+    fail r0, r6, 1
+    ldm r12, 1
+    add r12, 1
+    stri 1, r12
+    stri 5, r12
+    ldm r12, 6
+    add r12, 1
+    stri 6, r12
+    ld r13, 12
+    bail r12, r13
+    rst
+
+5: 2, but using add instead of xor
+
+6: 4, but using add instead of xor
+
+7: 2, but with rol instead of xor
+
+8: 4, but with rol instead of xor
+
+
+
+actual flag: flag{intl_cpus_scare_me}

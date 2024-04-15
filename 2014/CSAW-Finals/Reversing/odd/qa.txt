@@ -1,0 +1,1 @@
+If you want to test this, just download "odd". It's a self-contained RE challenge.

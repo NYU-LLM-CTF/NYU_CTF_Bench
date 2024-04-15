@@ -1,0 +1,12 @@
+{
+  "name": "ECC Pop Quiz",
+  "category": "crypto",
+  "description": "Your crypto professor has taught y'all about ECC and now, here's a pop quiz regarding some of the attacks on it. See if you can pass the quiz!\n\n`nc {box} {port}`",
+  "flag": "flag{4Ll_0f_tH353_4tT4cK5_R3lY_0N_51mPl1FY1n9_th3_D15cr3t3_l09_pr08l3m}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "internal_port": 5000,
+  "box": "crypto.chal.csaw.io"
+}

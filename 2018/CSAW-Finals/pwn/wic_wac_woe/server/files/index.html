@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+<style>
+.box {
+    width: 100px;
+    height: 100px;
+    border: solid black;
+    margin: 5px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 40px;
+    text-align: center;
+}
+.game {
+  margin-left: -259px;
+  left: 50%;
+  position: fixed;
+}
+.lose {
+  background-color: red;
+}
+.win {
+  background-color: #00ff00;
+}
+.gameover {
+  color: white;
+  text-align: center;
+  font-size: 40px
+}
+</style>
+  </head>
+  <body>
+    <div class="game">
+      <div class="row">
+        <div class="box" id="00"></div>
+        <div class="box" id="01"></div>
+        <div class="box" id="02"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="10"></div>
+        <div class="box" id="11"></div>
+        <div class="box" id="12"></div>
+      </div>
+      <div class="row">
+        <div class="box" id="20"></div>
+        <div class="box" id="21"></div>
+        <div class="box" id="22"></div>
+      </div>
+      <center>
+      <input id="move" placeholder="row,column">
+      <button id="playbtn" onclick="play()">Make Move</button>
+      <br/>
+      <br/>
+      <button onclick="save()">Save Game</button>
+      <button onclick="share()">Share Game</button>
+      </center>
+      <div class="gameover" id="gameover"></div>
+    </div>
+    <script src="app.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+  </body>
+</html>
+
+
