@@ -1,9 +1,10 @@
 {
     "name": "FAT fs",
     "category": "web",
-    "description": "by dr raid\n\n<a href=\"http://web.chal.csaw.io:{PORT}\" target=\"_blank\">http://web.chal.csaw.io:{PORT}</a>",
+    "description": "by dr raid\n\n<a href=\"http://{box}:{port}\" target=\"_blank\">http://{box}:{port}</a>",
     "flag":"flag{eaf8b4cc2ec7fde3fbaa233ee3af2e4b}",
     "points": 150,
     "files": ["distribute.zip"],
+    "internal_port": 5000,
     "privileged": true
 }

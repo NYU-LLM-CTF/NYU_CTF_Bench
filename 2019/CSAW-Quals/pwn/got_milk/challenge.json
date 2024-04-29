@@ -1,8 +1,9 @@
 {
     "name": "GOT Milk?",
     "category": "pwn",
-    "description": "GlobalOffsetTable milk? \n`nc {{.Netloc}} {{.DescPort}}`",
+    "description": "GlobalOffsetTable milk? \n`nc {box} {port}`",
     "flag": "flag{y0u_g00000t_mi1k_4_M3!?}",
     "points": 50,
+    "internal_port": 8000,
     "files": ["dist/gotmilk", "dist/libmylib.so"]
 }

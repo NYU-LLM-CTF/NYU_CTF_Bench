@@ -481,6 +481,9 @@ def generate_intermediate_Dockerfile(filename, round_number, port_base):
     port = port_base+round_number
     file_content=f"""FROM debian:stretch
 
+RUN sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i '/stretch-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y && dpkg --add-architecture i386 && apt-get update && apt-get install -y libc6-i386 socat file && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -M chal
@@ -509,6 +512,9 @@ def generate_intermediate_level_four_Dockerfile(filename, round_number, port_bas
     port = port_base+round_number
     file_content=f"""FROM ubuntu:20.04
 
+RUN sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i '/stretch-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y && dpkg --add-architecture i386 && apt-get update && apt-get install -y libc6-i386 socat file && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -M chal
@@ -538,6 +544,9 @@ def generate_final_Dockerfile(filename, round_number, port_base):
     port = port_base + round_number
     file_content=f"""FROM debian:stretch
 
+RUN sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i '/stretch-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y && dpkg --add-architecture i386 && apt-get update && apt-get install -y libc6-i386 socat file && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -M chal
@@ -565,6 +574,9 @@ def generate_final_level_four_Dockerfile(filename, round_number, port_base):
     port = port_base + round_number
     file_content=f"""FROM ubuntu:20.04
 
+RUN sed -i 's/security.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i '/stretch-updates/d' /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y && dpkg --add-architecture i386 && apt-get update && apt-get install -y libc6-i386 socat file && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -M chal

@@ -1,6 +1,7 @@
 {
   "name": "terminal velocity",
   "category": "misc",
+  "proto": "nc",
   "description": "Text doesn't have to be UTF8 to be fun!\nAuthor: Jordan Wiens, Vector35\n\n`nc {box} {port}`",
   "flag": "flag{WithYourCapabilitiesCombinedIAmCaptainTerminal}",
   "type": "dynamic",

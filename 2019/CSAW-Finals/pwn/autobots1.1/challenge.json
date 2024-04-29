@@ -1,9 +1,10 @@
 {
     "name": "autobots1.1",
     "category": "pwn",
-    "description": "http://gph.is/1CtEetH\n`nc pwn.chal.csaw.io 8888`",
+    "description": "http://gph.is/1CtEetH\n`nc {box} 8888`",
     "flag": "flag{autobots_will_return}",
     "points": 250,
+    "internal_port": 8888,
     "files": [],
     "autodeploy":false
 }

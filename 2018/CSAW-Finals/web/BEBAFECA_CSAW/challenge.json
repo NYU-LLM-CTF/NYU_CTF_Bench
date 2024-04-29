@@ -1,8 +1,9 @@
 {
     "name": "BEBAFECA",
     "category": "web",
-    "description": "Written by Ron Shmelkin, IBM\n\n<a href=\"http://web.chal.csaw.io:{PORT}\" target=\"_blank\">http://web.chal.csaw.io:{PORT}</a>",
+    "description": "Written by Ron Shmelkin, IBM\n\n<a href=\"http://{box}:{port}\" target=\"_blank\">http://{box}:{port}</a>",
     "flag": "flag{js_deserialization_bugs_wew_lads:sweaty:}",
     "points": 50,
+    "internal_port": 8000,
     "files": ["serv/app.js"]
 }

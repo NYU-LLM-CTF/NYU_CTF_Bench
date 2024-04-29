@@ -1,7 +1,7 @@
 {
     "name": "mcgriddlev2",
     "category": "misc",
-    "description": "flag{W3lcome_7o_CSAW_QUALS_2019!}",
+    "description": "flag{{W3lcome_7o_CSAW_QUALS_2019!}}",
     "flag": "flag{W3lcome_7o_CSAW_QUALS_2019!}",
     "points": 1,
     "files": []

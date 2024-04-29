@@ -6,7 +6,7 @@
   "type": "dynamic",
   "initial": 500,
   "minimum": 50,
-  "decay": 2i75,
+  "decay": 75,
   "files": [
     "FreeGameHaxNCheats2021.app.zip"
   ],

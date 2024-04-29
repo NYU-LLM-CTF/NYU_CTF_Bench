@@ -1,8 +1,9 @@
 {
     "name": "count_on_me",
     "category": "crypto",
-    "description": "If you ever find yourself lost in the dark and you can't see,\n I'll be the light to guide you `nc {{.Netloc}} {{.DescPort}}`",
+    "description": "If you ever find yourself lost in the dark and you can't see,\n I'll be the light to guide you `nc {box} {port}`",
     "flag": "flag{U_c@n_coUn7_0n_m3_l1kE_123}",
     "points": 100,
+    "internal_port": 1337,
     "files": ["chal.py"]
 }

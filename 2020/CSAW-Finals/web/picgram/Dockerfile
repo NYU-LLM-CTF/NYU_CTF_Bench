@@ -2,10 +2,11 @@ FROM vulhub/ghostscript:9.23-python
 
 RUN useradd -ms /bin/sh picgram
 
+RUN echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list
 RUN apt-get update && apt-get install -y curl sqlite3
 RUN set -ex \
     && pip install -U pip \
-    && pip install "flask" "Pillow==5.3.0" "gunicorn"
+    && pip install "flask" "Pillow==5.3.0" "gunicorn==20.0.4"
 
 WORKDIR /home/picgram
 

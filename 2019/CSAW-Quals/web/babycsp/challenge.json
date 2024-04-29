@@ -1,8 +1,9 @@
 {
     "name": "babycsp",
     "category": "web",
-    "description": "I heard CSP is all the rage now. It's supposed to fix all the XSS, kill all of the confused deputies, and cure cancer?\n\nThe flag is in the cookies\n\n[http://{{.Netloc}}:{{.DescPort}}](http://{{.Netloc}}:{{.DescPort}})",
+    "description": "I heard CSP is all the rage now. It's supposed to fix all the XSS, kill all of the confused deputies, and cure cancer?\n\nThe flag is in the cookies\n\n[http://{box}:{port}](http://{box}:{port})",
     "flag": "flag{csp_will_solve_EVERYTHING}",
     "points": 50,
+    "internal_port": 5000,
     "files": ["dist/dist.tar.gz"]
 }

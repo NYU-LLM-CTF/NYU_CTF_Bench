@@ -1,6 +1,7 @@
 {
     "name": "Sigma's Logistics",
     "category": "misc",
+    "proto": "nc",
     "author": "Tydut",
     "description": "Wall Street Traders couldn't write a good model! Sigma wrote a new one and says no one can steal it now.",
     "flag": {
@@ -11,7 +12,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 20,
-    "files": [""],
+    "files": [],
     "box": "127.0.0.1",
     "internal_port":3000
 }

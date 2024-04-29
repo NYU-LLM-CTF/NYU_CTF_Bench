@@ -2,7 +2,7 @@
     "name": "rox",
     "category": "rev",
     "author": "Aneesh Maganti",
-    "description": "I'm trying to find the password in a sea of flags... something's weird about this file. (Note: please enclose the flag in csawctf{} before submitting, i.e. csawctf{fake_flag})",
+    "description": "I'm trying to find the password in a sea of flags... something's weird about this file. (Note: please enclose the flag in csawctf{{}} before submitting, i.e. csawctf{{fake_flag}})",
     "flag": "csawctf{aN0ther_HeRRing_or_iS_tHis_iT}",
     "internal_port": 5000,
     "type": "dynamic",

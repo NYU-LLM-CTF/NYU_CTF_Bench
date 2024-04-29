@@ -1,8 +1,9 @@
 {
     "name": "Sharing is Caring_",
     "category": "crypto",
-    "description": "Sharing is caring!\n\nAuthor: Will Song (incertia) @TrailOfBits\n\nnc {{.Netloc}} {{.DescPort}}",
+    "description": "Sharing is caring!\n\nAuthor: Will Song (incertia) @TrailOfBits\n\nnc {box} {port}",
     "flag": "flag{i_cant_believe_someone_else_found_a_cheese}",
     "points": 500,
+    "internal_port": 3788,
     "files": ["sharing_is_caring.py"]
 }

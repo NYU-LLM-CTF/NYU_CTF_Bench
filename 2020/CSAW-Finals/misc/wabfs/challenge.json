@@ -1,7 +1,7 @@
 {
   "name": "wabfs",
   "category": "misc",
-  "description": "I skimmed the gfs whitepaper then wrote this. Plz forgive me. (When the challenge resets, the chunk and file ids may change [dont hardcode them]) \n\n[http://wabfs.chal.csaw.io:5000](http://wabfs.chal.csaw.io:5000)",
+  "description": "I skimmed the gfs whitepaper then wrote this. Plz forgive me. (When the challenge resets, the chunk and file ids may change [dont hardcode them]) \n\n[http://{box}:5000](http://{box}:5000)",
   "points": 100,
   "files": ["wabfs.tar.gz"],
   "flag": "flag{golang_is_the_worst_lang}",

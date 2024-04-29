@@ -1,9 +1,10 @@
 {
     "name":"travller",
     "category":"pwn",
-    "description":"Great way to manage your trips, right?\n`nc {{.Netloc}} {{.DescPort}}`",
+    "description":"Great way to manage your trips, right?\n`nc {box} {port}`",
     "flag":"flag{h0pe_y0u_3nj0y_ur_j0urn3y}",
     "points":200,
+    "internal_port": 8000,
     "files":["libc-2.23.so", "traveller"],
     "unlocked_by": null
 }

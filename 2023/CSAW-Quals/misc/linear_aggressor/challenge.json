@@ -1,5 +1,6 @@
 {
     "name": "Linear Aggressor",
+    "proto": "nc",
     "category": "misc",
     "author": "Tydut",
     "description": "Wall Street Traders dropped a new model! I hope no one can steal it.",

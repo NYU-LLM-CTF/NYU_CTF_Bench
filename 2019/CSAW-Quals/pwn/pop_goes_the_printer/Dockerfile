@@ -3,7 +3,11 @@ MAINTAINER breadchris
 LABEL Description="CSAW 2018 PGTP" VERSION='1.0'
 
 #installation
-RUN apt-get update && apt-get upgrade -y 
+RUN sed -i 's/httpredir.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i 's/httpredir.debian.org/archive.debian.org/g' /etc/apt/sources.list
+RUN sed -i '/jessie[/-]updates/d' /etc/apt/sources.list
+RUN sed -i 's/^deb /deb [trusted=yes] /' /etc/apt/sources.list
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y socat
 
 #user

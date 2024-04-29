@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  es1337-server:
+    image: asibench_2018f-pwn-es1337:latest
+    build: .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - es1337
+    ports:
+      - "61337:1337"
+
+networks:
+  ctfnet:
+    external: true

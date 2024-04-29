@@ -1,8 +1,9 @@
 {
     "name": "ezpz",
     "category": "crypto",
-    "description": "Crypto is hard :(\n\n(wrap the flag in flag{...})\n`nc {{.Netloc}} {{.DescPort}}`\n\nAuthor: negasora",
+    "description": "Crypto is hard :(\n\n(wrap the flag in flag{...})\n`nc {box} {port}`\n\nAuthor: negasora",
     "flag": "flag{3cC_m0r3_lik3-EzPz}",
     "points": 400,
+    "internal_port": 3788,
     "files": ["handout/challenge.py"]
 }

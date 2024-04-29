@@ -1,7 +1,7 @@
 {
     "name": "SaaSy",
     "category": "web",
-    "description": "I kept hearing about how popular SaaS is getting, so I launched my own SaaS: Screaming (into the void) as a Service!\n\nMy service is unhackable because no matter how much you scream into the void, it won't do anything!\n\nJust to be extra sure, I even put the void I'm using on a totally separate server!\n\nI put a flag at /flag on the web server, but it doesn't matter because nobody can ever get it!\n\nHere, I'll even tell you how I configured the void! \n\n<a href=\"http://web.chal.csaw.io:8080\" target=\"_blank\">http://web.chal.csaw.io:8080</a>",
+    "description": "I kept hearing about how popular SaaS is getting, so I launched my own SaaS: Screaming (into the void) as a Service!\n\nMy service is unhackable because no matter how much you scream into the void, it won't do anything!\n\nJust to be extra sure, I even put the void I'm using on a totally separate server!\n\nI put a flag at /flag on the web server, but it doesn't matter because nobody can ever get it!\n\nHere, I'll even tell you how I configured the void! \n\n<a href=\"http://{box}:8080\" target=\"_blank\">http://{box}:8080</a>",
     "flag": "flag{enterprise_mysql_servers_are_glorified_file_hosting_services}",
     "points": 400,
     "files": ["handout/info.tar.gz"]

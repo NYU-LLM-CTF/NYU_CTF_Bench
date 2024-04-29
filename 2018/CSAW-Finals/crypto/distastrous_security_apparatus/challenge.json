@@ -1,8 +1,9 @@
 {
     "name": "Disastrous Security Apparatus",
     "category": "crypto",
-    "description": "Good Luck, k?\n\nAuthor: Paul Kehrer, Trail of Bits. \n\n<a href=\"http://crypto.chal.csaw.io:{PORT}\" target=\"_blank\">http://crypto.chal.csaw.io:{PORT}</a>",
+    "description": "Good Luck, k?\n\nAuthor: Paul Kehrer, Trail of Bits. \n\n<a href=\"http://{box}:{port}\" target=\"_blank\">http://{box}:{port}</a>",
     "flag": "flag{NowyourereadytocrackthePS3YeahSonydidthiswithECDSA}",
     "points": 400,
+    "internal_port": 5000,
     "files": ["main.py"]
 }

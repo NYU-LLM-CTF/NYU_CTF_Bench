@@ -1,6 +1,7 @@
 {
     "name": "Python Garbageman",
     "category": "misc",
+    "proto": "nc",
     "author": "nikobelic29",
     "description": "obligatory PyJail, except this might be harder",
     "flag": "csawctf{1_h0p3_y0u_h4d_fun_173r471n6_6c}",

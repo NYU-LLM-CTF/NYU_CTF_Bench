@@ -1,8 +1,9 @@
 {
     "name": "unagi",
     "category": "web",
-    "description": "come get me\n\n[http://{{.Netloc}}:{{.DescPort}}](http://{{.Netloc}}:{{.DescPort}})",
+    "description": "come get me\n\n[http://{box}:{port}](http://{box}:{port})",
     "flag": "flag{n0w_i'm_s@d_cuz_y0u_g3t_th3_fl4g_but_c0ngr4ts}",
     "points": 200,
+    "internal_port": 80,
     "files": []
 }

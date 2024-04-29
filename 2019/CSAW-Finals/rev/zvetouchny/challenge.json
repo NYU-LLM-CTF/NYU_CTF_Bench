@@ -1,8 +1,8 @@
 {
     "name": "zvetouchny",
     "category": "rev",
-    "description": "я хочу купить компьютер эльбрус, мои́ име́йл kentma@nyu.edu. Только серьёзные покупатели. https://drive.google.com/file/d/1rdlSKGkOXC9ejXaWC2mUKZd6GYxdtHLt/view?usp=sharing",
+    "description": "я хочу купить компьютер эльбрус, мои́ име́йл kentma@nyu.edu. Только серьёзные покупатели.",
     "flag": "flag{fr0m_rU551a_w1th_l0v3}",
     "points": 500,
-    "files": ["zvetouchny"]
+    "files": ["zvetouchny","lcc-e2k-cross_1.1_i386.deb"]
 }

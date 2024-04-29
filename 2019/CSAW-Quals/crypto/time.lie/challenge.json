@@ -1,8 +1,9 @@
 {
     "name": "time.lie",
     "category": "crypto",
-    "description":"You've seen the talks, now see the service that launched it all. Clown Unfurling presents TIME.LIE! http://{{.Netloc}}:{{.DescPort}}",
+    "description":"You've seen the talks, now see the service that launched it all. Clown Unfurling presents TIME.LIE! http://{box}:{port}",
     "flag": "flag{SecretsAreNoFun}",
     "points": 150,
+    "internal_port": 5000,
     "files": ["black_hat.presentation.final.forRealThisTime.lastversion.updated.FINAL.pptx"]
 }

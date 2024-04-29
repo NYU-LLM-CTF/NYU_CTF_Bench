@@ -1,8 +1,9 @@
 {
     "name":"Quirky Emulation",
     "category":"pwn",
-    "description":"I was pretty sure that this program wasn't vulnerable, but someone is reporting that it is being exploited on their configuration. Can you investigate?\n\n `nc {{.Netloc}} {{.DescPort}}`",
+    "description":"I was pretty sure that this program wasn't vulnerable, but someone is reporting that it is being exploited on their configuration. Can you investigate?\n\n `nc {box} {port}`",
     "flag":"CSAW{quirky_POSIX_strikes_again}",
+    "internal_port": 4242,
     "points":400,
     "files":["dist.zip"]
 }

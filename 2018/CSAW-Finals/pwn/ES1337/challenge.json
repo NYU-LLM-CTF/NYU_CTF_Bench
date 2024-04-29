@@ -1,9 +1,10 @@
 {
   "name": "ES1337",
   "category": "pwn",
-  "description": "When ever a new ECMAScript version is released browsers rush to implement the features first.\n\nLooks like *someone* has implemented the new ES1337 replaceIf function for Chrome, but did they make any mistakes along the way?\n\nTo help you along this journey we have built both Chrome and V8 for you. See the README.txt for more detailed information!\n\nAdditional Files:\n\n* `ES1337.tar.gz`: (87M) Includes release chrome build, README, spec, patch, POW solver https://drive.google.com/file/d/1V9liO6e4QGzPTwpBsEVCNtC5hayPnrx8/view?usp=sharing\n\n* `v8_7.0.276.32_csaw.debug.tar.gz`: (711M) Full debug build of V8 with the patch https://drive.google.com/file/d/1W46Hn0HyWtIMosDNkqt5ixEJUyClacUu/view?usp=sharing\n\nWritten by itszn, Ret2 Systems\n\nNon-NY competitors connect to: `nc 2.chal.csaw.io 1337`",
+  "description": "When ever a new ECMAScript version is released browsers rush to implement the features first.\n\nLooks like *someone* has implemented the new ES1337 replaceIf function for Chrome, but did they make any mistakes along the way?\n\nTo help you along this journey we have built both Chrome and V8 for you. See the README.txt for more detailed information!\n\nAdditional Files:\n\n* `ES1337.tar.gz`: (87M) Includes release chrome build, README, spec, patch, POW solver https://drive.google.com/file/d/1V9liO6e4QGzPTwpBsEVCNtC5hayPnrx8/view?usp=sharing\n\n* `v8_7.0.276.32_csaw.debug.tar.gz`: (711M) Full debug build of V8 with the patch https://drive.google.com/file/d/1W46Hn0HyWtIMosDNkqt5ixEJUyClacUu/view?usp=sharing\n\nWritten by itszn, Ret2 Systems\n\nNon-NY competitors connect to: `nc {box} {port}`",
   "flag": "flag{Im_trying_to_free_your_mind_But_I_can_only_show_you_the_door_Next_up_for_you_real_pwn2own}",
   "points": 500,
+  "internal_port": 1337,
   "files": ["dist/ES1337_NO_CHROME.tar.gz", "dist/v8_7.0.276.32_csaw.release.tar.gz"],
   "autodeploy":false
 }

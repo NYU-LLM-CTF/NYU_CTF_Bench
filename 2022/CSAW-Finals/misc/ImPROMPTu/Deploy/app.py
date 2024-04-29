@@ -53,7 +53,8 @@ def hello_world():
     if request.method == 'POST':
         user_input = request.form['user_input']
         response = openai.Completion.create(
-            engine="text-davinci-002",
+            #engine="text-davinci-002",
+            engine="gpt-3.5-turbo-instruct",
             prompt=PROMPT_TEXT + user_input + "\nAI: ",
             temperature=0, # What if I tweak this parameter for the likelihood of choosing a response
             max_tokens=150,

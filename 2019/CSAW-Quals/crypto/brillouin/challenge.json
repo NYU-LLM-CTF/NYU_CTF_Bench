@@ -1,8 +1,9 @@
 {
     "name": "brillouin",
     "category": "crypto",
-    "description": "brillouin is an exciting new ~~b l o c c c h a i n~~ authentication provider. you can tell how decentralized it is because the signatures are so small! `nc {{.Netloc}} {{.DescPort}}`\n\nAuthor: ([@japesinator](https://twitter.com/japesinator), [@trailofbits](https://twitter.com/trailofbits))",
+    "description": "brillouin is an exciting new ~~b l o c c c h a i n~~ authentication provider. you can tell how decentralized it is because the signatures are so small! `nc {box} {port}`\n\nAuthor: ([@japesinator](https://twitter.com/japesinator), [@trailofbits](https://twitter.com/trailofbits))",
     "flag": "flag{we_must_close_the_dh_gap}",
+    "internal_port": 8000,
     "points": 500,
     "files": ["brillouin.py"]
 }

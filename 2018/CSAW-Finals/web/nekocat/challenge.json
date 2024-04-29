@@ -1,8 +1,9 @@
 {
     "name": "nekocat",
     "category": "web",
-    "description": "Flag is in `/flag.txt`\n\n<a href=\"http://web.chal.csaw.io:{PORT}\" target=\"_blank\">http://web.chal.csaw.io:{PORT}</a>\n\nUpdate 5:19 AM EST - distributed file has updated change to match the CSP running on remote.",
+    "description": "Flag is in `/flag.txt`\n\n<a href=\"http://{box}:{port}\" target=\"_blank\">http://{box}:{port}</a>\n\nUpdate 5:19 AM EST - distributed file has updated change to match the CSP running on remote.",
     "flag": "flag{werks_on_my_box}",
     "points": 500,
+    "internal_port": 5000,
     "files": ["flagon.zip"]
 }

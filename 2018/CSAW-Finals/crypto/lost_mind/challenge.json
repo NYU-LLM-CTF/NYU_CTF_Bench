@@ -1,8 +1,9 @@
 {
     "name": "Lost Mind",
     "category": "crypto",
-    "description": "I'm losing my mind, are you?\n\n`nc crypto.chal.csaw.io {PORT}`",
+    "description": "I'm losing my mind, are you?\n\n`nc {box} {port}`",
     "flag": "flag{LSB_4ppr0xim473_4tt4ck_1s_3v3n_b3tt3r}",
     "points": 500,
+    "internal_port": 32333,
     "files": ["server.py"]
 }

@@ -1,8 +1,9 @@
 {
     "name": "Mystery Boi",
     "category": "rev",
-    "description": "who am I? none of your business\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "description": "who am I? none of your business\n\n`nc {box} {port}`",
     "flag": "flag{jk_there_was_no_mystery}",
     "points": 400,
+    "internal_port": 8000,
     "files": ["distribute/launcher.py", "Dockerfile"]
 }

@@ -1,8 +1,9 @@
 {
     "name": "baby_boi",
     "category": "pwn",
-    "description": "Welcome to pwn.\n\n`nc {{.Netloc}} {{.DescPort}}`",
+    "description": "Welcome to pwn.\n\n`nc {box} {port}`",
     "flag": "flag{baby_boi_dodooo_doo_doo_dooo}",
     "points": 50,
+    "internal_port": 8000,
     "files": ["baby_boi", "libc-2.27.so", "baby_boi.c"]
 }

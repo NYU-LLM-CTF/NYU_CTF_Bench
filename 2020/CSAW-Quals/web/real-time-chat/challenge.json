@@ -1,9 +1,10 @@
 {
     "name": "Web Real Time Chat",
     "category": "web",
-    "description": "I started playing around with some fancy new Web 3.1 technologies! This RTC tech looks cool, but there's a lot of setup to get it working... I hope it's all secure.\n\n[http://web.chal.csaw.io:4955](http://web.chal.csaw.io:4955)",
+    "description": "I started playing around with some fancy new Web 3.1 technologies! This RTC tech looks cool, but there's a lot of setup to get it working... I hope it's all secure.\n\n[http://{box}:{port}](http://{box}:{port})",
     "files": ["Dockerfile", "app.py", "supervisord.conf"],
     "points": 450,
     "box": "web.chal.csaw.io",
+    "internal_port": 5000,
     "flag": "flag{ar3nt_u_STUNned_any_t3ch_w0rks_@_all?}"
 }
