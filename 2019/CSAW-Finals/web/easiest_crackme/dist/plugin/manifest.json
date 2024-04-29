@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "CrackMe Debugger",
+    "description": "",
+    "version": "1.0",
+    "permissions": [
+        "activeTab",
+        "nativeMessaging"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "background": {
+      "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://crackme.web.chal.csaw.io/"],
+            "run_at": "document_start",
+            "js": ["app.js"],
+            "all_frames" :true
+        }
+    ],
+    "web_accessible_resources":["api.js"],
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Eqh0UlD94qO8PhJsKwzhi7Bqx7sO3DhhFdKGXa4ZLblOPxZTIVi29SnjalqgnrVJHi9JqrakY8GNkUTIQJ3is0HVUUvmhkmOfy5wr/vbKCB0RvgV+2Rn1wYd/FtnmljNvfAmY59D5ydzdE202IsDu+B4ZSBRYmFIsCnZkxNo9qUvb+U+K8pZThHoY4dvVs5MYtQbQaaVmLnk6fPQlgfS0Hp/vGLU7Yi0pQNWwpo8eCTz5o8EPBYG0d4wKTcd1uwPF2yLqRLnzj9Z9ml5kyh1T6N7qj/Cr8vybYinFbFF9+uVK98MkDQh/nkianubpDYMqMvvIxHDwQ4JBWrHH6tTwIDAQAB"
+}

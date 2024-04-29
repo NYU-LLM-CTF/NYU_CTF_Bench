@@ -1,0 +1,9 @@
+{
+  "name": "io.csaw.ctf.crackme_debugger",
+  "description": "CSAW CrackMe RPC API",
+  "path": "/etc/chromium/native-messaging-hosts/host.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://dhmimogfeikijkmaadppammcbjflkpof/"
+  ]
+}

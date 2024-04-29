@@ -2,6 +2,84 @@ Fixes needed:
 
 - [ ] Handle challenges with external resources (or too big to fit in GitHub)
     - [ ] Tried to get some idea of how many there are by grepping for URLs:
+    - `2018/CSAW-Finals/pwn/ES1337/challenge.json` : https://drive.google.com/file/d/1V9liO6e4QGzPTwpBsEVCNtC5hayPnrx8/view?usp=sharing
+    - `2018/CSAW-Finals/pwn/ES1337/challenge.json` : https://drive.google.com/file/d/1W46Hn0HyWtIMosDNkqt5ixEJUyClacUu/view?usp=sharing
+    - `2019/CSAW-Finals/pwn/autobots1.1/challenge.json` : http://gph.is/1CtEetH
+    - `2019/CSAW-Finals/web/easiest_crackme/challenge.json` : http://crackme.web.chal.csaw.io
+    - `2019/CSAW-Finals/web/easiest_crackme/challenge.json` : http://crackme.web.chal.csaw.io/visit
+    - `2019/CSAW-Finals/web/uber88/challenge.json` : https://www.youtube.com/watch?v=pd_b-ecraF8
+    - `2019/CSAW-Quals/crypto/brillouin/challenge.json` : https://twitter.com/japesinator)
+    - `2019/CSAW-Quals/crypto/brillouin/challenge.json` : https://twitter.com/trailofbits))
+    - `2019/CSAW-Quals/crypto/DES2Bites/challenge.json` : https://en.wikipedia.org/wiki/Weak_key
+    - `2019/CSAW-Quals/pwn/twitch_plays_shellcode/challenge.json` : https://www.youtube.com/watch?v=pGFGD5pj03M
+    - `2019/CSAW-Quals/rev/beleaf/challenge.json` : https://binary.ninja/demo
+    - `2019/CSAW-Quals/rev/halfpike/challenge.json` : https://archive.org/details/bitsavers_intelMCS4MProgrammingManualDec73_5215098)
+    - `2019/CSAW-Quals/rev/halfpike/challenge.json` : https://twitter.com/hyperosonic)
+    - `2019/CSAW-Quals/rev/halfpike/challenge.json` : https://twitter.com/trailofbits))
+    - `2020/CSAW-Finals/web/anubis/challenge.json` : https://autograder.chal.csaw.io
+    - `2020/CSAW-Finals/web/anubis/challenge.json` : https://autograder.chal.csaw.io)
+    - `2020/CSAW-Finals/web/snailrace1/challenge.json` : https://snail.racecraft.cf
+    - `2020/CSAW-Finals/web/snailrace2/challenge.json` : https://snail.racecraft.cf
+    - `2020/CSAW-Quals/pwn/feather/challenge.json` : https://twitter.com/hyperosonic
+    - `2020/CSAW-Quals/pwn/feather/challenge.json` : https://twitter.com/hyperosonic)
+    - `2020/CSAW-Quals/rev/blox1/challenge.json` : https://wargames.ret2.systems/962c162fa1d2ea626d36/csaw_2020
+    - `2020/CSAW-Quals/web/sanity/challenge.json` : https://discord.gg/dwYNJ7M
+    - `2021/CSAW-Finals/forensics/disk_image_forensics/challenge.json` : https://csaw-final-challenges.s3.us-east-2.amazonaws.com/disk-forensics.zip
+    - `2021/CSAW-Finals/misc/Bane-of-IT/challenge.json` : https://csaw-final-challenges.s3.us-east-2.amazonaws.com/bane_of_it.zip
+    - `2021/CSAW-Finals/pwn/baby_mqtt/challenge.json` : https://github.com/LiamBindle/MQTT-C).
+    - `2021/CSAW-Finals/pwn/chatterbox/challenge.json` : https://twitter.com/gf_256)
+    - `2021/CSAW-Finals/rev/Control-master/challenge.json` : https://twitter.com/hgarrereyn)
+    - `2021/CSAW-Finals/rev/maze/challenge.json` : https://xusheng.dev/)
+    - `2021/CSAW-Finals/web/grande/challenge.json` : https://grande-blog.site
+    - `2021/CSAW-Quals/crypto/Bits/challenge.json` : https://www.youtube.com/watch?v=uhTCeZasCmc
+    - `2021/CSAW-Quals/misc/Welcome/challenge.json` : https://discord.gg/Zj2H6EaAkZ
+    - `2021/CSAW-Quals/pwn/krypto/challenge.json` : https://chal-files.s3.us-east-2.amazonaws.com/disk.dist.img)
+    - `2022/CSAW-Finals/forensics/Corporate NTK Problems/challenge.json` : https://drive.google.com/file/d/1XVYMWnhgN9ykc2ikPbxMKrMuaYNxbGTk/view?usp=share_link
+    - `2022/CSAW-Finals/forensics/Corporate NTK Problems/challenge.json` : https://corporate-ntk-problems.s3.us-east-2.amazonaws.com/Corporate+NTK+Problems-disk001.vmdk
+    - `2022/CSAW-Finals/web/Potion Seller/challenge.json` : https://youtu.be/R_FQU4KzN7A
+    - `2023/CSAW-Finals/web/uploaders-revenge/challenge.json` : https://uploaders-revenge.csaw.io
+    - `2023/CSAW-Finals/web/uploaders-revenge/challenge.json` : https://uploaders-revenge-bot.csaw.io
+    - `2023/CSAW-Finals/web/webhooktester/challenge.json` : https://instancer.webhooktester.csaw.io
+    - `2023/CSAW-Quals/rev/whataxor/challenge.json` : https://dogbolt.org/
+    - `2023/CSAW-Quals/web/rainbow-notes/challenge.json` : https://rainbow-notes.csaw.io
+    - `2023/CSAW-Quals/web/rainbow-notes/challenge.json` : https://rainbow-notes-admin.csaw.io
+
+- [ ] Suspicious challenges (only have `challenge.json` and nothing else)
+    - [ ] `2018/CSAW-Finals/misc/crashme`
+        - Refers to a defunct ssh server on AWS (ssh -p 2222 ubuntu@184.73.120.252); exclude.
+    - [ ] `2018/CSAW-Finals/misc/leaked_flag`
+        - Welcome challenge.
+    - [ ] `2018/CSAW-Finals/pwn/wic_wac_woe_part_2`
+        - This one is OK. It shares a server with wic_wac_woe_part_1. We just need to link the OCI tarball to the existing challenge and check the server name / ports.
+    - [ ] `2019/CSAW-Finals/misc/alive`
+        - Welcome challenge.
+    - [ ] `2019/CSAW-Finals/misc/chess`
+        - [ ] Exclude. "For NY competitors: Come play against us in Chess."
+    - [ ] `2019/CSAW-Finals/misc/smash`
+        - [ ] Exclude. "For NY competitors: Come play against us in Smash."
+    - [ ] `2019/CSAW-Finals/web/easiest_crackme`, `2019/CSAW-Finals/web/easiest_crackme2`, `2019/CSAW-Finals/web/easiest_crackme3`
+        - README references a multipart challenge hosted at http://crackme.web.chal.csaw.io:48394, but the code doesn't seem to be anywhere.
+        -  Writeup: https://blog.ankursundara.com/csaw19-easiest-crackme/
+        - The files distributed to the player are here: https://github.com/Sparrrgh/CTF-Writeups/tree/main/CSAW19%20Finals/Easiest%20Crackme
+        - Probably have to exclude since we don't have the server code.
+    - [ ] `2019/CSAW-Quals/misc/mcgriddlev2`
+        - Welcome challenge.
+    - [ ] `2020/CSAW-Finals/pwn/darkunion2`
+        - Fine. Part 2 of `2020/CSAW-Finals/pwn/darkunion1`. Needs to be linked.
+    - [ ] `2020/CSAW-Finals/web/anubis`
+        - Only mentions a server, no files :(.
+    - [ ] `2020/CSAW-Finals/web/snailrace1`, `2020/CSAW-Finals/web/snailrace2`
+        - snailrace1 has a tarball to hand out to players, but there's no server code. Probably not playable.
+    - [ ] `2020/CSAW-Quals/web/sanity`
+        - Just a link to Discord; exclude.
+    - [ ] `2021/CSAW-Quals/misc/Survey-says...`
+        - End of competition survey; exclude.
+    - [ ] `2021/CSAW-Quals/misc/Welcome`
+        - Welcome challenge; flag is only accessible on Discord; exclude.
+    - [ ]`2019/CSAW-Finals/misc/yeet_wars1`
+        - Live event; exclude. Main repo: https://github.com/cadulceus/yeet_wars/tree/06c4b6a9aec2e7f96faca52f9612cfe21bd6d5fa
+    - [ ]`2019/CSAW-Finals/misc/yeet_wars2`
+        - Live event; exclude.
 
 - [ ] Challenges with failing network tests
     - Non-docker compose challenges:
@@ -170,6 +248,8 @@ Fixes needed:
         - [ ] Exclude from the db and document why?
         - [x] Ask Jules Denardou & Justin Massey from Datadog (challenge authors) if they still have a copy of the challenge files
             - They do apparently, and will share them with us.
+    - [ ] `2019/CSAW-Finals/crypto/birthday`
+        - Same deal as `2018/CSAW-Finals/web/online_previewer`; only has a challenge.json with a description referring to a defunct AWS instance; no actual challenge files.
     - [x] `2022/CSAW-Quals/rev/dockREleakage`
         - The Dockerfile in this challenge is not actually used to create a challenge server; it's used to build an OCI tarball that is given to the player to analyze.
         - [x] Renamed the Dockerfile to `Dockerfile.ignored` to prevent the container from being built automatically.
@@ -187,3 +267,6 @@ Fixes needed:
     - [ ] `2019/CSAW-Quals/pwn/twitch_plays_shellcode`
         - This challenge was only playble during the original competition; it did a live stream on twitch where the players in the chat could vote on individual bytes in a page of memory that would get executed.
         - [ ] Exclude from the db and document why.
+    - [ ] `2019/CSAW-Finals/misc/pwny_racing`
+        - Another live event (see https://challonge.com/csaw_pwny_racing); however, the individual challenges are still available: https://github.com/Vector35/csaw-2019-pwny-race
+        - [ ] Decide if we want to include this in the db or not.

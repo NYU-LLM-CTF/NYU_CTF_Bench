@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <style>
+.registers {
+  padding: 5px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: calc( 30% - 11px );
+  height: calc( 50% - 13px );
+  overflow-x: auto;
+  border: 1px black solid;
+}
+.code {
+  padding: 5px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: calc( 70% - 12px );
+  height: calc( 50% - 13px );
+  overflow: auto;
+  border: 1px black solid;
+}
+.control {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  width: 100%;
+  background-color: #ccc;
+  height: 20px;
+}
+
+.stack{
+  padding: 5px;
+  position: fixed;
+  bottom: 40px;
+  height: calc( 50% - 50px );
+  width: calc( 50% - 11px );
+  left: 0;
+  border: 1px black solid;
+  overflow: auto;
+}
+
+.memory input {
+  width: 100%;
+}
+
+.memory {
+  position: fixed;
+  bottom: 40px;
+  height: calc( 50% - 40px );
+  width: calc( 50% - 1px );
+  right: 0;
+  border: 1px black solid;
+  overflow: auto;
+}
+
+.memory input {
+  width: 100%;
+}
+    </style>
+  </head>
+  <body>
+    <div class="registers">
+      <h4>Registers</h4>
+      <div id="registers"></div>
+    </div>
+    <div class="code">
+      <h4>Machine Code</h4>
+      <label>Disassembly flavor</label>
+      <select id="flavor">
+        <option value="att" selected>AT&amp;T</option>
+        <option value="intel">Intel</option>
+      </select>
+      <pre id="code"></pre>
+    </div>
+
+    <div class="stack">
+      <h4>Stack</h4>
+      <pre id="stack"></pre>
+    </div>
+
+    <div class="memory">
+      <form id="meminp">
+        <input placeholder="Use x commands (x/32xg $rsp) or set breakpoints (b *main)">
+      </form>
+      <pre id="memory"></pre>
+    </div>
+
+    <div class="control">
+      <button id="run">Re-Run</button>
+      <button id="si">Step Instruction</button>
+      <button id="ni">Next Instruction</button>
+      <button id="cont">Continue</button>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="debugger.js"></script>
+  </body>
+</html>
