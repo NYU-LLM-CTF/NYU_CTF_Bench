@@ -1,48 +1,16 @@
 Fixes needed:
 
-- [ ] Handle challenges with external resources (or too big to fit in GitHub)
+- [ ] Check challenges with external resources; these should be rehosted somewhere stable (if available) or excluded if they're gone for good.
     - [ ] Tried to get some idea of how many there are by grepping for URLs:
-    - `2018/CSAW-Finals/pwn/ES1337/challenge.json` : https://drive.google.com/file/d/1V9liO6e4QGzPTwpBsEVCNtC5hayPnrx8/view?usp=sharing
-    - `2018/CSAW-Finals/pwn/ES1337/challenge.json` : https://drive.google.com/file/d/1W46Hn0HyWtIMosDNkqt5ixEJUyClacUu/view?usp=sharing
-    - `2019/CSAW-Finals/pwn/autobots1.1/challenge.json` : http://gph.is/1CtEetH
-    - `2019/CSAW-Finals/web/easiest_crackme/challenge.json` : http://crackme.web.chal.csaw.io
-    - `2019/CSAW-Finals/web/easiest_crackme/challenge.json` : http://crackme.web.chal.csaw.io/visit
-    - `2019/CSAW-Finals/web/uber88/challenge.json` : https://www.youtube.com/watch?v=pd_b-ecraF8
-    - `2019/CSAW-Quals/crypto/brillouin/challenge.json` : https://twitter.com/japesinator)
-    - `2019/CSAW-Quals/crypto/brillouin/challenge.json` : https://twitter.com/trailofbits))
-    - `2019/CSAW-Quals/crypto/DES2Bites/challenge.json` : https://en.wikipedia.org/wiki/Weak_key
-    - `2019/CSAW-Quals/pwn/twitch_plays_shellcode/challenge.json` : https://www.youtube.com/watch?v=pGFGD5pj03M
-    - `2019/CSAW-Quals/rev/beleaf/challenge.json` : https://binary.ninja/demo
-    - `2019/CSAW-Quals/rev/halfpike/challenge.json` : https://archive.org/details/bitsavers_intelMCS4MProgrammingManualDec73_5215098)
-    - `2019/CSAW-Quals/rev/halfpike/challenge.json` : https://twitter.com/hyperosonic)
-    - `2019/CSAW-Quals/rev/halfpike/challenge.json` : https://twitter.com/trailofbits))
-    - `2020/CSAW-Finals/web/anubis/challenge.json` : https://autograder.chal.csaw.io
-    - `2020/CSAW-Finals/web/anubis/challenge.json` : https://autograder.chal.csaw.io)
-    - `2020/CSAW-Finals/web/snailrace1/challenge.json` : https://snail.racecraft.cf
-    - `2020/CSAW-Finals/web/snailrace2/challenge.json` : https://snail.racecraft.cf
-    - `2020/CSAW-Quals/pwn/feather/challenge.json` : https://twitter.com/hyperosonic
-    - `2020/CSAW-Quals/pwn/feather/challenge.json` : https://twitter.com/hyperosonic)
-    - `2020/CSAW-Quals/rev/blox1/challenge.json` : https://wargames.ret2.systems/962c162fa1d2ea626d36/csaw_2020
-    - `2020/CSAW-Quals/web/sanity/challenge.json` : https://discord.gg/dwYNJ7M
+    - `2018/CSAW-Finals/pwn/ES1337/challenge.json` : https://drive.google.com/file/d/1V9liO6e4QGzPTwpBsEVCNtC5hayPnrx8/view?usp=sharing (still up!)
+    - `2018/CSAW-Finals/pwn/ES1337/challenge.json` : https://drive.google.com/file/d/1W46Hn0HyWtIMosDNkqt5ixEJUyClacUu/view?usp=sharing (still up!)
+    - `2020/CSAW-Quals/rev/blox1/challenge.json` : https://wargames.ret2.systems/962c162fa1d2ea626d36/csaw_2020 (still up!)
     - `2021/CSAW-Finals/forensics/disk_image_forensics/challenge.json` : https://csaw-final-challenges.s3.us-east-2.amazonaws.com/disk-forensics.zip
-    - `2021/CSAW-Finals/misc/Bane-of-IT/challenge.json` : https://csaw-final-challenges.s3.us-east-2.amazonaws.com/bane_of_it.zip
-    - `2021/CSAW-Finals/pwn/baby_mqtt/challenge.json` : https://github.com/LiamBindle/MQTT-C).
-    - `2021/CSAW-Finals/pwn/chatterbox/challenge.json` : https://twitter.com/gf_256)
-    - `2021/CSAW-Finals/rev/Control-master/challenge.json` : https://twitter.com/hgarrereyn)
-    - `2021/CSAW-Finals/rev/maze/challenge.json` : https://xusheng.dev/)
-    - `2021/CSAW-Finals/web/grande/challenge.json` : https://grande-blog.site
-    - `2021/CSAW-Quals/crypto/Bits/challenge.json` : https://www.youtube.com/watch?v=uhTCeZasCmc
-    - `2021/CSAW-Quals/misc/Welcome/challenge.json` : https://discord.gg/Zj2H6EaAkZ
-    - `2021/CSAW-Quals/pwn/krypto/challenge.json` : https://chal-files.s3.us-east-2.amazonaws.com/disk.dist.img)
-    - `2022/CSAW-Finals/forensics/Corporate NTK Problems/challenge.json` : https://drive.google.com/file/d/1XVYMWnhgN9ykc2ikPbxMKrMuaYNxbGTk/view?usp=share_link
-    - `2022/CSAW-Finals/forensics/Corporate NTK Problems/challenge.json` : https://corporate-ntk-problems.s3.us-east-2.amazonaws.com/Corporate+NTK+Problems-disk001.vmdk
-    - `2022/CSAW-Finals/web/Potion Seller/challenge.json` : https://youtu.be/R_FQU4KzN7A
-    - `2023/CSAW-Finals/web/uploaders-revenge/challenge.json` : https://uploaders-revenge.csaw.io
-    - `2023/CSAW-Finals/web/uploaders-revenge/challenge.json` : https://uploaders-revenge-bot.csaw.io
-    - `2023/CSAW-Finals/web/webhooktester/challenge.json` : https://instancer.webhooktester.csaw.io
-    - `2023/CSAW-Quals/rev/whataxor/challenge.json` : https://dogbolt.org/
-    - `2023/CSAW-Quals/web/rainbow-notes/challenge.json` : https://rainbow-notes.csaw.io
-    - `2023/CSAW-Quals/web/rainbow-notes/challenge.json` : https://rainbow-notes-admin.csaw.io
+    - `2021/CSAW-Finals/misc/Bane-of-IT/challenge.json` : https://csaw-final-challenges.s3.us-east-2.amazonaws.com/bane_of_it.zip (DEAD)
+    - `2021/CSAW-Finals/web/grande/challenge.json` : https://grande-blog.site (DEAD)
+    - `2021/CSAW-Quals/pwn/krypto/challenge.json` : https://chal-files.s3.us-east-2.amazonaws.com/disk.dist.img (DEAD)
+    - `2022/CSAW-Finals/forensics/Corporate NTK Problems/challenge.json` : https://drive.google.com/file/d/1XVYMWnhgN9ykc2ikPbxMKrMuaYNxbGTk/view?usp=share_link (no permission)
+    - `2022/CSAW-Finals/forensics/Corporate NTK Problems/challenge.json` : https://corporate-ntk-problems.s3.us-east-2.amazonaws.com/Corporate+NTK+Problems-disk001.vmdk (DEAD)
 
 - [ ] Suspicious challenges (only have `challenge.json` and nothing else)
     - [ ] `2018/CSAW-Finals/misc/crashme`
@@ -83,9 +51,9 @@ Fixes needed:
 
 - [ ] Challenges with failing network tests
     - Non-docker compose challenges:
-    - [ ] `2021/CSAW-Quals/web/securinotes`
+    - [x] `2021/CSAW-Quals/web/securinotes`
         - Uses meteor to run the service, which updates all packages to the latest version and takes a really long time. Temporarily fixed by adding an update during the build process, but this will break reproducibility over time (and it will get slower and slower).
-        - Best solution here is to build the app using meteor but then have the Dockerfile run the app using node directly, so that it doesn't keep changing over time. Downside is we also have to run a mongodb service in the same container (I think).
+        - [ ] Best solution here is to build the app using meteor but then have the Dockerfile run the app using node directly, so that it doesn't keep changing over time. Downside is we also have to run a mongodb service in the same container (I think).
     - [ ] `2021/CSAW-Quals/pwn/procrastination-simulator`
         - See notes under "Misc issues"
     - [ ] `2022/CSAW-Quals/web/smuggling-mail`
@@ -121,7 +89,6 @@ Fixes needed:
     - [ ] `2023/CSAW-Finals/web/webhooktester`
     - [ ] `2023/CSAW-Quals/web/philanthropy`
     - [ ] `2023/CSAW-Quals/web/rainbow-notes`
-
 
 - [ ] Challenges that are missing files mentioned in their .files key:
     - Currently none, but I had to fix a bunch of them
@@ -190,8 +157,8 @@ Fixes needed:
         - [ ] `2023/CSAW-Finals/web/triathlon_or_sprint` null
         - [ ] `2023/CSAW-Finals/web/webhooktester` null
     - Weird case with multiple ports:
-        - [ ] `2023/CSAW-Finals/web/dinoauth` [ 3001, 3002 ]
-    - Port is string instead of number; still works but should be consistent:
+        - [x] `2023/CSAW-Finals/web/dinoauth` [ 3001, 3002 ]
+    - (minor) Port is string instead of number; still works but should be consistent:
         - [ ] `2021/CSAW-Quals/web/securinotes` "5000"
         - [ ] `2022/CSAW-Quals/rev/the_big_bang` "5000"
         - [ ] `2020/CSAW-Quals/pwn/feather` "8000"
@@ -200,12 +167,12 @@ Fixes needed:
 
 - [ ] Misc challenges with servers that don't declare a proto ("nc" or "web") explicitly
     - Can we do some protocol detection here?
-    - [ ] `2020/CSAW-Finals/misc/wabfs`
-    - [ ] `2022/CSAW-Finals/misc/ImPROMPTu`
-    - [ ] `2022/CSAW-Quals/misc/CatTheFlag`
-    - [ ] `2023/CSAW-Finals/misc/sigmaslogistics`
-    - [ ] `2023/CSAW-Quals/misc/android-dropper`
-    - [ ] `2023/CSAW-Quals/misc/TradingGame`
+    - [x] `2020/CSAW-Finals/misc/wabfs` (web; compose)
+    - [x] `2022/CSAW-Finals/misc/ImPROMPTu` (web)
+    - [x] `2022/CSAW-Quals/misc/CatTheFlag` (web)
+    - [x] `2023/CSAW-Finals/misc/sigmaslogistics` (nc)
+    - [x] `2023/CSAW-Quals/misc/android-dropper` (web)
+    - [x] `2023/CSAW-Quals/misc/TradingGame` (web)
 
 - [ ] Challenges that provide a specific libc/other shared lib
     - [ ] Ensure that the provided shared lib is placed in the container; otherwise exploits may not work
