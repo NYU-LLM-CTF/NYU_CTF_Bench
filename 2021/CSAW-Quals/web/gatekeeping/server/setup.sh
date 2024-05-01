@@ -1,16 +1,18 @@
 #!/bin/bash
 
-if [ ! -f /.dockerenv ]; then
-    echo "This is supposed to be run in a docker env";
-    exit
-fi
+# BDG: Docker doesn't seem to auto-create this file any more
+#if [ ! -f /.dockerenv ]; then
+#    echo "This is supposed to be run in a docker env";
+#    exit
+#fi
 
 if [[ $EUID -ne 0 ]]; then
     echo "This script must be run as root"
     exit 1
 fi
 
-cat > /etc/nginx/sites-enabled/default <<EOF
+# BDG: unless the EOF label is quoted bash will interpret backticks in the heredoc
+cat > /etc/nginx/sites-enabled/default <<"EOF"
 server {
     listen 80;
 
