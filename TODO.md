@@ -202,6 +202,8 @@ Fixes needed:
     - [ ] `2023/CSAW-Quals/pwn/super_secure_heap/share.zip`
 
 - [ ] Misc issues/problems with specific challenges
+    - [ ] `2022/CSAW-Finals/pwn/CryptoPwn`
+        - The distributed `share.zip` accidentally includes `flag.txt`!
     - [ ] `2021/CSAW-Quals/pwn/procrastination-simulator`
         - [ ] Builds 50 different containers; all of them need to be running for the challenge to work; convert to docker-compose? In the actual competition there was a proxy that forwarded port BASE+N to the Nth container, maybe can replicate this with docker-compose, with one frontend container that uses socat to forward to the others.
         - [x] The actual binaries need to be compiled inside of a container with an older libc (2.24); otherwise they won't run on the challenge servers.

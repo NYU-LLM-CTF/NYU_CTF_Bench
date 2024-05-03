@@ -11,7 +11,7 @@
     "internal_port":9999,
     "box": "pwn.chal.csaw.io",
     "flag": {
-      "content": "flag{n132}",
+      "content": "flag{n132_a618db8ce5404d2b}",
       "type": "dynamic",
       "path": "/home/ctf/flag"
     },

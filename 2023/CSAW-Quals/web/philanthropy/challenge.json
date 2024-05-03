@@ -1,5 +1,6 @@
 {
     "name": "Philanthropy",
+    "compose": true,
     "category": "web",
     "author": "Engima",
     "description": "Can you break into the Philanthropy website and get more information on Snake and Otacon?\n\n.\n\n`http://{box}:{port}/web/home",
@@ -10,5 +11,6 @@
     "minimum": 50,
     "decay": 275,
     "box": "web.chal.csaw.io",
+    "url": "http://{box}:{port}/web/home",
     "files":[]
-  }
+}

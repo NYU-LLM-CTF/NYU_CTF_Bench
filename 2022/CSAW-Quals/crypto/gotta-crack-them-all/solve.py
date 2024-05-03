@@ -19,7 +19,8 @@ with open("encrypted_passwords.txt", 'rb') as f:
 	given_enc_passwords = f.read().split(b'\n')[:-1]
 
 if __name__ == '__main__':
-	connection = remote("crypto.chal.csaw.io",5000)
+    #connection = remote("crypto.chal.csaw.io",5000)
+	connection = remote("localhost",8192)
 	enc_passwords = {}
 	for p in passwords:
 		connection.recvuntil(">> ".encode('utf-8'))

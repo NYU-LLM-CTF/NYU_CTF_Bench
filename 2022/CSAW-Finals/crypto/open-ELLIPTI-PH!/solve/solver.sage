@@ -10,8 +10,10 @@ from pwn import *
 
 
 # [CONNECT TO SERVER]
-host = "crypto.chal.csaw.io"
-port = 5005         # 6000
+#host = "crypto.chal.csaw.io"
+#port = 5005         # 6000
+host = "localhost"
+port = 8192         # 6000
 server = remote(host, port)
 
 

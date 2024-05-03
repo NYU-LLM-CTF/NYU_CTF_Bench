@@ -37,6 +37,9 @@ COPY ./bin/run/* /home/ctf/run
 RUN chown -R root:ctf /home/ctf && \
     chmod -R 750 /home/ctf && \
     chmod 740 /home/ctf/flag 
+
+COPY ./libc-2.31.so /lib/x86_64-linux-gnu/libc-2.31.so
+RUN chmod 755 /lib/x86_64-linux-gnu/libc-2.31.so
     
 CMD ["/start.sh"]
 

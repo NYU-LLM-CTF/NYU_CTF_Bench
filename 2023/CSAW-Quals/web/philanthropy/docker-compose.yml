@@ -2,24 +2,24 @@ services:
 
   phil-front:
     container_name: phil-front
+    image: 'asibench_2023q-web-philanthropy-phil-front:latest'
     build:
       context: ./philanthropy-front
       dockerfile: Dockerfile
-    ports:
-      - 4173:4173
     environment:
       - IDENTITY_HOST=phil-id
       - GENERATE_SOURCEMAP=false
-    links:
+    depends_on:
       - phil-id
+    networks:
+      - philnet
 
   phil-id:
     container_name: phil-id
+    image: 'asibench_2023q-web-philanthropy-phil-id:latest'
     build:
       context: ./philanthropy-id
       dockerfile: Dockerfile
-    ports:
-      - 13336:13336
     environment:
       - DB_HOST=phil-db
       - DB_NAME=philanthropy
@@ -31,26 +31,27 @@ services:
     depends_on:
       phil-db:
         condition: service_healthy
-    links:
-      - phil-db
+    networks:
+      - philnet
 
   phil-db:
     container_name: phil-db 
-    image: 'postgres:latest'
+    image: 'postgres:latest@sha256:07572430dbcd821f9f978899c3ab3a727f5029be9298a41662e1b5404d5b73e0'
     environment:
       POSTGRES_USER: phil
       POSTGRES_PASSWORD: MCH0#hH2miVNf!ag0ZF3s9m
       POSTGRES_DB: philanthropy
-    ports:
-      - 5433:5432
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U phil -d philanthropy"]
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - philnet
 
   phil-nginx:
     container_name: phil-nginx
+    image: 'asibench_2023q-web-philanthropy-phil-nginx:latest'
     build:
       context: ./philanthropy-nginx
       dockerfile: Dockerfile
@@ -63,7 +64,19 @@ services:
       - FRONT_PORT=4173
     ports:
       - 14180:14180
-    links:
+    depends_on:
       - phil-id
       - phil-front
+    networks:
+      philnet:
+      ctfnet:
+        aliases:
+          - philanthropy
+          - web.chal.csaw.io
 
+networks:
+  philnet:
+    name: philnet
+    driver: bridge
+  ctfnet:
+    external: true

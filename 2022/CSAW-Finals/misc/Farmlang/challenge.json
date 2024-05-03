@@ -7,7 +7,6 @@
     "type": "static",
     "path": ""
   },
-  "internal_port": 5000,
   "type": "dynamic",
   "initial": 500,
   "minimum": 50,

@@ -4,7 +4,6 @@
     "author": "Mahmoud Shabana",
     "description": " Can't seem to print out the flag :( Can you figure out how to get the flag with this binary?",
     "flag": "csawctf{c20ad4d76fe97759aa27a0c99bff6710}",
-    "internal_port": 5000,
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,

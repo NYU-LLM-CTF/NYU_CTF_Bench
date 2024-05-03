@@ -1,6 +1,7 @@
 version: '3.7'
 services:
-  bot:
+  rainbow-notes-admin:
+    image: 'asibench_2023q-web-rainbow_notes-bot:latest'
     build:
       context: ./bot
     environment:
@@ -13,13 +14,42 @@ services:
       # format: ^csawctf{[a-f0-9]{10}}$
       - FLAG=csawctf{5af5c57dd6}
     init: true
-    security_opt: 
+    security_opt:
       - seccomp=chrome.json
-    ports:
-      - "8000:8000"
-  web:
-    image: nginx
+    # ports:
+    #   - "8000:8000"
+    networks:
+      - rainbownet
+
+  rainbow-notes:
+    image: 'nginx:latest@sha256:4d5a113fd08c4dd57aae6870942f8ab4a7d5fd1594b9749c4ae1b505cfd1e7d8'
     volumes:
       - ./web:/usr/share/nginx/html:ro
+    # ports:
+    #   - "8763:80"
+    networks:
+      - rainbownet
+
+  nginx-proxy:
+    image: 'nginx:latest@sha256:4d5a113fd08c4dd57aae6870942f8ab4a7d5fd1594b9749c4ae1b505cfd1e7d8'
+    volumes:
+      - ./proxy/conf:/etc/nginx/conf.d:ro
+      - ./proxy/certs:/etc/nginx/certs:ro
     ports:
-      - "8763:80"
+      - "443:443"
+    networks:
+      rainbownet:
+      ctfnet:
+        aliases:
+        - rainbow-notes-admin.csaw.io
+        - rainbow-notes.csaw.io
+    depends_on:
+      - rainbow-notes-admin
+      - rainbow-notes
+
+networks:
+  rainbownet:
+    name: rainbownet
+    driver: bridge
+  ctfnet:
+    external: true
