@@ -1,18 +1,32 @@
-version: '3'
+version: '3.4'
 
 services:
   servercontainer:
+    image: 2023f-web-triathlon_or_sprint-server:latest
     build:
       context: ./server
-    ports:
-      - "3000:3000"
     restart: always
-    # Add other container1 configuration options as needed
-
-  clientcontainer:
+    networks:
+      - ctfnet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+# container that adds iptables rules to the subnet to redirect 128.238.66.77 to the servercontainer
+  iptables:
+    image: 2023f-web-triathlon_or_sprint-iptables:latest
     build:
-      context: ./frontend
-    ports:
-      - "8000:8000"
-    # Add other container2 configuration options as needed
+      context: ./iptables
+    restart: on-failure
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      servercontainer:
+        condition: service_healthy
+    privileged: true
 
+networks:
+  ctfnet:
+    external: true
