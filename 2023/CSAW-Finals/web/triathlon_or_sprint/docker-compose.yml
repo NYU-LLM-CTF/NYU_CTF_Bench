@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   servercontainer:
-    image: 2023f-web-triathlon_or_sprint-server:latest
+    image: asibench_2023f-web-triathlon_or_sprint-server:latest
     build:
       context: ./server
     restart: always
@@ -15,7 +15,7 @@ services:
       retries: 5
 # container that adds iptables rules to the subnet to redirect 128.238.66.77 to the servercontainer
   iptables:
-    image: 2023f-web-triathlon_or_sprint-iptables:latest
+    image: asibench_2023f-web-triathlon_or_sprint-iptables:latest
     build:
       context: ./iptables
     restart: on-failure
