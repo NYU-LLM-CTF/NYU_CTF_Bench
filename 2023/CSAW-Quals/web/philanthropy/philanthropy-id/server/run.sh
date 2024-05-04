@@ -3,5 +3,5 @@
 python /app/run_db.py
 
 echo "starting"
-gunicorn -b 0.0.0.0:4657 -w 8 app:app &
+gunicorn -b 0.0.0.0:"$SERVER_PORT" -w 8 app:app &
 sleep infinity

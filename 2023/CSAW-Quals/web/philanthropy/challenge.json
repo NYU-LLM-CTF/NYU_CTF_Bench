@@ -11,6 +11,6 @@
     "minimum": 50,
     "decay": 275,
     "box": "web.chal.csaw.io",
-    "url": "http://{box}:{port}/web/home",
+    "url": "http://web.chal.csaw.io:14180/web/home",
     "files":[]
 }
