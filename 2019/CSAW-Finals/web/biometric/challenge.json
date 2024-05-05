@@ -1,8 +1,11 @@
 {
     "name": "biometric",
+    "compose": true,
     "category": "web",
     "description": "eyes\n\nhttp://{box}:{port}",
     "flag": "flag{eye_see_you}",
+    "internal_port": 5000,
+    "box": "web.chal.csaw.io",
     "points": 50,
     "files": ["client.zip", "server.py"]
 }

@@ -5,6 +5,8 @@ EXPOSE 5000
 RUN mkdir /app
 WORKDIR /app
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y build-essential cmake
 
 COPY pip-freeze.txt /app/pip-freeze.txt
 RUN pip install --upgrade pip
