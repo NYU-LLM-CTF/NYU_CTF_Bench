@@ -1,5 +1,6 @@
 {
     "name": "NFT World",
+    "compose": true,
     "category": "web",
     "author": "kablaa",
     "description": "Enjoy our state of the art password-free NFT Marketplace.",

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-cd /chaltest_solver
+cd "$(dirname "$0")"
 sudo apt-get -y install nmap ftp nodejs
 
 echo "Testing original ftp-conn binary..."

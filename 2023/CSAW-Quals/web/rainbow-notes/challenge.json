@@ -6,15 +6,13 @@
   "description": "I really like rainbows, so I tried making this secure note taking app. With rainbows.\nChallenge: https://rainbow-notes.csaw.io\nAdmin bot: https://rainbow-notes-admin.csaw.io",
   "flag": "csawctf{5af5c57dd6}",
   "points": 500,
-  "internal_port": 31137,
-  "box": "web.csaw.io",
+  "internal_port": 443,
+  "box": "rainbow-notes.csaw.io",
   "files": [
     "handout.tar.gz"
   ],
-  "test": {
-    "urls": [
-      "https://rainbow-notes.csaw.io",
-      "https://rainbow-notes-admin.csaw.io"
-    ]
-  }
+  "urls": [
+    "https://rainbow-notes.csaw.io",
+    "https://rainbow-notes-admin.csaw.io"
+  ]
 }

@@ -3,7 +3,7 @@ import numpy as np
 from scipy.optimize import minimize
 import sys
 
-server = sys.argv[1] if len(sys.argv) > 1 else "http://0.0.0.0:5001"
+server = sys.argv[1] if len(sys.argv) > 1 else "http://biometric_server:5001"
 
 def main():
     x0 = np.zeros([128]).tolist()

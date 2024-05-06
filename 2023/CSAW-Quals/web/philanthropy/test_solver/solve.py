@@ -7,7 +7,7 @@ from hashlib import sha256
 if len(sys.argv) > 1:
     BASE = sys.argv[1]
 else:
-    BASE = "http://localhost:14180/"
+    BASE = "http://web.chal.csaw.io:14180/"
 
 IDENTITY_BASE = urljoin(BASE,"identity/")
 IMAGES_BASE = urljoin(IDENTITY_BASE,"images")

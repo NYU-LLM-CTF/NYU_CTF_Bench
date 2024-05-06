@@ -15,7 +15,7 @@ services:
       context: . # Use the current directory as the build context
       dockerfile: Dockerfile # Use the Dockerfile described above
     environment:
-      - MONGO_URI='mongodb://root:CytCQljUz9vSvqZP@mongo'
+      - MONGO_URI=mongodb://root:CytCQljUz9vSvqZP@mongo
       - SECRET=BharatK4B4cch4B4cch4JayShreeRamBolega
       - FLAG=csawctf{J4y_Shr33_Ram_J4y_Shr33_Ram}
     depends_on:
@@ -36,8 +36,8 @@ services:
       shreeramquest:
       ctfnet:
         aliases:
-          - shreeramquest
           - web.chal.csaw.io
+          - shreeramquest
 
 
 networks:

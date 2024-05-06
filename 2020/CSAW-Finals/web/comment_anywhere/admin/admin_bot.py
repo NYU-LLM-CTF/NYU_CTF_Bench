@@ -18,14 +18,14 @@ async def main():
         )
 
         try:
-            print("Going to ctf.csaw.io")
+            print("Going to example.com")
             page = await browser.newPage()
-            await page.goto('http://ctf.csaw.io')
+            await page.goto('http://example.com/')
             await asyncio.sleep(2)
 
             print("Going to flag page")
             page2 = await browser.newPage()
-            await page2.goto(f'http://ctf.csaw.io/comment-anywhere/{flag}')
+            await page2.goto(f'http://example.com/{flag}')
             await asyncio.sleep(3)
 
         except Exception as e:

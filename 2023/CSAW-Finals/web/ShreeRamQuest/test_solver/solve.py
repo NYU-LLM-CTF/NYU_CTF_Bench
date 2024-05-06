@@ -7,7 +7,7 @@ import requests
 import secrets
 
 if len(sys.argv) < 2:
-    URL = 'http://localhost:8000'
+    URL = 'http://web.chal.csaw.io'
 else:
     URL = sys.argv[1]
 

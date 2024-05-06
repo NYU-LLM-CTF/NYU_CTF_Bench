@@ -1,5 +1,6 @@
 {
     "name": "uploaders-revenge",
+    "compose": true,
     "category": "web",
     "author": "arxenix",
     "description": "I didn't realize making a safe file uploading app was this hard...\nChallenge: https://uploaders-revenge.csaw.io\nAdmin bot: https://uploaders-revenge-bot.csaw.io",

@@ -7,7 +7,7 @@ def main():
     must be sent in bytes.
     '''
 
-    url = "http://crypto.csaw.io:3000/rsa/decrypt"
+    url = "http://crypto.csaw.io/rsa/decrypt"
     data = b"Data to be decrypted by RSA decryption server"
     req = requests.post(url=url, data=data)
     print(req.content)

@@ -1,7 +1,7 @@
 from app import db, Comment
 
 db.session.add(Comment(
-    url='http://ctf.csaw.io/',
+    url='http://example.com/',
     x=0,
     y=0,
     creator='admin',

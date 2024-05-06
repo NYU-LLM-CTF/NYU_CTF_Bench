@@ -1,5 +1,6 @@
 {
     "name": "how2pwn",
+    "compose": true,
     "category": "pwn",
     "author": "n132, Jordi",
     "description": "how2pwn is a series of beginner-friendly pwn challenges to make pwning and shellcoding more approachable.\n\n Servers:\n\n `nc how2pwn.chal.csaw.io 60001` \n\n `nc how2pwn.chal.csaw.io 60002` \n\n `nc how2pwn.chal.csaw.io 60003` \n\n `nc how2pwn.chal.csaw.io 60004`\n",

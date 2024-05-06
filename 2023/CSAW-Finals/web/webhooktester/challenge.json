@@ -1,5 +1,6 @@
 {
   "name": "webhooktester",
+  "compose": true,
   "category": "web",
   "author": "arxenix",
   "description": "I made a nice and easy webapp to test your discord webhooks.\nChallenge Instancer: https://instancer.webhooktester.csaw.io",

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-pip install scipy
+set -euo pipefail
+
 cd "$(dirname "$0")"
-python attacker.py
+python solver.py

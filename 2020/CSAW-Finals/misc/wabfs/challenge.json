@@ -1,5 +1,6 @@
 {
   "name": "wabfs",
+  "compose": true,
   "category": "misc",
   "description": "I skimmed the gfs whitepaper then wrote this. Plz forgive me. (When the challenge resets, the chunk and file ids may change [dont hardcode them]) \n\n[http://{box}:5000](http://{box}:5000)",
   "points": 100,

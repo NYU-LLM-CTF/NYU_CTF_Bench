@@ -1,5 +1,6 @@
 {
     "name": "Potion Seller",
+    "compose": true,
     "author": "hawkheart",
     "description": "I made a distributed code sandboxing tool, there's no way you can escape this!\n\n`https://youtu.be/R_FQU4KzN7A`",
     "category": "web",
