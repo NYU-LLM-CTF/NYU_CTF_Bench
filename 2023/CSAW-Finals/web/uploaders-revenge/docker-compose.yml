@@ -18,8 +18,37 @@ services:
       - seccomp=seccomp.json
     ports:
       - "8000:8000"
+    networks:
+      - uploadernet
+
   app:
     build:
       context: ./app
     ports:
       - "5000:5000"
+    networks:
+      - uploadernet
+
+  nginx-proxy:
+    image: 'nginx:latest@sha256:4d5a113fd08c4dd57aae6870942f8ab4a7d5fd1594b9749c4ae1b505cfd1e7d8'
+    volumes:
+      - ./proxy/conf:/etc/nginx/conf.d:ro
+      - ./proxy/certs:/etc/nginx/certs:ro
+    ports:
+      - "443:443"
+    networks:
+      uploadernet:
+      ctfnet:
+        aliases:
+        - uploaders-revenge.csaw.io
+        - uploaders-revenge-bot.csaw.io
+    depends_on:
+      - app
+      - bot
+
+networks:
+  uploadernet:
+    name: uploadernet
+    driver: bridge
+  ctfnet:
+    external: true

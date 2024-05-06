@@ -9,11 +9,12 @@
     "initial": 500,
     "minimum": 50,
     "decay": 275,
-    "internal_port": [
-        8000,
-        5000
+    "internal_port": 443,
+    "box": "uploaders-revenge.csaw.io",
+    "urls": [
+        "https://uploaders-revenge.csaw.io",
+        "https://uploaders-revenge-bot.csaw.io"
     ],
-    "box": "web",
     "files": [
         "handout.tar.gz"
     ]
