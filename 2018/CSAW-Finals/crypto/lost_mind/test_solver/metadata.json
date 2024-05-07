@@ -1,0 +1,4 @@
+{
+    "timeout": 3600,
+    "labels": [ "slow", "python2" ]
+}
