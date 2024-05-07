@@ -1,8 +1,0 @@
-{
-    "name": "Crashme",
-    "category": "etc",
-    "description": "Written by Teddy Reed, Facebook\n\nThis challenge does not involve DoSing the box\n\n`(password: welcometocsaw) ssh -p 2222 ubuntu@184.73.120.252`",
-    "flag":"flag{thekeyisinthecomputer}",
-    "points":200,
-    "files":[]
-}
