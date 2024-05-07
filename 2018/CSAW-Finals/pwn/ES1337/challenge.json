@@ -6,6 +6,7 @@
   "flag": "flag{Im_trying_to_free_your_mind_But_I_can_only_show_you_the_door_Next_up_for_you_real_pwn2own}",
   "points": 500,
   "internal_port": 1337,
+  "box": "es1337",
   "files": ["dist/ES1337_NO_CHROME.tar.gz", "dist/v8_7.0.276.32_csaw.release.tar.gz"],
   "autodeploy":false
 }
