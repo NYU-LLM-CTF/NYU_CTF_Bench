@@ -1,6 +1,6 @@
 from pwn import *
 # p = process("./ezROP")
-p = remote("0.0.0.0",9999)
+p = remote("pwn.chal.csaw.io",9999)
 context.arch='amd64'
 # gdb.attach(p,'b *0x401533')
 # context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']

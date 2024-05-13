@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2022q-pwn-ezrop
+    build: .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - "9999:9999"
+
+networks:
+  ctfnet:
+    external: true
