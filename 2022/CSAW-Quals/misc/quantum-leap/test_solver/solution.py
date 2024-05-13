@@ -1,4 +1,5 @@
-qubits = 'wxqvn$Zae${deyZv$d"i'
+with open("/home/ctfplayer/ctf_files/output", "r") as f:
+    qubits = f.read()
 
 cnot_dict = {'00':'00','01':'01','10':'11','11':'10'}
 res = ''
