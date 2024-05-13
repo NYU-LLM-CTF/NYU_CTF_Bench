@@ -7,4 +7,5 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+sage --pip install pwntools
+sage solver.py

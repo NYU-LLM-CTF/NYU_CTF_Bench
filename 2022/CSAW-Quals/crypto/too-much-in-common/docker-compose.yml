@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  too-much-in-common-server:
+    image: llmctf/2022q-cry-too_much_in_common
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

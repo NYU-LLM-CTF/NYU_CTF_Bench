@@ -9,5 +9,6 @@
   "minimum": 50,
   "decay": 275,
   "internal_port": 5000,
-  "box": "crypto.chal.csaw.io"
+  "box": "crypto.chal.csaw.io",
+  "compose": true
 }
