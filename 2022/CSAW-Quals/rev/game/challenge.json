@@ -10,5 +10,6 @@
   "minimum": 50,
   "decay": 275,
   "files": ["game"],
-  "box": "rev.chal.csaw.io"
+  "box": "rev.chal.csaw.io",
+  "compose": true
 }

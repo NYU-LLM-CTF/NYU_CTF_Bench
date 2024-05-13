@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM ubuntu:22.04
 
 RUN apt update && apt install -y socat && rm -rf /var/lib/apt/lists/*
 

@@ -1,7 +1,7 @@
 from pwn import *
 
 box = 'rev.chal.csaw.io'
-port = 5004
+port = 5000
 flag = b''
 
 # end path --> 1, 3, 1, 2, 2, 2, 3, 2.
