@@ -13,7 +13,7 @@ public class Dropped {
     //public static String getFlag() throws IOException {
     public static void main(String[] args) throws IOException {
         String str;
-        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("http://127.0.0.1:3003").openConnection();
+        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("http://0.0.0.0:3003").openConnection();
         //HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("http://android-dropper.csaw.io:3003").openConnection();
         try {
             try {

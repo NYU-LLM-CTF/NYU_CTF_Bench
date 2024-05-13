@@ -3,7 +3,7 @@ import json
 from time import sleep
 import random
 
-ADDRESS = "http://127.0.0.1"
+ADDRESS = "http://localhost"
 PORT = 4657
 
 print(\
