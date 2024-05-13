@@ -1,7 +1,5 @@
-from Crypto.Cipher import AES
 import binascii
 from pwn import *
-from server import *
 
 """  
 RUN:   python solver.py 
@@ -13,7 +11,8 @@ USAGE: Solve part of the generated ciphertext, where 6,7,8 are blocks to decode:
                                                 // expandable by user to create even blocks                  
 """
 
-host = "localhost"  # "crypto.chal.csaw.io"
+AES_BLOCK_SIZE = 16
+host = "crypto.chal.csaw.io"
 port = 6000         # 6000
 server = remote(host, port)
 attempt_no = 0
@@ -45,7 +44,7 @@ def ask_oracle(p, ct):
     p.recvuntil(">")
     p.send("2\n")
     p.recvuntil(">")
-    p.send(ct + b"\n")
+    p.send(ct + "\n")
     p.recvline()
     ans = p.recvline()
     if ans.__contains__(b"Valid"):
@@ -57,7 +56,7 @@ def ask_oracle(p, ct):
 
 
 def block_copy(msg_raw, b_from, b_to):
-    blk_size = AES.block_size
+    blk_size = AES_BLOCK_SIZE
     msg = bytearray(msg_raw)
     msg[b_to * blk_size: (b_to + 1) * blk_size] = msg[b_from * blk_size: (b_from + 1) * blk_size]
     return bytes(msg)
@@ -67,14 +66,14 @@ def block_copy(msg_raw, b_from, b_to):
 
 
 def block_modify_ct(ct64, b_from, verbose=False):
-    d = b64decode(ct64)
+    d = b64d(ct64)
     if verbose:
         print_chunks(d, "BEFORE CP")
     blocks = get_blocks(d)
     d = block_copy(d, b_from, len(blocks) - 1)
     if verbose:
         print_chunks(d, "AFTER  CP")
-    ct = b64encode(d)
+    ct = b64e(d)
     if verbose:
         print_chunks(binascii.hexlify(d), "HEX CT   ", 32)
     return ct
@@ -86,7 +85,7 @@ def block_modify_ct(ct64, b_from, verbose=False):
 
 def attempt_send(p, input_a, input_b, blocks_to_decode):
     decoded, decoded_blocks = [], []
-    input_b += "b" * len(blocks_to_decode) * AES.block_size
+    input_b += "b" * len(blocks_to_decode) * AES_BLOCK_SIZE
     last_block_to_dec, decoded = blocks_to_decode[-1], []
     while True:
         ct_offic = get_ct(p, input_a, input_b)
@@ -107,7 +106,7 @@ def attempt_send(p, input_a, input_b, blocks_to_decode):
 
 
 def hex_decipher_text_c(msg, block_num, decoded):
-    blocks = split_len(b64decode(msg), 16)
+    blocks = split_len(b64d(msg), 16)
     block_n = blocks[-2][-1]
     block_p = blocks[block_num - 1][-1]
     cd = chr(int("10", 16) ^ block_n ^ block_p)
