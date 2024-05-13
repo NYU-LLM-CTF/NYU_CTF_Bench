@@ -9,5 +9,6 @@
   "minimum": 50,
   "decay": 275,
   "box": "crypto.chal.csaw.io",
-  "files":["encrypt.py", "leaked_password.txt", "encrypted_passwords.txt"]
+  "files":["encrypt.py", "leaked_password.txt", "encrypted_passwords.txt"],
+  "compose": true
 }
