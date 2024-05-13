@@ -11,6 +11,8 @@ fi
 
 contname=${prefix}-${cate}-${name}
 
-cd ./${year}/${event}/${cate}/${name}
+docker login 
+
+docker tag ${name} ${contname}
 docker tag ${contname} llmctf/${contname}
 docker push llmctf/${contname}

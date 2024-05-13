@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2023q-cry-blocky_noncense:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+    ports:
+      - "5002:5002"
+
+networks:
+  ctfnet:
+    external: true

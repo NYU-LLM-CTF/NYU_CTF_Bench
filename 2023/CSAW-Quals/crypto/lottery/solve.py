@@ -38,8 +38,8 @@ tickets = ((1, 2, 3, 26, 27, 28),
 			(63, 69, 24, 65, 22, 68))
 
 if __name__ == '__main__':
-	server = process(['python3','server.py'])
-	#server = remote("localhost",5000)
+	# server = process(['python3','server.py'])
+	server = remote("localhost",5000)
 	server.recvuntil(b'>> ')
 	server.sendline(str(len(tickets)).encode())
 	for ticket in tickets:
