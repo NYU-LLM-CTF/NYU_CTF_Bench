@@ -3,7 +3,6 @@ version: '3'
 services:
   game-server:
     image: llmctf/2022q-rev-the_big_bang
-    build: .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:

@@ -39,7 +39,7 @@ def http_connect():
                     # print(encoded_key)
                     post_data['data'] = encoded_key  # Replacing the post data with the right key
                     k = req_session.post(req_url, data=post_data, headers=req_headers, timeout=8)
-                    print("The flag is: {}".format(k.text))
+                    print("The flag is: flag{}".format(k.text))
                     print(k.status_code)
                     print(k.headers)
 
