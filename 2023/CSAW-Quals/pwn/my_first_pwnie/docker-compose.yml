@@ -9,8 +9,8 @@ services:
       ctfnet:
         aliases:
           - pwn.chal.csaw.io
-    ports:
-      - "31137:31137"
+    # ports:
+    #   - "31137:31137"
 
 networks:
   ctfnet:

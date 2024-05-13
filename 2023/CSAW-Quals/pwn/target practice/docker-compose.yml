@@ -2,15 +2,15 @@ version: '3'
 
 services:
   game-server:
-    image: llmctf/2023q-pwn-puffin:latest
+    image: llmctf/2023q-pwn-target_practice:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       ctfnet:
         aliases:
           - pwn.chal.csaw.io
-    # ports:
-    #   - "31140:31140"
+    ports:
+      - "31138:31138"
 
 networks:
   ctfnet:
