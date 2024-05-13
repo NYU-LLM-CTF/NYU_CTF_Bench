@@ -1,10 +1,10 @@
 import numpy as np
 import sys
-from cipher.cipher import Cipher
-from cipher.mathutils import random_poly
 from sympy.abc import x
 from sympy import ZZ, Poly
 import math
+
+from pwn import *
 
 # grab c_poly and h_poly from server interaction
 
@@ -24,13 +24,19 @@ def decrypt_bad_cipher(c_poly, h_poly):
     my_solt = my_poly.set_domain(ZZ).all_coeffs()[::-1]
     my_o = np.packbits(np.array(my_solt).astype(int)).tobytes().hex()
     my_o = bytes.fromhex(my_o)
-    print("MY OUTPUT: ", my_o)
+    return my_o.decode('ascii')
 
 def decrypt_bad_cipher_alt(c_poly, h_poly):
     my_poly = (c_poly - h_poly)
     my_o = poly_to_bytes(my_poly)
-    print("MY OUTPUT ALT: ", my_o)
+    return my_o.decode('ascii')
 
 if __name__ == "__main__":
-    decrypt_bad_cipher(c_poly, h_poly)
-    decrypt_bad_cipher_alt(c_poly, h_poly)
+    # decrypt_bad_cipher_alt(c_poly, h_poly)
+    password = decrypt_bad_cipher(c_poly, h_poly)
+    print("Password:", password)
+
+    p = remote("crypto.chal.csaw.io",5000)
+    p.sendline("3 " + password)
+    p.readuntil("??\n\n")
+    print("Flag:", p.readline()[:-1].decode('ascii'))

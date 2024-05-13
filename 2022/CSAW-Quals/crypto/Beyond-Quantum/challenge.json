@@ -10,5 +10,6 @@
   "decay": 275,
   "box": "crypto.chal.csaw.io",
   "internal_port": 5000,
-  "files": ["server.py", "cipher/cipher.py", "cipher/mathutils.py"]
+  "files": ["server.py", "cipher/cipher.py", "cipher/mathutils.py"],
+  "compose": true
 }
