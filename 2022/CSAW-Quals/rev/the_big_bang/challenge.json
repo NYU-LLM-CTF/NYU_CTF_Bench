@@ -10,6 +10,7 @@
   "decay": 275,
   "box": "rev.chal.csaw.io",
   "internal_port": "5000",
+  "compose": true,
   "files": [
     "challenge.py"
   ]

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  game-server:
+    image: asibench_2022q-rev-the_big_bang
+    build: .
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+    ports:
+      - "5000:5000"
+
+networks:
+  ctfnet:
+    external: true
