@@ -7,4 +7,5 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+python solution.py

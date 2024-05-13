@@ -6,7 +6,7 @@ import hashlib
 class Maze(nn.Module):
     pass
 
-maze=torch.load('./maze.pt')
+maze=torch.load('/home/ctfplayer/ctf_files/attachment/maze.pt')
 
 mymat=maze.state_dict()['maze.weight'].tolist()
 mazelen=len(mymat)
