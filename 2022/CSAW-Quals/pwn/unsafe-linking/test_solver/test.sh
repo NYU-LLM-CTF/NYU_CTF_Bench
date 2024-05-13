@@ -7,4 +7,6 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+pip install z3-solver
+
+python solution.py

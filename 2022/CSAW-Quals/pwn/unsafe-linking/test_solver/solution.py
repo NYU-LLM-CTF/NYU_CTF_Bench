@@ -15,7 +15,7 @@ from z3 import *
 T = 0x2
 context.arch='amd64'
 context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']
-p = remote("pwn.chal.csaw.io",5000)
+p = remote("pwn.chal.csaw.io",9999)
 # p= process("./unsafe-linking",env={"LD_PRELOAD":"./libc.so.6"})
 # p=remote("0.0.0.0",9999)
 sla 	= lambda a,b: 	p.sendlineafter(a,b,timeout=T)

@@ -12,5 +12,6 @@
     "share.zip"
   ],
   "box": "pwn.chal.csaw.io",
-  "internal_port": 9999
+  "internal_port": 9999,
+  "compose": true
 }
