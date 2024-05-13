@@ -2,7 +2,7 @@ version: '3'
 
 services:
   game-server:
-    image: asibench_2022q-rev-game
+    image: llmctf/2022q-rev-game
     build: .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

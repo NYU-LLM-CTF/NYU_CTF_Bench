@@ -14,5 +14,6 @@
       "linux.zip",
       "mac.app.zip"
     ],
-    "internal_port": 10010
+    "internal_port": 10010,
+    "compose": true
   }
