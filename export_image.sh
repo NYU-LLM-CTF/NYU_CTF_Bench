@@ -14,4 +14,4 @@ contname=${prefix}-${cate}-${name}
 
 mkdir /data/ctf_images/CSAW-CTF/${year}/${event}/${cate}/
 docker save -o /data/ctf_images/CSAW-CTF/${year}/${event}/${cate}/${tarname} ${contname}
-cp /data/ctf_images/CSAW-CTF/${year}/${event}/${cate}/${tarname} ./${year}/${event}/${cate}/${name}/
+# cp /data/ctf_images/CSAW-CTF/${year}/${event}/${cate}/${tarname} ./${year}/${event}/${cate}/${name}/
