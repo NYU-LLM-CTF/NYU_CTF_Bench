@@ -7,4 +7,4 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+curl -F "mFile=@CNN_model.h1.zip" -F "file-submit=upload" http://misc.chal.csaw.io:3000/single

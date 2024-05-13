@@ -12,5 +12,6 @@
     "box": "misc.chal.csaw.io",
     "files": [
         "inputs.zip"
-    ]
+    ],
+    "compose": true
 }
