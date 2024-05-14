@@ -1098,9 +1098,14 @@ uint64_t getPointer(uint64_t offset, uint8_t* pClientKey, uint8_t* pServerKey)
     return *(uint64_t*)readMessage;
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    socketFD = baseConnect("127.0.0.1", SALT_PORT);
+    if (argc != 2) {
+        LOGI("Provide server IP/name\n");
+        exit(0);
+    }
+        
+    socketFD = baseConnect(argv[1], SALT_PORT);
     uint8_t publicKey[32], privateKey[32];
     uint8_t pClientKey[64], pServerKey[64], serverPublicKey[32], masterKey[64];
     ssize_t ret;

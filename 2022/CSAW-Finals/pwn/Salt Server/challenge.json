@@ -14,5 +14,6 @@
     "minimum": 50,
     "decay": 20,
     "files": ["src/saltserver"],
-    "internal_port": 8787
+    "internal_port": 8787,
+    "compose": true
 }

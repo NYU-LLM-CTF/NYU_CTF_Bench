@@ -7,4 +7,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+
+sudo apt install -y dnsutils
+ADDR=$(nslookup pwn.chal.csaw.io | sed -n '/^Address: \([0-9]\+\.\)\{3\}[0-9]\+/s/Address: //p')
+./saltclient $ADDR
