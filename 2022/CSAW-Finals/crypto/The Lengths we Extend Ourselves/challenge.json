@@ -17,5 +17,6 @@
   "files": [
   "msg_log_26220.txt",
   "message_maker.py"
-  ]
+  ],
+  "compose": true
 }
