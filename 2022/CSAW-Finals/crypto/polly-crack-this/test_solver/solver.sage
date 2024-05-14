@@ -8,10 +8,8 @@ R = PolynomialRing(K,2,'x',order='degrevlex')
 R.inject_variables()
 
 # [CONNECT TO SERVER]
-#host = "crypto.chal.csaw.io"
-#port = 5002         # 6000
-host = "localhost"
-port = 8192         # 6000
+host = "crypto.chal.csaw.io"
+port = 6000
 server = remote(host, port)
 
 # [GET GROEBNER BASIS]
@@ -35,7 +33,8 @@ c2 = sage_eval(c2_.decode('utf-8'), locals=globals())
 # [DECRYPT USING HOMOMORPHIC PROPERTIES]
 int_dec = ((c0 + c1 + c2 - 123)/999).reduce(gb)
 print(int_dec)
-print(binascii.unhexlify(hex(int(int_dec))[2:]))
+flag = binascii.unhexlify(hex(int(int_dec))[2:]).decode('utf-8')
+print(f"flag{{{flag}}}")
 
 
 server.close()

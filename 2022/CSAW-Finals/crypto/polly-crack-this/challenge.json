@@ -14,5 +14,6 @@
     "path": "/opt/chal/flag.txt"
      },
      "box": "crypto.chal.csaw.io",
-     "internal_port": 6000
+     "internal_port": 6000,
+     "compose": true
   }
