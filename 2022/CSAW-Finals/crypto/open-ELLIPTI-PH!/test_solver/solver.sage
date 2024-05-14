@@ -1,19 +1,19 @@
 set_verbose(-2)
 
-load('../src/mv_ecc.sage')
+load('/home/ctfplayer/ctf_files/src/mv_ecc.sage')
 
 import os
 import binascii
-from subprocess import call
+from subprocess import run, PIPE
 os.environ['PWNLIB_NOTERM'] = '1'
 from pwn import *
 
 
 # [CONNECT TO SERVER]
-#host = "crypto.chal.csaw.io"
-#port = 5005         # 6000
-host = "localhost"
-port = 8192         # 6000
+host = "crypto.chal.csaw.io"
+port = 6000
+#host = "localhost"
+#port = 8192         # 6000
 server = remote(host, port)
 
 
@@ -86,7 +86,8 @@ f = open('cipher.enc', 'w')                         # WE CAN 'ECHO XXX | openssl
 f.write(cipher_enc)
 f.close()
 
-call(['openssl', 'enc',  '-aes256', '-base64', '-k', secret_key64, '-d', '-in', 'cipher.enc', '-md', 'sha512'])
-
+result = run(['openssl', 'enc',  '-aes256', '-base64', '-k', secret_key64, '-d', '-in', 'cipher.enc', '-md', 'sha512'], stdout=PIPE)
+flag = result.stdout.decode('utf-8')
+print(f"flag{{{flag}}}")
 
 server.close()
