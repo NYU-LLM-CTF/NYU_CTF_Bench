@@ -111,4 +111,4 @@ from Crypto.Util.number import *
 m = bytes_to_long(encflag)
 ttt = prng.clock()
 ttt = prng.clock()
-print(long_to_bytes(ttt ^^ m))
+print(long_to_bytes(ttt ^^ m).decode("utf-8"))

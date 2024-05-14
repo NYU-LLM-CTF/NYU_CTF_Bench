@@ -8,7 +8,6 @@
       "type": "static",
       "path": ""
     },
-    "box": "crypto.chal.csaw.io",
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,
