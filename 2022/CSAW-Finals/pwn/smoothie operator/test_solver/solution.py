@@ -21,7 +21,7 @@ def exploit():
                 return process('../source/build/smoothie_operator')
         else:
             # return remote('127.0.0.1', 6666)
-            return remote('pwn.chal.csaw.io', 5022)
+            return remote('pwn.chal.csaw.io', 6666)
 
     def print_queue():
         p.send(b"1\n")

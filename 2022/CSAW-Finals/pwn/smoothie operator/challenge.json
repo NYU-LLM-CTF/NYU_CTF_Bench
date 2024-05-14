@@ -16,6 +16,7 @@
       "public/libc-2.31.so"
     ],
     "internal_port": 6666,
-    "box": "pwn.chal.csaw.io"
+    "box": "pwn.chal.csaw.io",
+    "compose": true
   }
   

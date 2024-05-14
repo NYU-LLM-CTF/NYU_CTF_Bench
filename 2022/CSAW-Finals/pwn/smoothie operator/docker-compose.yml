@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  smoothieoperator-server:
+    image: llmctf/2022f-pwn-smoothie_operator
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
