@@ -21,5 +21,5 @@ if __name__ == "__main__":
   
     res = decrypt(value, key)
     print("Decrypted data is : ", hex(res[0]), hex(res[1]))
-    print("Flag is : %s"%(n2s(res[0])[::-1]+n2s(res[1])[::-1]).decode())
+    print("Flag is : flag{%s}"%(n2s(res[0])[::-1]+n2s(res[1])[::-1]).decode())
     #sl!c3Ye5
