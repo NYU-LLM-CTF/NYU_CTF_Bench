@@ -1,0 +1,6 @@
+{
+  "retries": 100,
+  "labels": [
+    "slow"
+  ]
+}

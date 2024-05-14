@@ -15,5 +15,6 @@
       "type": "dynamic",
       "path": "/home/ctf/flag"
     },
-    "files":["share.zip"]
+    "files":["share.zip"],
+    "compose": true
 }

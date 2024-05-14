@@ -1,8 +1,8 @@
 from pwn import *
 context.arch='amd64'
-context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']
+# context.terminal = ['tmux', 'splitw', '-h', '-F' '#{pane_pid}', '-P']
 #context.log_level = 'debug'
-p= remote("localhost",5001)
+p= remote("pwn.chal.csaw.io",9999)
 #p=process('./cryptown',env={"LD_PRELOAD":"./libc-2.31.so"})
 # p=process('./cryptown')#,env={"LD_PRELOAD":"./libc-2.31.so"})
 
