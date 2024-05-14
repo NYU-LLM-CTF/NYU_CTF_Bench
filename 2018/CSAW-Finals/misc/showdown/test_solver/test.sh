@@ -7,4 +7,4 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+(sleep 1 ; echo -en '\020\021') | nc showdown.csaw.io 9222

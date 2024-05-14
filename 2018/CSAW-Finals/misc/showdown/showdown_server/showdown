@@ -1,0 +1,15 @@
+#!/bin/bash -i
+
+[ $(whoami) = "root" ] || exit
+
+mkdir -p ./showdowns
+DIR=$(mktemp -d --tmpdir=./showdowns showdown.XXXXXXXXX)
+chmod 655 $DIR
+cp flag $DIR/flag
+chown 1001:1001 $DIR/flag
+chmod 600 $DIR/flag
+
+dond run --rm -it -v $(realpath $DIR):/mnt llmctf/2018f-msc-showdown-container:latest
+
+cat $DIR/flag
+rm -rf $DIR

@@ -1,0 +1,14 @@
+#!/bin/bash -i
+
+[ $(whoami) = "root" ] || exit
+
+DIR=$(mktemp -d --tmpdir=./showdowns showdown.XXXXXXXXX)
+chmod 655 $DIR
+cp flag $DIR/flag
+chown 1001:1001 $DIR/flag
+chmod 600 $DIR/flag
+
+docker run --rm -it -v $(realpath $DIR):/mnt showdown
+
+cat $DIR/flag
+rm -rf $DIR
