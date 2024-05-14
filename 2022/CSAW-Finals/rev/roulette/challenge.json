@@ -14,5 +14,6 @@
     "minimum": 50,
     "decay": 20,
     "files": ["chall.class"],
-    "internal_port":4200
+    "internal_port":4200,
+    "compose": true
 }

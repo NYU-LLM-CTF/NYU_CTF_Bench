@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  roulette-server:
+    image: llmctf/2022f-rev-roulette
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
