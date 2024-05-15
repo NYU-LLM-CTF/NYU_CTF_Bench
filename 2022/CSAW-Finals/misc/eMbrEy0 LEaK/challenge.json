@@ -15,5 +15,6 @@
     "decay": 20,
     "files": ["attachment/service.py"],
     "internal_port":9999,
-    "box": "misc.chal.csaw.io"
+    "box": "misc.chal.csaw.io",
+    "compose": true
 }
