@@ -1,10 +1,10 @@
 version: '3'
 services:
   web:
-    image: llmctf/2023f-cry-textbook_rsa-web:latest
+    image: llmctf/2023f-for-ancient_forensics:latest
     # build: ./server
     ports:
-      - 3000:80
+      - 12312:5000
     networks:
       ctfnet:
         aliases:
