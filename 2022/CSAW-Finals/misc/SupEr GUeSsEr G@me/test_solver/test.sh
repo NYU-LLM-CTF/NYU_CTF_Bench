@@ -7,4 +7,4 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+nc misc.chal.csaw.io 9998 < payload.txt

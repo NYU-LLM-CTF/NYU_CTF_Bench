@@ -15,5 +15,6 @@
     "minimum": 50,
     "decay": 20,
     "internal_port":9998,
-    "files": ["attachment/service.py"]
+    "files": ["attachment/service.py"],
+    "compose": true
   }
