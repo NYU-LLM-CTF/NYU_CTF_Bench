@@ -4,6 +4,7 @@
   "description": "Did I do that?",
   "author": "aakhtar3",
   "category": "misc",
+  "box": "misc.chal.csaw.io",
   "flag": "csawctf{G0+___4NY___CH3333333333333333S3}",
   "points": 500,
   "internal_port": 1337

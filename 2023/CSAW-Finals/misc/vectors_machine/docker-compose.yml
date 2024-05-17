@@ -1,10 +1,10 @@
 version: '3'
 services:
   web:
-    image: llmctf/2023f-msc-urkel:latest
+    image: llmctf/2023f-msc-vectors_machine:latest
     # build: ./server
     ports:
-      - 12312:1337
+      - 12312:3001
     networks:
       ctfnet:
         aliases:

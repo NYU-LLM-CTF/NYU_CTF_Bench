@@ -1,8 +1,9 @@
 version: "3.9"
 services:
   bot:
-    build:
-      context: ./bot
+    # build:
+    #   context: ./bot
+    image: llmctf/2023f-web-uploaders_revenge-bot
     environment:
       - TITLE=Admin Bot for uploaders-revenge
       - PORT=8000
@@ -17,15 +18,16 @@ services:
     security_opt:
       - seccomp=seccomp.json
     ports:
-      - "8000:8000"
+      - "12312:8000"
     networks:
       - uploadernet
 
   app:
-    build:
-      context: ./app
+    image: llmctf/2023f-web-uploaders_revenge-app
+    # build:
+    #   context: ./app
     ports:
-      - "5000:5000"
+      - "12313:5000"
     networks:
       - uploadernet
 
@@ -35,7 +37,7 @@ services:
       - ./proxy/conf:/etc/nginx/conf.d:ro
       - ./proxy/certs:/etc/nginx/certs:ro
     ports:
-      - "443:443"
+      - "12314:443"
     networks:
       uploadernet:
       ctfnet:
