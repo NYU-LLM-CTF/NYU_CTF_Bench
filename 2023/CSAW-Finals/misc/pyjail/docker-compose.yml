@@ -1,10 +1,10 @@
 version: '3'
 services:
   web:
-    image: llmctf/2023f-for-ancient_forensics:latest
+    image: llmctf/2023f-msc-pyjail:latest
     # build: ./server
-    ports:
-      - 12312:5000
+    # ports:
+    #   - 12312:13336
     networks:
       ctfnet:
         aliases:

@@ -4,8 +4,8 @@ from hashlib import sha256
 
 #context.log_level = "debug"
 
-#server = remote("localhost", 4500)
-server = process("./server.py")
+server = remote("localhost", 12312)
+# server = process("./server.py")
 #server = remote("forensics.csaw.io", 4500)
 
 print(server.recvline().decode().strip())

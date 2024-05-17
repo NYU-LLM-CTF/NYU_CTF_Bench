@@ -83,7 +83,7 @@ def encode_flag(flag: str) -> str:
     return encode_emoji_cipher(binary_chars)
 
 flag = 'csawctf{emoji_game_on_fleeeeeeeeeek}'
-encoded = encode_flag(flag)
+encoded: str = encode_flag(flag)
 print(encoded)
 
 '''

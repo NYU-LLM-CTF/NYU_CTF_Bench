@@ -1,14 +1,14 @@
 version: '3'
 services:
   web:
-    image: llmctf/2023f-for-ancient_forensics:latest
+    image: llmctf / 2023f-for-keylogger1:latest
     # build: ./server
     ports:
-      - 12312:5000
+      - 12312:3000
     networks:
       ctfnet:
         aliases:
-          - misc.chal.csaw.io
+          - rev.chal.csaw.io
 
 networks:
   ctfnet:

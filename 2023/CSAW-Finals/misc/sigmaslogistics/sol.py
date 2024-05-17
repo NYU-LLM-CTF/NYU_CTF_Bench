@@ -5,7 +5,7 @@ flag = []
 
 def model(x):
     #p = process("./chal.py")
-    p = remote("mandf.csaw.io", 3000)
+    p = remote("localhost", 12312)
     #p.interactive()
     for i in x:
         p.sendlineafter("Enter your input: ", str(i))
