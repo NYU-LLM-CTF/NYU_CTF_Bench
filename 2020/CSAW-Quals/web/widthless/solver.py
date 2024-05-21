@@ -32,14 +32,14 @@ def unstegify(content):
 def main():
 
     # solve for first part
-    resp = requests.get("http://127.0.0.1:5000/")
+    resp = requests.get("http://localhost:5000/")
     content = list(resp.content)
     pwd_one = unstegify(content)
 
     print(zwsp_steg.decode(pwd_one))
 
     # solve for second part
-    resp = requests.get("http://127.0.0.1:5000/ahsdiufghawuflkaekdhjfaldshjfvbalerhjwfvblasdnjfbldf/alm0st_2_3z")
+    resp = requests.get("http://localhost:5000/ahsdiufghawuflkaekdhjfaldshjfvbalerhjwfvblasdnjfbldf/alm0st_2_3z")
     content = [c for c in resp.content.split() if c in ALLOWED]
     decoded = b"".join(content)
     print(zwsp_steg.decode(str(decoded.decode())))

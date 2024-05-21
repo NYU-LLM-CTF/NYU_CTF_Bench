@@ -219,8 +219,8 @@ def make_second_stage_fs(address_of_system: int):
 
 
 def main():
-    #r = remote("localhost", 8000)
-    r = remote("pwn.chal.csaw.io", "5017")
+    r = remote("localhost", 12380)
+    # r = remote("pwn.chal.csaw.io", "5017")
     # r = process("./feather", env={"LD_PRELOAD": "./libc-2.27.so"})
     # gdb.attach(r, "")
 
