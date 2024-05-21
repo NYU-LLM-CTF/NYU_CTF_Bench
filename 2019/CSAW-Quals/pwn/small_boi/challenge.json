@@ -5,5 +5,6 @@
     "flag": "flag{sigrop_pop_pop_pop}",
     "points": 100,
     "internal_port": 8000,
+    "box": "pwn.chal.csaw.io",
     "files": ["small_boi"]
 }

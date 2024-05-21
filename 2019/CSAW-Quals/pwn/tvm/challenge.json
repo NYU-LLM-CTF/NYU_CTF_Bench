@@ -5,5 +5,6 @@
   "flag": "flag{C4nt_3vEn_Tru5t_4_GCM_TVM}",
   "points": 400,
   "internal_port": 8000,
+  "box": "pwn.chal.csaw.io",
   "files": ["dist/tvm", "dist/tvm.h", "dist/TVM.pdf"]
 }

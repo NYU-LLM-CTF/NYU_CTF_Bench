@@ -3,7 +3,7 @@ import string
 from Crypto.Cipher import AES
 from pwn import *
 
-p = remote("0.0.0.0", 4040)
+p = remote("localhost", 12312)
 p.recvuntil(": ")
 
 results = []
@@ -16,7 +16,7 @@ for i in range(0, 17):
 	results.append({"result":result, "length":i})
 	prev = results[len(results)-2]
 	if prev["result"][0:64] == result[0:64] and len(results) > 1:
-		print "padding length found: " + str(prev["length"])
+		print("padding length found: " + str(prev["length"]))
 		padding = prev["length"]
 		break
 
@@ -55,4 +55,4 @@ while found != '}':
 			flag += i
 			found = i
 			break
-	print flag
+	print(flag)

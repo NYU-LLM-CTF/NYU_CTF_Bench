@@ -5,5 +5,6 @@
   "flag": "flag{don_t_you_wish_your_libc_was_non_vtabled_like_mine_29}",
   "points": 350,
   "internal_port": 8000,
+  "box": "pwn.chal.csaw.io",
   "files": ["popping_caps", "libc.so.6"]
 }

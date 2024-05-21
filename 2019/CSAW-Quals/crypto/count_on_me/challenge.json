@@ -5,5 +5,6 @@
     "flag": "flag{U_c@n_coUn7_0n_m3_l1kE_123}",
     "points": 100,
     "internal_port": 1337,
+    "box": "crypto.chal.csaw.io",
     "files": ["chal.py"]
 }

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2019q-cry-brillouin:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+    ports:
+      - "12312:8000"
+
+networks:
+  ctfnet:
+    external: true

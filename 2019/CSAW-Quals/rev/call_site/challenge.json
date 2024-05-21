@@ -5,5 +5,6 @@
     "flag": "flag{you_got_the_call_site}",
     "points": 100,
     "internal_port": 8000,
+    "box": "rev.chal.csaw.io",
     "files": ["callsite"]
 }
