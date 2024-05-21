@@ -4,32 +4,32 @@ from pwn import *
 from tqdm import tqdm
 context.log_level= "warn"
 
-# def model(x):
-#     #p = process("./chal.py")
-#     p = remote("localhost", 3000)
+def model(x):
+    #p = process("./chal.py")
+    p = remote("localhost", 12312)
    
-#     for i in range(2):
-#         p.sendlineafter(b"Enter your input: ", bytes(str(x[i]), 'utf-8'))
-#         #p.sendlineafter(b"Enter your input: ", str(x[i]))
+    for i in range(2):
+        p.sendlineafter(b"Enter your input: ", bytes(str(x[i]), 'utf-8'))
+        #p.sendlineafter(b"Enter your input: ", str(x[i]))
     
-#     p.recvuntil(b"Calculating. . .\r\n")
-#     res = p.recvline()
-#     p.close()
-#     if res == b"Cool numbers! :)\r\n":
-#         return 1
-#     else:
-#         return -1
+    p.recvuntil(b"Calculating. . .\r\n")
+    res = p.recvline()
+    p.close()
+    if res == b"Cool numbers! :)\r\n":
+        return 1
+    else:
+        return -1
 
 # For quicker calculations instead of running a program or connecting remotely.
-def model(x):
-    w1 = 78488453.8580
-    w2 = 1
-    b = 80488255.5168
-    total = (w1*x[0]) + (w2*x[1]) + b
-    if total < 0:
-        return -1
-    else:
-        return 1
+# def model(x):
+#     w1 = 78488453.8580
+#     w2 = 1
+#     b = 80488255.5168
+#     total = (w1*x[0]) + (w2*x[1]) + b
+#     if total < 0:
+#         return -1
+#     else:
+#         return 1
 
 # Finds the midpoint closest to svm boundary.
 def find_line(loop, p1, p2):

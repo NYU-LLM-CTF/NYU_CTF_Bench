@@ -10,7 +10,7 @@ services:
       - shreeramquest
 
   nodeserver:
-    image: asibench_2023f-web-shreeramquest-nodeserver:latest
+    image: llmctf/2023f-web-shreeramquest-nodeserver:latest
     build:
       context: . # Use the current directory as the build context
       dockerfile: Dockerfile # Use the Dockerfile described above
@@ -24,7 +24,7 @@ services:
       - shreeramquest
 
   nginx:
-    image: asibench_2023f-web-shreeramquest-nginx:latest
+    image: llmctf/2023f-web-shreeramquest-nginx:latest
     build:
       context: ./nginx
       dockerfile: Dockerfile

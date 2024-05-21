@@ -13,6 +13,6 @@
     "minimum": 50,
     "decay": 20,
     "files": [],
-    "box": "127.0.0.1",
+    "box": "misc.chal.csaw.io",
     "internal_port":3001
 }

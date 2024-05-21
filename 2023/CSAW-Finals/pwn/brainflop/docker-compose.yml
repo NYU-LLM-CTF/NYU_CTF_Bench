@@ -1,14 +1,14 @@
 version: '3'
 services:
   web:
-    image: llmctf/2023f-msc-urkel:latest
+    image: llmctf/2023f-pwn-brainflop:latest
     # build: ./server
     ports:
-      - 12312:1337
+      - 12312:9999
     networks:
       ctfnet:
         aliases:
-          - misc.chal.csaw.io
+          - pwn.chal.csaw.io
 
 networks:
   ctfnet:
