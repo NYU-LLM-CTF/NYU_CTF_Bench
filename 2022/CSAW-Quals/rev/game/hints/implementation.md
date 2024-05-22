@@ -1,0 +1,105 @@
+Run the following python script to get the flag:
+
+```
+from pwn import *
+
+box = 'rev.chal.csaw.io'
+port = 5000
+flag = b''
+
+# end path --> 1, 3, 1, 2, 2, 2, 3, 2.
+server = remote(box, port)
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'3')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'3')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recv())
+
+# flag1 path --> 1, 1.					Password --> 4013828393
+server = remote(box, port)
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'form?: \n'))
+server.sendline(b'4013828393')
+flag += server.recv()
+
+# flag2 path --> 2, 2, 2.				Password --> 1118844294
+server = remote(box, port)
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'form?: \n'))
+server.sendline(b'1118844294')
+flag += server.recv()
+
+# flag3 path --> 1, 3, 1, 3.			Password --> 3000956154
+server = remote(box, port)
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'3')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'3')
+print(server.recvuntil(b'form?: \n'))
+server.sendline(b'3000956154')
+flag += server.recv()
+
+# flag4 path --> 1, 3, 1, 2, 2, 1.		Password --> 3658736598
+server = remote(box, port)
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'3')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'form?: \n'))
+server.sendline(b'3658736598')
+flag += server.recv()
+
+# flag5 path --> 1, 3, 1, 2, 2, 2, 2.	Password --> 1688072995
+server = remote(box, port)
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'3')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'1')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'Choice: '))
+server.sendline(b'2')
+print(server.recvuntil(b'form?: \n'))
+server.sendline(b'1688072995')
+flag += server.recv()
+
+print(flag)
+```

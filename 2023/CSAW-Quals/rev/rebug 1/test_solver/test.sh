@@ -7,4 +7,5 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+chmod +x ~/ctf_files/test.out
+echo -n "123456789abc" | ~/ctf_files/test.out
