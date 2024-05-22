@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  </head>
+  <body>
+    <section class="section mb-3 pb-3">
+      <div id="stream"></div>
+    </section>
+    <section class="section">
+      <div class="container">
+
+      <div class="columns">
+
+      <div class="column is-8">
+        <h1 class="title mb-0 pb-0">Current <span id="money"></span></h1>
+        <span id="error"></span><br/>
+
+        <span id="status"></span><br/>
+        <div class="control has-icons-left">
+          <input class="input is-large" id="bet" type="number" placeholder="Enter Bet" disabled></input>
+          <span class="icon is-medium is-left"><i class="fas fa-dollar-sign"></i></span>
+        </div>
+
+        <div class="buttons has-addons">
+          <button id="a" class="button is-primary" style="width: 50%" disabled>Bet On Snail A</button>
+          <button id="b" class="button is-info" style="width: 50%" disabled>Bet On Snail B</button><br/>
+        </div>
+
+        <div id="namediv" style="display:none"><div class="columns">
+
+        <div class="column is-6">
+          <button class="button is-success is-fullwidth" id="flag1button">Buy Flag 1 ($250,000)</button>
+          <span id="flag"></span><br/>
+          <div id="flagdiv" style="display:none">
+            <button class="button is-success" id="flag2button">Buy Flag 2 ($1,000,000,000,000,000,000)</button>
+          </div>
+        </div>
+
+        <div class="column is-6">
+          <div class="control">
+            <input class="input" id="name" placeholder="Snail Name" maxlength=5000></input>
+            <button class="button is-fullwidth" id="namebutton">Name Snail ($250,000)</button>
+            <span id="error2"></span><br/>
+          </div>
+        </div>
+
+        </div></div>
+      </div>
+
+      <div class="column is-4">
+      <div class="has-text-centered">Payout Information</div>
+      <pre id="odds" style="height: calc( 100% - 20px )"></pre><br/>
+
+
+
+      </div>
+
+      </div>
+
+
+      <script src="https://embed.twitch.tv/embed/v1.js"></script>
+      <script src="/static/bet.js"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+    </section>
+  </body>
+</html>

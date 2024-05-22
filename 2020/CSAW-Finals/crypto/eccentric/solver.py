@@ -17,7 +17,7 @@ P = E(Px, Py)
 print(G)
 
 x = SSSA_Attack(F, E, G, P)
-print "[+] x = %d" % x
+print("[+] x = %d" % x)
 print(hex(x))
 
 assert(G * x == P)

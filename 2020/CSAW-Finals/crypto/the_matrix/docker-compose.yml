@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2020f-cry-the_matrix:latest
+    # build: ./server
+    ports:
+      - 12380:5000
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

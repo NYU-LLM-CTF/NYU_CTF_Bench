@@ -2,11 +2,11 @@ version: '3'
 services:
 
   server:
-    image: asibench_2020f-web-comment_anywhere-server:latest
+    image: llmctf/2020f-web-comment_anywhere-server:latest
     build:
       context: ./server
     ports:
-      - "8000:8000"
+      - "12380:8000"
     networks:
       ctfnet:
         aliases:
@@ -14,7 +14,7 @@ services:
           - comment-anywhere.chal.csaw.io
 
   admin:
-    image: asibench_2020f-web-comment_anywhere-admin:latest
+    image: llmctf/2020f-web-comment_anywhere-admin:latest
     build:
       context: .
       dockerfile: ./admin/Dockerfile

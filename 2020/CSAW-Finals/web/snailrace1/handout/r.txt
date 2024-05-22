@@ -1,0 +1,13 @@
+cachelib==0.1.1
+click==7.1.2
+Flask==1.1.2
+Flask-Session==0.3.2
+itsdangerous==1.1.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+obs-websocket-py==0.5.1
+PyJWT==1.7.1
+redis==3.5.3
+six==1.15.0
+websocket-client==0.57.0
+Werkzeug==1.0.1

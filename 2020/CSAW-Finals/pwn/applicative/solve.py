@@ -1,7 +1,7 @@
 from pwn import *
 
 #p = process("./applicative")
-p = remote("localhost", 8000)
+p = remote("12380", 8000)
 e = ELF("./applicative")
 
 cout = e.got["_ZNSolsEm"] #operator<< technically
