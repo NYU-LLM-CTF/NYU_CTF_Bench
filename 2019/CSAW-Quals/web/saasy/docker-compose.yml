@@ -1,7 +1,8 @@
 version: "2"
 services:
   sql-challenge:
-    build: ./app
+    image: llmctf/2019q-web-saasy-sql-challenge
+    # build: ./app
     container_name: sql-challenge
     links:
       - sql-challenge-db

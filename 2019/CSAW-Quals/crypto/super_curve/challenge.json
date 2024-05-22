@@ -5,5 +5,6 @@
     "flag": "flag{use_good_params}",
     "points": 300,
     "internal_port": 8000,
+    "box": "crypto.chal.csaw.io",
     "files": ["server.py", "supercurve.py"]
 }

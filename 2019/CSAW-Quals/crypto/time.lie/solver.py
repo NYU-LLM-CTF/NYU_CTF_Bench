@@ -1,101 +1,213 @@
 import requests
-import re
-from xml.etree import ElementTree
+import os
 from music21 import *
-import pickle
-from sage.all import *
+from Crypto.Util.number import *
+import threading
 
-def get_new_sheet():
-    # s = corpus.parse('mozart/k156/movement1.xml')
-    # s = corpus.parse('bach/bwv65.2.xml')
-    # output_fname = 'k151.xml'
-    # output_fname='bwv65.xml'
-    s = corpus.parse('bach/bwv1.6.mxl')
-    output_fname = 'bwv16.xml'
-    open(output_fname, 'w+').close()
-    s.write('musicxml', output_fname)
 
-def get_seed_from_base(addr, fname, index):
-    target = addr + '/musicin'
-    r = requests.post(target, files={'file':('file.xml', open(fname,'rb'))})
-    new_filename = str('/'.join(r.url.split('/')[-2:]))
+def _eval_at(poly, x, prime):
+    '''evaluates polynomial (coefficient tuple) at x, used to generate a
+    shamir pool in make_random_shares below.
+    '''
+    accum = 0
+    for coeff in reversed(poly):
+        accum *= x
+        accum += coeff
+        accum %= prime
+    return accum
 
-    r = requests.get(addr+'/'+new_filename)
-    with open('solve/'+str(index)+'.xml', 'w') as out:
-        out.write(r.text)
-    return 'solve/'+str(index)+'.xml'
+def _extended_gcd(a, b):
+    '''
+    division in integers modulus p means finding the inverse of the
+    denominator modulo p and then multiplying the numerator by this
+    inverse (Note: inverse of A is B such that A*B % p == 1) this can
+    be computed via extended Euclidean algorithm
+    http://en.wikipedia.org/wiki/Modular_multiplicative_inverse#Computation
+    '''
+    x = 0
+    last_x = 1
+    y = 1
+    last_y = 0
+    while b != 0:
+        quot = a // b
+        a, b = b, a%b
+        x, last_x = last_x - quot * x, x
+        y, last_y = last_y - quot * y, y
+    return last_x, last_y
 
-def xor_chords(a, b):
-    a.removeRedundantPitchClasses()
-    b.removeRedundantPitchClasses()
+def _divmod(num, den, p):
+    '''compute num / den modulo prime p
+
+    To explain what this means, the return value will be such that
+    the following is true: den * _divmod(num, den, p) % p == num
+    '''
+    inv, _ = _extended_gcd(den, p)
+    return num * inv
+
+def _lagrange_interpolate(x, x_s, y_s, p):
+    '''
+    Find the y-value for the given x, given n (x, y) points;
+    k points will define a polynomial of up to kth order
+    '''
+    k = len(x_s)
+    assert k == len(set(x_s)), "points must be distinct"
+    def PI(vals):  # upper-case PI -- product of inputs
+        accum = 1
+        for v in vals:
+            accum *= v
+        return accum
+    nums = []  # avoid inexact division
+    dens = []
+    for i in range(k):
+        others = list(x_s)
+        cur = others.pop(i)
+        nums.append(PI(x - o for o in others))
+        dens.append(PI(cur - o for o in others))
+    den = PI(dens)
+    num = sum([_divmod(nums[i] * den * y_s[i] % p, dens[i], p)
+               for i in range(k)])
+    return (_divmod(num, den, p) + p) % p
+
+def recover_secret(shares, prime):
+    '''
+    Recover the secret from share points
+    (x,y points on the polynomial)
+    '''
+    if len(shares) < 2:
+        raise ValueError("need at least two shares")
+    x_s, y_s = zip(*shares)
+    return _lagrange_interpolate(0, x_s, y_s, prime)
+
+
+P = 101109149181191199401409419449461491499601619641661691809811881911
+
+
+
+
+#s = converter.parse("sice.xml")
+#print s
+
+def sendfile(filename, seen, shares):
+
+  up = open(filename, "rb")
+  files = {'file': up}
+
+  url = "http://localhost:12312/musicin"
+  r = requests.post(url, files=files, allow_redirects=True)
+  res = r.content
+  uuid = res.split("/musicals/")[1].split('"')[0]
+  url2 = "http://localhost:12312/musicals/" + uuid
+  ret = requests.get(url2)
+
+  sice = ret.content
+  piece2 = sice.split("<work-title>")[1].split("</work-title>")[0]
+  temp = open(str(piece2) + ".xml", "wb")
+  temp.write(sice)
+  temp.close()
+
+  new = get_pitches(str(piece2) + ".xml")
+
+  sices = []
+  stream = ""
+  for i in range(len(new)):
+    curnum = 0
     for p in range(12):
-        if p in a.pitchClasses:
-            if p in b.pitchClasses:
-                b.remove(b[b.pitchClasses.index(p)])
-            else:
-                b.add(pitch.Pitch(p, octave=4))
-    return b
+      if (p in orig[i] and p not in new[i]) or (p not in orig[i] and p in new[i]) : #one
+        curnum = curnum | (1 << p)
+    sices.append(curnum)
+    stream += hex(curnum).replace("0x", "").zfill(3)
+  print(stream)
+  for i in range(40, 60):
+    if stream[:i] == stream[i:2*i]:
+      stream = stream[:i]
+      break
+  print(piece2)
+  print(stream)
+  if piece2 in seen:
+    return
+  seen[piece2] = True
+  shares.append([int(piece2), int(stream, 16)])
+  if len(shares) > 1:
+    print(repr(long_to_bytes(recover_secret(shares, P))))
+  up.close()
+  return
 
-def chord_to_nybbles(chord):
-    l = chord.pitchClasses
-    l = sorted(l)
-    num = 0
-    for i in l:
-        num |= (1 << i)
-    num = hex(num).replace('0x','')
-    num = '0'*(3-len(num)) + num
-    return num
 
-def do_xor(fname, origfname):
-    s = converter.parse(fname)    
-    title = s.metadata.title
-    # chords = s.chordify().flat.getElementsByClass('Chord')
-    chords = s.flat.getElementsByClass('Chord')
-    chords = list(chords)
-    # chords.pop(13)
-    t = converter.parse(origfname)
-    tchords = t.chordify().flat.getElementsByClass('Chord')
-    res = []
-    i = 0
-    for a, b in zip(chords,tchords):
-        i+=1
-        res.append(xor_chords(a,b))
-    fin = []
-    for r in res[1:]:
-        fin.append(chord_to_nybbles(r))
-    return (title, ''.join(fin))
+#sice = sendfile("sice.xml")
+#a = open("ret.xml", "wb")
+#a.write(sice)
+#a.close()
 
-def rederive(shares, fieldspace):
-    field = GF(fieldspace)
-    ring = field['x']
-    fixed = []
-    for x, y in shares:
-        x_ = field(x)
-        y_ = field(y)
-        fixed.append((x_,y_))
-    polynomial = ring.lagrange_polynomial(fixed)
-    return polynomial
+def get_pitches(filename):
 
-if __name__ == '__main__':
-    # get_new_sheet()
-    seeds = []
-    for i in range(20):
-        seeds.append(do_xor(get_seed_from_base('http://127.0.0.1:1234','bwv16.xml',i), 'bwv16.xml'))
-    #pickle.dump(seeds, open('xxxx.pickle','wb'))
+  s = converter.parse(filename)
+  chords = s.chordify().flat.getElementsByClass('Chord')
 
-    # newseeds = seeds + pickle.load(open('seeds.pickle','rb'))
+  original_pitches = []
 
-    # a = pickle.load(open('seeds.pickle','rb'))
-    # b = pickle.load(open('newseeds.pickle', 'rb'))
-    # seeds = a+b
-    fixed = []
-    for s in seeds:
-        num = s[1].split('000')[0]
-        if len(num) == 54:
-            num = int(num,16)
-            fixed.append((int(s[0]), num))
-    print len(fixed)
-    for f in fixed:
-        print f
-    
-    print rederive(fixed, 101109149181191199401409419449461491499601619641661691809811881911)
+  for i in range(len(chords)):
+    cur_chord = chords[i]
+    cur_chord.removeRedundantPitchClasses()
+    original_pitches.append([])
+    for p in range(12):
+      if p in cur_chord.pitchClasses:
+        original_pitches[-1].append(p)
+
+  #print original_pitches
+  return original_pitches
+
+orig = get_pitches("sice.xml")
+#print orig
+
+shares = []
+
+NUM_THREADS = 6
+threads = []
+piece = []
+shares = []
+seen = {}
+
+#preprocessing existing downloaded shit
+for i in range(4000):
+  if os.path.exists(str(i) + ".xml"):
+    temp = open(str(i) + ".xml", "rb")
+    sice = temp.read()
+    temp.close()
+
+    piece2 = sice.split("<work-title>")[1].split("</work-title>")[0]
+    temp = open(str(piece2) + ".xml", "wb")
+    temp.write(sice)
+    temp.close()
+
+    new = get_pitches(str(piece2) + ".xml")
+
+    sices = []
+    stream = ""
+    for i in range(len(new)):
+      curnum = 0
+      for p in range(12):
+        if (p in orig[i] and p not in new[i]) or (p not in orig[i] and p in new[i]) : #one
+          curnum = curnum | (1 << p)
+      sices.append(curnum)
+      stream += hex(curnum).replace("0x", "").zfill(3)
+    print(stream)
+    for i in range(40, 60):
+      if stream[:i] == stream[i:2*i]:
+        stream = stream[:i]
+        break
+    print(piece2)
+    print(stream)
+    seen[piece2] = True
+    shares.append([int(piece2), int(stream, 16)])
+    if len(shares) > 1:
+      print(repr(long_to_bytes(recover_secret(shares, P))))
+ 
+# sice more shit from network
+while True:
+  threads = [t for t in threads if t.isAlive()]
+  while len(threads) < NUM_THREADS:
+    t = threading.Thread(target=sendfile, args=("sice.xml", seen, shares))
+    t.start()
+    threads.append(t)
+
+print("DONE")

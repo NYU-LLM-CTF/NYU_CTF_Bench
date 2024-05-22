@@ -5,5 +5,6 @@
     "flag":"flag{first_ever_challenge}",
     "points": 200,
     "internal_port": 8000,
+    "box": "rev.chal.csaw.io",
     "files":["gibberish_check"]
 }

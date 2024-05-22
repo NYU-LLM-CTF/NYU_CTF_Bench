@@ -5,5 +5,6 @@
     "flag": "flag{we_must_close_the_dh_gap}",
     "internal_port": 8000,
     "points": 500,
+    "box": "crypto.chal.csaw.io",
     "files": ["brillouin.py"]
 }

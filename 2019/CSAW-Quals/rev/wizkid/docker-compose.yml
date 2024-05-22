@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2019q-rev-wizkid:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+    ports:
+      - "12312:4444"
+
+networks:
+  ctfnet:
+    external: true

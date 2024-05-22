@@ -1,7 +1,7 @@
 from pwn import *
 
 # p = process("./wizkid")
-p = remote('rev.chal.csaw.io', 1002)
+p = remote('localhost', 12312)
 #p = remote("localhost", 4444)
 p.recvuntil("?:")
 

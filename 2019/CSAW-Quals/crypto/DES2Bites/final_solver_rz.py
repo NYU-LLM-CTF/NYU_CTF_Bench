@@ -73,17 +73,17 @@ def solver(encrypt,plain):
 				continue
 			
 			if(encryptMid[i]==decryptMid[j]):
-				print "%d %d"%(i,j)
-				print "Found Keys : " + specialKeys[i] + "  " + specialKeys[j] 
+				print("%d %d"%(i,j))
+				print("Found Keys : " + specialKeys[i] + "  " + specialKeys[j])
 				# decrypt twice
 				#print desDecrypt(desDecrypt(cipherText,binascii.unhexlify(specialKeys[j])),binascii.unhexlify(specialKeys[i]))
-				print "Flag Solved"
+				print("Flag Solved")
 				cipherTextFlag = open('FLAG.enc').read()
 				cipherTextFlag = decode(cipherTextFlag,9133337)
 				cipherTextFlag = binascii.unhexlify(cipherTextFlag)
-				print desDecrypt(desDecrypt(cipherTextFlag,binascii.unhexlify(specialKeys[j])),binascii.unhexlify(specialKeys[i]))
+				print(desDecrypt(desDecrypt(cipherTextFlag,binascii.unhexlify(specialKeys[j])),binascii.unhexlify(specialKeys[i])))
 ###############################################################	
 
-print "Given Plaintext and Ciphertext Solver ____________________________________________________________________________________________________________________"
-solver('DES2Bytes.enc','DES2Bytes.txt')
+print("Given Plaintext and Ciphertext Solver ____________________________________________________________________________________________________________________")
+solver('./Challenge/DES2Bytes.enc','./Challenge/DES2Bytes.txt')
 
