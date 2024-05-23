@@ -5,5 +5,6 @@
     "flag": "flag{lol_path_sanitzation}",
     "points": 500,
     "internal_port": 8888,
+    "box": "pwn.chal.csaw.io",
     "files": ["libsuperfly.so", "libjemalloc.so.2", "libc-2.27.so"]
 }

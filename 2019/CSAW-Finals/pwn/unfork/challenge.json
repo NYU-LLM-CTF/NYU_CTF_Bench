@@ -5,5 +5,6 @@
     "flag": "flag{we_actually_started_on_this_before_whitequark}",
     "points": 450,
     "internal_port": 9005,
+    "box": "pwn.chal.csaw.io",
     "files": ["unfork.patch", "bzImage", "run.sh", "dist/disk.img"]
 }

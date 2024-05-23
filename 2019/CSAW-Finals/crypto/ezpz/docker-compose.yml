@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2019f-cry-ezpz:latest
+    # build: ./server
+    ports:
+      - 12312:3788
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

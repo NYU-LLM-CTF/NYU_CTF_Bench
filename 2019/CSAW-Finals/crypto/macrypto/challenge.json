@@ -5,5 +5,6 @@
     "flag": "flag{th3_c1ph3r_w4s_a_lil_rusty}",
     "points": 250,
     "internal_port": 4512,
+    "box": "crypto.chal.csaw.io",
     "files": ["macrypto", "macrypto.rs"]
 }

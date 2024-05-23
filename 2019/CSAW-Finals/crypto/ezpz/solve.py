@@ -1,82 +1,45 @@
 from sage.all import *
-import json
 from pwn import *
+import json
 
-reqs = 0
-
-def sign(d):
-    global reqs
-    reqs += 1
-    r.sendlineafter('> ', 'sign')
-    r.sendlineafter('>> ', d)
-    return r.readline()
-
-def flag():
-    global reqs
-    reqs += 1
-    r.sendlineafter('> ', 'flag')
-    return r.readline()
-
-r = remote('127.0.0.1', 3788)
-
+## create  the corespending graph created in the challenge.py
 coeffs = [0, 117050, 0, 1, 0]
 p = 2**221 - 3
-E = EllipticCurve(GF(p), coeffs)
-P = E.random_point()
+curve = EllipticCurve(GF(p), coeffs)
 
-def decrypt(priv, c, d):
-    cp = priv * E(c)
-    pm = E(d) - cp
-    return Integer(pm[0]).hex().decode('hex')
+## connect to the remote socket
+r = remote("localhost", 12312)
+
+## wait until we got input to select commande
+r.recvuntil("> ")
+## select the flag commande that will crypt the flag and send the crypt result
+r.sendline("flag")
+## receive the crypted credentials
+ciphers_json  = r.recvline()
+## map from json to python array
+ciphers = json.loads(ciphers_json)
+## get the c point
+c = ciphers[0]
+## get the flag + pm point
+flag_plus_pm = ciphers[1]
+## select the sign commande
+r.recvuntil("> ")
+r.sendline("sign")
+## send the coeffs array and the x , y of the c point
+r.recvuntil(">> ")
+ciphers_to_sign  = c[:-1]
+ciphers_to_sign.insert(0 , coeffs)
+r.sendline(json.dumps(ciphers_to_sign))
 
 
-tot = 1
-used_facs = []
-results = []
-factor_limit = 100000000000 # arbitrary reasonable limit, could rewrite script but eh
-e_order = E.order()
-while tot < e_order:
-    A = random_prime(factor_limit)
-    B = random_prime(factor_limit)
-
-    curve = EllipticCurve(GF(p), [A, Integer(B)])
-    print "start order"
-    order = curve.order()
-    print "order", order
-    print curve.order()
-    factors = prime_factors(curve.order())
-    print factors
-    print "A", A
-
-    for fac in factors:
-        if fac <= 1 or fac > factor_limit or fac in used_facs:
-            continue
-        G = curve.gen(0) * int(curve.order() / fac)
-        print 'G order'
-        g_order = G.order()
-        print "order good"
-        signed_point_json = sign(json.dumps([[int(A), int(B)], int(G[0]), int(G[1])]))
-        signed_point = json.loads(signed_point_json)
-        if len(signed_point) == 0:
-            print "Invalid point"
-            continue
-        G1 = curve(signed_point)
-        dl_g_g1 = G.discrete_log(G1)
-        if dl_g_g1 == 0:
-            continue
-        results.append(dl_g_g1)
-        used_facs.append(fac)
-        tot *= fac
-        if tot > e_order:
-            break
-        print tot, float(tot)/int(e_order)
-
-print results
-print used_facs
-guess = CRT_list(results, used_facs)
-print 'recovered', guess
-
-asd = json.loads(flag())
-print asd
-print decrypt(guess, asd[0], asd[1])
-print reqs
+## receive the pm point x, y
+pm_x , pm_y , _ = json.loads(r.recvline())
+## creat points from the correspending x , y
+pm_point = curve((pm_x , pm_y))
+flag_plus_pm_point  = curve((flag_plus_pm[0] , flag_plus_pm[1]))
+## get the flag point
+flag_point  = flag_plus_pm_point - pm_point
+## convert to hex and then to ascii
+flag = hex(int(flag_point[0]))[2:].decode("hex")
+## print it
+print("flag{%s}" % flag)

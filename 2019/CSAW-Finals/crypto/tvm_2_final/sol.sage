@@ -25,7 +25,7 @@ from sage.all import *
 from Crypto.Util.number import long_to_bytes
 
 # sp.check_call('make')
-s = process('./tvm')
+s = remote('localhost', 12312)
 
 KAX = '\x0A'
 KBX = '\x0B'

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2019f-pwn-quirky_emulation:latest
+    # build: ./server
+    ports:
+      - 12312:4242
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

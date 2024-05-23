@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2019f-pwn-superfly2:latest
+    # build: ./server
+    ports:
+      - 12312:8888
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
