@@ -6,7 +6,7 @@ def execute_command(payload):
     command = ["/../../../../pin", "-t", "inscount0.so", "--", "/home/sai/github/1nsanity/counting"]
     p = process(command)
     p.sendline(payload)
-    print p.recvall()
+    print(p.recvall())
 
 def ins_count():
     with open("inscount.out","r") as count:
