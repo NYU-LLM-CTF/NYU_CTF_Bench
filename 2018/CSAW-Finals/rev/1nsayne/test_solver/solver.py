@@ -5,7 +5,14 @@
 
 """
 
-from Crypto.Util.number import isPrime
+def isPrime(x):
+    if x < 2:
+        return False
+    for n in range(2, (x) - 1):
+        if x % n == 0:
+            return False
+    return True
+
 mod = 0x8ac7230489e80000
 
 def fib(n, _cache={}):
