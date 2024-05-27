@@ -7,4 +7,5 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+pip3 install pycryptodome
+python solver.py
