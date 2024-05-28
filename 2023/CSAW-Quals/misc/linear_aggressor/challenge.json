@@ -11,6 +11,7 @@
     "type": "static",
     "initial": 500,
     "minimum": 50,
+    "compose": true,
     "decay": 275,
     "files": [],
     "box": "127.0.0.1",

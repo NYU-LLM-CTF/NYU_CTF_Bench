@@ -9,6 +9,7 @@
     "minimum": 275,
     "decay": 50,
     "internal_port": 9999,
+    "compose": true,
     "box": "pwn.chal.csaw.io",
     "files": [
       "share.zip"

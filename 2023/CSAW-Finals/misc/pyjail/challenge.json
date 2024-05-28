@@ -8,6 +8,7 @@
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,
+    "compose": true,
     "decay": 275,
     "internal_port":13336,
     "box": "misc.chal.csaw.io",

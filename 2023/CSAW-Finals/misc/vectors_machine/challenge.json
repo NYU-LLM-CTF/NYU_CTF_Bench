@@ -12,6 +12,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 20,
+    "compose": true,
     "files": [],
     "box": "misc.chal.csaw.io",
     "internal_port":3001

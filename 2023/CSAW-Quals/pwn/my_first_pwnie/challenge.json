@@ -6,6 +6,7 @@
   "flag": "csawctf{neigh______}",
   "points": 25,
   "internal_port": 31137,
+  "compose": true,
   "box": "pwn.chal.csaw.io",
   "files": [
     "my_first_pwnie.py"

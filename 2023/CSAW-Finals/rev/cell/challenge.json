@@ -6,6 +6,7 @@
     "flag": "csaw_ctf{when_holes_are_poked_the_beast_closes_his_eyes}",
     "type": "dynamic",
     "internal_port": 31137,
+    "compose": true,
     "files": [
         "./chal/cell.pkg"
     ]

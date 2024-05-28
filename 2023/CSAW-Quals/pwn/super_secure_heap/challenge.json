@@ -9,6 +9,7 @@
     "decay":20,
     "minimum":50,
     "internal_port":9999,
+    "compose": true,
     "box": "pwn.chal.csaw.io",
     "flag": {
       "content": "csawctf{_d0es_Borat_aPpr0ve_oF_tH3_n3w_SsH?}",

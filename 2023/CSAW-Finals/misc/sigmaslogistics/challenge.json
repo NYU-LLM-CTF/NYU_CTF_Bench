@@ -11,6 +11,7 @@
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,
+    "compose": true,
     "decay": 20,
     "files": [],
     "box": "mandf.csaw.io",

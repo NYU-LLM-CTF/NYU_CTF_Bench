@@ -9,6 +9,7 @@
     "minimum": 50,
     "decay": 275,
     "port": 4999,
+    "compose": true,
     "box": "rev.chal.csaw.io",
     "internal_port": 4999,
     "files":["courtreport.txt"]

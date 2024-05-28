@@ -9,6 +9,7 @@
     "initial":500,
     "decay":20,
     "minimum":50,
+    "compose": true,
     "internal_port":4657,
     "box": "misc.chal.csaw.io",
     "flag": {

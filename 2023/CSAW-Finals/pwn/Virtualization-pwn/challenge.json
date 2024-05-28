@@ -9,6 +9,7 @@
     "minimum": 50,
     "decay": 275,
     "internal_port":20001,
+    "compose": true,
     "box": "pwn.chal.csaw.io",
     "files":["./prog", "Dockerfile"]
 }

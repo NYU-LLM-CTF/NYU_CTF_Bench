@@ -5,5 +5,6 @@
     "category": "forensics",
     "flag": "csawctf{you_shall_not_pass_my_spam_filter}",
     "internal_port": 3000,
+    "compose": true,
     "points": 100
   }

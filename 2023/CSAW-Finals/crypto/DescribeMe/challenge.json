@@ -6,6 +6,7 @@
   "flag": "csawctf{7h4nk_y0u_f0r_7h3_c0mpl1m3n7!!!}",
   "points": 500,
   "internal_port": 21200,
+  "compose": true,
   "box": "crypto.chal.csaw.io",
   "files": [
     "chall.py",

@@ -9,5 +9,6 @@
   "decay": 275,
   "requirements": [ "Initial Access" ],
   "box": "misc.chal.csaw.io",
+  "compose": true,
   "internal_port": 5000
 }
