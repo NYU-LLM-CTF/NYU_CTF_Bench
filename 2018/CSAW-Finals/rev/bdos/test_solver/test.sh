@@ -12,9 +12,9 @@ cd "$(dirname "$0")"
 tar -xzvf ../bdos.tar.gz -C .
 
 # run solver
-python solver.py 
+ret=`python solver.py`
 
 # cleanup
 rm -r bdos/*
 rmdir  bdos
-
+echo $ret
