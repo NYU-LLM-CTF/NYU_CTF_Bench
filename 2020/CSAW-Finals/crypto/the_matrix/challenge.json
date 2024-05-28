@@ -6,5 +6,6 @@
     "flag": "flag{c4nt_u_t3ll_th4t_1m_t4k1ng_l1n3ar_alg3br4}",
     "box": "crypto.chal.csaw.io",
     "internal_port": 5000,
+    "compose": true,
     "files": ["encoder.py", "messages.txt"]
 }

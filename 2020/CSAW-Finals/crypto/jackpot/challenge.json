@@ -6,5 +6,6 @@
     "flag": "flag{b4ckd00r_t0_ur_h34rt}",
     "box": "crypto.chal.csaw.io",
     "internal_port": 5000,
+    "compose": true,
     "files": ["jackpot"]
 }

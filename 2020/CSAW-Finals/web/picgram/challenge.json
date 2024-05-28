@@ -6,5 +6,6 @@
     "flag": "flag{th4t_w4s_s0m3_sp00ky_scr1pt1ng}",
     "box": "web.chal.csaw.io",
     "internal_port": 5000,
+    "compose": true,
     "files": ["Dockerfile", "app.py"]
 }

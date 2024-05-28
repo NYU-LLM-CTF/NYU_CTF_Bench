@@ -6,5 +6,6 @@
     "flag": "flag{wh0_sa1d_e11ipt1c_curv3z_r_s3cur3??}",
     "box": "crypto.chal.csaw.io",
     "internal_port": 5000,
+    "compose": true,
     "files": ["handout"]
 }

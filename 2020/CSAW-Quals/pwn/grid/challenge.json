@@ -6,5 +6,6 @@
     "points": 150,
     "box": "pwn.chal.csaw.io",
     "internal_port": 8000,
+    "compose": true,
     "files": ["grid", "libc-2.27.so", "libstdc++.so.6.0.25"]
 }
