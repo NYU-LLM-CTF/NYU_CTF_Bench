@@ -14,12 +14,12 @@ cd "$(dirname "$0")"
 # Run the solver (your code here)
 
 # get the needed files
-tar -xzvf bdos.tar.gz 
+sudo tar -xzvf bdos.tar.gz 
 
 # run solver
 ret=`python solver.py`
 
 # cleanup
-rm -r bdos/*
-rmdir  bdos
+sudo rm -r bdos/*
+sudo rmdir  bdos
 echo $ret

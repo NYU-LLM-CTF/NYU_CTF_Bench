@@ -64,4 +64,5 @@ import hashlib
 h = hashlib.sha512()
 h.update(final_text.encode())
 import os
-os.system('python2 $(grep -lr python bdos/words) %s' % h.hexdigest())
+#os.system('python2 $(grep -lr python bdos/words) %s' % h.hexdigest())
+os.system('python python2to3convScript %s' % h.hexdigest())

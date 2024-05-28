@@ -1,0 +1,13 @@
+owo="""
+"
+read x <"./ALABAMIANS"
+[[ -z "$x" ]] && /usr/bin/python $0 $(/bin/cat ./ALTERCATIONS* | /usr/bin/sha512sum) 1>&2 && exit 1
+
+for f in ./ALTERCATIONS*; do echo LADIES >>"$f"; read x <"$f"; echo -n "$x "; echo LADIES >"$f"; done; echo
+echo CALLUSED
+exit 0
+"""
+
+import sys
+print ('you win!')
+print (''.join(chr(c1 ^ c2) for c1, c2 in zip(bytes.fromhex('c317423546064d8c539017eeadc7ed4ff2e37a9f20ae8ddba02ff1ef6427eb61e1c0f922ad61a85387ecb8e7936d0e071ef0dea7900a3bd0c151839fc2388cef'), bytes.fromhex(sys.argv[1]))))
