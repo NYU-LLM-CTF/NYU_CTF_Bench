@@ -6,5 +6,6 @@
     "points": 500,
     "internal_port": 3000,
     "box": "web.chal.csaw.io",
+    "compose": true,
     "files": ["buyify.tar.gz"]
 }

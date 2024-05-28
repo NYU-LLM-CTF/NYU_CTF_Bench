@@ -7,5 +7,6 @@
     "internal_port": 8888,
     "files": [],
     "box": "pwn.chal.csaw.io",
+    "compose": true,
     "autodeploy":false
 }

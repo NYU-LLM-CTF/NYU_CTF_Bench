@@ -6,5 +6,6 @@
     "internal_port": 8000,
     "points": 500,
     "box": "crypto.chal.csaw.io",
+    "compose": true,
     "files": ["brillouin.py"]
 }

@@ -6,5 +6,6 @@
     "points": 100,
     "internal_port": 8888,
     "box": "pwn.chal.csaw.io",
+    "compose": true,
     "files": ["libsuperfly.so", "libjemalloc.so.2", "libc-2.27.so"]
 }

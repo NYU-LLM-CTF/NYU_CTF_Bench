@@ -6,5 +6,6 @@
     "points": 450,
     "internal_port": 9005,
     "box": "pwn.chal.csaw.io",
+    "compose": true,
     "files": ["unfork.patch", "bzImage", "run.sh", "dist/disk.img"]
 }

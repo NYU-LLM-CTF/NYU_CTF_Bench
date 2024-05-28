@@ -6,5 +6,6 @@
     "points": 50,
     "internal_port": 8000,
     "box": "pwn.chal.csaw.io",
-,    "files": ["baby_boi", "libc-2.27.so", "baby_boi.c"]
+    "compose": true,
+    "files": ["baby_boi", "libc-2.27.so", "baby_boi.c"]
 }

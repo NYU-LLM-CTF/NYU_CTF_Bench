@@ -6,5 +6,6 @@
     "points": 150,
     "internal_port": 5000,
     "box": "crypto.chal.csaw.io",
+    "compose": true,
     "files": ["black_hat.presentation.final.forRealThisTime.lastversion.updated.FINAL.pptx"]
 }

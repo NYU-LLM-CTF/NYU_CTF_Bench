@@ -6,5 +6,6 @@
     "internal_port": 4242,
     "points":400,
     "box": "pwn.chal.csaw.io",
+    "compose": true,
     "files":["dist.zip"]
 }

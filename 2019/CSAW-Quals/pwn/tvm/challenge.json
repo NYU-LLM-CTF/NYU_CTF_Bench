@@ -6,5 +6,6 @@
   "points": 400,
   "internal_port": 8000,
   "box": "pwn.chal.csaw.io",
+  "compose": true,
   "files": ["dist/tvm", "dist/tvm.h", "dist/TVM.pdf"]
 }

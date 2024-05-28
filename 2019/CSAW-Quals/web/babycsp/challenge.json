@@ -6,5 +6,6 @@
     "points": 50,
     "internal_port": 5000,
     "box": "web.chal.csaw.io",
+    "compose": true,
     "files": ["dist/dist.tar.gz"]
 }

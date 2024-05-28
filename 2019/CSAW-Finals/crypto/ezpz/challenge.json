@@ -6,5 +6,6 @@
     "points": 400,
     "internal_port": 3788,
     "box": "crypto.chal.csaw.io",
-    "files": ["handout/challenge.py"]
+    "files": ["handout/challenge.py"],
+    "compose": true
 }

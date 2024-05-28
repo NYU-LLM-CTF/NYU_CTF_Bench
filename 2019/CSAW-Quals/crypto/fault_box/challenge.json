@@ -6,5 +6,6 @@
     "points": 400,
     "internal_port": 23333,
     "box": "crypto.chal.csaw.io",
+    "compose": true,
     "files": ["server.py"]
 }
