@@ -7,4 +7,4 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+echo 0x400ca0 n1c3k3ym | nc -q5 -w5 rev.chal.csaw.io 8000
