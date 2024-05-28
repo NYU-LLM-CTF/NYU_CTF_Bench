@@ -7,4 +7,14 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+
+# get the needed files
+tar -xzvf ../bdos.tar.gz -C .
+
+# run solver
+python solver.py 
+
+# cleanup
+rm -r bdos/*
+rmdir  bdos
+
