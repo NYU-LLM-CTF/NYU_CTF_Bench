@@ -42,15 +42,15 @@ def mutate(arr, seed):
         
     for i in range(0x1337):
         a = rand() & 0x3f
-        bits[a] = Not(bits[a])
+        bits[a] = not(bits[a])
         
     return bits
 
 def solve_chunk(enc_chunk, seed):
-    init = [Bool('b%d' % x) for x in range(64)]
+    init = [bool('b%d' % x) for x in range(64)]
     mut = mutate(init, seed)
 
-    s = Solver()
+    s = solve()
 
     bits = chunk_to_bits(enc_chunk)
     for i in range(64):

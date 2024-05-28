@@ -39,7 +39,7 @@ def get_key():
 	print(res)
 	return res
 #p=remote("127.0.0.1",5000)
-p = remote("misc.chal.csaw.io", 5001)
+p = remote("localhost", 12345)
 for x in range(1,257):
 	get_basis(x)
 p.readline()

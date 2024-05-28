@@ -55,7 +55,8 @@ def main(enc):
     return name
 
 if __name__ == '__main__':
-    connection = remote("crypto.chal.csaw.io",5001)
+    #connection = remote("crypto.chal.csaw.io",5001)
+    connection = remote("localhost",12345)
 
     for i in range(10):
       try:

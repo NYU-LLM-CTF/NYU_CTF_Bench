@@ -79,3 +79,4 @@ try:
     p.close()
 except Exception:
     p.close()
+    #print("except Exception")

@@ -2,7 +2,8 @@ from random import randint
 from Crypto.Util.number import long_to_bytes, bytes_to_long
 from pwn import *
 
-server = remote("crypto.chal.csaw.io",5006)
+#server = remote("crypto.chal.csaw.io",5006)
+server = remote("localhost",12345)
 
 public_key = server.recvline().split()
 print(public_key)

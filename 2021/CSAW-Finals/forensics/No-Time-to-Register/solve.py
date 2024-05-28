@@ -1,6 +1,7 @@
 from pwn import *
 
-server = remote("misc.chal.csaw.io",5015)
+#server = remote("misc.chal.csaw.io",5015)
+server = remote("localhost",12345)
 
 print(server.recvuntil(b"What is the answer?\r\n")) #1
 server.sendline(b"5P3C7r3-1MP3r1UM")

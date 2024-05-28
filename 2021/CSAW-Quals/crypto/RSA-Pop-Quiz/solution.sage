@@ -2,7 +2,8 @@ from pwn import *
 import owiener, math
 from Crypto.Util.number import long_to_bytes
 
-server = remote("crypto.chal.csaw.io",5008)
+#server = remote("crypto.chal.csaw.io",5008)
+server = remote("localhost",12345)
 
 def wiener_attack():
 	N_data = server.recvline().split(b" = ")

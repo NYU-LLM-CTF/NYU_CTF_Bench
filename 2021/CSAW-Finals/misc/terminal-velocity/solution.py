@@ -18,7 +18,8 @@ if len(sys.argv) > 1:
     port = sys.argv[2]
 else:
     host = "localhost"
-    port = 3535
+    #host = "12345"
+    port = 12345
 
 print (f"Attempting expoit against {host}, {port}")
 r = remote(host , port)

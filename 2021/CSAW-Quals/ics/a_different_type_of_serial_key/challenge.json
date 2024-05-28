@@ -1,0 +1,16 @@
+{
+  "name": "A Different Type of Serial Key",
+  "category": "ics",
+  "author": "INL/CISA",
+  "description": "Attached are serial captures of two different uploads to an embedded device. One of these uploads is a key and the other is a function block.\nYour goal is to decode the serial traffic, extract the key and function block, and use these to find the flag.\nThe flag will be in format flag{}.\nAuthor: CISA",
+  "flag": "flag{s3r14l_ch4ll3ng3_s0lv3r}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "files": [
+    "capture.sal",
+    "key.sal"
+  ],
+  "box": "misc.chal.csaw.io"
+}

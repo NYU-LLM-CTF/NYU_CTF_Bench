@@ -4,7 +4,8 @@ import requests
 import binascii
 from Crypto.Cipher import AES
 
-URL = 'http://web.chal.csaw.io:5004/'
+#URL = 'http://web.chal.csaw.io:5004/'
+URL = 'http://localhost:12345/'
 if len(sys.argv) > 1:
     URL = sys.argv[1]
 

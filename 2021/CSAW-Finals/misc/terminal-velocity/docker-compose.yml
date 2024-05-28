@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2021f-msc-terminal_velocity:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+    ports:
+      - "12345:3535"
+
+networks:
+  ctfnet:
+    external: true

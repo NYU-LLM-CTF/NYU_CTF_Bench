@@ -1,0 +1,1 @@
+Sorry, but your flag is in another box! nc auto-pwn.chal.csaw.io 11016 and use password 836e8564c5d94de7c61cff04e8b027c4

@@ -6,10 +6,10 @@ from pwn import *
 import json
 from functools import reduce
 
-HOST = "18.218.197.210"
-PORT = 5017
-#HOST = "localhost"
-#PORT = 5000
+#HOST = "18.218.197.210"
+#PORT = 5017
+HOST = "localhost"
+PORT = 12345
 
 # Create a simple Point class to represent the affine points.
 Point = namedtuple("Point", "x y")

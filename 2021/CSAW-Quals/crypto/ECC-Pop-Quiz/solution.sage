@@ -1,7 +1,8 @@
 from pwn import *
 
 #server = remote("127.0.0.1",5000)
-server = remote("crypto.chal.csaw.io",5002)
+#server = remote("crypto.chal.csaw.io",5002)
+server = remote("localhost",12345)
 print(server.recvline())
 
 def SmartAttack():

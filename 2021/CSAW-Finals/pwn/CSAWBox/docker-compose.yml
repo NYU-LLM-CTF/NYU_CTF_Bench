@@ -1,18 +1,17 @@
-version: '2.2'
+version: '3'
 
 services:
-    pwn:
-        build: ./
-        image: csaw/pwn
-        volumes: 
-            - ./public:/home/pwn:ro
-            - ./xinetd:/etc/xinetd.d/xinetd:ro
-            - ./tmp:/tmp:ro
-        ports:
-            - "60001:8888"
-        expose:
-            - "8888"
-        pids_limit: 1024
-        cpus: 0.5
-        restart: unless-stopped
-        privileged: true
+  game-server:
+    image: llmctf/2021f-pwn-csawbox:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - "12345:8888"
+
+networks:
+  ctfnet:
+    external: true
