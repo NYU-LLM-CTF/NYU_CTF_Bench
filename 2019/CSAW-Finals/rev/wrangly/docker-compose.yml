@@ -3,8 +3,6 @@ services:
   web:
     image: llmctf/2019f-rev-wrangly:latest
     # build: ./server
-    ports:
-      - 12312:8000
     networks:
       ctfnet:
         aliases:
