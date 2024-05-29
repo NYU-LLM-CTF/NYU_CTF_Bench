@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2018f-pwn-wic_wac_woe:latest
+    # build: ./server
+    ports:
+      - 12312:3000
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.csaw.io
+
+networks:
+  ctfnet:
+    external: true
