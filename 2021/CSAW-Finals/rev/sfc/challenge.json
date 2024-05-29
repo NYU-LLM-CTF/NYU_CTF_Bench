@@ -11,5 +11,6 @@
   "decay": 10,
   "files": [
     "ncore_tb.v"
-  ]
+  ],
+  "compose": true
 }

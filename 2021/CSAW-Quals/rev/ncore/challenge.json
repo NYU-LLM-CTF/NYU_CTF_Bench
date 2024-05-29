@@ -12,5 +12,6 @@
     "ncore_tb.v",
     "server.py"
   ],
-  "box": "rev.chal.csaw.io"
+  "box": "rev.chal.csaw.io",
+  "compose": true
 }

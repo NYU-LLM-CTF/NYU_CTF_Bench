@@ -3,7 +3,7 @@ Run the following python script to get the flag:
 ```
 from pwn import *
 
-p = remote('rev.chal.csaw.io', 12312)
+p = remote('rev.chal.csaw.io', 4444)
 p.recvuntil("?:")
 
 def next_prime(n):
