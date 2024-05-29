@@ -1,0 +1,87 @@
+<html>
+<head>
+<script data-src="mustache.min.js" data-cdn="{{ cdn }}"></script>
+<script data-src="app.js" data-cdn="{{ cdn }}"></script>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+body {
+  background-color: #004400;
+  color: #00bb00;
+  font-family: 'Orbitron', sans-serif;
+}
+.movies {
+  background-color: #001100;
+  width: 100%;
+  margin-bottom: 50px;
+  border-collapse: collapse;
+}
+.movies table, .movies th {
+  border: 1px solid #009900;
+}
+.movies td {
+  border-left: 1px solid #009900;
+  border-right: 1px solid #009900;
+  border-top: 1px solid #003300;
+  padding-left: 10px;
+}
+.movies tr:hover {
+  background-color: #003300;
+}
+.report {
+  width: 100%;
+  background-color: #001100;
+  color: #00bb00;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+}
+.report:hover {
+  background-color: #009900;
+  color: #001100;
+}
+.report:hover:after {
+  content: "Report an issue"
+}
+.report:after {
+  content: "Déjà vu is usually a glitch in the Matrix. It happens when they change something.";
+}
+.captcha {
+  margin: auto;
+  display: none;
+  width: 304px;
+  padding-bottom: 10px;
+}
+.header {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: #001100;
+}
+.admin {
+  color: #ff0000;
+}
+</style>
+</head>
+<body>
+<div id="content">Loading..</div>
+<script>
+window.loaded_recapcha = () => {
+    window.loaded_recapcha = true;
+}
+window.loaded_mustache = () => {
+    window.loaded_mustache = true;
+}
+</script>
+{% if admin %}
+<script>window.admin="{{ admin }}"</script>
+<script src="/cdn_admin.js"></script>
+{% else %}
+<script src="/cdn.js"></script>
+{% endif %}
+<script src='https://www.google.com/recaptcha/api.js?onload=loaded_recapcha&render=explicit'></script>
+</body>
+</html>

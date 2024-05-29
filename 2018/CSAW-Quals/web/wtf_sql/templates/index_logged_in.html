@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>wtf.sql</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+    </head>
+    <body>
+        <div class="header">
+            <img src="/static/wtf_sql.png" />
+        </div>
+
+        <div class="content">
+            <div class="posts-box">
+                <h2>Hello, ${user_name}</h2>
+                <p>Posts:</p>
+                <ul>
+                    ${post_list}
+                </ul>
+
+                <form action='/post' method=post>
+                    <input type=text name=post placeholder="Post Text"></input><br>
+                    <input type=submit name=submit value=submit></input><br>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

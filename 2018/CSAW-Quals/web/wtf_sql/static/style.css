@@ -1,0 +1,54 @@
+body {
+    background-image: url("/static/bg.png");
+}
+
+
+.header {
+    background-color: lightblue;
+    height: 100px;
+}
+
+.header > img {
+    display: block;
+    margin: 0 auto;
+}
+
+.content {
+    width: 100%;
+}
+
+.posts-box {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 10px;
+
+    background-color: lightgrey;
+    border: 1px solid grey;
+    border-radius: 25px;
+}
+
+.register-box {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 10px;
+
+    background-color: lightgrey;
+    border: 1px solid grey;
+    border-radius: 25px;
+}
+
+.login-box {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 10px;
+
+    background-color: lightgrey;
+    border: 1px solid grey;
+    border-radius: 25px;
+}

@@ -1,0 +1,35 @@
+
+
+         C S A W
+          C T F
+
+
+It is a period of civil war.
+Rebel hackers, striking
+from a hidden base, have won
+their first victory against
+the evil DBA.
+
+During the battle, Rebel
+spies managed to steal secret
+plans to the DBA's
+ultimate weapon, WTF.SQL,
+an integrated framework
+with enough buzzwords to
+host an entire website.
+
+Pursued by the DBA's
+sinister agents, You, the
+Player, race home aboard
+your VT100, custodian of the
+stolen schema that can save
+the animals and restore
+freedom to the internet.....
+
+Your mission is to read out
+the txt table in the flag
+database.
+
+Enjoy :>
+
+http://web.chal.csaw.io:3306/

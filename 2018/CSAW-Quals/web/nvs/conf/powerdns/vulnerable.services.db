@@ -1,0 +1,13 @@
+vulnerable.services. 3600 IN SOA dns01.nvs.web.chal.csaw.io (
+                              hostmaster.no.vulnerable.services     ; address of responsible party
+                              1970010101                 ; serial number
+                              3600                       ; refresh period
+                              600                        ; retry period
+                              604800                     ; expire time
+                              1800                     ) ; minimum ttl
+		86400 NS dns01.nvs.web.chal.csaw.io.
+		3600 A 216.165.2.40
+no		3600 A 216.165.2.40
+admin.no	3600 A 216.165.2.40
+static.no	3600 A 216.165.2.40
+support.no	3600 A 172.16.2.5

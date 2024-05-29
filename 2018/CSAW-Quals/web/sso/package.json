@@ -1,0 +1,19 @@
+{
+  "name": "sso",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^8.3.0",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.9.0",
+    "qs": "^6.5.2",
+    "supertest": "^3.3.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
