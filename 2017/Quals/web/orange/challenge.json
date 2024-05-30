@@ -1,0 +1,8 @@
+{
+	"name": "orange",
+	"category": "web",
+	"description": "I wrote a little proxy program in NodeJS for my poems folder.Everyone wants to read `flag.txt` but I like it too much to share.",
+	"port": 9999,
+	"box": "",
+	"flag": "flag{thank_you_based_orange_for_this_ctf_challenge}"
+}

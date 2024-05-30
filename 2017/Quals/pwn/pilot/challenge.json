@@ -1,0 +1,9 @@
+{
+	"name": "pilot",
+	"category": "pwn",
+	"description": "Can I take your order?",
+	"files": ["pilot"],
+	"port": 8024,
+	"box": "",
+	"flag": "flag{1nput_c00rd1nat3s_Strap_y0urse1v3s_1n_b0ys}"
+}

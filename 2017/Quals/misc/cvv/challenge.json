@@ -1,0 +1,8 @@
+{
+	"name": "cvv",
+	"category": "misc",
+	"description": "Hey fam, you got CVV? I need some CVV?",
+	"port": 8096,
+	"flag": "flag{ch3ck-exp3rian-dat3-b3for3-us3}",
+	"box": ""
+}

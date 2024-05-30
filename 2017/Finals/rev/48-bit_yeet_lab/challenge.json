@@ -1,0 +1,9 @@
+{
+	"name": "48-bit_yeet_lab",
+	"category": "rev",
+	"description": "what, you've never seen an x86-48 bomb lab before?",
+	"port": 4848,
+	"files": ["bomblab"],
+	"flag": "flag{turns_out_heavens_gate_works_on_linux_too_yote}",
+	"box": ""
+}

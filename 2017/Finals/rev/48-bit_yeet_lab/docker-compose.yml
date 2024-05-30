@@ -1,0 +1,5 @@
+services:
+  48-bit_yeet_lab:
+    image: "llmctf/2017f-rev-48-bit_yeet_lab"
+    ports:
+      - 4848:4848

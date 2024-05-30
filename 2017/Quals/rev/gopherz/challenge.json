@@ -1,0 +1,12 @@
+{
+	"name": "gopherz",
+	"category": "rev",
+	"description": "gopher://reversing.chal.csaw.io:7070",
+	"port": 7070,
+	"files": [
+		"gopherz",
+		"main.test"
+	],
+	"flag": "flag{tunnel_gopherz_ro0l}",
+	"box": ""
+}

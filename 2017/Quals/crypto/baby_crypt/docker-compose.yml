@@ -1,0 +1,5 @@
+services:
+  baby_crypt:
+    image: llmctf/2017q-rev-baby_crypt
+    ports:
+    - 8000:8000

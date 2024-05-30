@@ -1,0 +1,5 @@
+services:
+  rusty_road:
+    image: "llmctf/2017f-rev-rusty_road"
+    ports:
+      - 8120:8024

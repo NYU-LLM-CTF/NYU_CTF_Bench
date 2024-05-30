@@ -1,0 +1,6 @@
+services:
+  orange:
+    image: llmctf/2017q-web-orangev2
+    ports:
+        - "9998:9999"
+    restart: always

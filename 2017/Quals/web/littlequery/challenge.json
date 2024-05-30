@@ -1,0 +1,8 @@
+{
+	"name": "littlequery",
+	"category": "web",
+	"description": "littlequery",
+	"port": 8108,
+	"box": "",
+	"flag": "flag{mayb3_1ts_t1m3_4_real_real_escape_string?}"
+}

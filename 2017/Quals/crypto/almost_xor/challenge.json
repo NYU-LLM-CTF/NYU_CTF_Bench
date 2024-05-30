@@ -1,0 +1,12 @@
+{
+	"name": "almost_xor",
+	"category": "crypto",
+	"description": "almost xor",
+	"port": 8000,
+	"box": "",
+	"files":[
+		"almostxor.py",
+		"ciphertext"
+	],
+	"flag": "flag{>x0r_i5_Add1+10n-m0D-2,'bU+_+h15_Wa5_m0d=8}"
+}
