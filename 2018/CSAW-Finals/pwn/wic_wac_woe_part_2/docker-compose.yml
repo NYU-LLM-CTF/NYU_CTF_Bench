@@ -7,7 +7,7 @@ services:
     networks:
       ctfnet:
         aliases:
-          - pwn.csaw.io
+          - pwn.chal.csaw.io
 
 networks:
   ctfnet:
