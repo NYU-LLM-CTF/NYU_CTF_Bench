@@ -1,13 +1,13 @@
 version: '3'
 services:
   web:
-    image: llmctf/2018f-pwn-wic_wac_woe:latest
+    image: llmctf/2018q-cry-flatcrypt-web
     ports:
-      - 1337:8080
+      - 8040:8040
     networks:
       ctfnet:
         aliases:
-          - pwn.chal.csaw.io
+          - crypto.chal.csaw.io
 
 networks:
   ctfnet:

@@ -6,5 +6,7 @@ set -euo pipefail
 # Change the working directory to the directory of the script
 cd "$(dirname "$0")"
 
-# Run the solver (your code here)
-exit 1
+
+go run common.go generate_challenge.go
+go run common.go solve_challenge.go
+
