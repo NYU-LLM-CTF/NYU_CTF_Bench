@@ -8,5 +8,6 @@ COPY /serv.py /
 
 EXPOSE 8040
 
-CMD ["socat", "-T10", "TCP-LISTEN:8040,reuseaddr,fork", "EXEC:'python3 /serv.py'"]
+#CMD ["socat", "-T10", "TCP-LISTEN:8040,reuseaddr,fork", "EXEC:'python3 /serv.py'"]
+CMD ["socat",  "TCP-LISTEN:8040,reuseaddr,fork", "EXEC:'python3 /serv.py'"]
 

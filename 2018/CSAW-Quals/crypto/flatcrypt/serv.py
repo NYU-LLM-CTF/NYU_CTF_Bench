@@ -7,7 +7,7 @@ from Crypto.Util import Counter
 ENCRYPT_KEY = bytes.fromhex('3198651914795298217236914251197987858805851210989417789360416085')
 # Determine this key.
 # Character set: lowercase letters and underscore
-PROBLEM_KEY = 'crime_doesnt_have_a_logo'
+PROBLEM_KEY = 'flag{doesnt_have_a_logo}'
 
 def encrypt(data, ctr):
     return AES.new(ENCRYPT_KEY, AES.MODE_CTR, counter=ctr).encrypt(zlib.compress(data))
