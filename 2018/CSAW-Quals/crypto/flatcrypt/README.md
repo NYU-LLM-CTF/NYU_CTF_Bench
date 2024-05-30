@@ -10,12 +10,14 @@ Take your pick nc crypto.chal.csaw.io 8040 nc crypto.chal.csaw.io 8041 nc crypto
 
 flag is PROBLEM_KEY
 
-## Validation 
-
-flag is not in `flag{}` format. flag changed to `flag{doesnt_have_a_logo}` to work with  `chal.test`
-
 # Flag
 `crime_doesnt_have_a_logo`
 
 # Solution
 CRIME attack (https://en.wikipedia.org/wiki/CRIME)
+
+
+# Validation NOTES
+
+flag is not in `flag{}` format. flag changed to `flag{doesnt_have_a_logo}` to work with  `chal.test`
+
