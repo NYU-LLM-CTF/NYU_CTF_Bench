@@ -1,0 +1,5 @@
+services:
+  lupin:
+    image: "llmctf/2017f-cry-lupin"
+    ports:
+      - 8116:8000

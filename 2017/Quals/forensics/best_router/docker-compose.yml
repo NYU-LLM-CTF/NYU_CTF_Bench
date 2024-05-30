@@ -1,0 +1,5 @@
+services:
+  best_router:
+    image: llmctf/2017q-for-best_router
+    ports:
+      - "8000:80"

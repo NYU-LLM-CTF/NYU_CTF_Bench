@@ -1,0 +1,5 @@
+src/
+.git/
+test.txt/
+target/
+!target/coffee/

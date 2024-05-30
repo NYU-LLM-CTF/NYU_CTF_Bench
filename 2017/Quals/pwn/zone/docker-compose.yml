@@ -1,0 +1,5 @@
+services:
+  zone:
+    image: "llmctf/2017q-pwn-zone"
+    ports:
+      - 8104:8000

@@ -1,0 +1,8 @@
+{
+	"name": "rusty_road",
+	"category": "rev",
+	"description": "Traverse these roads, win and obtain the flag",
+	"files": ["main"],
+	"flag": "flag{D0wN_4nD_1eFt_WhEr3_Red_H3Rr1Ngz}",
+	"port": 8120
+}

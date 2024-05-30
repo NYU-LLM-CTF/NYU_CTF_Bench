@@ -1,0 +1,11 @@
+{
+	"name": "LuPiN",
+	"category": "crypto",
+	"description": "a post-quantum cryptosystem solvable by LayPersoNs",
+	"box": "",
+	"files":[
+		"lpn_chal.py"
+	],
+	"flag": "flag{gl4d_y0u_d1d_n0t_turn_1nt0_a_w4r3w0lf}",
+	"port": 8116
+}

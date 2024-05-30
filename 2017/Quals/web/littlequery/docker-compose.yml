@@ -1,0 +1,5 @@
+services:
+  littlequery:
+    image: "llmctf/2017q-web-littlequery"
+    ports:
+      - 8108:80

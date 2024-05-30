@@ -1,0 +1,5 @@
+services:
+  gopherz:
+    image: "llmctf/2017q-rev-gopherz"
+    ports:
+      - 7070:7070

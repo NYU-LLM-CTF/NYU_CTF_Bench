@@ -1,0 +1,5 @@
+services:
+  prophecy:
+    image: "llmctf/2017q-rev-prophecy"
+    ports:
+      - "8027:8027"

@@ -1,0 +1,12 @@
+{
+	"name": "ECXOR",
+	"category": "crypto",
+	"description": "I hear that elliptic curves make it safe to use smaller key sizes. Can you break this curve25519-encrypted message?",
+	"box": "",
+	"files":[
+		"ecxor_handout_100.py",
+		"rfc8032.py",
+		"ciphertext"
+	],
+	"flag": "flag{generalizing_vignere_to_arbitrary_groups_is_not_good}"
+}

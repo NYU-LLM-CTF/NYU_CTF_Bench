@@ -1,0 +1,8 @@
+{
+	"name": "orangev2",
+	"category": "web",
+	"description": "I wrote a little proxy program in NodeJS for my poems folder but I'm bad at programming so I had to rewrite it. I changed up flag.txt too but everyone still wants to read it...",
+	"port": 9998,
+	"box": "",
+	"flag": "flag{s0rry_this_t00k_s0_m@ny_tries...}"
+}

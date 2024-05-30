@@ -1,0 +1,5 @@
+services:
+  serial:
+    image: "llmctf/2017q-msc-serial"
+    ports:
+      - 8100:8000

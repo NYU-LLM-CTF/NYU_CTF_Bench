@@ -1,0 +1,70 @@
+body {
+}
+
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.bean-container {
+  background: url("beans.jpg") no-repeat center center;
+  /*background: url("https://images.unsplash.com/photo-1448641434006-6a836ed4856d") no-repeat center center;*/
+  color: white;
+  min-height: 300px;
+  padding: 40px 15px;
+}
+
+.navbar-brand {
+  font-size: 28px;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.bean-title {
+  padding: 20px 0;
+}
+
+.bean-title h2 {
+  text-align: center;
+}
+
+.bean-desc {
+  padding: 10px 0;
+}
+
+.bean-desc h5 {
+ text-align: center;
+ font-weight: normal;
+ line-height: 30px;
+}
+
+.bean-btn {
+  padding: 10px 0;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.bean-data {
+  font-weight: normal;
+}
+
+.bean-avail {
+  color: green;
+}
+
+.bean-no-avail {
+  color: red;
+}
+
+.nav-space {
+  padding-top: 30px;
+}
+
+.footer {
+  padding-bottom: 20px;
+  font-size: 12px;
+}

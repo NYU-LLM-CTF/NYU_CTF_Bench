@@ -1,0 +1,5 @@
+services:
+  cvv:
+    image: "llmctf/2017q-msc-cvv"
+    ports:
+      - 8096:8000

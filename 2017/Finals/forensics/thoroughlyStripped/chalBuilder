@@ -1,0 +1,4 @@
+#!/bin/sh
+g++ -O0 -Wall -pedantic -std=c++11 youreallythoughtthatstringswouldworkonthisElkismuchmoreevilthanthat.cpp -o notStripped
+tr < notStripped -d '\000' > thoroughlyStripped
+rm notStripped

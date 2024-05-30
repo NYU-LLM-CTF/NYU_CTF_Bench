@@ -1,0 +1,7 @@
+{
+	"name": "realism",
+	"category": "rev",
+	"description": "Did you know that x86 is really old? I found a really old Master Boot Record that I thought was quite interesting! At least, I think it's really old... `qemu-system-i386 -drive format=raw,file=main.bin`",
+	"files": ["main.bin"],
+	"flag": "flag{4r3alz_m0d3_y0}"
+}

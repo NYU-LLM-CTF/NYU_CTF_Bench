@@ -1,0 +1,8 @@
+{
+	"name": "baby_crypt",
+	"category": "crypto",
+	"description": "baby crypto",
+	"port": 8000,
+	"box": "",
+	"flag": "flag{Crypt0_is_s0_h@rd_t0_d0...}"
+}
