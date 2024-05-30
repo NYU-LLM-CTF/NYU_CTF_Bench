@@ -1,0 +1,50 @@
+cat >> /etc/hosts <<EOF
+127.0.0.1 1f8f5aca36d8114acf5de3651b2e1af5a507e264.cache.dev
+EOF
+
+cat > /etc/supervisor/conf.d/supervisord.conf <<EOF
+[supervisord]
+nodaemon=true
+
+[program:varnish]
+command=/usr/sbin/varnishd -j unix,user=vcache -F -a :80 -T localhost:6082 -f /etc/varnish/default.vcl -S /etc/varnish/secret -s malloc,256m
+stdout_logfile=/var/log/varnish.log
+stderr_logfile=/var/log/varnish.log
+
+[program:app]
+command=stdbuf -o0 gunicorn -w 4 test:app -b 127.0.0.1:8080 --user app --access-logfile -
+directory=/server
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
+EOF
+
+cat <<EOF | base64 -d | gunzip -f -c > /etc/varnish/default.vcl
+H4sIACski1sAA71WbW/bNhD+7l/BOkObFLHiph1a1CuKImvTAh1QbGmxYV0HSjpZrCWSIynJ9tj9
+9t2RkiPH2YZhwJxQ4MvxePfcw+MdTY7YVSksw38uGax5rStgHy7eskJgp1CGfeBGClsmkyMUfuNY
+rsAyqaiDezauFHLJ0g3LoeBN5U6xU8GSO5rOlHRGVcwp5krA/WkjKlyhExI8GcYTZETGqwpy1pUg
+aYcBmpQKLdOVyIRDFQZcYySzjjuoQbpo2A8AtCHoyUquHRj0Kihh7y0NLhuRA+OOlc5p+/TsrOu6
+pI3OzTKelZAoszzLVWbPUCGX+T9IOsOzs06sxBke+jJCZwNktULDezBtMkFt33GzAhNwgKq6tlTV
+GnHGhRINcxQJmi65ZSkgBDwnT/Jr/CR07FEyp1Nqjq63WUXjxWTCsacbswT2+4SxI/YC9XRwDw9r
+LLAKwQrHI76qi4IW5aaVQshLZd10QcMH54+TOf49iMOnT6nzhTz4NoaXpTxbAWKD4RZSOKFkguD3
+xuMBWgnpqLNRjQkEwBgxjEALJpmMdgdtZCtjCRnAnt08Hhe0MmHhyfzJPFpim5Sh17+WYtgtCnZs
+4LeEopVcgpu9QBCe4aYXly+nJ73QIJhVgjgjNPsjojAWoF9Pr2O7ka48fvz1/JSp9HPiXHVysthJ
+fpnE78ggA1nb6zpir7nWICmKBXGhAyQlZCsyAfslbyEChgwNhMK4GOD5Jon7ey1XGy3oRmwITJZV
+gHe00YE96HADCBrdkVMc1aqNF06tBLKQ5HMl7zlkDOSnvT4DnRHhYo5UnDJwWbKHZA2uVPlfYnjn
+X4L4aP7wlE1DnnnzLl5oF4kYqW2JEXjQYJFNpodY088iz8b2senly6vp4mB9zITeh8XkWtUtbr57
+//3/5Wg46j+7OhwcrRq823OvMRWaPf3086fnv9z/mBw/3nreCp/W2qfbc59Zi631mPCorT0o54uK
+Z/hp/VIUfrn1IlP+s4YlfrBZj/nM+nrFsbUeOedr/RDbI2woVKOQyp1XrvBqif1l7ZVurNd54bVc
+eq0dtbU33HiDUrZdUtt62xXe4aRLt97h2OGiWztsW9/x1neQ1vTRvlNFET7nfl1Zamu/riuPgluh
+fW3dyfHH58n9k+df7QW0kXv0uAg35RBQzL3l7XgajBc3zhJh5jepstP74+yVMh03OeTUu0mYPRtu
+yGKUd4T721TTZ1FMOVYrdOsg7fCC0v2QaSiz9De+ly9xht7Ewqg6rPQa99PPa3p/rzPPbRpGqccK
+SlT4FMwitINIr4zeU0VPOqsF4riKScpcvyeKnsoBzhQCg2VIjjyt9i7eECosNAS+KkO0GFRo2LDb
+asrZ7BuMlWXe95v7lYD+yNTb1xtjFBYyMBvKGLxNUs2sw5Q+vd5zfOf2XRf9rrt3d5aPBS/ItZ1Q
+VB3c9cMZXhvRoiak8a0GYmW2Cdnr/h7RY7XBsIaYvhaOiDV7x62dhtKEgihh7dg5xkE2DuxeyunV
+j4BHUjrTwDh/jgQJ4mfswfncLm4uLbE8ot0P58PiYdzGpO5nD7gcasGByrwvnrSADBnUQXzfArs4
+spWnqnG7VEs1U1S2422spIZ7tkf3n4jpyHOqa7NMNTK8lKGcy0WxGZ5NLHt4RTUBZPH5TcZehIdg
+8CFe9l3AkRl4aCxPhqJiMUoxKEhVbRMyDFYe46Duq7q6eosqwhgvt1XyMI+NQO5z2ZfJn5G8Al/v
+CwAA
+EOF
+
+

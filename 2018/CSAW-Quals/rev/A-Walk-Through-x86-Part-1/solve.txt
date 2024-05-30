@@ -1,0 +1,7 @@
+Answer Key:
+
+Question 1: "0x00"
+Question 2: "0x00"
+Question 3: "0x0000"
+Question 4: "0x0e74"
+Question 5: "0x0e61"

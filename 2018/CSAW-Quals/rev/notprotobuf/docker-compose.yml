@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+
+  dev_client:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-dev_client
+    ports:
+      - 8000:51966
+  dev_server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-dev_server
+    ports:
+      - 8001:51966
+  prod_server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-prod_server
+    ports:
+      - 8002:51966
