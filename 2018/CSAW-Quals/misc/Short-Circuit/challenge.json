@@ -1,0 +1,8 @@
+{
+    "name": "Short-Circuit",
+    "category": "misc",
+    "description": "There are 112 Thins you need to worry about",
+    "flag": "flag{owmyhand}",
+    "points": 75,
+    "files": ["short-circuit.jpg"]
+}
