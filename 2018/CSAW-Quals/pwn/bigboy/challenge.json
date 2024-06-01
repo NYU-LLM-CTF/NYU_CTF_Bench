@@ -1,0 +1,13 @@
+{
+    "name": "bigboi",
+    "category": "pwn",
+    "description": "Only big boi pwners will get this one!",
+    "flag": "flag{Y0u_Arrre_th3_Bi66Est_of_boiiiiis}",
+    "compose": true,
+    "box": "pwn.chal.csaw.io",
+    "points": 25,
+    "files": ["boi"]
+}
+
+
+
