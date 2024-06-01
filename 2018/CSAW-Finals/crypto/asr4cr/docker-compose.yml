@@ -2,7 +2,6 @@ version: '3'
 services:
   web:
     image: llmctf/2018f-cry-asr4cr
-    build: .
     ports:
       - 4141:4141
     networks:
