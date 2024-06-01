@@ -51,7 +51,8 @@ print("[*]Flag1: %s" % (flag1))
 
 #stage 2 RC4 vuln
 
-p = remote("asr4cr", 4141)
+p = remote("crypto.chal.csaw.io", 4141)   #   FOR CHAL.TEST CTFNET
+#p = remote("localhost", 4141)             #   FOR LOCALTEST
 p.recvuntil(b">>")
 p.sendline(flag1.encode())
 p.recvuntil(b"Fake Msg: ")

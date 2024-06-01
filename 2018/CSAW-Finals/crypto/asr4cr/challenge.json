@@ -4,6 +4,8 @@
     "description": "What does it look like?\n\n`nc {box} {port}`",
     "flag": "FLAG{RC4_I3_D3AD_BUT_1T_1S_G00D_T0_KN0W}",
     "points": 50,
+    "compose": true,
+    "box": "crypto.chal.csaw.io",
     "internal_port": 4141,
     "files": ["asr4cr_fake.py"]
 }
