@@ -113,7 +113,8 @@ def crack(N, flag_c, MSB=1):
 def flag_len():
     r.close()
     for l in xrange(123, 1, -1):
-        s = remote('lost_mind', 32333)
+        #s = remote('crypto.chal.csaw.io', 32333)
+        s = remote('localhost', 32333)
         s.recvuntil('offset,len')
         off = 0
         s.sendline('%d,%d' % (off, l))
@@ -135,7 +136,8 @@ for i in xrange(0, 43):
     start_time = time.time()
     cracked_chars = []
     while True:
-        r = remote('lost_mind', 32333)
+        #r = remote('crypto.chal.csaw.io', 32333)
+        r = remote('localhost', 32333)
         flag_c = get_flagc(i, 1)
         pattern = r'you got (\d*?) rounds to go'
         rounds = int(re.search(pattern, r.recvline()).group(1))

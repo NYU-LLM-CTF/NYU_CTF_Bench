@@ -3,6 +3,8 @@
     "category": "crypto",
     "description": "I'm losing my mind, are you?\n\n`nc {box} {port}`",
     "flag": "flag{LSB_4ppr0xim473_4tt4ck_1s_3v3n_b3tt3r}",
+    "compose": true,
+    "box": "crypto.chal.csaw.io",
     "points": 500,
     "internal_port": 32333,
     "files": ["server.py"]
