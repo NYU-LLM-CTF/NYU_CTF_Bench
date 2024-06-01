@@ -3,6 +3,8 @@
     "category": "crypto",
     "description": "Good Luck, k?\n\nAuthor: Paul Kehrer, Trail of Bits. \n\n<a href=\"http://{box}:{port}\" target=\"_blank\">http://{box}:{port}</a>",
     "flag": "flag{NowyourereadytocrackthePS3YeahSonydidthiswithECDSA}",
+    "compose": true,
+    "box": "crypto.chal.csaw.io",
     "points": 400,
     "internal_port": 5000,
     "files": ["main.py"]
