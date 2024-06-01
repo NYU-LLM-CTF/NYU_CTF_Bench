@@ -1,0 +1,13 @@
+{
+    "name": "takeanl",
+    "category": "misc",
+    "description": "Fill the grid with L's but avoid the marked spot for the W",
+    "flag": "flag{m@n_that_was_sup3r_hard_i_sh0uld_have_just_taken_the_L}",
+    "compose": true,
+    "box": "misc.chal.csaw.io",
+    "points": 200,
+    "files": ["description.pdf"]
+}
+
+
+
