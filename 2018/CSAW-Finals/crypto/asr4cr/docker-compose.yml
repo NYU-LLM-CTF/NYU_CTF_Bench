@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2018f-cry-asr4cr
+    ports:
+      - 4141:4141
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

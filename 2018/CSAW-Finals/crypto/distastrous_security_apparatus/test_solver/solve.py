@@ -15,7 +15,8 @@ import requests
 import hashlib
 import sys
 
-base = 'http://distastrous_security_apparatus:5000'
+base = 'http://crypto.chal.csaw.io:5000'
+#base = 'http://localhost:5000'
 
 def get_numbers(cracker, data):
     l = []

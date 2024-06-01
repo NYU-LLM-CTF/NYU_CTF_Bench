@@ -7,4 +7,4 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-python soln.py
+python solver.py
