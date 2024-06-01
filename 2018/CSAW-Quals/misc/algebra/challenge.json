@@ -1,0 +1,9 @@
+{
+    "name": "algebra",
+    "category": "misc",
+    "description": "Are you a real math wiz?",
+    "flag": "flag{y0u_s0_60od_aT_tH3_qU1cK_M4tH5}",
+    "compose": true,
+    "box": "misc.chal.csaw.io",
+    "points": 100
+}
