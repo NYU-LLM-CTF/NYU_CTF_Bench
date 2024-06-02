@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2018q-rev-a_walk_through_x86_part_1:latest
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
