@@ -1,0 +1,10 @@
+{
+    "name": "get_it?",
+    "category": "pwn",
+    "description": "Do you get it?",
+    "flag": "flag{y0u_deF_get_itls}",
+    "compose": true,
+    "box": "pwn.chal.csaw.io",
+    "points": 50,
+    "files": ["get_it"]
+}

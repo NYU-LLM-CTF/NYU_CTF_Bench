@@ -1,0 +1,11 @@
+{
+    "name": "ldab",
+    "category": "web",
+    "description": "Someone in this company directory doesn't belong can you find them?",
+    "flag": "flag{ld4p_inj3ction_i5_a_th1ng}",
+    "compose": true,
+    "box": "web.chal.csaw.io",
+    "points": 50
+}
+
+

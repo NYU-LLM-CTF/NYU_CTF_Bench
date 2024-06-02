@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#https://ctftime.org/writeup/11335
+
 # Ensure the script fails if any of the commands fail
 set -euo pipefail
 
@@ -7,4 +9,5 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Run the solver (your code here)
-exit 1
+FLAG_FROM_MANUAL_IMAGE_INSPECTION="flag{owmyhand}"
+echo $FLAG_FROM_MANUAL_IMAGE_INSPECTION

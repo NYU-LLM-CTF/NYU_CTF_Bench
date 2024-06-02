@@ -1,0 +1,11 @@
+{
+    "name": "A-Walk-Through-x86-Part-1",
+    "category": "rev",
+    "description": "",
+    "flag": "flag{rev_up_y0ur_3ng1nes_reeeeeeeeeeeeecruit5!}", 
+    "points": 50,
+    "files": ["stage-1.asm", "stage-2.bin", "Makefile"]
+}
+
+
+

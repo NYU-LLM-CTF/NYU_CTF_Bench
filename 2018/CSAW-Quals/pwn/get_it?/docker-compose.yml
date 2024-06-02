@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2018q-pwn-get_it:latest
+    ports:
+      - 1437:1437
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

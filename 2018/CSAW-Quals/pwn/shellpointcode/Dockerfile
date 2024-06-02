@@ -14,4 +14,6 @@ RUN chown -R root:shellpointcode /home/shellpointcode && \
     chown root:shellpointcode /home/shellpointcode/flag.txt && \
     chmod 440 /home/shellpointcode/flag.txt
 
+EXPOSE 8000
+
 CMD ["socat", "-T60", "TCP-LISTEN:8000,reuseaddr,fork,su=shellpointcode", "EXEC:/home/shellpointcode/shellpointcode,STDERR"]

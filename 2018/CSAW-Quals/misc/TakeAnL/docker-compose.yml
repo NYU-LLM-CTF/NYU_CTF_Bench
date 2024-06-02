@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    image: llmctf/2018q-misc-takeanl:latest
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
