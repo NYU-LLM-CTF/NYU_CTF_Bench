@@ -1,0 +1,3 @@
+# uses python2 in solver
+
+# https://ctftime.org/writeup/11314
