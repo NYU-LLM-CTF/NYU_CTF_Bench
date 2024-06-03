@@ -8,6 +8,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 275,
+    "points": 464,
     "files": [
         "./chal/food"
     ],

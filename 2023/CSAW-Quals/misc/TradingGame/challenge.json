@@ -10,6 +10,7 @@
     "decay":20,
     "minimum":50,
     "compose": true,
+    "points": 466,
     "internal_port":4657,
     "box": "misc.chal.csaw.io",
     "flag": {

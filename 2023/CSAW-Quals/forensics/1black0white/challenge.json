@@ -7,6 +7,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 275,
+    "points": 50,
     "files": [
         "qr_code.txt"
     ]

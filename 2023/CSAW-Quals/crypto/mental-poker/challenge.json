@@ -7,6 +7,7 @@
   "type": "dynamic",
   "initial": 500,
   "minimum": 50,
+  "points": 488,
   "decay": 275,
   "compose": true,
   "box": "crypto.chal.csaw.io",

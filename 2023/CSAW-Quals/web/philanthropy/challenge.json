@@ -10,6 +10,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 275,
+    "points": 186,
     "box": "web.chal.csaw.io",
     "urls": [
         "http://web.chal.csaw.io:14180/web/home"

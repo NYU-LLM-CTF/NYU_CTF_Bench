@@ -12,6 +12,7 @@
     "initial": 500,
     "minimum": 50,
     "compose": true,
+    "points": 389,
     "decay": 275,
     "files": [],
     "box": "127.0.0.1",

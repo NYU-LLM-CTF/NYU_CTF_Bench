@@ -10,6 +10,7 @@
     "minimum":50,
     "internal_port":9999,
     "compose": true,
+    "points": 460,
     "box": "pwn.chal.csaw.io",
     "flag": {
       "content": "csawctf{d0n't_g@mbl3__juST_pwn_!!}",

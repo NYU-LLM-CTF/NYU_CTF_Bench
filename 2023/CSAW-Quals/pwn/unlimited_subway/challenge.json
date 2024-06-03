@@ -9,6 +9,7 @@
     "decay":275,
     "minimum":50,
     "internal_port":7900,
+    "points": 92,
     "compose": true,
     "box": "pwn.chal.csaw.io",
     "flag": {

@@ -9,6 +9,7 @@
   "minimum": 50,
   "decay": 275,
   "compose": true,
+  "points": 450,
   "box": "crypto.chal.csaw.io",
   "files":["server.py"]
 }
