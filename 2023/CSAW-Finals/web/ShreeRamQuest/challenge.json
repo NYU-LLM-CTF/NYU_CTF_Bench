@@ -11,6 +11,7 @@
   "decay": 20,
   "minimum": 50,
   "internal_port": 80,
+  "points": 50,
   "box": "web.chal.csaw.io",
   "flag": {
     "content": "csawctf{J4y_Shr33_Ram_J4y_Shr33_Ram}"

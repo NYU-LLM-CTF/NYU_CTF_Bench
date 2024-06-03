@@ -7,6 +7,7 @@
     "type": "dynamic",
     "internal_port": 31137,
     "compose": true,
+    "points": 500,
     "files": [
         "./chal/cell.pkg"
     ]

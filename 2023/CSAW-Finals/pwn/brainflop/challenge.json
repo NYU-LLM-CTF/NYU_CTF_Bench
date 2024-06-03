@@ -10,6 +10,7 @@
     "decay": 50,
     "internal_port": 9999,
     "compose": true,
+    "points": 92,
     "box": "pwn.chal.csaw.io",
     "files": [
       "share.zip"

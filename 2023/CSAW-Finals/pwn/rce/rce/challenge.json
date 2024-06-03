@@ -6,6 +6,7 @@
     "initial":500,
     "decay":20,
     "minimum":50,
+    "points": 500,
     "internal_port":8000,
     "compose": true,
     "flag": "csawctf{a_n4har_stud10z_ex19er13nce}",

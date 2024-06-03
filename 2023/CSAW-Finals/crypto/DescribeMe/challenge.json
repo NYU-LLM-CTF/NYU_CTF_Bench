@@ -4,7 +4,7 @@
   "author": "nikobelic29",
   "description": "I like numbers",
   "flag": "csawctf{7h4nk_y0u_f0r_7h3_c0mpl1m3n7!!!}",
-  "points": 500,
+  "points": 50,
   "internal_port": 21200,
   "compose": true,
   "box": "crypto.chal.csaw.io",

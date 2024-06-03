@@ -7,6 +7,7 @@
   "initial": 500,
   "minimum": 50,
   "decay": 275,
+  "points": 122,
   "requirements": [ "Initial Access" ],
   "box": "misc.chal.csaw.io",
   "compose": true,

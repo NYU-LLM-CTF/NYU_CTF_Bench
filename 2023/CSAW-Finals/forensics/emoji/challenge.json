@@ -4,7 +4,7 @@
     "author": "aakhtar3",
     "category": "forensics",
     "flag": "csawctf{emoji_game_on_fleeeeeeeeeek}",
-    "points": 200,
+    "points": 92,
     "files": [
       "emoji.txt",
       "emoji.png"

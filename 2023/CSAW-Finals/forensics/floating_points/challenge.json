@@ -4,7 +4,7 @@
   "author": "aakhtar3",
   "category": "forensics",
   "flag": "csawctf{did_you_try_w3schools_path_d=}",
-  "points": 75,
+  "points": 50,
   "files": [
     "floating_points"
   ]

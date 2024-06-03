@@ -8,6 +8,7 @@
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,
+    "points": 74,
     "compose": true,
     "decay": 275,
     "internal_port":13336,

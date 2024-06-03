@@ -13,6 +13,7 @@
     "minimum": 50,
     "compose": true,
     "decay": 20,
+    "points": 57,
     "files": [],
     "box": "mandf.csaw.io",
     "internal_port":3000

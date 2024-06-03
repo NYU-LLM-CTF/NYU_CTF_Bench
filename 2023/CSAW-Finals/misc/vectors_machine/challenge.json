@@ -10,6 +10,7 @@
     },
     "type": "dynamic",
     "initial": 500,
+    "points": 195,
     "minimum": 50,
     "decay": 20,
     "compose": true,
