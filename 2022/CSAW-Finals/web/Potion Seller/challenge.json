@@ -16,5 +16,6 @@
         "type": "dynamic",
         "path": "/app/bin/flag"
     },
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/web/Potion%20Seller",
     "files":["src.tar.gz"]
 }

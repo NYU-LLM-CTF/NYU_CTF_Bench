@@ -13,6 +13,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 20,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/pwn/mAsTeR%200F%20h0Le",
     "files": ["attachment/mAsTeR0Fh0le.zip","attachment/runner.py"],
     "internal_port":9999,
     "box": "pwn.chal.csaw.io"

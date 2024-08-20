@@ -11,6 +11,7 @@
     "box": "misc.chal.csaw.io",
     "type": "dynamic",
     "initial": 500,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/misc/Strange%20Photo",
     "minimum": 50,
     "decay": 20,
     "files": ["attachment/diff.jpg", "attachment/single.jpg", "attachment/Mask.zip"]

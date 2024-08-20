@@ -11,5 +11,6 @@
 	"files": [
 		"output"
 	],
+	"reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/misc/quantum-leap",
 	"box": "misc.chal.csaw.io"
 }

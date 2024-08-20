@@ -8,6 +8,7 @@
   "internal_port": 5000,
   "type": "dynamic",
   "initial": 500,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/forensics/our_spy_in_new_terrain",
   "minimum": 50,
   "decay": 275
 }

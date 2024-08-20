@@ -13,5 +13,6 @@
     "initial": 500,
     "minimum": 50,
     "decay": 20,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/rev/parallel%20vm",
     "files": ["attachment/vm"]
   }

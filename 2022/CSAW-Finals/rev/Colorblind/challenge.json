@@ -13,6 +13,7 @@
     "minimum": 50,
     "decay": 20,
     "files": ["chal/cube"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/rev/Colorblind",
     "box": "rev.chal.csaw.io",
     "internal_port":9999
 }

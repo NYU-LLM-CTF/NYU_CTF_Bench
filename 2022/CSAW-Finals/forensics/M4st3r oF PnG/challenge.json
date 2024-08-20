@@ -13,5 +13,6 @@
     "initial": 500,
     "minimum": 50,
     "decay": 20,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/forensics/M4st3r%20oF%20PnG",
     "files": ["attachment/M4st3rPnG"]
   }

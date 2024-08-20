@@ -15,6 +15,7 @@
       "type": "dynamic",
       "path": "/home/ctf/flag"
     },
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/pwn/CryptoPwn",
     "files":["share.zip"],
     "compose": true
 }

@@ -13,6 +13,7 @@
     "initial": 500,
     "minimum": 50,
     "decay": 20,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/misc/eMbrEy0%20LEaK",
     "files": ["attachment/service.py"],
     "internal_port":9999,
     "box": "misc.chal.csaw.io",

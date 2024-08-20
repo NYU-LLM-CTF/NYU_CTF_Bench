@@ -13,6 +13,7 @@
     "type": "dynamic",
     "path": "/opt/chal/flag.txt"
      },
+     "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/crypto/open-ELLIPTI-PH!",
      "box": "crypto.chal.csaw.io",
      "internal_port": 6000,
      "compose": true

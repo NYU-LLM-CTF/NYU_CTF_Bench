@@ -14,6 +14,7 @@
   "initial": 500,
   "minimum": 50,
   "decay": 20,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/forensics/Oh%20Shucks%20I%20Need%20Tosleep%20(OSINT)",
   "files": [
   "whatisthis.png"
   ]

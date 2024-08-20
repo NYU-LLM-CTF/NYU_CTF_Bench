@@ -11,6 +11,7 @@
     "minimum":50,
     "internal_port":80,
     "box": "web.chal.csaw.io",
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/web/DOOMPDF",
     "flag": {
       "content": "flag{DAAAMN_MAN!Th3_name_is_DOMPDF_OR_DOOMPDF??_L0L}",
       "type": "dynamic",

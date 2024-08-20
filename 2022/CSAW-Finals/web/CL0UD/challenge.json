@@ -14,5 +14,6 @@
         "type": "static",
         "path": ""
     },
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/web/CL0UD",
     "files":["creds"]
 }

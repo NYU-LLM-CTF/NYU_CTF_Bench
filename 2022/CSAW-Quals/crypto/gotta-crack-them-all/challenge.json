@@ -9,6 +9,7 @@
   "minimum": 50,
   "decay": 275,
   "box": "crypto.chal.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/crypto/gotta-crack-them-all",
   "files":["encrypt.py", "leaked_password.txt", "encrypted_passwords.txt"],
   "compose": true
 }

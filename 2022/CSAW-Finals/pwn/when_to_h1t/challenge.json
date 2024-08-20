@@ -16,6 +16,7 @@
       "type": "dynamic",
       "path": "/home/ctf/flag"
     },
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/pwn/when_to_h1t",
     "files":["share.zip"],
     "compose": true
 }

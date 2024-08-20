@@ -11,6 +11,7 @@
   "box": "rev.chal.csaw.io",
   "internal_port": "5000",
   "compose": true,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/rev/the_big_bang",
   "files": [
     "challenge.py"
   ]

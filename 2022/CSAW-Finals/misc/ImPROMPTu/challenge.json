@@ -11,6 +11,7 @@
   "box": "misc.chal.csaw.io",
   "internal_port": 5000,
   "type": "dynamic",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/misc/ImPROMPTu",
   "initial": 500,
   "minimum": 50,
   "decay": 20,

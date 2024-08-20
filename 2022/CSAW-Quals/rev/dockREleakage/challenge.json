@@ -8,6 +8,7 @@
   "initial": 500,
   "minimum": 50,
   "decay": 275,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/rev/dockREleakage",
   "box": "rev.chal.csaw.io",
   "files": [
     "dockREleakage.tar.gz"

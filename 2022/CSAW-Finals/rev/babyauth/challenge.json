@@ -13,6 +13,7 @@
     "minimum": 50,
     "box": "rev.chal.csaw.io",
     "internal_port": 8080,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/rev/babyauth",
     "decay": 20,
     "files": ["validator", "deliverables/server.py"]
 }

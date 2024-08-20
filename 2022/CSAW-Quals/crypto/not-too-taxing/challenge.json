@@ -13,5 +13,6 @@
     "Tax_Ret_Form_Blank.pdf",
     "SPBlock_Email.pdf"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/crypto/not-too-taxing",
   "box": "crypto.chal.csaw.io"
 }
