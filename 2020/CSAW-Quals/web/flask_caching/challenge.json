@@ -7,5 +7,6 @@
   "box": "web.chal.csaw.io",
   "flag": "flag{f1@sK_10rD}",
   "compose": true,
-  "files": ["app.py"]
+  "files": ["app.py"],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/web/flask_caching"
 }

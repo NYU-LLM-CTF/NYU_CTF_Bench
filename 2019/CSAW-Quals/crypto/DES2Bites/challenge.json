@@ -4,5 +4,6 @@
     "description": "You are taking too big of a bite.  Try to take a nibble.\n\nHint: Both KEYs are  'Weak Keys' obtained from  and referenced by https://en.wikipedia.org/wiki/Weak_key",
     "flag": "flag{~tak3_0n3_N!bbI3_@t_@_t!m3~}",
     "points": 200,
-    "files": ["Challenge/DES2Bytes.enc","Challenge/DES2Bytes.txt","Challenge/FLAG.enc","Challenge/Generator.py"]
+    "files": ["Challenge/DES2Bytes.enc","Challenge/DES2Bytes.txt","Challenge/FLAG.enc","Challenge/Generator.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/crypto/DES2Bites"
 }

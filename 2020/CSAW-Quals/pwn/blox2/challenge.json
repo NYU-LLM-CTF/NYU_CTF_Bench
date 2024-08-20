@@ -6,5 +6,6 @@
     "flag": "flag{s0m3t1mes_y0u_n33d_t0_wr1t3_y0ur_0wn_kill_scr33n}",
     "points": 300,
     "box": "pwn.chal.csaw.io",
-    "files": ["blox"]
+    "files": ["blox"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/pwn/blox2"
 }

@@ -6,5 +6,6 @@
     "points": 150,
     "files": ["distribute.zip"],
     "internal_port": 5000,
-    "privileged": true
+    "privileged": true,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/web/raid_fat_fs_chal"
 }

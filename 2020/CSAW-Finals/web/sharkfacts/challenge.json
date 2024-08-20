@@ -5,5 +5,6 @@
     "points": 250,
     "box": "web.chal.csaw.io",
     "flag": "flag{Shark Fact #81: 97 Percent of all sharks are completely harmless to humans}",
-    "files": ["server.py"]
+    "files": ["server.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/web/sharkfacts"
 }

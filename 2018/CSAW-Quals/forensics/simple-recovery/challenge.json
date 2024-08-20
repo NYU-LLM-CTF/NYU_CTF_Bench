@@ -4,5 +4,6 @@
     "description": "Simple Recovery Try to recover the data from these RAID 5 images!  Hint: The data is a checkerboard layout Hint: Parity are in inverted layout ",
     "flag": "flag{dis_week_evry_week_dnt_be_securty_weak}",
     "points": 150,
-    "files": ["disk.img0.7z", "disk.img1.7z"]
+    "files": ["disk.img0.7z", "disk.img1.7z"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/forensics/simple-recovery"
 }

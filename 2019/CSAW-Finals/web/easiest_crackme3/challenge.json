@@ -4,5 +4,6 @@
     "description": "Now prove your might get remote code execution to claim our final flag!\nBy itszn @ Ret2 Systems",
     "flag": "flag{RCE_is_my_favorite_flavor}",
     "points": 300,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/web/easiest_crackme3"
 }

@@ -6,5 +6,6 @@
   "points": 100,
   "files": ["wabfs.tar.gz"],
   "flag": "flag{golang_is_the_worst_lang}",
-  "box": "web.chal.csaw.io"
+  "box": "web.chal.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/misc/wabfs"
 }

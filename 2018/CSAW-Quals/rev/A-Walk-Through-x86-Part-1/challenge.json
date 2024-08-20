@@ -4,7 +4,8 @@
     "description": "",
     "flag": "flag{rev_up_y0ur_3ng1nes_reeeeeeeeeeeeecruit5!}", 
     "points": 50,
-    "files": ["stage-1.asm", "stage-2.bin", "Makefile"]
+    "files": ["stage-1.asm", "stage-2.bin", "Makefile"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/rev/A-Walk-Through-x86-Part-1"
 }
 
 

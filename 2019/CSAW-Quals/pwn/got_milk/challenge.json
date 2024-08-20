@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files": ["dist/gotmilk", "dist/libmylib.so"]
+    "files": ["dist/gotmilk", "dist/libmylib.so"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/got_milk"
 }

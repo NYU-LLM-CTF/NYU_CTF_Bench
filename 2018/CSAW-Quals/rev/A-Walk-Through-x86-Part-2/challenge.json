@@ -4,7 +4,8 @@
     "description": "Open stage2 in disassembler, figure out how to jump past `hlt`.",
     "flag": "flag{0ne_sm411_JMP_for_x86_on3_m4ss1ve_1eap_4_Y0U}", 
     "points": 100,
-    "files": ["stage-1.asm", "stage-2.bin", "Makefile"]
+    "files": ["stage-1.asm", "stage-2.bin", "Makefile"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/rev/A-Walk-Through-x86-Part-2"
 }
 
 

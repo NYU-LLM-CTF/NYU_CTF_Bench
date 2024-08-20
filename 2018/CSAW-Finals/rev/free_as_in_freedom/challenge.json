@@ -4,6 +4,7 @@
     "description":"We understand the not everyone can afford IDA. Instead of IDC, check out this alternative, free-as-in-freedom scripting language :)",
     "flag":"flag{h0p3_y0u_3nj0yed_4_FREE_5cr1pting_l4nguag3}",
     "points": 100,
-    "files":["welcome2.r2"]
+    "files":["welcome2.r2"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/rev/free_as_in_freedom"
 }
 

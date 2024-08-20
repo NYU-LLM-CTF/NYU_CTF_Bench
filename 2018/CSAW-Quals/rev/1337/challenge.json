@@ -4,7 +4,8 @@
     "description": "",
     "flag": "flag{4.\/3ry.1337.|>45$vV0r|)}", 
     "points": 500,
-    "files": ["1337.exe"]
+    "files": ["1337.exe"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/rev/1337"
 }
 
 

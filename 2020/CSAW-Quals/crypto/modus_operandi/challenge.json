@@ -6,5 +6,6 @@
     "points": 100,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "internal_port": 8000
+    "internal_port": 8000,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/crypto/modus_operandi"
 }

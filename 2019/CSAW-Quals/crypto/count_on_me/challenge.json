@@ -7,5 +7,6 @@
     "internal_port": 1337,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "files": ["chal.py"]
+    "files": ["chal.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/crypto/count_on_me"
 }

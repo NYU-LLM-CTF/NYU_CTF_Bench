@@ -4,5 +4,6 @@
     "description": "GLOBETROTTER TRAVEL LLC has deployed a new travel booking system, but somehow they're still losing ground to these 'hip' travel websites...\n\nWritten by Doom, Ret2 Systems.\n\n`nc 1.chal.csaw.io 4321`",
     "flag": "flag{th4nks_f0r_s0lving_my_w1nd0wz_ch4ll3ng3}",
     "points": 200,
-    "files": ["challenge/AppJailLauncher.exe", "challenge/globetrotter.exe", "challenge/serve.bat"]
+    "files": ["challenge/AppJailLauncher.exe", "challenge/globetrotter.exe", "challenge/serve.bat"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/pwn/globetrotter"
 }

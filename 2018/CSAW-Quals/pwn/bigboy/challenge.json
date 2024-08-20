@@ -6,7 +6,8 @@
     "compose": true,
     "box": "pwn.chal.csaw.io",
     "points": 25,
-    "files": ["boi"]
+    "files": ["boi"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/pwn/bigboy"
 }
 
 

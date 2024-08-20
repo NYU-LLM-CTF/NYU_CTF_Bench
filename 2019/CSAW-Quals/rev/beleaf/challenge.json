@@ -4,6 +4,7 @@
     "description":"tree sounds are best listened to by https://binary.ninja/demo or ghidra",
     "flag":"flag{we_beleaf_in_your_re_future}",
     "points": 50,
-    "files":["beleaf"]
+    "files":["beleaf"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/rev/beleaf"
 }
 

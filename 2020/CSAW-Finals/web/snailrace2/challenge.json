@@ -4,5 +4,6 @@
     "description": "Try as I might, buying this flag is a such a sisyphean task. I am but a small snail in this universe. \n\nhttps://snail.racecraft.cf\n\nBy: @itszn (RET2)",
     "points": 400,
     "box": "web.chal.csaw.io",
-    "flag": "flag{better go back to % formating..}"
+    "flag": "flag{better go back to % formating..}",
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/web/snailrace2"
 }

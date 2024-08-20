@@ -5,5 +5,6 @@
     "points": 150,
     "box": "web.chal.csaw.io",
     "flag": "flag{I bet you abused my poor, innocent, sessions huh >:(}",
-    "files": ["snailrace.tar.gz"]
+    "files": ["snailrace.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/web/snailrace1"
 }

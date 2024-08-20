@@ -7,5 +7,6 @@
     "box": "rev.chal.csaw.io",
     "points": 50,
     "compose": true,
-    "files": ["unwrangle_me"]
+    "files": ["unwrangle_me"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/rev/wrangly"
 }

@@ -7,5 +7,6 @@
     "internal_port": 5000,
     "box": "web.chal.csaw.io",
     "points": 50,
-    "files": ["client.zip", "server.py"]
+    "files": ["client.zip", "server.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/web/biometric"
 }

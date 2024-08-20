@@ -7,5 +7,6 @@
     "box": "crypto.chal.csaw.io",
     "internal_port": 5000,
     "compose": true,
-    "files": ["encoder.py", "messages.txt"]
+    "files": ["encoder.py", "messages.txt"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/crypto/the_matrix"
 }

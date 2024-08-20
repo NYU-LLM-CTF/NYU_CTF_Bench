@@ -7,5 +7,6 @@
     "internal_port": 9005,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files": ["unfork.patch", "bzImage", "run.sh", "dist/disk.img"]
+    "files": ["unfork.patch", "bzImage", "run.sh", "dist/disk.img"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/pwn/unfork"
 }

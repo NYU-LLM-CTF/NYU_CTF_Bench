@@ -4,5 +4,6 @@
     "description": "Many of my friends do not trust encryption systems. To prove them wrong, I built this small tool to encrypt my data easily on the internet. They can also encrypt stuff for me.\nIt also allows me to decrypt the data when it's run in debug mode, but obviously this is disabled in production!\n\nTo show them that it is safe, I even put a secret on the website. As far as I know, no one has found the secret yet! Do you want to give it a try? It's here: http://ctf-elb-2019-1778180283.us-east-1.elb.amazonaws.com/\n\nBy Jules Denardou & Doug Deperry @ Datadog",
     "flag": "flag{CSAW_Cbc_1s_N0T_0K4y}",
     "points": 300,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/crypto/birthday"
 }

@@ -6,5 +6,6 @@
     "flag": "flag{c0ngr4ts_0n_y0ur_S3cr3t_Gr4de_GM}",
     "points": 300,
     "box": "rev.chal.csaw.io",
-    "files": ["blox"]
+    "files": ["blox"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/rev/blox1"
 }

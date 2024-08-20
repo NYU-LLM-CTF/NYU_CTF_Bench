@@ -5,5 +5,6 @@
     "flag": "flag{m33t_m3_in_blips_n_ch3atz}",
     "points": 200,
     "box": "rev.chal.csaw.io",
-    "files": ["krakme.exe"]
+    "files": ["krakme.exe"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/rev/Krakme"
 }

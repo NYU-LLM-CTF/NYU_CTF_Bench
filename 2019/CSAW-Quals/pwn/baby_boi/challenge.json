@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files": ["baby_boi", "libc-2.27.so", "baby_boi.c"]
+    "files": ["baby_boi", "libc-2.27.so", "baby_boi.c"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/baby_boi"
 }

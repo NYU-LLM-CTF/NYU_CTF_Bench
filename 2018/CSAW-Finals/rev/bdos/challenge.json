@@ -4,5 +4,6 @@
     "description": "Bee-based denial of service. Maybe eventually this will print out a flag...",
     "flag": "flag{the bee movie but every time they say bee it recurses....!}",
     "points": 450,
-    "files": ["bdos.tar.gz"]
+    "files": ["bdos.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/rev/bdos"
 }

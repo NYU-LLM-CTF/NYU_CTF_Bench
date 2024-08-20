@@ -5,5 +5,6 @@
     "points": 250,
     "flag": "flag{pwn3d_th3_buck3ts}",
     "box": "web.chal.csaw.io",
-    "files": ["letter"]
+    "files": ["letter"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/web/whistleblow"
 }

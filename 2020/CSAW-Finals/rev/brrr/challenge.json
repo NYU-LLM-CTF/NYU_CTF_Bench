@@ -5,5 +5,6 @@
     "flag": "flag{such_pr1m1t1v3_t3chn0l0gy}",
     "points": 100,
     "box": "rev.chal.csaw.io",
-    "files": ["brrr"]
+    "files": ["brrr"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/rev/brrr"
 }

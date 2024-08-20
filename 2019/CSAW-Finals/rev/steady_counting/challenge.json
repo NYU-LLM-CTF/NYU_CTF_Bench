@@ -4,5 +4,6 @@
     "description": "this challenge is all about counting that dough",
     "flag": "flag{ins_count_is_handy_for_ws}",
     "points": 200,
-    "files": ["counting"]
+    "files": ["counting"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/rev/steady_counting"
 }

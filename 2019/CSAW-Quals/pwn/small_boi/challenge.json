@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files": ["small_boi"]
+    "files": ["small_boi"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/small_boi"
 }

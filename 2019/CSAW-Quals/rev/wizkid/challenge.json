@@ -7,5 +7,6 @@
     "internal_port": 4444,
     "box": "rev.chal.csaw.io",
     "compose": true,
-    "files": ["wizkid"]
+    "files": ["wizkid"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/rev/wizkid"
 }

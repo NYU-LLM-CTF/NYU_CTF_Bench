@@ -4,5 +4,6 @@
 	"description": "Traverse these roads, win and obtain the flag",
 	"files": ["main"],
 	"flag": "flag{D0wN_4nD_1eFt_WhEr3_Red_H3Rr1Ngz}",
-	"port": 8120
+	"port": 8120,
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Reversing/rusty_road"
 }

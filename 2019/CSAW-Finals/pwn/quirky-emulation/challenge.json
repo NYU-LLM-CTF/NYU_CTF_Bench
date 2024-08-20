@@ -7,5 +7,6 @@
     "points":400,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files":["dist.zip"]
+    "files":["dist.zip"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/pwn/quirky-emulation"
 }

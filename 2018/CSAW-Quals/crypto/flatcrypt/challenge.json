@@ -6,5 +6,6 @@
     "compose": true,
     "box": "crypto.chal.csaw.io",
     "points": 100,
-    "files": ["serv-distribute.py"]
+    "files": ["serv-distribute.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/crypto/flatcrypt"
 }

@@ -6,5 +6,6 @@
     "flag": "flag{immanuel-kant-says-wear-a-mask}",
     "points": 250,
     "box": "rev.chal.csaw.io",
-    "files": ["wireshark"]
+    "files": ["wireshark"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/rev/take-it-easy"
 }

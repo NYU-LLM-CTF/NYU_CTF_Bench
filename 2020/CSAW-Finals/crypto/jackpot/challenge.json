@@ -7,5 +7,6 @@
     "box": "crypto.chal.csaw.io",
     "internal_port": 5000,
     "compose": true,
-    "files": ["jackpot"]
+    "files": ["jackpot"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/crypto/jackpot"
 }

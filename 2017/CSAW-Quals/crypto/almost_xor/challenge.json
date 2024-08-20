@@ -8,5 +8,6 @@
 		"almostxor.py",
 		"ciphertext"
 	],
-	"flag": "flag{>x0r_i5_Add1+10n-m0D-2,'bU+_+h15_Wa5_m0d=8}"
+	"flag": "flag{>x0r_i5_Add1+10n-m0D-2,'bU+_+h15_Wa5_m0d=8}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/crypto/almost_xor"
 }

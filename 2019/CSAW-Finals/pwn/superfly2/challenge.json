@@ -7,5 +7,6 @@
     "internal_port": 8888,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files": ["libsuperfly.so", "libjemalloc.so.2", "libc-2.27.so"]
+    "files": ["libsuperfly.so", "libjemalloc.so.2", "libc-2.27.so"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/pwn/superfly2"
 }

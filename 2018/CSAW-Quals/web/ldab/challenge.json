@@ -5,7 +5,8 @@
     "flag": "flag{ld4p_inj3ction_i5_a_th1ng}",
     "compose": true,
     "box": "web.chal.csaw.io",
-    "points": 50
+    "points": 50,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/web/ldab"
 }
 
 

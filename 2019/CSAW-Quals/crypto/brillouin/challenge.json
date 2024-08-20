@@ -7,5 +7,6 @@
     "points": 500,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "files": ["brillouin.py"]
+    "files": ["brillouin.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/crypto/brillouin"
 }

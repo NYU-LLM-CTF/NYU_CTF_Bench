@@ -5,5 +5,6 @@
     "points": 300,
     "flag": "flag{ctf_pl4y3rz_g1t_1t_d0n3}",
     "box": "rev.chal.csaw.io",
-    "files": ["sourcery.zip"]
+    "files": ["sourcery.zip"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/rev/sourcery"
 }

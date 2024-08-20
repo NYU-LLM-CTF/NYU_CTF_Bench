@@ -3,5 +3,6 @@
 	"category": "rev",
 	"description": "tablez",
 	"files": ["tablez"],
-	"flag": "flag{t4ble_l00kups_ar3_b3tter_f0r_m3}"
+	"flag": "flag{t4ble_l00kups_ar3_b3tter_f0r_m3}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/tablez"
 }

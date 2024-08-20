@@ -4,5 +4,6 @@
     "description": "I deployed this cool website in the cloud that allows you to know if your online documents  are available anywhere. You just provide your link, and it will read it for you. Obviously I restricted it to text files, but I still got hacked recently. Would you be able to help me find out how?\n\n<a href=\"ctf-elb-942178366.us-east-1.elb.amazonaws.com\">ctf-elb-942178366.us-east-1.elb.amazonaws.com</a>\n\nWritten by Jules Denardou & Justin Massey, Datadog",
     "flag": "flag{SsRF_1s-c0oL_Ag4iN-w1th_cl0uDs}",
     "points": 400,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/web/online_previewer"
 }

@@ -7,5 +7,6 @@
   "internal_port": 8000,
   "box": "pwn.chal.csaw.io",
   "compose": true,
-  "files": ["dist/tvm", "dist/tvm.h", "dist/TVM.pdf"]
+  "files": ["dist/tvm", "dist/tvm.h", "dist/TVM.pdf"],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/tvm"
 }

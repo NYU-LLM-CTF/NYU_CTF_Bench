@@ -4,5 +4,6 @@
 	"description": "notmycupofcoffe",
 	"port": 8112,
 	"box": "",
-	"flag": "flag{yd1dw3wr1t3th15j@v@is@n@landd0nt51@lize}"
+	"flag": "flag{yd1dw3wr1t3th15j@v@is@n@landd0nt51@lize}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/web/notmycupofcoffe"
 }
