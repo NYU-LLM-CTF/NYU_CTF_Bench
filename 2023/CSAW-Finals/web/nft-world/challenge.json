@@ -12,5 +12,6 @@
     "decay": 275,
     "points": 500,
     "box": "",
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/web/nft-world",
     "files":[]
   }

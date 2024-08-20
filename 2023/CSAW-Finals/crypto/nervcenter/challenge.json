@@ -9,6 +9,7 @@
   "initial": 500,
   "minimum": 50,
   "decay": 275,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/crypto/nervcenter",
   "box": "nervcenter.moyix.net",
   "files":["nervcenter"]
 }

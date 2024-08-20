@@ -8,5 +8,6 @@
   "minimum": 50,
   "decay": 275,
   "box": "crypto.chal.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/crypto/circles",
   "files":["server.py", "flag.enc"]
 }

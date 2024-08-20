@@ -11,6 +11,7 @@
     "internal_port":9999,
     "compose": true,
     "points": 460,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/pwn/double_zer0_dilemma",
     "box": "pwn.chal.csaw.io",
     "flag": {
       "content": "csawctf{d0n't_g@mbl3__juST_pwn_!!}",

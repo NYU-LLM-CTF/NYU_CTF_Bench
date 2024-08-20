@@ -5,6 +5,7 @@
 	"points": 432,
 	"description": "There are even rules in programming. If you do not follow them, it can happen that an exception occurs or that you fall from the bridge of death into the volcano. Fix the binary and master the path to find the Holy Grail.",
 	"flag": "csawctf{f0ll0w_7h3_c0d1ng_rul35_my_fr13nd}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/rev/coconuts",
 	"files": [
 		"coconuts.exe"
 	]

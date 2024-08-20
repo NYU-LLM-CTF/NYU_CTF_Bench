@@ -12,6 +12,7 @@
     "compose": true,
     "points": 453,
     "box": "pwn.chal.csaw.io",
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/pwn/super_secure_heap",
     "flag": {
       "content": "csawctf{_d0es_Borat_aPpr0ve_oF_tH3_n3w_SsH?}",
       "type": "dynamic",

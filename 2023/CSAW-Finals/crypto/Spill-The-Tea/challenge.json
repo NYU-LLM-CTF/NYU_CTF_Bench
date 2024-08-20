@@ -8,5 +8,6 @@
   "initial": 500,
   "minimum": 50,
   "decay": 13,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/crypto/Spill-The-Tea",
   "files":["spill-the-tea.zip"]
 }

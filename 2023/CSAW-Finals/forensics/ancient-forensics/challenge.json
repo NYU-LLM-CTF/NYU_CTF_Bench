@@ -9,6 +9,7 @@
   "decay": 275,
   "points": 122,
   "requirements": [ "Initial Access" ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/forensics/ancient-forensics",
   "box": "misc.chal.csaw.io",
   "compose": true,
   "internal_port": 5000

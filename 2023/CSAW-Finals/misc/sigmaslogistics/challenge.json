@@ -15,6 +15,7 @@
     "decay": 20,
     "points": 57,
     "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/misc/sigmaslogistics",
     "box": "mandf.csaw.io",
     "internal_port":3000
 }

@@ -4,6 +4,7 @@
   "author": "ElykDeer",
   "description": "Okay time for your first real binary. (btw where is baby second???)",
   "flag": "csawctf{st1ng_th30ry_a1nt_so_h4rd}",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/rev/baby's%20third",
   "points": 50,
   "files": [
     "babysthird",

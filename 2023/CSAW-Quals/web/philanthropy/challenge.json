@@ -11,6 +11,7 @@
     "minimum": 50,
     "decay": 275,
     "points": 186,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/web/philanthropy",
     "box": "web.chal.csaw.io",
     "urls": [
         "http://web.chal.csaw.io:14180/web/home"

@@ -4,6 +4,7 @@
   "author": "ElykDeer",
   "description": "Reversing means reading code. Read this file, and find the flag!",
   "flag": "csawctf{w3_411_star7_5om3wher3}",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/rev/baby's%20first",
   "points": 25,
   "files": [
     "babysfirst.py"

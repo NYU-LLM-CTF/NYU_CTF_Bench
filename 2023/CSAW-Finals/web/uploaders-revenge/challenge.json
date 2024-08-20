@@ -16,6 +16,7 @@
         "https://uploaders-revenge.csaw.io",
         "https://uploaders-revenge-bot.csaw.io"
     ],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/web/uploaders-revenge",
     "files": [
         "handout.tar.gz"
     ]

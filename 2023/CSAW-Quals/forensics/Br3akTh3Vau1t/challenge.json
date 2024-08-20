@@ -8,6 +8,7 @@
     "minimum": 50,
     "decay": 275,
     "points": 499,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/forensics/Br3akTh3Vau1t",
     "files": [
         "runme.yml",
         "ansible.cfg",

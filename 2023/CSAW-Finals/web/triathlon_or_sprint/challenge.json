@@ -11,6 +11,7 @@
     "urls": [
         "http://128.238.66.77:8000/"
     ],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/web/triathlon_or_sprint",
     "files": [
 	    "ftp-conn"
     ]

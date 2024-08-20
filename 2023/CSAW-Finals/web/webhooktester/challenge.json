@@ -7,6 +7,7 @@
   "flag": "csawctf{ssRf_w1ZarrD_y0u_ar3_29f6ff0f5c}",
   "points": 500,
   "box": "web.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/web/webhooktester",
   "files": [
     "chal/handout.tar.gz"
   ]

@@ -11,6 +11,7 @@
     "decay": 275,
     "compose": true,
     "points": 336,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/forensics/hieroglyphs",
     "box": "forensics.csaw.io",
     "files": [
         "image.png",

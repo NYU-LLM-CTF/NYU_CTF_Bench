@@ -5,6 +5,7 @@
     "category": "forensics",
     "flag": "csawctf{hypocrita tu os}",
     "points": 82,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/forensics/hypokrinesthai",
     "files": [
       "hypokrinesthai.txt"
     ]

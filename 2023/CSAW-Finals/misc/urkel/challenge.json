@@ -8,5 +8,6 @@
   "flag": "csawctf{G0+___4NY___CH3333333333333333S3}",
   "points": 494,
   "compose": true,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/misc/urkel",
   "internal_port": 1337
 }

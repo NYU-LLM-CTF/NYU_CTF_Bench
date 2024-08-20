@@ -11,5 +11,6 @@
   "minimum": null,
   "decay": null,
   "box": "crypto.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/crypto/Textbook-RSA",
   "files":["param.py", "query.py"]
 }

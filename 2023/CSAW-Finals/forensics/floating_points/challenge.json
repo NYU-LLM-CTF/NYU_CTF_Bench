@@ -5,6 +5,7 @@
   "category": "forensics",
   "flag": "csawctf{did_you_try_w3schools_path_d=}",
   "points": 50,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/forensics/floating_points",
   "files": [
     "floating_points"
   ]

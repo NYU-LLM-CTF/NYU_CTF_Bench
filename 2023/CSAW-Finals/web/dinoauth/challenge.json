@@ -14,6 +14,7 @@
         3001,
         3002
     ],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2023-Finals/tree/main/web/dinoauth",
     "box": "web.chal.csaw.io",
     "files": [
     ]

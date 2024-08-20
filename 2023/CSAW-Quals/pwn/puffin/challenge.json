@@ -7,6 +7,7 @@
   "points": 75,
   "internal_port": 31140,
   "compose": true,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/pwn/puffin",
   "box": "pwn.chal.csaw.io",
   "files": [
     "puffin",
