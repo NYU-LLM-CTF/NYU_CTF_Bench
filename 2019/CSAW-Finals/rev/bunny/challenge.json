@@ -4,5 +4,6 @@
     "description": "Follow the white fuzzy rabbit. Add flag{{}} to the string you get. If you have what you think should be a flag, pm @tnek on discord or talk to me in person.\n\nBy Teddy Reed @ Facebook",
     "flag": "flag{ANDFINDTHEKEYISYOUAREAMAZE}",
     "points": 300,
-    "files": ["bunny.cpp"]
+    "files": ["bunny.cpp"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/rev/bunny"
 }

@@ -7,5 +7,6 @@
     "internal_port": 5000,
     "box": "web.chal.csaw.io",
     "compose": true,
-    "files": ["dist/dist.tar.gz"]
+    "files": ["dist/dist.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/web/babycsp"
 }

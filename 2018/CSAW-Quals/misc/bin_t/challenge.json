@@ -5,5 +5,6 @@
     "flag": "flag{HOW_WAS_IT_NAVIGATING_THAT_FOREST?}",
     "compose": true,
     "box": "misc.chal.csaw.io",
-    "points": 100
+    "points": 100,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/misc/bin_t"
 }

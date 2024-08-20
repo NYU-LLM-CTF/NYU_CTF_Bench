@@ -6,7 +6,8 @@
     "compose": true,
     "box": "misc.chal.csaw.io",
     "points": 200,
-    "files": ["description.pdf"]
+    "files": ["description.pdf"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/misc/TakeAnL"
 }
 
 

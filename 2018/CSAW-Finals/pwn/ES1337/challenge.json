@@ -8,5 +8,6 @@
   "internal_port": 1337,
   "box": "es1337",
   "files": ["dist/ES1337_NO_CHROME.tar.gz", "dist/v8_7.0.276.32_csaw.release.tar.gz"],
-  "autodeploy":false
+  "autodeploy":false,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/pwn/ES1337"
 }

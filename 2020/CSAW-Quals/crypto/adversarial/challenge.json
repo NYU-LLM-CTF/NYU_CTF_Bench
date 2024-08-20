@@ -7,5 +7,6 @@
     "box": "crypto.chal.csaw.io",
     "internal_port": 8000,
     "compose": true,
-    "files": ["assignment.txt"]
+    "files": ["assignment.txt"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/crypto/adversarial"
 }

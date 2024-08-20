@@ -7,5 +7,6 @@
     "internal_port": 23333,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "files": ["server.py"]
+    "files": ["server.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/crypto/fault_box"
 }

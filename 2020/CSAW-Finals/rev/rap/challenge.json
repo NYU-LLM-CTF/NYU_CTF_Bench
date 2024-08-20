@@ -5,5 +5,6 @@
     "flag": "flag{h3lp_1m_tr4pp3d_1n_r4pp3d_1n_44444444}",
     "points": 100,
     "box": "rev.chal.csaw.io",
-    "files": ["rap"]
+    "files": ["rap"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/rev/rap"
 }

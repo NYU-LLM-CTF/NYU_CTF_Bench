@@ -4,5 +4,6 @@
     "description": "This is an example of a flag: \n\n`flag{welcome_to_csaw_ctf_finals}`",
     "flag":"flag{welcome_to_csaw_ctf_finals}",
     "points": 1,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/misc/leaked_flag"
 }

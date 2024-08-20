@@ -8,5 +8,6 @@
     "box": "pwn.chal.csaw.io",
     "files":["libc-2.23.so", "traveller"],
     "compose": true,
-    "unlocked_by": null
+    "unlocked_by": null,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/traveller"
 }

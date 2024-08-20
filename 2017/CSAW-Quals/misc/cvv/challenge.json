@@ -4,5 +4,6 @@
 	"description": "Hey fam, you got CVV? I need some CVV?",
 	"port": 8096,
 	"flag": "flag{ch3ck-exp3rian-dat3-b3for3-us3}",
-	"box": ""
+	"box": "",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/misc/cvv"
 }

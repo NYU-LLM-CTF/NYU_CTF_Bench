@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "rev.chal.csaw.io",
     "compose": true,
-    "files": ["distribute/launcher.py", "Dockerfile"]
+    "files": ["distribute/launcher.py", "Dockerfile"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/rev/mystery_boi"
 }

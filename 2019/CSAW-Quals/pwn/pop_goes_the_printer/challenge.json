@@ -7,5 +7,6 @@
   "internal_port": 28201,
   "box": "pwn.chal.csaw.io",
   "compose": true,
-  "files": ["pgtp", "libs_release.tar.gz", "Dockerfile"]
+  "files": ["pgtp", "libs_release.tar.gz", "Dockerfile"],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/pop_goes_the_printer"
 }

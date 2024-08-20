@@ -7,5 +7,6 @@
     "box": "crypto.chal.csaw.io",
     "internal_port": 5000,
     "compose": true,
-    "files": ["handout.py"]
+    "files": ["handout.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/crypto/authy"
 }

@@ -8,5 +8,6 @@
     "points": 150,
     "box": "showdown.csaw.io",
     "internal_port": 9222,
-    "files": ["showdown.tar.gz"]
+    "files": ["showdown.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/misc/showdown"
 }

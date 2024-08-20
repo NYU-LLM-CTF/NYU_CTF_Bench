@@ -7,5 +7,6 @@
   "internal_port": 8000,
   "box": "pwn.chal.csaw.io",
   "compose": true,
-  "files": ["popping_caps", "libc.so.6"]
+  "files": ["popping_caps", "libc.so.6"],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/popping_caps"
 }

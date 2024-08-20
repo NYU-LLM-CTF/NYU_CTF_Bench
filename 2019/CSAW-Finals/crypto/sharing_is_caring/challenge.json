@@ -7,5 +7,6 @@
     "internal_port": 3788,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "files": ["sharing_is_caring.py"]
+    "files": ["sharing_is_caring.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/crypto/sharing_is_caring"
 }

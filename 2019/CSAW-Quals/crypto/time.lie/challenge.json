@@ -7,5 +7,6 @@
     "internal_port": 5000,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "files": ["black_hat.presentation.final.forRealThisTime.lastversion.updated.FINAL.pptx"]
+    "files": ["black_hat.presentation.final.forRealThisTime.lastversion.updated.FINAL.pptx"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/crypto/time.lie"
 }

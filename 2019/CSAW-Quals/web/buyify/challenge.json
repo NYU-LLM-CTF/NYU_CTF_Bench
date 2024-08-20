@@ -7,5 +7,6 @@
     "internal_port": 3000,
     "box": "web.chal.csaw.io",
     "compose": true,
-    "files": ["buyify.tar.gz"]
+    "files": ["buyify.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/web/buyify"
 }

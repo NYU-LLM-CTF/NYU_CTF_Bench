@@ -7,5 +7,6 @@
     "box": "pwn.chal.csaw.io",
     "internal_port": 8000,
     "compose": true,
-    "files": ["grid", "libc-2.27.so", "libstdc++.so.6.0.25"]
+    "files": ["grid", "libc-2.27.so", "libstdc++.so.6.0.25"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/pwn/grid"
 }

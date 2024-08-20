@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "crypto.chal.csaw.io",
     "compose": true,
-    "files": ["dist/TVM_2.0.pdf", "dist/tvm", "dist/tvm.h"]
+    "files": ["dist/TVM_2.0.pdf", "dist/tvm", "dist/tvm.h"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/crypto/tvm_2_final"
 }

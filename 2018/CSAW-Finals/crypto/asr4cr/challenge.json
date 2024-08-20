@@ -7,5 +7,6 @@
     "compose": true,
     "box": "crypto.chal.csaw.io",
     "internal_port": 4141,
-    "files": ["asr4cr_fake.py"]
+    "files": ["asr4cr_fake.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/crypto/asr4cr"
 }

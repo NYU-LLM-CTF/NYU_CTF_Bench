@@ -7,5 +7,6 @@
   "box": "pwn.chal.csaw.io",
   "internal_port": 1000,
   "compose": true,
-  "files":[]
+  "files":[],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/pwn/twitch_plays_shellcode"
 }

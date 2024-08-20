@@ -6,5 +6,6 @@
     "flag": "flag{enterprise_mysql_servers_are_glorified_file_hosting_services}",
     "points": 400,
     "box": "web.chal.csaw.io",
-    "files": ["handout/info.tar.gz"]
+    "files": ["handout/info.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/web/saasy"
 }

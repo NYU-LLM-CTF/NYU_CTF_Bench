@@ -6,5 +6,6 @@
     "compose": true,
     "box": "pwn.chal.csaw.io",
     "points": 50,
-    "files": ["get_it"]
+    "files": ["get_it"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/pwn/get_it%3F"
 }

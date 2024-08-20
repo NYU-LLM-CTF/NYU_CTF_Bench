@@ -7,5 +7,6 @@
     "box": "pwn.chal.csaw.io",
     "internal_port": 8000,
     "compose": true,
-    "files": ["sandbox.py"]
+    "files": ["sandbox.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/pwn/slithery"
 }

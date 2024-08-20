@@ -8,5 +8,6 @@
 		"rfc8032.py",
 		"ciphertext"
 	],
-	"flag": "flag{generalizing_vignere_to_arbitrary_groups_is_not_good}"
+	"flag": "flag{generalizing_vignere_to_arbitrary_groups_is_not_good}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Crypto/ECXOR"
 }

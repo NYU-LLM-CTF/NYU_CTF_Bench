@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "rev.chal.csaw.io",
     "files": ["callsite"],
-    "compose": true
+    "compose": true,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/rev/call_site"
 }

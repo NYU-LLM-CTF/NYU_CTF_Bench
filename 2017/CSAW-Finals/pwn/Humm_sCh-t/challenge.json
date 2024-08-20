@@ -7,5 +7,6 @@
 	"files":[
 		"serve"
 	],
-	"flag": "flag{fun_f4c7-Humm_s_1s_tur1ng_c0mpl3t3}"
+	"flag": "flag{fun_f4c7-Humm_s_1s_tur1ng_c0mpl3t3}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Pwn/Humm_sCh-t"
 }

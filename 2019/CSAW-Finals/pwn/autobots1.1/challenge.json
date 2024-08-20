@@ -8,5 +8,6 @@
     "files": [],
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "autodeploy":false
+    "autodeploy":false,
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/pwn/autobots1.1"
 }

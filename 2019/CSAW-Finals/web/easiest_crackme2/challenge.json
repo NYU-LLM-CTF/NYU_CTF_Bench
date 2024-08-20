@@ -4,5 +4,6 @@
     "description": "We also have a flag tucked deep into our browser extension, see if you can grab it too.\nBy itszn @ Ret2 Systems ",
     "flag": "flag{so_much_for_strings_being_harmless}",
     "points": 300,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/web/easiest_crackme2"
 }

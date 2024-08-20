@@ -7,5 +7,6 @@
     "box": "crypto.chal.csaw.io",
     "points": 500,
     "internal_port": 32333,
-    "files": ["server.py"]
+    "files": ["server.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/crypto/lost_mind"
 }

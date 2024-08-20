@@ -7,5 +7,6 @@
     "box": "web.chal.csaw.io",
     "internal_port": 5000,
     "compose": true,
-    "flag": "flag{ar3nt_u_STUNned_any_t3ch_w0rks_@_all?}"
+    "flag": "flag{ar3nt_u_STUNned_any_t3ch_w0rks_@_all?}",
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/web/real-time-chat"
 }

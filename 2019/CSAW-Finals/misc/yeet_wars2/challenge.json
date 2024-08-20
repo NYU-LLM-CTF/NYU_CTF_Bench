@@ -4,5 +4,6 @@
     "description": "US-Canada Teams Only. First place will receive 150 points, second place will receive 100 points, and third place will receive 50 points.\n\nyeet\nhttp://misc.chal.csaw.io:8000/events\ncurl -H 'content-type: application/json' -H 'Authorization: Bearer token' -d '{{\"instructions\": \"NOPE\\nNOPE\"}}' -XPOST misc.chal.csaw.io:5000/stage",
     "flag": "the flag will be distributed by adding points on ctfd",
     "points": 150,
-    "files": ["yeetme.md"]
+    "files": ["yeetme.md"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/misc/yeet_wars2"
 }

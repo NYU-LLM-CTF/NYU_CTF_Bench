@@ -8,5 +8,6 @@
 		"main.test"
 	],
 	"flag": "flag{tunnel_gopherz_ro0l}",
-	"box": ""
+	"box": "",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/gopherz"
 }

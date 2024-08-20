@@ -6,5 +6,6 @@
 	"files":[
 		"thoroughlyStripped"
 	],
-	"flag": "flag{stay_in_college_kids}"
+	"flag": "flag{stay_in_college_kids}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Forensics/thoroughlyStripped"
 }

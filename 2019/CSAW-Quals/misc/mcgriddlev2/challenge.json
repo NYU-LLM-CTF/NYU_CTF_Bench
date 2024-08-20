@@ -4,5 +4,6 @@
     "description": "flag{{W3lcome_7o_CSAW_QUALS_2019!}}",
     "flag": "flag{W3lcome_7o_CSAW_QUALS_2019!}",
     "points": 1,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/misc/mcgriddlev2"
 }

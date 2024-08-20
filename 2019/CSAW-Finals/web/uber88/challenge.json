@@ -4,5 +4,6 @@
     "description": "Where we are going, we don't need roads.\n\nhttps://www.youtube.com/watch?v=pd_b-ecraF8",
     "flag": "flag{thought_go_was_memory_safe_didnt_ya}",
     "points": 500,
-    "files": ["uber88-v0.0.3.apk"]
+    "files": ["uber88-v0.0.3.apk"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/web/uber88"
 }

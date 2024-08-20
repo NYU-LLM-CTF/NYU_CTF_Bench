@@ -7,5 +7,6 @@
     "internal_port": 8000,
     "box": "rev.chal.csaw.io",
     "compose": true,
-    "files":["gibberish_check"]
+    "files":["gibberish_check"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Quals/tree/master/rev/gibberish_check"
 }

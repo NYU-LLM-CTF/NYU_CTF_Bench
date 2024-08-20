@@ -4,5 +4,6 @@
     "description": "US-CANADA Teams Only: Be ready at 12:00 PM on Nov 7th. Pwny racing will start then (see https://challonge.com/csaw_pwny_racing for when your team is up). We will give teams that are up a 30 minute notice before they have to send in their best pwner for Pwny Racing.\n\nPoints:\n\n1st - 500 points\n\n2nd - 400 points\n\n3rd - 300 points\n\n4th - 200 points\n\n5th place - 100 points",
     "flag": "the flag will be distributed by adding points on ctfd",
     "points": 500,
-    "files": []
+    "files": [],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2019-Finals/tree/master/misc/pwny_racing"
 }

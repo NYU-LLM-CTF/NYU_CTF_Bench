@@ -5,5 +5,6 @@
     "points": 150,
     "flag": "flag{1ts_ok_t0_b3_rusty_4t_RE}",
     "box": "rev.chal.csaw.io",
-    "files": ["yeet"]
+    "files": ["yeet"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/rev/yeet"
 }

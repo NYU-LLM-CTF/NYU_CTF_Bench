@@ -6,5 +6,6 @@
 		"monkeyDo",
 		"banana.script"
 	],
-	"flag": "flag{0r4ng3_3w3_ch1pp3r_1_h47h_n07_s4y_b4n4n4rs}"
+	"flag": "flag{0r4ng3_3w3_ch1pp3r_1_h47h_n07_s4y_b4n4n4rs}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/bananascript"
 }

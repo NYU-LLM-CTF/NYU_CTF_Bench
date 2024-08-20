@@ -5,5 +5,6 @@
 	"files": ["pilot"],
 	"port": 8024,
 	"box": "",
-	"flag": "flag{1nput_c00rd1nat3s_Strap_y0urse1v3s_1n_b0ys}"
+	"flag": "flag{1nput_c00rd1nat3s_Strap_y0urse1v3s_1n_b0ys}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/pwn/pilot"
 }

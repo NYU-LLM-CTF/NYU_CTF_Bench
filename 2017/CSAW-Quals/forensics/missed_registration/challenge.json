@@ -3,5 +3,6 @@
 	"category": "forensics",
 	"description": "It's registration day! These forms just seem longer and longer... Use cap.pcap",
 	"files":["cap.pcap"],
-	"flag": "FLAG{3Am_LaunDR3Y_FL4G_L34kz!}"
+	"flag": "FLAG{3Am_LaunDR3Y_FL4G_L34kz!}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/forensics/missed_registration"
 }

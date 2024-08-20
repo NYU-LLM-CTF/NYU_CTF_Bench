@@ -7,5 +7,6 @@
     "box": "crypto.chal.csaw.io",
     "points": 400,
     "internal_port": 5000,
-    "files": ["main.py"]
+    "files": ["main.py"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/crypto/distastrous_security_apparatus"
 }

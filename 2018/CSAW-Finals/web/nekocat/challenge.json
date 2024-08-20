@@ -5,5 +5,6 @@
     "flag": "flag{werks_on_my_box}",
     "points": 500,
     "internal_port": 5000,
-    "files": ["flagon.zip"]
+    "files": ["flagon.zip"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Finals/tree/master/web/nekocat"
 }

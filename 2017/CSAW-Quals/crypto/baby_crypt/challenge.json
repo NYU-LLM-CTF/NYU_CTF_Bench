@@ -4,5 +4,6 @@
 	"description": "baby crypto",
 	"port": 8000,
 	"box": "",
-	"flag": "flag{Crypt0_is_s0_h@rd_t0_d0...}"
+	"flag": "flag{Crypt0_is_s0_h@rd_t0_d0...}",
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/crypto/baby_crypts"
 }

@@ -7,5 +7,6 @@
     "internal_port": 5000,
     "box": "pwn.chal.csaw.io",
     "compose": true,
-    "files": ["handout.tar.gz"]
+    "files": ["handout.tar.gz"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Finals/tree/master/pwn/darkunion1"
 }

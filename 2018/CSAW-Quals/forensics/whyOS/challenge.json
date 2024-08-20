@@ -4,5 +4,6 @@
     "description": "Simple Recovery Try to recover the data from these RAID 5 images!  Hint: The data is a checkerboard layout Hint: Parity are in inverted layout ",
     "flag": "ca3412b55940568c5b10a616fa7b855e",
     "points": 300,
-    "files": ["com.yourcompany.whyos_4.2.0-28+debug_iphoneos-arm.deb", "console.log"]
+    "files": ["com.yourcompany.whyos_4.2.0-28+debug_iphoneos-arm.deb", "console.log"],
+    "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/forensics/whyOS"
 }
