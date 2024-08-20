@@ -10,5 +10,6 @@
   "files": [
     "FreeGameHaxNCheats2021.app.zip"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/rev/macomal",
   "box": "rev.chal.csaw.io"
 }

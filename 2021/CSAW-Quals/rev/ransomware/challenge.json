@@ -9,6 +9,7 @@
   "decay": 275,
   "box": "rev.chal.csaw.io",
   "internal_port": 9000,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/rev/ransomware",
   "files": [
     "ransomwaRE.exe",
     "files.zip"

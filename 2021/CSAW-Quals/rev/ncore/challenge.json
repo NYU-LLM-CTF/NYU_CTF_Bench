@@ -12,6 +12,7 @@
     "ncore_tb.v",
     "server.py"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/rev/ncore",
   "box": "rev.chal.csaw.io",
   "compose": true
 }

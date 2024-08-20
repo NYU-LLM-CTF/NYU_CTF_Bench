@@ -9,6 +9,7 @@
   "minimum": 50,
   "decay": 275,
   "files": [],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/web/scp-terminal",
   "box": "web.chal.csaw.io",
   "internal_port": 5000
 }

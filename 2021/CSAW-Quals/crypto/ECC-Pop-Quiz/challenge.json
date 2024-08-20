@@ -8,5 +8,6 @@
   "minimum": 50,
   "decay": 275,
   "internal_port": 5000,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/crypto/ECC-Pop-Quiz",
   "box": "crypto.chal.csaw.io"
 }

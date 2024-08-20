@@ -8,5 +8,6 @@
   "initial": 500,
   "minimum": 50,
   "decay": 275,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/crypto/Gotta-Decrypt-Them-All",
   "box": "crypto.chal.csaw.io"
 }

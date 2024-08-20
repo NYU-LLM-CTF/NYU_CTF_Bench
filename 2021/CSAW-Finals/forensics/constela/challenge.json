@@ -8,6 +8,7 @@
   "initial": 500,
   "minimum": 50,
   "decay": 10,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/forensics/constela",
   "files": [
     "constela.pcapng"
   ]

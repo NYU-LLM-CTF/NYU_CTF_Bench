@@ -10,5 +10,6 @@
   "files": [
     "app-debug.apk"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/rev/glootie",
   "box": "rev.chal.csaw.io"
 }

@@ -10,6 +10,7 @@
   "files": [
     "forgery.py"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/crypto/Forgery",
   "internal_port": 5000,
   "box": "crypto.chal.csaw.io"
 }

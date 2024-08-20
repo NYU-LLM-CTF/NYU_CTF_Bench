@@ -11,6 +11,7 @@
   "files": [
     "dist.zip"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/crypto/iBad",
   "internal_port": 8000,
   "box": "crypto.chal.csaw.io"
 }

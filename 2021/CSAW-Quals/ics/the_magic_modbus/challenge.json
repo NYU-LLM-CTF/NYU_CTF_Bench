@@ -10,5 +10,6 @@
   "files": [
     "modbus.pcap"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/ics/the_magic_modbus",
   "box": "misc.chal.csaw.io"
 }

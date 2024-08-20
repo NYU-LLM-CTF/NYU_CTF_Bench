@@ -11,5 +11,6 @@
   "files": [
     "handout.tar.gz"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/rev/hardskull",
   "box": "rev.chal.csaw.io"
 }

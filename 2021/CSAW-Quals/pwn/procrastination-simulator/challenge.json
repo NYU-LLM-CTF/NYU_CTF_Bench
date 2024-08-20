@@ -8,5 +8,6 @@
   "minimum": 50,
   "decay": 275,
   "files": [],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/pwn/procrastination-simulator",
   "box": "pwn.chal.csaw.io"
 }

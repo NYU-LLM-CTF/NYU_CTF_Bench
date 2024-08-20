@@ -11,6 +11,7 @@
   "files": [
     "share.zip"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/pwn/CSAWBox",
   "internal_port": 8888,
   "box": "pwn.chal.csaw.io"
 }

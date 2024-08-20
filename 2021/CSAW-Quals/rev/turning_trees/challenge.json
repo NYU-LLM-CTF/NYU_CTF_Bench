@@ -11,5 +11,6 @@
   "files": [
     "turning.tar.gz"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/rev/turning_trees",
   "box": "rev.chal.csaw.io"
 }

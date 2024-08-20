@@ -8,5 +8,6 @@
   "initial": 250,
   "minimum": 25,
   "decay": 275,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/crypto/Turing",
   "box": "crypto.chal.csaw.io"
 }

@@ -11,6 +11,7 @@
     "word_games",
     "libc-2.33.so"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/pwn/word-games",
   "internal_port": 5000,
   "box": "pwn.chal.csaw.io"
 }

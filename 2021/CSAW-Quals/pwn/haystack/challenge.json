@@ -10,6 +10,7 @@
   "files": [
     "haySTACK"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/pwn/haystack",
   "internal_port": 5000,
   "box": "pwn.chal.csaw.io"
 }

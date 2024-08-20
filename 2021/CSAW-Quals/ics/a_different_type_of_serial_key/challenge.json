@@ -12,5 +12,6 @@
     "capture.sal",
     "key.sal"
   ],
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/ics/a_different_type_of_serial_key",
   "box": "misc.chal.csaw.io"
 }

@@ -9,6 +9,7 @@
   "initial": 500,
   "minimum": 50,
   "decay": 10,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/forensics/No-Time-to-Register",
   "files": [
     "007_Retrieved_Files.7z"
   ],
