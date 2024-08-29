@@ -1,0 +1,14 @@
+{
+    "name": "shellpointcode",
+    "category": "pwn",
+    "description": "Linked lists are great! They let you chain pieces of data together.",
+    "flag": "flag{NONONODE_YOU_WRECKED_BRO}",
+    "compose": true,
+    "box": "pwn.chal.csaw.io",
+    "internal_port": 8000,
+    "points": 100,
+    "files": ["shellpointcode.c", "shellpointcode"]
+}
+
+
+
