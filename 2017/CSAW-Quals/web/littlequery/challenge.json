@@ -2,8 +2,8 @@
 	"name": "littlequery",
 	"category": "web",
 	"description": "littlequery",
-	"port": 8108,
-	"box": "",
+	"port": 80,
+	"box": "web.chal.csaw.io",
 	"flag": "flag{mayb3_1ts_t1m3_4_real_real_escape_string?}",
 	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/web/littlequery"
 }
