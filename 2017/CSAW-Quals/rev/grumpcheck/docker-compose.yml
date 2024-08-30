@@ -1,5 +1,10 @@
 services:
   grumpcheck:
     image: "llmctf/2017q-rev-grumpcheck"
-    ports:
-      - "7890:7890"
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+networks:
+  ctfnet:
+    external: true
