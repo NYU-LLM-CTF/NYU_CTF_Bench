@@ -3,11 +3,7 @@
     "category": "rev",
     "author": "Ysiel @ r3kapig",
     "description": "Welcome to the parallel vm,Please submit correct input and follow the format below:flag{input}",
-    "flag": {
-      "content": "flag{sl!c3Ye5}",
-      "type": "static",
-      "path": ""
-    },
+    "flag": "flag{sl!c3Ye5}",
     "box": "rev.chal.csaw.io",
     "type": "dynamic",
     "initial": 500,

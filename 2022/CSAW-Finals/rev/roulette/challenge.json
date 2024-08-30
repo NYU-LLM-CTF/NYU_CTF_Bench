@@ -3,11 +3,7 @@
     "category": "rev",
     "author": "nikobelic29",
     "description": "My friend has lost a lot of money gambling to try and get the major prize, can you help him recover a bit?",
-    "flag": {
-        "content": "flag{4r3_Yu0_ph4nt0m10rd_:o}",
-        "type": "dynamic",
-        "path": "/home/ctf/flag.txt"
-    },
+    "flag": "flag{4r3_Yu0_ph4nt0m10rd_:o}",
     "box": "rev.chal.csaw.io",
     "type": "dynamic",
     "initial": 500,
