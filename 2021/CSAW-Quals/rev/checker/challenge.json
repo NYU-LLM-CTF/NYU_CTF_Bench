@@ -1,6 +1,6 @@
 {
   "name": "checker",
-  "category": "warm-up",
+  "category": "rev",
   "description": "What's up with all the zeros and ones? Where are my letters and numbers? (This is a reversing challenge.)",
   "flag": "flag{r3vers!nG_w@rm_Up}",
   "type": "dynamic",
