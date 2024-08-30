@@ -5,6 +5,7 @@
     "flag": "flag{y0u_s0_60od_aT_tH3_qU1cK_M4tH5}",
     "compose": true,
     "box": "misc.chal.csaw.io",
+    "port": 4324,
     "points": 100,
     "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/misc/algebra"
 }
