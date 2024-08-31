@@ -2,7 +2,7 @@
   "name": "Phi Too Much In Common",
   "category": "crypto",
   "author": "rollingcoconut",
-  "description": "I love playing CTFs but always fall asleep in Crypto class ... do I need a refresher on RSA??\n\n `nc {box} {port}`",
+  "description": "I love playing CTFs but always fall asleep in Crypto class ... do I need a refresher on RSA??\n\n",
   "flag": "flag{aR3nT_U_tH3_RSA_ninJA}",
   "type": "dynamic",
   "initial": 500,
@@ -11,5 +11,6 @@
   "internal_port": 5000,
   "reference": "https://github.com/osirislab/CSAW-CTF-2022-Quals/tree/master/crypto/too-much-in-common",
   "box": "crypto.chal.csaw.io",
-  "compose": true
+  "compose": true,
+  "files": []
 }

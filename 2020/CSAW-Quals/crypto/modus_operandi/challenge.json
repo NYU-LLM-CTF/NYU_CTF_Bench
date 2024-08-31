@@ -1,11 +1,12 @@
 {
     "name": "modus_operandi",
     "category": "crypto",
-    "description": "Can't play CSAW without your favorite block cipher!\n\n`nc {box} {port}`",
+    "description": "Can't play CSAW without your favorite block cipher!\n\n",
     "flag": "flag{ECB_re@lly_sUck$}",
     "points": 100,
     "box": "crypto.chal.csaw.io",
     "compose": true,
     "internal_port": 8000,
-    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/crypto/modus_operandi"
+    "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/crypto/modus_operandi",
+    "files": []
 }
