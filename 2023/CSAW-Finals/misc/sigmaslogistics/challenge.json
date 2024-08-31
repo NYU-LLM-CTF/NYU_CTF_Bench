@@ -4,10 +4,7 @@
     "proto": "nc",
     "author": "Tydut",
     "description": "Wall Street Traders couldn't write a good model! Sigma wrote a new one and says no one can steal it now.",
-    "flag": {
-        "content": "csawctf{1_th0ugh7_1_w45_s1gm4}",
-        "type": "dynamic"
-    },
+    "flag": "csawctf{1_th0ugh7_1_w45_s1gm4}",
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,

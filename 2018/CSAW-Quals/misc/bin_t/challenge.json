@@ -1,5 +1,5 @@
 {
-    "name": "algebra",
+    "name": "bin_t",
     "category": "misc",
     "description": "Binary trees let you do some interesting things.Can you balance a tree?",
     "flag": "flag{HOW_WAS_IT_NAVIGATING_THAT_FOREST?}",

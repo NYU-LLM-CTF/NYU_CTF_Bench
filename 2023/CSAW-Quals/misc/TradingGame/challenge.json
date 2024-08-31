@@ -13,11 +13,7 @@
     "points": 466,
     "internal_port":4657,
     "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/misc/TradingGame",
-    "box": "misc.chal.csaw.io",
-    "flag": {
-      "content": "csawctf{R_Yu0_7h3_w0lf_0f_w4ll_57r337}",
-      "type": "dynamic",
-      "path": "/home/ctf/flag.txt"
-    },
+    "box": "android-dropper.csaw.io",
+    "flag": "csawctf{R_Yu0_7h3_w0lf_0f_w4ll_57r337}",
     "files":["src/app.py","src/process.py","src/user.py"]
 }
