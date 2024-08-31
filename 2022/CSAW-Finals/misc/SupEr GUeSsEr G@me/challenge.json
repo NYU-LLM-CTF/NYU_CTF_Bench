@@ -4,11 +4,7 @@
     "category": "misc",
     "author": "crazyman @ r3kapig",
     "description": "I heard someone say you are a super guess hacker!Let's play my game and got flag!",
-    "flag": {
-    "content": "flag{c0ool_y0u_ArE_aN_SuPer_GuE33eR_M@n!}",
-    "type": "dynamic",
-    "path": "/home/ctf/flag.txt"
-    },
+    "flag": "flag{c0ool_y0u_ArE_aN_SuPer_GuE33eR_M@n!}",
     "box": "misc.chal.csaw.io",
     "type": "dynamic",
     "initial": 500,

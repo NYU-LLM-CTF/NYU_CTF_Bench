@@ -4,11 +4,7 @@
     "proto": "nc",
     "author": "crazyman @ r3kapig",
     "description": "D1d u like python,Their are some easy trick.Have fun!!!!",
-    "flag": {
-    "content": "flag{y0U_f1NiSHeD_EmpR3Yo_lAeK_Ch@L1EnGe_aNd_uSE_hE1p_T0_Le@k_ThE_vAr}",
-    "type": "dynamic",
-    "path": "/home/ctf/flag"
-  },
+    "flag": "flag{y0U_f1NiSHeD_EmpR3Yo_lAeK_Ch@L1EnGe_aNd_uSE_hE1p_T0_Le@k_ThE_vAr}",
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,

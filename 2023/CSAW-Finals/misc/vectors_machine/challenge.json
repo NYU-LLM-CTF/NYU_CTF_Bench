@@ -4,10 +4,7 @@
     "proto": "nc",
     "author": "Tydut",
     "description": "Vector built a machine learning model supported by Wall Street to be accurate up to 4 decimal places! The flag is hidden in the decision boundary and linear kernel is used. Note: The flag is not enclosed in flag format, please enclose the flag with csawctf{{}} before submitting.",
-    "flag": {
-        "content": "csawctf{N0T5UPP0R73D}",
-        "type": "dynamic"
-    },
+    "flag": "csawctf{N0T5UPP0R73D}",
     "type": "dynamic",
     "initial": 500,
     "points": 195,

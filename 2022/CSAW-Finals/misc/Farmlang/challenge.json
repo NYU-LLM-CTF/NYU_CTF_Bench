@@ -2,16 +2,11 @@
   "name": "Farmlang",
   "category": "misc",
   "description": "Could you guess the farm's WiFi password? We hope so because it is the flag...\n\nNOTE: Please put the password in the standard flag format",
-  "flag": {
-    "content": "flag{Au+umn2022^}",
-    "type": "static",
-    "path": ""
-  },
+  "flag": "flag{Au+umn2022^}",
   "type": "dynamic",
   "initial": 500,
   "minimum": 50,
   "decay": 20,
   "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/misc/Farmlang",
-  "box": "misc.chal.csaw.io",
   "files":["farmlang.jpg"]
 }
