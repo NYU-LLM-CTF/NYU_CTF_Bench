@@ -9,8 +9,8 @@ services:
       ctfnet:
         aliases:
           - crypto.chal.csaw.io
-    # ports:
-    #   - "21200:21200"
+    ports:
+      - 21200:21200
 
 networks:
   ctfnet:

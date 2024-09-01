@@ -4,7 +4,7 @@ services:
     image: llmctf/2020q-cry-adversarial:latest
     # build: ./server
     ports:
-      - 12312:8000
+      - 8000:8000
     networks:
       ctfnet:
         aliases:

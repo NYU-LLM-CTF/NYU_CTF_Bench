@@ -4,7 +4,7 @@ services:
     image: llmctf/2020q-cry-authy:latest
     # build: ./server
     ports:
-      - 12380:5000
+      - 5000:5000
     networks:
       ctfnet:
         aliases:

@@ -4,7 +4,7 @@ services:
     image: llmctf/2020q-cry-modus_operandi:latest
     # build: ./server
     ports:
-      - 12380:8000
+      - 8000:8000
     networks:
       ctfnet:
         aliases:

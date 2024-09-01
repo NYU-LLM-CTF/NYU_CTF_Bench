@@ -4,7 +4,7 @@
   "category": "crypto",
   "description":  "We've got a ciphertext and an RSA decryption oracle which decrypts anything but the ciphertext! Can you figure out how to decrypt the ciphertext?",
   "flag": "csawctf{D0n't_us3_t3xtb00k_RsA1t_w1tH_N0_apPr0pr1at3_pAdd1n6}",
-  "internal_port": 80,
+  "internal_port": 3000,
   "points": 60,
   "type": null,
   "initial": null,

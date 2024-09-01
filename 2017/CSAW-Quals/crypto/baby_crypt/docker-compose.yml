@@ -1,5 +1,13 @@
 services:
-  baby_crypt:
+  web:
     image: llmctf/2017q-rev-baby_crypt
     ports:
-    - 8000:8000
+      - 8000:8000
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

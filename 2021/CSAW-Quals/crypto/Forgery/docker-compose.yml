@@ -10,7 +10,7 @@ services:
         aliases:
           - crypto.chal.csaw.io
     ports:
-      - "12345:5000"
+      - 5000:5000
 
 networks:
   ctfnet:
