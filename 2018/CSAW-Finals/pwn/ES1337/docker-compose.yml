@@ -11,7 +11,7 @@ services:
         aliases:
           - es1337
     ports:
-      - "61337:1337"
+      - "1337:1337"
 
 networks:
   ctfnet:

@@ -1,15 +1,14 @@
 version: '3'
+
 services:
-  web:
-    image: llmctf/2020q-pwn-thebardsfail:latest
-    # build: ./server
+  Password_Checker:
+    image: "llmctf/2021q-pwn-password_checker"
     ports:
-      - 8000:8000
+      - 5000:5000
     networks:
       ctfnet:
         aliases:
           - pwn.chal.csaw.io
-
 networks:
   ctfnet:
     external: true

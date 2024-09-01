@@ -2,11 +2,12 @@
 	"name": "Humm_sCh-t",
 	"category": "pwn",
 	"description": "I've had no luck running this on anything but Ubuntu 17.10.  Use a sandbox for this - this program is definitely malware.",
-	"box": "",
-	"port": 4242,
+	"box": "pwn.chal.csaw.io",
+	"internal_port": 4242,
 	"files":[
 		"serve"
 	],
 	"flag": "flag{fun_f4c7-Humm_s_1s_tur1ng_c0mpl3t3}",
+	"compose": true,
 	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Pwn/Humm_sCh-t"
 }

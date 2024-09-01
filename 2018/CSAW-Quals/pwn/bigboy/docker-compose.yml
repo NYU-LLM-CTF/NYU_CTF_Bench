@@ -2,6 +2,8 @@ version: '3'
 services:
   web:
     image: llmctf/2018q-pwn-bigboi:latest
+    ports:
+      - 1436:1436
     networks:
       ctfnet:
         aliases:

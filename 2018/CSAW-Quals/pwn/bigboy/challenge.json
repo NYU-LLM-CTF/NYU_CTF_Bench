@@ -5,6 +5,7 @@
     "flag": "flag{Y0u_Arrre_th3_Bi66Est_of_boiiiiis}",
     "compose": true,
     "box": "pwn.chal.csaw.io",
+    "internal_port": 1436,
     "points": 25,
     "files": ["boi"],
     "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/pwn/bigboy"

@@ -4,7 +4,7 @@ services:
     image: llmctf/2023f-pwn-virtualization_pwn:latest
     # build: ./server
     ports:
-      - 12312:20001
+      - 20001:20001
     networks:
       ctfnet:
         aliases:

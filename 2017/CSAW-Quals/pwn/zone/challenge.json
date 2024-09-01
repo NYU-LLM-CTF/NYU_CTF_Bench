@@ -3,8 +3,9 @@
 	"category": "pwn",
 	"description": "We're on a highway to the danger zone.",
 	"files": ["zone", "libc-2.23.so"],
-	"port": 8104,
-	"box": "",
+	"internal_port": 8000,
+	"box": "pwn.chal.csaw.io",
 	"flag": "flag{d0n7_let_m3_g3t_1n_my_z0n3}",
+	"compose": true,
 	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/pwn/zone"
 }

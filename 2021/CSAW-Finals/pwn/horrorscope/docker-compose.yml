@@ -10,7 +10,7 @@ services:
         aliases:
           - pwn.chal.csaw.io
     ports:
-      - "12345:6666"
+      - "6666:6666"
 
 networks:
   ctfnet:

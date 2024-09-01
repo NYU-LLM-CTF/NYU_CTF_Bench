@@ -1,5 +1,14 @@
+version: '3'
+
 services:
   zone:
     image: "llmctf/2017q-pwn-zone"
     ports:
-      - 8104:8000
+      - 8000:8000
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+networks:
+  ctfnet:
+    external: true

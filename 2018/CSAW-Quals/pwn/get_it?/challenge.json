@@ -5,6 +5,7 @@
     "flag": "flag{y0u_deF_get_itls}",
     "compose": true,
     "box": "pwn.chal.csaw.io",
+    "internal_port": 1437,
     "points": 50,
     "files": ["get_it"],
     "reference": "https://github.com/osirislab/CSAW-CTF-2018-Quals/tree/master/pwn/get_it%3F"

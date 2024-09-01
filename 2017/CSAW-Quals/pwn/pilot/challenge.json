@@ -3,8 +3,9 @@
 	"category": "pwn",
 	"description": "Can I take your order?",
 	"files": ["pilot"],
-	"port": 8024,
-	"box": "",
+	"internal_port": 8024,
+	"box": "pwn.chal.csaw.io",
 	"flag": "flag{1nput_c00rd1nat3s_Strap_y0urse1v3s_1n_b0ys}",
+	"compose": true,
 	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/pwn/pilot"
 }

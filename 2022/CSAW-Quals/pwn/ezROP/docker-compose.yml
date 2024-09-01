@@ -3,6 +3,8 @@ version: '3'
 services:
   game-server:
     image: llmctf/2022q-pwn-ezrop
+    ports:
+      - 9999:9999
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
