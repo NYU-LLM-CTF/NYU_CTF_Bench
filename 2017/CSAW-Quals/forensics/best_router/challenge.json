@@ -11,7 +11,7 @@
 		"join_file.sh"
 	],
 	"flag": "flag{but_I_forgot_my_pants_and_my_math_test}",
-	"box": "",
-	"port": 8000,
+	"box": "forensics.chal.csaw.io",
+	"port": 80,
 	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/forensics/best_router"
 }

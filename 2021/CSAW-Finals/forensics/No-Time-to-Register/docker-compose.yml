@@ -8,9 +8,9 @@ services:
     networks:
       ctfnet:
         aliases:
-          - misc.chal.csaw.io
+          - forensics.chal.csaw.io
     ports:
-      - "12345:5000"
+      - "5000:5000"
 
 networks:
   ctfnet:

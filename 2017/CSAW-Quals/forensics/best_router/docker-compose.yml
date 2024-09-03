@@ -2,4 +2,11 @@ services:
   best_router:
     image: llmctf/2017q-for-best_router
     ports:
-      - "8000:80"
+      - 80:80
+    networks:
+      ctfnet:
+        aliases:
+          - forensics.chal.csaw.io
+networks:
+  ctfnet:
+    external: true

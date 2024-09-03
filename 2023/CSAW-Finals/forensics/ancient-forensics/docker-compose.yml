@@ -4,11 +4,11 @@ services:
     image: llmctf/2023f-for-ancient_forensics:latest
     # build: ./server
     ports:
-      - 12312:5000
+      - 5000:5000
     networks:
       ctfnet:
         aliases:
-          - misc.chal.csaw.io
+          - forensics.chal.csaw.io
 
 networks:
   ctfnet:
