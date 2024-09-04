@@ -2,7 +2,7 @@ services:
   serial:
     image: "llmctf/2017q-msc-serial"
     ports:
-      - 8100:8000
+      - 8000:8000
     networks:
       ctfnet:
         aliases:

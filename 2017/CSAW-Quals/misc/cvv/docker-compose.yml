@@ -2,7 +2,7 @@ services:
   cvv:
     image: "llmctf/2017q-msc-cvv"
     ports:
-      - 8096:8000
+      - 8000:8000
     networks:
       ctfnet:
         aliases:

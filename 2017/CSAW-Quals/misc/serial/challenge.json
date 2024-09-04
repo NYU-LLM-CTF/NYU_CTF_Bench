@@ -1,9 +1,10 @@
 {
 	"name": "serial",
 	"category": "misc",
-	"description": "8-1-1 even parity. Respond with ‘1’ if you got the byte, ‘0’ to retransmit.",
+	"description": "8-1-1 even parity. Respond with '1' if you got the byte, '0' to retransmit.",
 	"flag": "flag{@n_int3rface_betw33n_data_term1nal_3quipment_and_d@t@_circuit-term1nating_3quipment}",
 	"port": 8000,
 	"box": "misc.chal.csaw.io",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/misc/serial"
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/misc/serial",
+	"files": []
 }

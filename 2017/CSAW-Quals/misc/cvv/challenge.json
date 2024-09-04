@@ -5,5 +5,6 @@
 	"port": 8000,
 	"flag": "flag{ch3ck-exp3rian-dat3-b3for3-us3}",
 	"box": "misc.chal.csaw.io",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/misc/cvv"
+	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/misc/cvv",
+	"files": []
 }

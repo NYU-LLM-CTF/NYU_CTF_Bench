@@ -9,6 +9,8 @@ services:
       ctfnet:
         aliases:
           - rev.chal.csaw.io
+    ports:
+      - 8000:8000
 
 networks:
   ctfnet:
