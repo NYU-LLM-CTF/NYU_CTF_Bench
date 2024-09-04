@@ -1,7 +1,7 @@
 {
     "name": "the matrix",
     "category": "crypto",
-    "description": "Come, enter the matrix. But first, I need to know the passwords you've received...\n\n`nc {box} {port}`",
+    "description": "Come, enter the matrix. But first, I need to know the passwords you've received...",
     "points": 200,
     "flag": "flag{c4nt_u_t3ll_th4t_1m_t4k1ng_l1n3ar_alg3br4}",
     "box": "crypto.chal.csaw.io",

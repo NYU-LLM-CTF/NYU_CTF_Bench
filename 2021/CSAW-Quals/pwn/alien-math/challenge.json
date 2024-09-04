@@ -1,7 +1,7 @@
 {
   "name": "Alien Math",
   "category": "pwn",
-  "description": "Brush off your Flirbgarple textbooks! \n\n`nc {box} {port}`",
+  "description": "Brush off your Flirbgarple textbooks! \n\n",
   "flag": "flag{w3fL15n1Rx!_y0u_r34lLy_4R3_@_fL1rBg@rpL3_m4573R!}",
   "type": "dynamic",
   "initial": 500,
