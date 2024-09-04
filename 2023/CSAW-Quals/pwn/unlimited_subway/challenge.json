@@ -13,10 +13,6 @@
     "compose": true,
     "reference": "https://github.com/osirislab/CSAW-CTF-2023-Quals/tree/main/pwn/unlimited_subway",
     "box": "pwn.chal.csaw.io",
-    "flag": {
-      "content": "csawctf{my_n4m3_15_079_4nd_1m_601n6_70_h0p_7h3_7urn571l3}",
-      "type": "dynamic",
-      "path": "/home/ctf/flag"
-    },
+    "flag": "csawctf{my_n4m3_15_079_4nd_1m_601n6_70_h0p_7h3_7urn571l3}",
     "files":["share.zip"]
 }

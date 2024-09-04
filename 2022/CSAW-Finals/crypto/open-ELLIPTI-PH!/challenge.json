@@ -8,11 +8,7 @@
     "minimum": 50,
     "decay": 20,
     "files": ["src/chall.sage", "src/mv_ecc.sage"],
-    "flag": {
-    "content": "flag{KeY_sIZe_Matt3Rs!}",
-    "type": "dynamic",
-    "path": "/opt/chal/flag.txt"
-     },
+    "flag": "flag{KeY_sIZe_Matt3Rs!}",
      "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/crypto/open-ELLIPTI-PH!",
      "box": "crypto.chal.csaw.io",
      "internal_port": 6000,

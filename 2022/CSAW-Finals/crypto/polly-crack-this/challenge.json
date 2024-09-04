@@ -8,11 +8,7 @@
     "minimum": 50,
     "decay": 20,
     "files": ["src/ideal.sage"],
-    "flag": {
-    "content": "flag{Gr0bn3rs_P0LY}",
-    "type": "dynamic",
-    "path": "/opt/chal/flag.txt"
-     },
+    "flag": "flag{Gr0bn3rs_P0LY}",
      "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/crypto/polly-crack-this",
      "box": "crypto.chal.csaw.io",
      "internal_port": 6000,
