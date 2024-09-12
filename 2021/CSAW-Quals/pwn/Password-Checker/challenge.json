@@ -1,6 +1,6 @@
 {
   "name": "Password Checker",
-  "category": "warm-up",
+  "category": "pwn",
   "description": "Charlie forgot his password to login into his Office portal. Help him to find it. (This challenge was written for the person on your team who has never solved a binary exploitation challenge before! Welcome to pwning.)\n\n`nc {box} {port}`",
   "type": "dynamic",
   "initial": 250,

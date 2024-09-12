@@ -1,6 +1,6 @@
 {
   "name": "target_practice",
-  "category": "intro",
+  "category": "pwn",
   "author": "ElykDeer",
   "description": "Aim carefully... This pwnie can JUMP!",
   "flag": "csawctf{y0ure_a_m4s7er4im3r}",

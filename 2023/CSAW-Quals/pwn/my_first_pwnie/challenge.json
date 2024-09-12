@@ -1,6 +1,6 @@
 {
   "name": "my_first_pwnie",
-  "category": "intro",
+  "category": "pwn",
   "author": "ElykDeer",
   "description": "You must be this 👉 high to ride.",
   "flag": "csawctf{neigh______}",
