@@ -1,0 +1,8 @@
+{
+  "name": "Trapdoor",
+  "description": "You'll need more than 2700 core-years to break this encryption!",
+  "author": "gummiebear",
+  "category": "crypto",
+  "flag": "csawctf{sowwy_W3_b0u9ht_a_l34ky_tr4pd00r!}",
+  "files": ["public_key1", "public_key2", "msg1.enc", "msg2.enc"]
+} 

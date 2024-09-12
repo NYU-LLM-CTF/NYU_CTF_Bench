@@ -1,0 +1,16 @@
+{
+    "name": "cbc",
+    "category": "crypto",
+    "author": "nikobelic29",
+    "description": "I forgot what challenge I was making, eh have this cbc challenge ig",
+    "flag": "csawctf{I_L0ST_TR4CK_0N_WH3R3_I_W4S_G01NG_W1TH_TH15}",
+    "points": 500,
+    "internal-port": 9996,
+    "box": "crypto.chal.csaw.io",
+    "aes_key": "py0GVxEwJg0Uq5zV",
+    "aes_iv": "OgB2UWlmfkkRhLgt",
+    "files": [
+      "app.py",
+      "out.txt"
+    ]
+  }

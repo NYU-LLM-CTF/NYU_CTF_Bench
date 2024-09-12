@@ -1,0 +1,13 @@
+{
+  "name": "Diffusion Pop Quiz",
+  "category": "crypto",
+  "description": "Let's learn about the importance of diffusion in cryptography!\n\nnc {box} {port}\n\nAuthors: Dhyey Shah and Ana Clara Zoppi Serpa (https://github.com/AnaClaraZoppiSerpa/diffusion-studies-supporting-codes)",
+  "flag": "csawctf{hopefu11y_+he_know1ed9e_diffu5ed_in+o_your_6r@in5}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "internal_port": 5000,
+  "files":["anf_extractor.py"]
+}

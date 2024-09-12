@@ -1,0 +1,12 @@
+{
+  "name": "Obfuscated to Heck",
+  "category": "rev",
+  "description": "Can you figure out what is the correct passphrase?\n\nAuthor: Dhyey Shah\n\nnc {box} {port}",
+  "flag": "csawctf{5h0u70u7_70_@53hn40u1_f0r_7h3_r1ck_457l3y_p4r4d0x}",
+  "type": "static",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 10,
+  "box": "rev.chal.csaw.io",
+  "files": "src/obfuscated"
+}

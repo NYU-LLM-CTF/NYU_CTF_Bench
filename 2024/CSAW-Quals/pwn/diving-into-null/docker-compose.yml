@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  challenge:
+    container_name: diving-into-null
+    hostname: diving-into-null
+    restart: always
+    image: llmctf/2024q-pwn-divingintonullchallenge:latest
+    ports:
+      - "9191:9191"
+    networks:
+      no-access:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  no-access:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+
+  ctfnet:
+    external: true

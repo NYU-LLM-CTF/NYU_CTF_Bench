@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2024q-pwn-nixphilosophies:latest
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - 1000:1000
+
+networks:
+  ctfnet:
+    external: true

@@ -1,0 +1,8 @@
+{
+    "name": "I like it RAW",
+    "description": "Seems like medium rare just isn't my taste.",
+    "author": "8bitrosso",
+    "category": "forensics",
+    "flag": "csawctf{1_kN0w_Y0U_l1k3_1T_R4W}",
+    "files": ["DSCF3911.RAF", "message.txt.gpg", "secret.png"]
+}

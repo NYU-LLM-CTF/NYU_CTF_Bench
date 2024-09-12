@@ -1,0 +1,12 @@
+{
+  "name": "archaeology",
+  "description": "While researching Egyptian artifacts, an Archaeology student discovers a series of incomprehensible hieroglyphs. Suspecting a custom cipher, she uncovers an ancient cipher machine and a matching hieroglyph dictionary. Can you help her decipher a small part of the secret message?",
+  "author": "keeboi",
+  "category": "rev",
+  "flag": "csawctf{w41t_1_54w_7h353_5ymb0l5_47_7h3_m3t_71m3_70_r34d_b00k_0f_7h3_d34d}",
+  "files": [
+    "./chal",
+    "./hieroglyphs.txt",
+    "./message.txt"
+  ]
+}

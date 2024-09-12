@@ -1,0 +1,10 @@
+{
+  "name": "Is there an echo in here?",
+  "description": "Maybe next time you should record your music in an acoustically treated space.",
+  "author": "slimecat",
+  "category": "forensics",
+  "flag": "csawctf{1nv3st_1n_s0undpr00f1ng}",
+  "files": [
+    "is_there_an_echo/256.wav"
+  ]
+}

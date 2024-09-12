@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2024q-cry-diffusionpopquiz:latest
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+    ports:
+      - 5000:5000
+
+networks:
+  ctfnet:
+    external: true

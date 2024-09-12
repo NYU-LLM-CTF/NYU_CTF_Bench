@@ -1,0 +1,12 @@
+{
+    "name": "magic tricks",
+    "description": "I was given a magic box by a gopher and it tricked me to put in my flag! I only have garbage now... can you help me?",
+    "author": "jp",
+    "category": "rev",
+    "flag": "csawctf{tHE_runE5_ArE_7H3_k3y_7O_th3_G0ph3r5_mA91C}",
+    "files": [
+      "./chall",
+      "./output.txt"
+    ]
+}
+  

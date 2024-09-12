@@ -1,0 +1,12 @@
+{
+  "name": "*nix philosophies",
+  "description": "Do you really know *nix?",
+  "author": "8bitrosso",
+  "category": "pwn",
+  "box": "pwn.chal.csaw.io",
+  "internal_port": 1000,
+  "flag": "csawctf{-3v3ry7h1ng_15_4_f1l3}",
+  "files": [
+    "./chal"
+  ]
+}

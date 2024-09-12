@@ -1,0 +1,19 @@
+# Location of tool --> https://tigress.wtf/index.html
+tigress --Seed=2023 --Environment=x86_64:Linux:Gcc:4.6 \
+     --Transform=InitEntropy \
+        --Functions=main,check,get_tbl_entry \
+        --InitEntropyKinds=vars \
+     --Transform=InitOpaque \
+        --Functions=main,check,get_tbl_entry \
+        --InitOpaqueStructs=list,array,env  \
+     --Transform=AddOpaque \
+        --Functions=check,get_tbl_entry \
+        --AddOpaqueCount=5 \
+     --Transform=Virtualize \
+        --Skip=false \
+        --VirtualizeDispatch=direct \
+        --Functions=check,get_tbl_entry \
+     --Transform=EncodeLiterals \
+        --Functions=main,check,get_tbl_entry \
+     --Transform=CleanUp \
+    main.c --out=obfuscated.c

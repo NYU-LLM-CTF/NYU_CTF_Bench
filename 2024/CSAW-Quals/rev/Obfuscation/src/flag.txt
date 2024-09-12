@@ -1,0 +1,4 @@
+If you ask Rick Astley for his copy of the movie Up, he cannot give it to you as he will never give you Up.
+However, in doing so he lets you down. Thus creating the Astley Paradox.
+
+csawctf{5h0u70u7_70_@53hn40u1_f0r_7h3_r1ck_457l3y_p4r4d0x}

@@ -1,0 +1,13 @@
+{
+  "name": "AES Diffusion Pop Quiz",
+  "category": "crypto",
+  "description": "Let's learn how diffusion works in AES!\n\nnc {box} {port}\n\nAuthors: Dhyey Shah and Ana Clara Zoppi Serpa (https://github.com/AnaClaraZoppiSerpa/diffusion-studies-supporting-codes)",
+  "flag": "csawctf{1_n0w_und3r5t4nd_435_d1ffu510n}",
+  "type": "dynamic",
+  "initial": 500,
+  "minimum": 50,
+  "decay": 275,
+  "box": "crypto.chal.csaw.io",
+  "internal_port": 5000,
+  "files":["aes_simulator.py"]
+}

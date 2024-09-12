@@ -1,0 +1,11 @@
+{
+    "name": "covert",
+    "category": "forensics",
+    "author": "cpan57",
+    "description": "It appears there's been some shady communication going on in our network...",
+    "flag": "csawctf{licen$e_t0_tr@nsmit_c0vertTCP$$$}",
+    "files": [
+        "chall.pcapng",
+	"keys.log"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "name": "mini-golfing",
+    "description": "Let's go mini golfing! To win, just aim correctly! Except the hole with the pin keeps moving...",
+    "author": "jp",
+    "category": "pwn",
+    "box": "pwn.chal.csaw.io",
+    "internal_port": 9997,
+    "flag": "csawctf{I_doNT_want_t0_g0_901FING_AnymOrE_pl34S3_Thank_you_!!!}",
+    "files": [
+        "golf"
+    ]
+}

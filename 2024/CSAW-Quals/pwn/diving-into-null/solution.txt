@@ -1,0 +1,3 @@
+cd                                                           # Go to groot's home dir
+echo .*                                                      # list hidden files
+while FSTREAM= read -r line; do echo "$line"; done < .flag   # read the flag file

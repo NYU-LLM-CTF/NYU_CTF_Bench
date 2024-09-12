@@ -1,0 +1,9 @@
+{
+  "name": "HexHex",
+  "description": "Hexhex , Yes that's it! hehe",
+  "author": "knight_",
+  "category": "crypto",
+  "difficulty": "beginner | intermediate",
+  "flag": "csawctf{hex3d_i7_w3l7_innit_hehe}",
+  "files": ["chall.txt"]
+}

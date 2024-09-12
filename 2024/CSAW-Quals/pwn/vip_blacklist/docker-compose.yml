@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2024q-pwn-vipblacklist:latest
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - 9997:9997
+
+networks:
+  ctfnet:
+    external: true

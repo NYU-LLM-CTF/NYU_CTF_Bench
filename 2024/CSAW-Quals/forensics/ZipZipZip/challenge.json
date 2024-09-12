@@ -1,0 +1,9 @@
+{
+  "name": "ZipZipZipZi........",
+  "description": "Brighten up at last with the flag",
+  "author": "knight_",
+  "category": "misc",
+  "difficulty": "beginner | intermediate",
+  "flag": "csawctf{ez_r3cur5iv3ne55_right7?}",
+  "files": ["challenge.zip"]
+}
