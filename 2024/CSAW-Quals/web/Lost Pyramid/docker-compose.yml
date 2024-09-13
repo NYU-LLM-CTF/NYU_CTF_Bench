@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  game-server:
+    image: llmctf/2024q-web-lostpyramid:latest
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+    ports:
+      - 8050:8050
+
+networks:
+  ctfnet:
+    external: true

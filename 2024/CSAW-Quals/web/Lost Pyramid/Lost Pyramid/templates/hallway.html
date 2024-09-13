@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Pyramid</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('{{ url_for('static', filename='hallway_of_scrolls.webp') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .link-image {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .link-image img {
+            width: 100px;
+            height: auto;
+        }
+
+        .light_cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+            cursor: pointer;
+        }
+
+        .light_cursor:nth-child(1) {
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .light_cursor:nth-child(2) {
+            top: 60%;
+            left: 10%;
+        }
+
+        .light_cursor:nth-child(3) {
+            top: 60%;
+            right: 10%;
+        }
+
+        .light_cursor:nth-child(4) {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .light_cursor:nth-child(5) {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <a href="{{ url_for('kings_lair') }}" class="light_cursor"></a>
+    <a href="{{ url_for('osiris_hall') }}" class="light_cursor"></a>
+    <a href="{{ url_for('scarab_room') }}" class="light_cursor"></a>
+    <a href="{{ url_for('entrance') }}" class="light_cursor"></a>
+    <a href="{{ url_for('anubis_chamber') }}" class="light_cursor"></a>
+
+</body>
+
+
+
+</html>

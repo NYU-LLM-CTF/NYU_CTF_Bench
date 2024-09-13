@@ -1,0 +1,13 @@
+{
+    "name": "LogMeIn1",
+    "category": "Web",
+    "author": "nikobelic29",
+    "description": "I (definitely did not) have found this challenge in the OSIRIS recruit repository",
+    "flag": "csawctf{S3NS1T1V3_D4T4_ST0R3D_CL13NTS1D3D_B4D_B4D}",
+    "points": 500,
+    "box": "web.chal.csaw.io",
+    "internal-port": 10086,
+    "files": [
+      "share.zip"
+    ]
+  }

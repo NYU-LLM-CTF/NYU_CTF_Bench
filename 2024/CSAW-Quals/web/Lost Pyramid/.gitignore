@@ -1,0 +1,13 @@
+# Ignore Mac system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore files created by the macOS Finder
+._*
+
+# Ignore Python cache files
+__pycache__/
+
+# Ignore virtual environment directory
+venv/

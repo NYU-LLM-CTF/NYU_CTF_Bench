@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Pyramid</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('{{ url_for('static', filename='pyramid.webp') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .enter-link {
+            font-family: 'Noto Sans Egyptian Hieroglyphs', sans-serif;
+            font-size: 48px;
+            color: gold;
+            text-decoration: none;
+            border: 2px solid gold;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .enter-link:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .link-image {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .link-image img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <a href="{{ url_for('hallway') }}" class="enter-link">ENTER 𓁶</a>
+
+</body>
+</html>

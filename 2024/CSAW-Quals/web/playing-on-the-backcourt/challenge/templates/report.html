@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a player</title>
+    <style>
+        #thanks {
+            display: none;
+            color: green;
+            margin-top: 20px;
+        }
+        #dirt {
+            display: none;
+            color: rgb(205, 72, 20);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<form id="reportForm" method="get">
+    <label for="playerName">Report for cheating:</label><br><br>
+    <input type="text" id="playerName" name="playerName" required><br><br>
+    <input type="submit" id="submitButton" value="Submit">
+</form>
+<p id="thanks">Thank you for reporting!</p>
+<div id="dirt"></div>
+
+<script src="{{ url_for('static', filename='report.js') }}"></script>
+</body>
+</html>

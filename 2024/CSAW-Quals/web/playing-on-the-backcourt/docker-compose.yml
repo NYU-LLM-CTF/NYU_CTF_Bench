@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    image: llmctf/2024q-web-playingonthebackcourt:latest
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+    ports:
+      - 5000:5000
+
+networks:
+  ctfnet:
+    external: true

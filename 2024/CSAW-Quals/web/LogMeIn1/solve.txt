@@ -1,0 +1,9 @@
+The webapp have a constant xor vulnerability, the cookie is a dictionary representation of the user xored with a predefined key. The key should be long enough but it is suseptible to known plaintext attack. Find the position in the string that represents the 1 for the admin key and xor it to find the key, and replace with 0.
+
+In this case, decrement the second to last byte of the cookie by 1 and you should get the flag.
+
+
+Sample cookie format:
+
+"{"username": "asd", "displays": "asd", "uid": 1}"
+

@@ -1,0 +1,18 @@
+{
+  "name": "sirens",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "needle": "^3.3.1",
+    "session-file-store": "^1.5.0",
+    "yaml": "^2.5.0"
+  }
+}

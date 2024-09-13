@@ -1,0 +1,12 @@
+{
+    "name": "playing on the backcourt",
+    "description": "yadayada playing tennis like pong yadayada someone's cheating yadayada at least the leaderboard is safe!",
+    "author": "smallfoot",
+    "category": "web",
+    "box": "web.chal.csaw.io",
+    "internal_port": 5000,
+    "flag": "csawctf{5h1tt4k3_mu5hr00m5_i_f###3d_up_r34l_b4d}", 
+    "files": [
+      "challenge/app_public.py"
+    ]
+  }

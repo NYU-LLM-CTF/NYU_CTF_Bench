@@ -1,0 +1,2 @@
+Note to participants, the solution is build ready, just find an environemnt and do `docker compose build` followed by `docker compose up` and start playing
+

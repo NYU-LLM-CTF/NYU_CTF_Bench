@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  node:
+    image: llmctf/2024q-web-charliesangelsnode
+    restart: on-failure
+    ports:
+      - 1337:1337
+    environment:
+      backup: 'http://py:1338'
+    depends_on:
+      - py
+    networks:
+      external_net:
+      internal_net:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+
+  py:
+    image: llmctf/2024q-web-charliesangelspy
+    restart: on-failure
+    networks:
+      internal_net:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+
+
+networks:
+  internal_net:
+    driver: bridge
+  external_net:
+    driver: bridge
+  ctfnet:
+    external: true

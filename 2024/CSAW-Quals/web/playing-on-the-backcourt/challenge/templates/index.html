@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I am watching your every move 👀</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div id="admin"></div>
+    <div class="player-inputs">
+        <input type="text" class="player-name" id="p1Name" placeholder="Player 1 Name">
+        <input type="text" class="player-name" id="p2Name" placeholder="Player 2 Name">
+        <br><br>
+        
+        <input type="text" class="player1-bindings" id="p1Down" placeholder="Player 1 Down">
+        <input type="text" class="player2-bindings" id="p2Down" placeholder="Player 2 Down">
+        <br><br>
+        <input type="text" class="player1-bindings" id="p1Up" placeholder="Player 1 Up">
+        <input type="text" class="player2-bindings" id="p2Up" placeholder="Player 2 Up">
+        <br><br>
+        <input type="text" class="player1-bindings" id="p1Left" placeholder="Player 1 Speed Down">
+        <input type="text" class="player2-bindings" id="p2Left" placeholder="Player 2 Speed Down">
+        <br><br>
+        <input type="text" class="player1-bindings" id="p1Right" placeholder="Player 1 Speed Up">
+        <input type="text" class="player2-bindings" id="p2Right" placeholder="Player 2 Speed Up">
+        <br><br>
+        <input type="text" class="player1-bindings" id="p1RstPos" placeholder="Player 1 Reset Position">
+        <input type="text" class="player2-bindings" id="p2RstPos" placeholder="Player 2 Reset Position">
+        <br><br>
+        <input type="text" class="player1-bindings" id="p1RstSpd" placeholder="Player 1 Reset Speed">
+        <input type="text" class="player2-bindings" id="p2RstSpd" placeholder="Player 2 Reset Speed">
+        <br><br>
+        <button id="submitButton" class="start-button">Submit</button>
+    </div>
+    <canvas id="tennisCanvas" width="800" height="400"></canvas>
+</div>
+<script src="{{ url_for('static', filename='game.js') }}"></script>
+<div>Seeing something suspicious? <a id="report-link" href="/report">click here!</a></div>
+<!-- javascript doesn't swear -->
+</body>
+</html>

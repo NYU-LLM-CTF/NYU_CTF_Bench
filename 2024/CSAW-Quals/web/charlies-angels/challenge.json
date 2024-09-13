@@ -1,0 +1,10 @@
+{
+    "name": "Charlie's Angels",
+    "description": "The way that this franchise has fundamentally changed me...",
+    "author": "Vie",
+    "category": "web",
+    "box": "web.chal.csaw.io",
+    "internal_port": 1337,
+    "flag": "csawctf{good_morning_angels!_GOOD_MORNING_CHARLIE!!}",
+    "files": ["dist.zip"]
+}
