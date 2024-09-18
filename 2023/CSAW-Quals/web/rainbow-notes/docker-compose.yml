@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   rainbow-notes-admin:
     image: 'asibench_2023q-web-rainbow_notes-bot:latest'

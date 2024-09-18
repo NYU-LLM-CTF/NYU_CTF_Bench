@@ -1,4 +1,3 @@
-version: "2"
 services:
   sql-challenge:
     image: llmctf/2019q-web-saasy-sql-challenge

@@ -1,4 +1,3 @@
-version: '3'
 services:
   server:
     image: llmctf/2018f-lost_mind

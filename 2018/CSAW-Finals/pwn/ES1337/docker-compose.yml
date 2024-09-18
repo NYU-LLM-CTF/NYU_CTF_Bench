@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   es1337-server:

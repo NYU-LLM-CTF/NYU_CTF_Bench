@@ -1,4 +1,3 @@
-version: '3'
 services:
   web:
     image: llmctf/2020q-pwn-roppity:latest

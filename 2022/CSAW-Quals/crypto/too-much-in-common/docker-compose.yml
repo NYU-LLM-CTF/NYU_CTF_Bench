@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   too-much-in-common-server:

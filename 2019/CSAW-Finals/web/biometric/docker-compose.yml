@@ -1,4 +1,3 @@
-version: '2'
 services:
   biometric_server:
     image: asibench_2019f-web-biometric-biometric_server:latest

@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   polly-crack-this-server:
