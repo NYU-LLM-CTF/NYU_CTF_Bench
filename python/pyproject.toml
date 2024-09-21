@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nyuctf"
+version = "1.0"
+authors = [
+  { name="Meet Udeshi", email="m.udeshi@nyu.edu" },
+]
+description = "NYU CTF Dataset loader package"
+readme = "../README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "pathlib",
+]
+
+[project.urls]
+Homepage = "NYU-LLM-CTF.github.io"
+
+[tool.hatch.build.targets.wheel]
+packages = ["nyuctf"]

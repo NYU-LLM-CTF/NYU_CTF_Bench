@@ -4,12 +4,11 @@ import subprocess
 from pathlib import Path
 from parameterized import parameterized
 
-from ..challenge import CTFChallenge
+from nyuctf.dataset import CTFDataset
+from nyuctf.challenge import CTFChallenge
 
-# TODO dont hardcode path
-dataset_json = Path("test_dataset.json")
-with dataset_json.open() as jf:
-    dataset = json.load(jf)
+test_path = Path(__file__).parent.parent.parent / "test_dataset.json"
+dataset = CTFDataset(test_path)
 
 class TestChallenges(unittest.TestCase):
     @classmethod
@@ -26,9 +25,9 @@ class TestChallenges(unittest.TestCase):
         docker_cmd = ["docker", "container", "stop", self.container]
         subprocess.run(docker_cmd, capture_output=True)
 
-    @parameterized.expand(dataset.items())
+    @parameterized.expand(dataset.all())
     def test_network(self, _, info):
-        challenge = CTFChallenge(info)
+        challenge = CTFChallenge(info, dataset.basedir)
         challenge.start_challenge_container()
         network_pass = True
         if challenge.server_name is not None and challenge.port is not None:

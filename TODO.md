@@ -1,3 +1,7 @@
+README updates:
+
+- [ ] Change the README to update github link and setup instructions
+
 Fixes needed:
 
 - [ ] Need to remove these challenges:
