@@ -28,9 +28,7 @@ CATEGORY_SHORT = {
 
 _rep_underscore = re.compile(r'_+')
 def safe_name(s: str) -> str:
-    """
-    Create a safe name (suitable for docker) from a string
-    """
+    """Create a safe name (suitable for docker) from a string"""
     # Replace all non-alphanumeric characters with underscores
     safe = s.replace(' ', '_').lower()
     safe = ''.join(c if c.isalnum() else '_' for c in safe).rstrip('_')
@@ -38,11 +36,7 @@ def safe_name(s: str) -> str:
     return safe
 
 def get_canonical_name(challenge_info: dict) -> str:
-    """
-    Create a safe image name from a challenge; this is the same scheme
-    that was used by the builder script to create the image name, so it
-    can be used to predict the OCI name.
-    """
+    """Create a safe image name from a challenge"""
     year = challenge_info["year"]
     event = challenge_info["event"]
     category = challenge_info["category"]

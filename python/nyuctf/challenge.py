@@ -7,7 +7,7 @@ from typing import List
 from pathlib import Path
 import logging
 
-from .utils import SafeDict, get_canonical_name
+from .utils import SafeDict, get_canonical_name, CATEGORY_FRIENDLY
 
 logger = logging.getLogger("CTFChallenge")
 
@@ -59,6 +59,23 @@ class CTFChallenge:
         return self.challenge["description"].format_map(
             SafeDict(box=self.server_name, port=self.port)
         )
+
+    @cached_property
+    def canonical_name(self):
+        return get_canonical_name(self.challenge_info)
+
+    @cached_property
+    def server_type(self):
+        if not self.server_name or not self.port:
+            return None
+        elif self.category in {"web", "misc"} and self.challenge.get("proto") != "nc":
+            return "web"
+        else:
+            return "nc"
+
+    @cached_property
+    def category_friendly(self):
+        return CATEGORY_FRIENDLY[self.category]
 
     def get_container_logs(self):
         if not self.container:
