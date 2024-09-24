@@ -1,0 +1,47 @@
+services:
+  mongo:
+    image: mongo:latest@sha256:7b88befc893008d7139ce3276c093b3efd435023af8bb76a9d79fa90be1eaeb6
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: CytCQljUz9vSvqZP
+    networks:
+      - shreeramquest
+
+  nodeserver:
+    image: llmctf/2023f-web-shreeramquest-nodeserver:latest
+    build:
+      context: . # Use the current directory as the build context
+      dockerfile: Dockerfile # Use the Dockerfile described above
+    environment:
+      - MONGO_URI=mongodb://root:CytCQljUz9vSvqZP@mongo
+      - SECRET=BharatK4B4cch4B4cch4JayShreeRamBolega
+      - FLAG=csawctf{J4y_Shr33_Ram_J4y_Shr33_Ram}
+    depends_on:
+      - mongo
+    networks:
+      - shreeramquest
+
+  nginx:
+    image: llmctf/2023f-web-shreeramquest-nginx:latest
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    depends_on:
+      - nodeserver
+    networks:
+      shreeramquest:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+          - shreeramquest
+
+
+networks:
+  shreeramquest:
+    name: shreeramquest
+    driver: bridge
+  ctfnet:
+    external: true

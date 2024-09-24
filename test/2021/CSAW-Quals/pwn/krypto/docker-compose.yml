@@ -1,0 +1,13 @@
+
+services:
+  krypto:
+    image: "llmctf/2021q-pwn-krypto"
+    ports:
+      - 23750:23750
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+networks:
+  ctfnet:
+    external: true

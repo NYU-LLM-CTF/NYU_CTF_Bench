@@ -1,0 +1,13 @@
+services:
+  web:
+    image: llmctf/2018q-pwn-shellpointcode:latest
+    ports:
+      - 8000:8000
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

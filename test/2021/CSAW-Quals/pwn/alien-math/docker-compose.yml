@@ -1,0 +1,13 @@
+
+services:
+  alien_math:
+    image: "llmctf/2021q-pwn-alien_math"
+    ports:
+      - 5000:5000
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+networks:
+  ctfnet:
+    external: true

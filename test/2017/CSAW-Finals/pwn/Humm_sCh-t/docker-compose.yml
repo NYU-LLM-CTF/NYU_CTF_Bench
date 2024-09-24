@@ -1,0 +1,13 @@
+
+services:
+  Humm_sCh-t:
+    image: "llmctf/2017f-pwn-humm_sch-t"
+    ports:
+      - 4242:4242
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+networks:
+  ctfnet:
+    external: true

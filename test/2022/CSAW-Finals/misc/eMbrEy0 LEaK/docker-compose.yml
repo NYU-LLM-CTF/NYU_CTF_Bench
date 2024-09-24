@@ -1,0 +1,14 @@
+
+services:
+  embryoleak-server:
+    image: llmctf/2022f-msc-embrey0_leak
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

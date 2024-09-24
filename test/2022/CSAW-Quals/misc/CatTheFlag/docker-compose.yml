@@ -1,0 +1,14 @@
+
+services:
+  cattheflag-server:
+    image: llmctf/2022q-msc-cattheflag
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

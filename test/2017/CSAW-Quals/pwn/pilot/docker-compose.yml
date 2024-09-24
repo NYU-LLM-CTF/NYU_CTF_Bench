@@ -1,0 +1,13 @@
+
+services:
+  pilot:
+    image: "llmctf/2017q-pwn-pilot"
+    ports:
+      - 8024:8024
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+networks:
+  ctfnet:
+    external: true

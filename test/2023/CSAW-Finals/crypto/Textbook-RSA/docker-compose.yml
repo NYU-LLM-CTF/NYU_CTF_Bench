@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2023f-cry-textbook_rsa-web:latest
+    # build: ./server
+    ports:
+      - 3000:80
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.csaw.io
+
+networks:
+  ctfnet:
+    external: true

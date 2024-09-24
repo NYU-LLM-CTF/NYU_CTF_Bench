@@ -1,0 +1,13 @@
+services:
+  web:
+    image: llmctf/2018q-misc-algebra:latest
+    ports:
+      - 4324:4324
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

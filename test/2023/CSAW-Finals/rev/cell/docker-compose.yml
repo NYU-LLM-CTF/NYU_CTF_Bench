@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2023f-rev-cell:latest
+    # build: ./server
+    ports:
+      - 12312:31137
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

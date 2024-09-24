@@ -1,0 +1,16 @@
+
+services:
+  game-server:
+    image: llmctf/2023q-pwn-unlimited_subway:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - 7900:7900
+
+networks:
+  ctfnet:
+    external: true

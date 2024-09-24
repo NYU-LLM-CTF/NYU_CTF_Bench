@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2023f-pwn-virtualization_pwn:latest
+    # build: ./server
+    ports:
+      - 20001:20001
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

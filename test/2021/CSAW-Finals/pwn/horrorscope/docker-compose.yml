@@ -1,0 +1,16 @@
+
+services:
+  game-server:
+    image: llmctf/2021f-pwn-horrorscope:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+    ports:
+      - 6666:6666
+
+networks:
+  ctfnet:
+    external: true

@@ -1,0 +1,16 @@
+
+services:
+  game-server:
+    image: llmctf/2021q-web-no_pass_needed:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+    ports:
+      - "12345:3000"
+
+networks:
+  ctfnet:
+    external: true

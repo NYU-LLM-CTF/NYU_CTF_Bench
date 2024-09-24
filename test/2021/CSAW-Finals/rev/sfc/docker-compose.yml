@@ -1,0 +1,16 @@
+
+services:
+  sfc-server:
+    image: llmctf/2021f-rev-sfc
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+    ports:
+      - 8000:8000
+
+networks:
+  ctfnet:
+    external: true

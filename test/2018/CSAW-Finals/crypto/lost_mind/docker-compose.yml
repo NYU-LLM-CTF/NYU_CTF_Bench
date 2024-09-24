@@ -1,0 +1,14 @@
+services:
+  server:
+    image: llmctf/2018f-lost_mind
+      #build: .
+    ports:
+      - 32333:32333
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

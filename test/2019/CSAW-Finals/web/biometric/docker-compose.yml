@@ -1,0 +1,34 @@
+services:
+  biometric_server:
+    image: asibench_2019f-web-biometric-biometric_server:latest
+    build: .
+    environment:
+      - port=5001
+      - flag="flag{eye_see_you}"
+    ports:
+    - "5001:5001"
+    networks:
+      - biometric_net
+      - ctfnet
+
+  biometric_client:
+    image: asibench_2019f-web-biometric-biometric_client:latest
+    build: ./biometric_client
+    environment:
+      - server=http://biometric_server:5001
+      - port=5000
+    ports:
+    - "5000:5000"
+    networks:
+      biometric_net:
+      ctfnet:
+        aliases:
+          - biometric_client
+          - web.chal.csaw.io
+
+networks:
+  biometric_net:
+    name: biometric_net
+    driver: bridge
+  ctfnet:
+    external: true

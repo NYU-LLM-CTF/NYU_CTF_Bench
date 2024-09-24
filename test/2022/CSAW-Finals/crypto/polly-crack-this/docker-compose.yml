@@ -1,0 +1,16 @@
+
+services:
+  polly-crack-this-server:
+    image: llmctf/2022f-cry-polly_crack_this
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+    ports:
+      - 6000:6000
+
+networks:
+  ctfnet:
+    external: true

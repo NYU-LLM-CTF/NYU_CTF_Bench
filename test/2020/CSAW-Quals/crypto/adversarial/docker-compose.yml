@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2020q-cry-adversarial:latest
+    # build: ./server
+    ports:
+      - 8000:8000
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

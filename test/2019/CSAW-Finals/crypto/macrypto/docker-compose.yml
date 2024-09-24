@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2019f-cry-macrypto:latest
+    # build: ./server
+    ports:
+      - 4512:4512
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

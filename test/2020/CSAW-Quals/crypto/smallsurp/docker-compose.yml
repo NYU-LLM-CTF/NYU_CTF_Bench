@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2020q-cry-smallsurp:latest
+    # build: ./server
+    ports:
+      - 5000:5000
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

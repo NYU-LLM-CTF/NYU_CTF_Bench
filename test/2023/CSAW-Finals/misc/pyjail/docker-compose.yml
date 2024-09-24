@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2023f-msc-pyjail:latest
+    # build: ./server
+    # ports:
+    #   - 12312:13336
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

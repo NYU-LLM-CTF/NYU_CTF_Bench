@@ -1,0 +1,31 @@
+
+services:
+  servercontainer:
+    image: asibench_2023f-web-triathlon_or_sprint-server:latest
+    build:
+      context: ./server
+    restart: always
+    networks:
+      - ctfnet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+# container that adds iptables rules to the subnet to redirect 128.238.66.77 to the servercontainer
+  iptables:
+    image: asibench_2023f-web-triathlon_or_sprint-iptables:latest
+    build:
+      context: ./iptables
+    restart: on-failure
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      servercontainer:
+        condition: service_healthy
+    privileged: true
+
+networks:
+  ctfnet:
+    external: true

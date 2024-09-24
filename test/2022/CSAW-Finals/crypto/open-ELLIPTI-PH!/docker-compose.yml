@@ -1,0 +1,16 @@
+
+services:
+  openelliptiphi-server:
+    image: llmctf/2022f-cry-open_ellipti_ph
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+    ports:
+      - 6000:6000
+
+networks:
+  ctfnet:
+    external: true

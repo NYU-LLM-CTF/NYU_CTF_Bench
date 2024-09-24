@@ -1,0 +1,14 @@
+services:
+  web:
+    image: llmctf/2023f-pwn-brainflop:latest
+    # build: ./server
+    ports:
+      - 9999:9999
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

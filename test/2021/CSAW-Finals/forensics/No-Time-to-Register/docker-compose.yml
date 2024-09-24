@@ -1,0 +1,16 @@
+
+services:
+  game-server:
+    image: llmctf/2021f-for-no_time_to_register:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - forensics.chal.csaw.io
+    ports:
+      - "5000:5000"
+
+networks:
+  ctfnet:
+    external: true

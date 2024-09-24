@@ -1,0 +1,16 @@
+
+services:
+  thelengthsweextendourselves-server:
+    image: llmctf/2022f-cry-the_lengths_we_extend_ourselves
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+    ports:
+      - 5050:5050
+
+networks:
+  ctfnet:
+    external: true

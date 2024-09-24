@@ -1,0 +1,13 @@
+services:
+  web:
+    image: llmctf/2018q-cry-flatcrypt-web:latest
+    ports:
+      - 8040:8040
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

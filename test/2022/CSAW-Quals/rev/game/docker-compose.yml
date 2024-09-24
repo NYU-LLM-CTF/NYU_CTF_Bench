@@ -1,0 +1,14 @@
+
+services:
+  game-server:
+    image: llmctf/2022q-rev-game
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      ctfnet:
+        aliases:
+          - rev.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
