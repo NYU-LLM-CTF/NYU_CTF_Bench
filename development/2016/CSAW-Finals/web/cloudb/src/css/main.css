@@ -1,0 +1,24 @@
+body {
+    padding-top: 5rem;
+}
+
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.tileDiv {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.todosDiv {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    text-align: left;
+}

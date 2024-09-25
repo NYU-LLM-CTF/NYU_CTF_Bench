@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2013q-msc-life
+    ports:
+      - 45678:45678
+    networks:
+      ctfnet:
+        aliases:
+          - misc.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

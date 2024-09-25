@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Test - Oil Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<section>
+
+				<h2 id="test">Test</h2>
+
+				<p>The <code>oil test</code> (or <code>oil t</code>) command runs the PHPUnit tests associated with your web app, modules and packages. Full documentation on unit testing with FuelPHP can be found on the <a href="../../general/unit_testing.html">Unit Testing</a> documentation page, and full documentation on PHPUnit can be found on the <a href="http://www.phpunit.de/manual/current/en/index.html">PHPUnit Website</a>.</p>
+                <h3 id="configuration">Configuration</h3>
+                <p>The oil utility itself does not need much configuration, but if your instance of PHPUnit is not installed globally on your machine (for example, if you installed PHPUnit to your project using Composer), you'll want to configure oil to address your PHPUnit installation. Create (or copy from the oil package) a config file at <code>app/config/oil.php</code>, and change these settings as needed:</p>
+                <h4 id="phpunit_configuration">PHPUnit Configuration</h4>
+                <table class="config">
+                    <tr class="header">
+                        <th>Param</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <th>phpunit.autoload_path</th>
+                        <td>string</td>
+                        <td><pre class="php"><code class="php">'PHPUnit/Autoload.php'</code></pre></td>
+                        <td>The path to PHPUnit's Autoload file.</td>
+                    </tr>
+                    <tr>
+                        <th>phpunit.binary_path</th>
+                        <td>string</td>
+                        <td><pre class="php"><code class="php">'phpunit'</code></pre></td>
+                        <td>This is the command (including full path, if necessary) to run the phpunit executable.</td>
+                    </tr>
+                </table>
+				<h4 id="cli_options">Command Line Options</h4>
+				<p>Test supports several PHPUnit command line options:</p>
+				<p><code>--file=&lt;file&gt;</code> Run a test on a specific file only.</p>
+				<p><code>--group</code> Only runs tests from the specified group(s).</p>
+				<p><code>--exclude-group</code> Exclude tests from the specified group(s).</p>
+				<p><code>--coverage-clover=&lt;file&gt;</code> Generate code coverage report in Clover XML format.</p>
+				<p><code>--coverage-html=&lt;dir&gt;</code> Generate code coverage report in HTML format.</p>
+				<p><code>--coverage-php=&lt;file&gt;</code> Serialize PHP_CodeCoverage object to file.</p>
+				<p><code>--coverage-text=&lt;file&gt;</code> Generate code coverage report in text format.</p>
+				<p><code>--log-junit=&lt;file&gt;</code> Generate report of test execution in JUnit XML format to file.</p>
+                <p>For more information on these command line options and what they do, please see the <a
+                        href="http://www.phpunit.de/manual/current/en/textui.html#textui.clioptions">PHPUnit Documentation</a>.</p>
+                <h4 id="phpunit_config">PHPUnit Test Runner Configuration</h4>
+				<p>Oil will by default pass to PHPUnit the <code>phpunit.xml</code> test runner configuration file located in the <code>COREPATH</code> directory.</p>
+                <p>Fuel's basic phpunit.xml at <code>fuel/core/phpunit.xml</code> contains:</p>
+				<pre class='xml'><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;phpunit colors="true" stopOnFailure="false" bootstrap="../core/bootstrap_phpunit.php"&gt;
+	&lt;php&gt;
+		&lt;server name="doc_root" value="../../"/&gt;
+		&lt;server name="app_path" value="fuel/app"/&gt;
+		&lt;server name="core_path" value="fuel/core"/&gt;
+		&lt;server name="package_path" value="fuel/packages"/&gt;
+	&lt;/php&gt;
+	&lt;testsuites&gt;
+		&lt;testsuite name="core"&gt;
+			&lt;directory suffix=".php"&gt;../core/tests&lt;/directory&gt;
+		&lt;/testsuite&gt;
+		&lt;testsuite name="packages"&gt;
+			&lt;directory suffix=".php"&gt;../packages/*/tests&lt;/directory&gt;
+		&lt;/testsuite&gt;
+		&lt;testsuite name="app"&gt;
+			&lt;directory suffix=".php">../app/tests&lt;/directory&gt;
+		&lt;/testsuite&gt;
+	&lt;/testsuites&gt;
+&lt;/phpunit&gt;
+</code></pre>
+				<p>If you need to change this configuration file, copy it into your <code>APPPATH</code> directory and edit that copy. Oil will recognize the new configuration file in place of the default and will use your custom configuration.</p>
+                <p>For example, if you develop in Modules, you may want the following additional test suite in your custom test configuration file:</p>
+<pre class='xml'><code>		&lt;testsuite name="modules"&gt;
+			&lt;directory suffix=".php"&gt;../modules/*/tests&lt;/directory&gt;
+		&lt;/testsuite&gt;
+</code></pre>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

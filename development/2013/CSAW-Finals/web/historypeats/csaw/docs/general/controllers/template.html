@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Template Controller - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Template Controller</h2>
+
+			<h3>What is a template controller?</h3>
+
+			<p>A Template Controller is an extension of the Base Controller which has template support built in using some pre-defined before() and after() methods. Basically it can be used to wrap
+			your view in a layout with a header, footer, sidebar, etc.</p>
+
+			<h3>Using the template controller</h3>
+
+			<p>Like all Controllers you create a class in the <kbd>fuel/app/classes/controller</kbd> directory. They need to extend the <kbd>Controller_Template</kbd> class and are prefixed by default by "Controller_". Below is an example of the controller "example": </p>
+
+			<p class="note"><strong>Please note:</strong> by default, all methods of a class that extends Controller_Template will use the template.
+			<br />However, it is possible to <a href="#omit_methods">omit methods</a> from the template.</p>
+
+	<pre><code>class Controller_Example extends Controller_Template
+{
+	public function action_index()
+	{
+		$data = array();
+		$this->template->title = 'Example Page';
+		$this->template->content = View::forge('test/index', $data);
+	}
+}</code></pre>
+
+			<h3>Using the template controller with before() and/or after()</h3>
+
+			<p class="note"><strong>Please note:</strong> if you have a before() method in your template controller extension you
+				<strong>must</strong> add <kbd>parent::before();</kbd> to that method or the <kbd>$this->template</kbd> will
+				not be available. <strong>Make after() compatible</strong> with that of the Controller_Template:
+				use <kbd>after($response)</kbd> instead of just after().</p>
+
+
+	<pre><code>class Controller_Example extends Controller_Template
+{
+	/**
+	 * Your before method
+	 */
+	public function before()
+	{
+		parent::before(); // Without this line, templating won't work!
+
+		// do stuff
+	}
+
+	/**
+	 * Make after() compatible with Controller_Template by adding $response as a parameter
+	 */
+	public function after($response)
+	{
+		$response = parent::after($response); // not needed if you create your own response object
+
+		// do stuff
+
+		return $response; // make sure after() returns the response object
+	}
+
+	public function action_index()
+	{
+		$data = array();
+		$this->template->title = 'Example Page';
+		$this->template->content = View::forge('test/index', $data);
+	}
+}</code></pre>
+
+			<h3>Example template</h3>
+
+			<p>
+				The template file is a great place to call up your JS, CSS, etc, structure your HTML and call view partials. It allows you to give your output
+				structure. It is just a view file, by default the Template Controller will look here: <kbd>fuel/app/views/template.php</kbd>.
+			</p>
+
+	<pre><code>&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+	&lt;meta charset="utf-8">
+	&lt;title>&lt;?php echo $title; ?>&lt;/title>
+
+	&lt;?php echo Asset::css('main.css'); ?>
+&lt;/head>
+&lt;body>
+	&lt;div id="wrapper">
+		&lt;h1>&lt;?php echo $title; ?>&lt;/h1>
+
+		&lt;div id="content">
+			&lt;?php echo $content; ?>
+		&lt;/div>
+	&lt;/div>
+&lt;/body>
+&lt;/html></code></pre>
+
+			<h3>Changing the default template file</h3>
+
+			<p>
+				You can easily change the default <kbd>APPPATH/views/template.php</kbd> file to something different.<br/>
+				You must set the public variable <kbd>$template</kbd> (note: you don't need .php extension here) to something different, example:
+			</p>
+
+	<pre><code>class Controller_Example extends Controller_Template
+{
+
+	public $template = 'template_admin';
+
+	public function action_index()
+	{
+		$this->template->title = 'Example Page';
+		$this->template->content = View::forge('test/index', $data);
+	}
+}</code></pre>
+
+		<h3 id="omit_methods">Omit methods from the Template Controller</h3>
+
+		<p>
+			By default, all methods of a class that extends <kbd>Controller_Template</kbd> will use the template.<br />
+			If you want to omit methods from the template, you can do this by returning something else in a
+			<kbd>Response</kbd> object. That will overwrite the default template output.
+		</p>
+
+		<pre><code>class Controller_Example extends Controller_Template
+{
+	public $template = 'template_admin';
+
+	public function action_index()
+	{
+		$this->template->title   = 'Example Page';
+		$this->template->content = View::forge('test/index', $data);
+
+		// this will show content in template
+	}
+
+	public function action_example()
+	{
+		$data['title']   = "Example Page";
+		$data['content'] = "Don't show me in the template";
+
+		// returned Response object takes precedence and will show content without template
+		return new Response(View::forge('index/test', $data));
+	}
+}</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

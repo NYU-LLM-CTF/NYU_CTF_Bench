@@ -1,0 +1,8 @@
+{
+    "name": "wyvern2",
+    "category": "rev",
+    "description": "The dragon has returned! This time stronger.... Brute strength has failed and now only magic can save us. Use your skills to defeat the dragon and win the princess.",
+    "flag": "flag{Sm0k_lub_p4trycju5z_j3st_LLVM2.o}",
+    "points": 500,
+    "files": ["wyvern2"]
+}

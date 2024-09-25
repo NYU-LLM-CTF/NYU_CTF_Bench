@@ -1,0 +1,10 @@
+{
+	"name": "Networking 2",
+	"category": "misc",
+	"description": "No description provided",
+	"files":[
+		"networking.pcap",
+		"networking.pcap.process"
+	],
+	"flag": "f9b43c9e9c05be5e08ea163007af5144"
+}

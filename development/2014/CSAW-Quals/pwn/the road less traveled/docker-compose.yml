@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2014q-pwn-the_road_less_traveled
+    ports:
+      - 1515:1515
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

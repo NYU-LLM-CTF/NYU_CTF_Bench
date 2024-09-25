@@ -1,0 +1,11 @@
+{
+    "name": "Hungman",
+    "category": "pwn",
+    "description": "So I think you need to pwn this",
+    "flag": "flag{this_looks_like_its_a_well_hungman}",
+    "points": 300,
+    "compose": true,
+    "internal_port": 8000,
+    "box": "pwn.chal.csaw.io",
+    "files": ["hungman"]
+}

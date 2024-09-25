@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Security::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Security - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Security Class</h2>
+
+			<p>The security class allows you to have CSRF protection in your application.</p>
+
+			<section>
+				<h3 id="configuration">Configuration</h3>
+
+				<p>
+					The security class is configured through the security section of the <kbd>app/config/config.php</kbd> configuration file.
+				</p>
+				<p>The following security configuration settings can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>token_salt</th>
+							<td>string</td>
+							<td><pre class="php"><code>'put your salt value here...'</code></pre></td>
+							<td>
+								Salt used to generate secure tokens. Make sure this contains something random to make sure your tokens are not predictable.
+							</td>
+						</tr>
+						<tr>
+							<th>csrf_token_key</th>
+							<td>string</td>
+							<td><pre class="php"><code>'fuel_csrf_token'</code></pre></td>
+							<td>
+								Name used for the CSRF token cookie, and the name of the form field containing the token.
+							</td>
+						</tr>
+						<tr>
+							<th>csrf_expiration</th>
+							<td>integer</td>
+							<td><pre class="php"><code>0</code></pre></td>
+							<td>
+								Expiration time for the CRSF token cookie. Default, the cookie expires at end of browser session.
+							</td>
+						</tr>
+						<tr>
+							<th>uri_filter</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('htmlentities')</code></pre></td>
+							<td>
+								Array of callable items (PHP functions, object methods, static class methods) used to filter the URI. By default, it uses PHP's htmlentities internal function.
+							</td>
+						</tr>
+						<tr>
+							<th>input_filter</th>
+							<td>array</td>
+							<td><pre class="php"><code>array()</code></pre></td>
+							<td>
+								Array of callable items (PHP functions, object methods, static class methods) used to filter $_GET, $_POST and $_COOKIE. By default, no input filters are defined.
+							</td>
+						</tr>
+						<tr>
+							<th>output_filter</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('Security::htmlentities')</code></pre></td>
+							<td>
+								Array of callable items (PHP functions, object methods, static class methods) used to filter variables send to a View or Viewmodel.
+								For security reasons, you are <strong>required</strong> to define an output filter.
+							</td>
+						</tr>
+						<tr>
+							<th>htmlentities_flags</th>
+							<td>integer</td>
+							<td><pre class="php"><code>null</code></pre></td>
+							<td>
+								Flags to be used when encoding HTML entities. Defaults to ENT_QUOTES if nothing is defined.
+							</td>
+						</tr>
+						<tr>
+							<th>htmlentities_double_encode</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>null</code></pre></td>
+							<td>
+								Whether of not already encoded entities should be encoded again. Defaults to <strong>false</strong> if nothing is defined.
+							</td>
+						</tr>
+						<tr>
+							<th>auto_filter_output</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								When true, all variables passed on to view objects are automatically encoded.
+							</td>
+						</tr>
+						<tr>
+							<th>whitelisted_classes</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('stdClass', 'Fuel\\Core\\View',<br /> 'Fuel\\Core\\ViewModel', 'Closure')</code></pre></td>
+							<td>
+								When auto encoding of view variables is enabled, you can run into issues when passing objects to the view. Classes defined in this
+								array will be exempt from auto encoding.
+							</td>
+						</tr>
+						<tr>
+							<th>csrf_autoload</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								When true, load and check the CSRF token using check_token() automatically. A SecurityException will be thrown if the check fails.
+							</td>
+						</tr>
+						<tr>
+							<th>csrf_autoload_methods</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('post', 'put', 'delete')</code></pre></td>
+							<td>
+								When csrf_autoload is true, the CSRF token will be validated for all http methods in this array.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="note">Note that if you enable "csrf_autoload", <strong>ALL</strong> your HTTP requests of the specified type <strong>MUST</strong> contain a CSRF token, or the validation will fail and a SecurityException will be thrown.</p>
+				<p class="note">If you want to deal with CSRF validation failures when autoload is enabled, you can catch the SecurityException in your index.php.</p>
+			</section>
+
+			<article>
+				<h4 class="method" id="method_check_token">check_token($value = null)</h4>
+				<p>The <strong>check_token</strong> method allows you to check the CSRF token.<br />
+				Check token also ensures a token is present and will reset the token for the next session when it receives
+				a value to check (no matter the result of the check).</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>CSRF token to be checked, checks value from POST or JSON input when not given.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Security::check_token();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_fetch_token">fetch_token()</h4>
+				<p>The <strong>fetch_token</strong> method allows you to fetch the CSRF token from the cookie.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$csrf_token = Security::fetch_token();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_js_fetch_token">js_fetch_token()</h4>
+				<p>The <strong>js_fetch_token</strong> method allows you to produce JavaScript fuel_csrf_token() function that will return the current CSRF token when called. Use to fill right field on form submit for AJAX operations.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// output the javascript function
+echo Security::js_fetch_token();
+
+// you can now use the generated function in the javascript code on your page
+&lt;script type="text/javascript"&gt;
+	var current_token = fuel_csrf_token();
+&lt;/script&gt;
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_js_set_token">js_set_token()</h4>
+				<p>
+					The <strong>js_set_token</strong> method allows you to produce JavaScript
+					fuel_set_csrf_token() function that will set the current CSRF token field
+					in the form when called. Use this on an onsubmit of a form, to update the
+					hidden token field in the form with the current value of the csrf cookie.
+					You have to use this when you want to allow multiple windows open, and
+					use a strict rotation and expiry of the CSRF token.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// output the javascript function
+echo Security::js_set_token();
+
+// you use the function generated as an onsubmit function, like so.
+// do NOT forget the 'this' parameter, so the function knows which form to update!
+&lt;form onsubmit="fuel_set_csrf_token(this);"&gt;
+	&lt;!-- do your stuff here --&gt;
+&lt;/form&gt;
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_generate_token">generate_token()</h4>
+				<p>
+					The <strong>generate_token</strong> method allows you to generate a secury token.
+					This method is used to generate CSRF tokens, but can be used anywhere in your application where you need
+					a secure random token.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$token = Security::generate_token();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_clean">clean($value, $filters = null)</h4>
+				<p>The <strong>clean</strong> method allows you clean data using the filters provided.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>The value to be cleaned. This can be a string value, or an array of string values.</td>
+								</tr>
+								<tr>
+									<th><kbd>$filters</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>
+										The filters to be used to clean the string(s). A filter can be a single value, or an array of values. Each value must be a valid PHP callback.
+										You may specify functions ('htmlentities'), objects ($this), or static methods ('Classname::method').
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// first strip tags, convert html entities in the remaining data, and finish it off using our special cleaning solution
+$filters = array('strip_tags', 'htmlentities', '\\cleaners\\soap::clean');
+$text = Security::clean($text, $filters);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_strip_tags">strip_tags($value)</h4>
+				<p>The <strong>strip_tags</strong> method allows you to strip HTML and PHP tags from a string.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>The input string.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$text = '&lt;p&gt;Test paragraph.&lt;/p&gt;';
+$text = Security::strip_tags($text);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_xss_clean">xss_clean($value, array $options = array())</h4>
+				<p>The <strong>xss_clean</strong> method allows you to strip dangerous HTML tags from a string, using the HTMLawed library.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>The input string.</td>
+								</tr>
+								<tr>
+									<th><kbd>$options</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Optional configuration array for htmLawed, if you require custom cleaning rules.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$text = '&lt;SCRIPT&gt;alert("XSS attack!")&lt;/SCRIPT&gt;';
+$text = Security::xss_clean($text);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_htmlentities">htmlentities($value, $flags = null, $encoding = null, $double_encode = null)</h4>
+				<p>
+					The <strong>htmlentities</strong> method allows you to turn HTML characters into their entity equivalent. This method operates identical to PHP's htmlentities() function
+					but supports arrays and objects as well.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>The input value.</td>
+								</tr>
+								<tr>
+									<th><kbd>$flags</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Flags to be passed to htmlentities(). If not given and not configured, it will default to ENT_QUOTES.</td>
+								</tr>
+								<tr>
+									<th><kbd>$encoding</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The encoding used for the value passed. If not given it will default the FuelPHP's default encoding.</td>
+								</tr>
+								<tr>
+									<th><kbd>$double_encoding</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>If true, already encoded values will not be encoded again. If not given and not configured it will default to <strong>false</strong>.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td><strong>RuntimeException</strong>, in case an object has been passed that can't be cast as string.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$text = '&lt;p&gt;Test paragraph.&lt;/p&gt;';
+$text = Security::htmlentities($text);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<h3 id="procedural_helpers">Procedural helpers</h3>
+
+			<article>
+				<h4 id="function_e" class="method" data-class="">e($string)</h4>
+				<p>The <strong>e</strong> function is an alias for <a href="#method_htmlentities">Security::htmlentities</a>.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$string</kbd></th>
+									<td><em>required</em></td>
+									<td>The input value.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string, result from <a href="#method_htmlentities">Security::htmlentities</a></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$text = '&lt;p&gt;Test paragraph.&lt;/p&gt;';
+$text = e($text);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<script id="template" type="x-tmpl-mustache">
+	<div class="tileDiv">
+		<p>To-Do:</p>
+		<div class="todosDiv">
+			<ul>
+			{{#todos}}
+				<li>{{ todo }}</li>
+			{{/todos}}
+			</ul>
+		</div>
+		<input type="text" id="newTodoText" />
+		<input type="button" id="addTodo" value="Add" />
+	</div>
+</script>

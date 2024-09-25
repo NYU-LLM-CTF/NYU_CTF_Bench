@@ -1,0 +1,8 @@
+{
+    "name": "weissman",
+    "category": "rev",
+    "description": "Extract the key!",
+    "flag": "flag{I know how long it'd take me, and I can prove it}",
+    "points": 300,
+    "files": ["weissman.csawlz", "pg28885.txt", "hash.html"]
+}

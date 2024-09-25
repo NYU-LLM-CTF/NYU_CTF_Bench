@@ -1,0 +1,1369 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "File::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>File Usage - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>File Class</h2>
+
+			<p>
+				The file class offers a set of methods to working with files &amp; directories. This can be done through
+				some helper methods or through a more advanced object oriented method where all files and directories are
+				wrapped in objects.
+			</p>
+
+			<section>
+				<h2 id="usage">Usage</h2>
+
+				<p>The File class's basic usage is through its helper methods which are listed below.</p>
+			</section>
+
+			<article>
+				<h4 class="method" id="method_create">create($basepath, $name, $contents = null, $area = null)</h4>
+				<p>Create a file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$basepath</kbd></th>
+									<td><em>required</em></td>
+									<td>Location to create the new file in</td>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><em>required</em></td>
+									<td>Filename for the new file</td>
+								</tr>
+								<tr>
+									<th><kbd>$contents</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>What to put into the new file</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>true</kbd></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>FileAccessException</kbd> when the file already exists.
+							<kbd>InvalidPathException</kbd> when the basepath in not valid or not writable.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::create(DOCROOT, 'test.txt', 'Contents for file.');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_create_dir">create_dir($basepath, $name, $chmod = 0777, $area = null)</h4>
+				<p>Create a directory.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$basepath</kbd></th>
+									<td><em>required</em></td>
+									<td>Location to create the new directory in</td>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><em>required</em></td>
+									<td>Name for the new directory</td>
+								</tr>
+								<tr>
+									<th><kbd>$chmod</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Rights for the new directory</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>bool - the output of the mkdir() PHP function</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>InvalidPathException</kbd> when the basepath does not exist or is not writable.
+							<kbd>FileAccessException</kbd> when the basepath is not writable.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::create_dir(DOCROOT, 'test', 0755);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_read">read($path, $as_string = false, $area = null)</h4>
+				<p>Reads a file and returns it ($as_string == true) or adds it to the output ($as_string == false).</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file to read</td>
+								</tr>
+								<tr>
+									<th><kbd>$as_string</kbd></th>
+									<td><kbd>false</kbd></td>
+									<td>Makes it use readfile() on false or file_get_contents() on <kbd>true</kbd></td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>
+							int|string - returns the number of bytes when $as_string was set to false or the file's
+							contents as a string when it was set to true.
+						</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td><kbd>InvalidPathException</kbd> when the file does not exist.</td>
+					</tr>
+
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Returns 'Contents for file.' if you created the file in the example for File::create()
+$file_content = File::read(DOCROOT.'test.txt', true);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_read_dir">read_dir($path, $depth = 0, $filter = null, $area = null)</h4>
+				<p>Reads directory contents into an array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the directory to read</td>
+								</tr>
+								<tr>
+									<th><kbd>$depth</kbd></th>
+									<td><kbd>0</kbd></td>
+									<td>How deep the subdirectories are recurred: 0 for unlimited, 1 for only the current
+									directory or specific number.</td>
+								</tr>
+								<tr>
+									<th><kbd>$filter</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>A filter for which files to read: <kbd>array()</kbd> for all or <kbd>null</kbd> for
+									all but hidden.</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array - a natural-case sorted array with subdirectories on top. Directories have a string key
+						with array value (or false when not read because of $depth limitation) and files are int indexed
+						with filename as value. All directories are suffixed with a directory separator.</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>InvalidPathException</kbd> when the path not a directory.
+							<kbd>FileAccessException</kbd> when the path is not readable.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Read a directory
+$contents = File::read_dir(DOCROOT);
+
+// Read with a limited dept
+$contents = File::read_dir(DOCROOT, 2);
+
+// Read with custom rules
+$contents = File::read_dir(DOCROOT, 0, array(
+	'!^\.', // no hidden files/dirs
+	'!^private' => 'dir', // no private dirs
+	'\.png$' => 'file', // only get png's
+	'\.css$' => 'file', // or css files
+	'!^_', // exclude everything that starts with an underscore.
+));
+
+/**
+ * As you can see above, you can make
+ * rules directory or file specific by
+ * adding "=> 'file'" or "=> 'dir'"
+ * behind the rule.
+ */</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_update">update($basepath, $name, $contents = null, $area = null)</h4>
+				<p>Updates a file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$basepath</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file to update</td>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><em>required</em></td>
+									<td>Filename for the file. If it does not exist, it will be created</td>
+								</tr>
+								<tr>
+									<th><kbd>$contents</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>What to put into the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>true</kbd></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>InvalidPathException</kbd> when the basepath not a directory or is not writable.
+							<kbd>FileAccessException</kbd> when there is no write access.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::update(DOCROOT, 'test.txt', 'New contents for file.');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_append">append($basepath, $name, $contents = null, $area = null)</h4>
+				<p>Appends to an existing file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$basepath</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file to append to</td>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><em>required</em></td>
+									<td>Filename for the file. This file has to exist</td>
+								</tr>
+								<tr>
+									<th><kbd>$contents</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>What to add to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>true</kbd></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>InvalidPathException</kbd> when the basepath not a directory or is not writable.
+							<kbd>FileAccessException</kbd> when the file does not exist.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::append(DOCROOT, 'test.txt', 'Additional contents for file.');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_rename">rename($path, $new_path, $source_area = null, $target_area = null)</h4>
+				<p>Rename or move a directory or file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file or directory to rename</td>
+								</tr>
+								<tr>
+									<th><kbd>$new_path</kbd></th>
+									<td><em>required</em></td>
+									<td>New name of the file or directory</td>
+								</tr>
+								<tr>
+									<th><kbd>$source_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+								<tr>
+									<th><kbd>$target_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Optional Area object to use if $source_area does not contain $new_path, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>boolean</kbd> result of <em>rename()</em></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the filetype is not allowed.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// rename 'test.txt' to 'newname.txt', and move it to a sub-directory
+File::rename(DOCROOT.'test.txt', DOCROOT.'folder/newname.txt');
+
+// rename using a single area
+File::rename(DOCROOT.'one.jpg', DOCROOT.'final.jpg', 'docroot');
+
+// move and rename between two restrictive areas
+File::rename(APPPATH.'tmp/file.jpg', DOCROOT.'folder/image.jpg', 'tmp', 'public');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_rename_dir">rename_dir($path, $new_path, $source_area = null, $target_area = null)</h4>
+				<p>Alias for File::rename</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file or directory to rename</td>
+								</tr>
+								<tr>
+									<th><kbd>$new_path</kbd></th>
+									<td><em>required</em></td>
+									<td>New name of the file or directory</td>
+								</tr>
+								<tr>
+									<th><kbd>$source_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+								<tr>
+									<th><kbd>$target_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Optional Area object to use if $source_area does not contain $new_path, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>boolean</kbd> result of <em>rename()</em></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the filetype is not allowed.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::rename(DOCROOT.'/dirname', DOCROOT.'/newdirname');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_copy">copy($path, $new_path, $area = null, $source_area = null, $target_area = null)</h4>
+				<p>Copies a file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file to copy</td>
+								</tr>
+								<tr>
+									<th><kbd>$new_path</kbd></th>
+									<td><em>required</em></td>
+									<td>Full path, including filename, to copy to</td>
+								</tr>
+								<tr>
+									<th><kbd>$source_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+								<tr>
+									<th><kbd>$target_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Optional Area object to use if $source_area does not contain $new_path, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>boolean</kbd> result of <em>copy()</em></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the filetype is not allowed.
+							<kbd>InvalidPathException</kbd> when the source path is not a file.
+							<kbd>FileAccessException</kbd> when the destination file already exists.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// copy the file 'test.txt' from the docroot to a sub directory
+File::copy(DOCROOT.'test.txt', DOCROOT.'folder/test.txt');
+
+// copy using a single area
+File::copy(DOCROOT.'one.jpg', DOCROOT.'img/one.jpg', 'public');
+
+// copy between two restrictive areas
+File::copy(APPPATH.'tmp/1.jpg', DOCROOT.'folder/1.jpg', 'tmp', 'public');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_copy_dir">copy_dir($path, $new_path, $area = null, $source_area = null, $target_area = null)</h4>
+				<p>Copies a directory.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the directory to copy</td>
+								</tr>
+								<tr>
+									<th><kbd>$new_path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to copy to</td>
+								</tr>
+								<tr>
+									<th><kbd>$source_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+								<tr>
+									<th><kbd>$target_area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Optional Area object to use if $source_area does not contain $new_path, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>null</kbd></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>InvalidPathException</kbd> when the source path is not a directory.
+							<kbd>FileAccessException</kbd> when the destination directory already exists.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::copy_dir(DOCROOT.'/test', DOCROOT.'/newname');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($path, $area = null)</h4>
+				<p>Deletes a file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file to delete</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>boolean</kbd> result of <em>unlink()</em></td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>InvalidPathException</kbd> when the source path is not a file.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::delete(DOCROOT.'/test.txt');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete_dir">delete_dir($path, $recursive = true, $delete_top = true, $area = null)</h4>
+				<p>Deletes a file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the directory to delete</td>
+								</tr>
+								<tr>
+									<th><kbd>$recursive</kbd></th>
+									<td><em>true</em></td>
+									<td>Whether to also delete contents of subdirectories</td>
+								</tr>
+								<tr>
+									<th><kbd>$delete_top</kbd></th>
+									<td><em>true</em></td>
+									<td>whether to delete the parent dir itself when empty</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>boolean</kbd> result of <em>unlink()</em> or true when not deleting content of subdirectories</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>InvalidPathException</kbd> when the source path is not a directory.
+							<kbd>FileAccessException</kbd> when something went wrong during the delete process.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::delete_dir(DOCROOT.'/my_dir');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_open_file">open_file($path, $lock = true, $area = null)</h4>
+				<p>Opens a file and locks it.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Location of the file to open</td>
+								</tr>
+								<tr>
+									<th><kbd>$lock</kbd></th>
+									<td><em>true</em></td>
+									<td>Whether to lock the file when opening.</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>resource</kbd>, the file resource</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the file could not be locked.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$resource = File::open_file(DOCROOT.'/my_dir/text.txt');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_close_file">close_file($resource, $area = null)</h4>
+				<p>Closes a file and unlocks it.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$resource</kbd></th>
+									<td><em>required</em></td>
+									<td>An open file resource</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>boolean</kbd> if a lock is used.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$resource = File::open_file(DOCROOT.'/my_dir/text.txt');
+// Do something with the resource
+File::close_file($resource);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get">get($path, $config = array(), $area = null)</h4>
+				<p>Fetches a file handler for the given file. <a href="handlers.html">Read more about handlers.</a></p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file or directory to be wrapped in a handler</td>
+								</tr>
+								<tr>
+									<th><kbd>$config</kbd></th>
+									<td><strong>array()</strong></td>
+									<td>optional config array</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Returns a new file handler object.</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the file extension is not allowed.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$handler = File::get(DOCROOT.'/my_dir/text.txt');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_url">get_url($path, $config = array(), $area = null)</h4>
+				<p>Retrieves the public url to a file. A url must be set in the base config or in the area config of the used area.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$config</kbd></th>
+									<td><strong>array()</strong></td>
+									<td>optional config array</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The public url for the file.</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the file extension is not allowed.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$url = File::get_url(DOCROOT.'/my_dir/text.txt');
+// Returns something like: http://mydomain.com/mydir/text.txt</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_permissions">get_permissions($path, $area = null)</h4>
+				<p>Retrieves the octal permissions for a file or directory.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The octal file permissions</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the file extension is not allowed.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$permissions = File::get_permissions(DOCROOT.'/my_dir/text.txt');
+// Returns "0755"</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_time">get_time($path, $type = 'modified', $area = null)</h4>
+				<p>Retrieves the created or modified time of a file or directory.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$type</kbd></th>
+									<td><strong>'modified'</strong></td>
+									<td>Type of time to retrieve. Must be <em>modified</em> or <em>created</em></td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The file created/modified unix timestamp</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the file extension is not allowed.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$permissions = File::get_time(DOCROOT.'/my_dir/text.txt', 'created');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_size">get_size($path, $area = null)</h4>
+				<p>Retrieves size in bytes for a file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The file size in bytes.</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>OutsideAreaException</kbd> when a path not inside the file area.
+							<kbd>FileAccessException</kbd> when the file extension is not allowed.
+							<kbd>InvalidPathException</kbd> when the file is not found.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$filesize = File::get_size(DOCROOT.'/my_dir/text.txt');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_file_info">file_info($path, $area = null)</h4>
+				<p>Retrieves an array of information about the specified file.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>
+							An array with file information items. The array will contain path, filename and extension information,
+							the file size and permissions, the creation and last modified timestamps, the detected mime-type and
+							the file's character set.
+						</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>InvalidPathException</kbd> when the file is not found.
+							<kbd>InvalidArgumentException</kbd> when the file info could be determined.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$filesize = File::file_info(DOCROOT.'/my_dir/text.txt');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_download">download($path, $name = null, $mime = null, $area = null)</h4>
+				<p>Outputs a file as download.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>required</em></td>
+									<td>Path to the file</td>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Override the file's default filename</td>
+								</tr>
+								<tr>
+									<th><kbd>$mime</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Override the file's default mimetype</td>
+								</tr>
+								<tr>
+									<th><kbd>$area</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Area object to use, defaults to main config (see <a href="advanced.html">advanced
+									usage</a> for more information)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>n/a - this method exits after initiating the download.</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>
+							<kbd>FileAccessException</kbd> when the file could not be opened for read.
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>File::download(DOCROOT.'/my_dir/text.txt', 'newfile.txt');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

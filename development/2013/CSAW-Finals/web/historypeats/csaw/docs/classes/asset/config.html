@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Asset::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Asset Config - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Asset Class</h2>
+
+			<p>The asset class is a set of methods to help with the collection, grouping and displaying of assets (js, css, img).</p>
+
+			<section>
+				<h3 id="config">Configuration</h3>
+
+				<p>The asset class's defaults are configured through the fuel/core/config/asset.php configuration file. It
+				is already populated with a default configuration. You can override this configuration adding a config file
+				with the same name to your application config directory, and set the values you want to change there. These
+				will overwrite the core config but keep what you didn't overwrite.</p>
+
+				<p>The following global configuration values can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>paths</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('assets/')</code></pre></td>
+							<td>
+								The default asset root paths. Paths must include a trailing slash.
+							</td>
+						</tr>
+						<tr>
+							<th>css_dir</th>
+							<td>string</td>
+							<td><pre class="php"><code>'css/'</code></pre></td>
+							<td>
+								The default css sub-folder. It must include a trailing slash.
+							</td>
+						</tr>
+						<tr>
+							<th>js_dir</th>
+							<td>string</td>
+							<td><pre class="php"><code>'js/'</code></pre></td>
+							<td>
+								The default js sub-folder. It must include a trailing slash.
+							</td>
+						</tr>
+						<tr>
+							<th>img_dir</th>
+							<td>string</td>
+							<td><pre class="php"><code>'img/'</code></pre></td>
+							<td>
+								The default image sub-folder. It must include a trailing slash.
+							</td>
+						</tr>
+						<tr>
+							<th>folders</th>
+							<td>array</td>
+							<td><pre class="php"><code>array(
+	'css' => array(),
+	'js'  => array(),
+	'img' => array(),
+),
+</code></pre></td>
+							<td>
+								To specify one or more individual asset folders per asset type.
+							</td>
+						</tr>
+						<tr>
+							<th>url</th>
+							<td>string</td>
+							<td><pre class="php"><code>\Config::get('base_url')</code></pre></td>
+							<td>
+								URL to the root of your assets. When loading an asset, the asset path and the asset name will be appended to this URL.
+							</td>
+						</tr>
+						<tr>
+							<th>add_mtime</th>
+							<td>bool</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								Whether to append the assets last modified timestamp to the url. This will aid in asset caching, and is recommended.
+							</td>
+						</tr>
+						<tr>
+							<th>indent_level</th>
+							<td>integer</td>
+							<td><pre class="php"><code>1</code></pre></td>
+							<td>
+								To keep the generated HTML tidy, the Asset class can indent tags. This sets the level of indentation.
+							</td>
+						</tr>
+						<tr>
+							<th>indent_with</th>
+							<td>string</td>
+							<td><pre class="php"><code>"\t"</code></pre></td>
+							<td>
+								String to indent the generated HTML with. This defaults to a single tab.
+							</td>
+						</tr>
+						<tr>
+							<th>auto_render</th>
+							<td>bool</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								This controls whether to return the generated HTML when an asset method is called without a group name.
+								If false, the asset will be added to the default group to be rendered later.
+							</td>
+						</tr>
+						<tr>
+							<th>fail_silently</th>
+							<td>bool</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								When set to true the exception will not be thrown when an asset file is not found.
+								The asset will then be ignored.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section>
+				<h3 id="asset_paths">Asset paths</h3>
+
+				<p>
+					There are several ways to define asset paths. You can define global asset search paths, which define the 'root'
+					of your assets. The sub-folder defined for the loaded asset is appended to these paths when searching for an asset.
+					If you use multiple global search paths, they must all use the same sub-folder structure.
+					<pre class="php"><code>// assuming:
+// - your URL is "http://example.org/"
+// - your global search path is "assets/"
+// - your img_dir is "img/"
+// this would return &lt;img src="http://example.org/assets/img/icons/myicon.png" /&gt;
+echo Asset::img('icons/myicon.png');
+</code></pre>
+				</p>
+
+				<p>
+					If you don't want a standard sub-folder structure, or you have to work in an existing environment in which
+					the asset paths are already defined, the Asset class allows you to define the individual asset search folders
+					for each type of asset supported.
+					<pre class="php"><code>// if this is your config
+// 'folders' => array(
+//	'css' => array('assets/css'),
+//	'js'  => array('assets/js', 'global/js/'),
+//	'img' => array('assets/img/', 'assets/icons'),
+// ),
+// and your icons are in 'assets/icons',
+// this would return &lt;img src="http://example.org/assets/icons/myicon.png" /&gt;
+echo Asset::img('myicon.png');
+</code></pre>
+				</p>
+
+
+				<p>Both search paths and search folders can be defined at runtime using the <a href="./usage.html#method_add_path">add_path()</a> method.</p>
+			</section>
+
+			<section>
+				<h3 id="static_assets">Static assets</h3>
+
+				<p>
+					If (some of your) your assets are not stored within the docroot of the application but are using a different host in the URL,
+					you use the following techniques to load an asset:
+					<pre class="php"><code>// individually, per asset
+echo Asset::img('http://static.example.org/icons/myicon.png');
+
+// for all sets, set your Asset URL to 'http://static.example.org/'
+echo Asset::img('icons/myicon.png');
+</code></pre>
+					In this case search paths are ignored.
+				</p>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

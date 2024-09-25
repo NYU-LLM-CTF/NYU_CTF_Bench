@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2013f-cry-slurp 
+    ports:
+      - 8000:8000
+    networks:
+      ctfnet:
+        aliases:
+          - crypto.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

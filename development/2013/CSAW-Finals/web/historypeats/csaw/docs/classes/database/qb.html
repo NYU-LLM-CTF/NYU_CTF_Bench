@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Query Builder - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2 id="introduction">Query Building</h2>
+
+			<p class="note">
+				<strong>Note:</strong>
+				At the time of writing the query builder classes are reworked so they can handle multiple sql dialects.
+			</p>
+			<p>
+				The abstraction of writing SQL for database queries is done by the <strong>Query Builder</strong>. The query builder
+				consists a set of classes, each handling a specific part of the query building process.
+			</p>
+			<p>
+				Using the query builder is will go unnoticed most of the times as the <a href="db.html">DB class</a> provides shortcuts for
+				creating new query builder objects. It's advised to use these methods to get the right query builder. this is common
+				practice and will keep your code readable.
+			</p>
+
+			<p>
+				Here are the classes that query builder consists of:
+			</p>
+
+			<ul>
+				<li>Query_Builder (abstract)</li>
+				<li><a href="qb_where.html">Query_Builder_Where</a> (abstract)</li>
+				<li><a href="qb_select.html">Query_Builder_Select</a></li>
+				<li><a href="qb_insert.html">Query_Builder_Insert</a></li>
+				<li><a href="qb_update.html">Query_Builder_Update</a></li>
+				<li><a href="qb_delete.html">Query_Builder_Delete</a></li>
+				<li>Query_Builder_Join</li>
+			</ul>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

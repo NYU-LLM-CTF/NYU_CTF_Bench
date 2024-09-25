@@ -1,0 +1,9 @@
+{
+    "name": "wyvern",
+    "category": "rev",
+    "description": "There's a dragon afoot, we need a hero.",
+    "flag": "flag{dr4g0n_or_p4tric1an_it5_LLVM}",
+    "points": 500,
+    "box": "",
+    "files": ["wyvern"]
+}

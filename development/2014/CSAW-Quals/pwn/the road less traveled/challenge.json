@@ -1,0 +1,11 @@
+{
+    "name": "the road less traveled",
+    "category": "pwn",
+    "description": "exploit this",
+    "flag": "flag{exploitation_is_easy!}",
+    "points": 100,
+    "box": "pwn.chal.csaw.io",
+    "compose": true,
+	"internal_port": 1515,
+    "files": ["bo"]
+}

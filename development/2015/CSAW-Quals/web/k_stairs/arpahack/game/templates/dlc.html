@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+    <p>You have <span id="tokens"></span> tokens.</p>
+    <a class="btn btn-lg" href="/purchase">Click here to purchase tokens!</a>
+    <br><br>
+    <p id="message"></p>
+    <br><br>
+</div>
+
+<div class="col-md-12">
+    <h3>Items</h3>
+    <div class="panel panel-default"><div class="panel-body">
+        <p>Feeling hungry? Purchase food to extend your adventure!</p>
+        <button class="btn btn-success" value="1">5 units of food for 1 Token</button>
+    </div></div>
+    <div class="panel panel-default"><div class="panel-body">
+        <p>Dead? Revive yourself with a life potion!</p>
+        <button class="btn btn-success" value="2">Resurrect for 2 Tokens</button>
+    </div></div>
+    <div class="panel panel-default"><div class="panel-body">
+        <p>Lost? The compass will help you find your way!</p>
+        <button class="btn btn-success" value="3">A compass for 10 Tokens</button>
+    </div></div>
+<!--
+    <div class="panel panel-default"><div class="panel-body">
+        <p>Lost? The compass will help you find your way!</p>
+        <button class="btn btn-success" value="4">A compass for 100 Tokens</button>
+    </div></div>
+-->
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dlc.js') }}">"</script>
+{% endblock %}

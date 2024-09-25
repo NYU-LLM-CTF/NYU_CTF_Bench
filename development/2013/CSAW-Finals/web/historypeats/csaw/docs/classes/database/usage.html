@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = 'Query_Builder_Select::';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Query Builder Select - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Database Usage</h2>
+			<p>
+				Normal database interactions are to go through the <a href="./db.html">DB class</a>.
+				The following examples will give you a feel for how to go about using databases in Fuel.
+			</p>
+			<p>Database usage is divided into a couple of segments:</p>
+
+			<ul>
+				<li><a href="#running-queries">Running queries</a></li>
+				<li><a href="#selecting">Selecting</a>,</li>
+				<li><a href="#results">Results</a>,</li>
+				<li><a href="#filtering">Filtering</a> (where, order by, limit, offset),</li>
+				<li><a href="#inserting">Inserting</a>,</li>
+				<li><a href="#updating">Updating</a>,</li>
+				<li><a href="#deleting">Deleting</a> data</li>
+				<li><a href="#joins">Joins</a></li>
+				<li><a href="#escaping">Escaping</a></li>
+				<li><a href="#binding">Query binding</a></li>
+				<li><a href="#caching">Query caching</a></li>
+			</ul>
+
+
+			<article>
+				<h3 id="running-queries">Running queries</h3>
+				<p>First we prepare a query using <a href="./db.html#method_query">DB::query</a>.</p>
+				<pre class="php"><code>// returns a new Database_Query
+$query = DB::query('SELECT * FROM `users`');
+</code></pre>
+				<p>Now we can execute that query:</p>
+				<pre class="php"><code>$query = DB::query('SELECT * FROM `users`');
+
+// return a new Database_MySQLi_Result
+$query->execute();
+
+// Or execute is on a different database group
+$query->execute('another_group');
+// or
+$query->execute(Database_Connection::instance('another_group'));
+
+// And we can chain then like this:
+$result = DB::query('SELECT * FROM `users`')->execute();
+</code></pre>
+			</article>
+
+			<article>
+				<h3 id="selecting">Selection data</h3>
+				<p>
+					First let's select data using <a href="./db.html#method_query">DB::query</a>.
+					As we are going to fetch a result from this query, we need to let the it know
+					what kind of query we are going to run.
+				</p>
+				<pre class="php"><code>
+$result = DB::query('SELECT * FROM `users`', DB::SELECT)->execute();
+</code></pre>
+				<p>
+					We can also select data using <a href="./db.html#method_select">DB::select</a>
+				</p>
+				<pre class="php"><code>// Will execute SELECT `id`, `name` FROM `users`
+$result = DB::select('id','name')->from('users')->execute();
+</code></pre>
+				<p>
+					or use <a href="./db.html#method_select_array">DB::select_array</a> which
+					allows you to dynamically build your array of column names.
+				</p>
+				<pre class="php"><code>// Will execute SELECT `id`, `name` FROM `users`
+$colums = array('id', 'name');
+$result = DB::select_array($columns)->from('users')->execute();
+</code></pre>
+
+				<p>If you want to alias columns, use arrays instead of strings</p>
+
+				<pre class="php"><code>// Will execute SELECT `name` as `the_name` FROM `users`;
+$result = DB::select(array('name','the_name'))->from('users')->execute();
+</code></pre>
+
+				<p>To select distinct values set distinct to <em>true</em>:</p>
+				<pre class="php"><code>// SELECT DISTINCT `name` FROM `users`
+$users = DB::select('name')->from('users')->distinct(true)->execute();
+
+print_r($users->as_array());
+/*
+Array
+(
+    [0] => Array
+        (
+            [name] => Dirk
+        )
+
+    [1] => Array
+        (
+            [name] => John
+        )
+
+)
+*/
+</code></pre>
+
+				<h3 id="results">Results</h3>
+				<p>
+					Executing a select query will generate a result object containing the requested database records.
+					By default the result is fetched as associative arrays. Here is an example how to influence this
+					behaviour.
+				</p>
+				<pre class="php"><code>// Will fetch the result as an associative array.
+$result = DB::select('id','name')->from('users')->as_assoc()->execute();
+
+// Will fetch the result as an object.
+$result = DB::select('id','name')->from('users')->as_object()->execute();
+
+// Will fetch the result as an Model_Users object.
+$result = DB::select()->from('users')->as_object('Model_Users')->execute();
+
+// Will fetch the result as an Model_Users object (a model from the Users module).
+$result = DB::select()->from('users')->as_object('\\Users\\Model_Users')->execute();
+</code></pre>
+				<p class="note">
+					When you pass a class name to as_object(), make sure you include any namespace if needed. If the class
+					specified does not exist, as_object() will be ignored and an indexed array will be returned.
+				</p>
+				<p>Want to know how many records you have fetched? It's dead simple!</p>
+				<pre class="php"><code>
+$result = DB::select('*')->from('users')->execute();
+// Just count the results, it returns an int.
+$num_rows = count($result);
+</code></pre>
+				<p>To access these results you either loop through the result object directly, or get the result array.</p>
+				<pre class="php"><code>$result = DB::select()->from('users')->execute();
+foreach($result as $item)
+{
+	// do something with $item
+}
+
+$result_array = $result->as_array();
+foreach($result_array as $item)
+{
+	// do something with $item
+}
+</code></pre>
+
+				<p>Optionaly we specify the array key and value to be returned from <em>as_array</em></p>
+				<pre class="php"><code>$result = DB::select()->from('users')->execute();
+$on_key = $result->as_array('id');
+foreach($on_key as $id => $item)
+{
+	// $id will contain the records id
+	// do something with $item or its $id
+}
+
+$key_value = $result->as_array('id', 'email');
+foreach($key_value as $id => $email)
+{
+	// now $email will be the email field.
+	// so you can do something with $id or $email
+}
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="filtering">Filtering</h3>
+				<h4 id="where_statements">Where statements</h4>
+				<p>
+					In order to set the conditions on our queries we can set WHERE conditions.
+					These examples also apply to updating and deleting.
+				</p>
+				<pre class="php"><code>// Will execute SELECT * FROM `users` WHERE `id` = 1
+$result = DB::select()->from('users')->where('id', 1)->execute();
+</code></pre>
+
+				<p>To influence the operator supply it like so:</p>
+				<pre class="php"><code>// Will execute SELECT * FROM `users` WHERE `id` = 1
+$result = DB::select()->from('users')->where('id', '=', 1)->execute();
+
+// Will execute SELECT * FROM `users` WHERE `id` IN (1, 2, 3)
+$id_array = array(1,2,3);
+$result = DB::select()->from('users')->where('id', 'in', $id_array)->execute();
+
+// Will execute SELECT * FROM `users` WHERE `id` BETWEEN 1 AND 2
+$result = DB::select()->from('users')->where('id', 'between', array(1, 2))->execute();
+
+// Will execute SELECT * FROM `users` WHERE `id` != 1
+$result = DB::select()->from('users')->where('id', '!=', 1)->execute();
+
+// Will execute SELECT * FROM `users` WHERE `name` LIKE "john%"
+$who = "john%";
+$result = DB::select()->from('users')->where('id', 'like', $who)->execute();
+</code></pre>
+
+				<p id="grouped_where">Grouped where statements are also supported:</p>
+
+				<pre class="php"><code>// SELECT * FROM `users` WHERE (`name` = 'John' AND `email` = 'john@example.com')
+// OR (`name` = 'mike' OR `name` = 'dirk')
+$result = DB::select()->from('users')->where_open()
+	->where('name', 'John')
+	->and_where('email', 'john@example.com')
+->where_close()
+->or_where_open()
+	->where('name', 'mike')
+	->or_where('name', 'dirk')
+->or_where_close()->execute();
+</code></pre>
+
+				<p id="where_between_in">The <em>BETWEEN</em> and <em>IN</em> also go through the <em>where</em> method:</p>
+				<pre class="php"><code>// SELECT * FROM `users` WHERE `id` BETWEEN 1 AND 10
+$users = DB::select()->from('users')->where('id', 'between', array(1, 10))->execute();
+
+// SELECT * FROM `users` WHERE `name` IN ('john', 'simon', 'dirk')
+$users = DB::select()->from('users')->where('name', 'in', array('john', 'simon', 'dirk'))->execute();
+</code></pre>
+
+				<h4 id="order_by">Order by statement</h4>
+
+				<p>For sorting data we use the order_by function.</p>
+				<pre class="php"><code>//SELECT * FROM `users` ORDER BY `name` ASC
+DB::select()->from('users')->order_by('name','asc');
+
+// SELECT * FROM `users` ORDER BY `name` ASC, `surname` DESC
+DB::select()->from('users')->order_by('name','asc')->order_by('surname', 'desc');
+
+// You can ommit the direction by leaving the second parameter out.
+// SELECT * FROM `users` ORDER BY `name`
+DB::select()->from('users')->order_by('name');
+</code></pre>
+
+				<h4 id="limit_offset">Limit and offset</h4>
+				<p>For limiting the number of rows fetched we use the limit and offset function. Note that the offset function is only available when selecting data.</p>
+				<pre class="php"><code>// SELECT * FROM `users` LIMIT 1
+DB::select()->from('users')->limit(1);
+
+// SELECT * FROM `users` LIMIT 10 OFFSET 5
+DB::select()->from('users')->limit(10)->offset(5);
+
+// SELECT * FROM `users` ORDER BY `id` ASC LIMIT 10
+DB::select('users')->order_by('id','asc')->limit(10);
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="updating">Updating</h3>
+				<p>
+					For updating data we use <a href="./db.html#method_update">DB::update</a>.
+					If successfully executed an update query will return an integer representing
+					the amount of affected rows.
+				</p>
+
+				<p>To update a single column.</p>
+				<pre class="php"><code>// Will execute UPDATE `users` SET `name` = "John Random" WHERE `id` = "2";
+$result = DB::update('users')
+	->value("name", "John Random")
+	->where('id', '=', '2')
+	->execute();
+</code></pre>
+
+				<p>To update multiple columns.</p>
+				<pre class="php"><code>// Will execute UPDATE `users`
+// SET `group` = "Peter Griffon", `email` = "peter@thehindenpeter.com"
+// WHERE `id` = "16";
+$result = DB::update('users')
+	->set(array(
+		'name'  => "Peter Griffon",
+		'email' => "peter@thehindenpeter.com"
+	))
+	->where('id', '=', '16')
+	->execute();
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="inserting">Inserting</h3>
+				<p>
+					For inserting data we use <a href="./db.html#method_insert">DB::insert</a>.
+					If successfully executed an insert query will return an array containing a
+					list of insert id and rows created.
+				</p>
+				<pre class="php"><code>// Will execute INSERT INTO `users`(`name`,`email`,`password`)
+// VALUES ("John Random", "john@example.com", "s0_s3cr3t")
+list($insert_id, $rows_affected) = DB::insert('users')->set(array(
+	'name' => 'John Random',
+	'email' => 'john@example.com',
+	'password' => 's0_s3cr3t',
+))->execute();
+</code></pre>
+				<p>You can also set the columns and values separately</p>
+
+				<pre class="php"><code>// Will execute INSERT INTO `users`(`name`,`email`,`password`)
+// VALUES ("John Random", "john@example.com", "s0_s3cr3t")
+list($insert_id, $rows_affected) = DB::insert('users')->columns(array(
+	'name', 'email', 'password'
+))->values(array(
+	'John Random', 'john@example.com', 's0_s3cr3t'
+))->execute();
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="deleting">Deleting</h3>
+
+				<p>
+					To delete records, use <a href="./db.html#method_delete">DB::delete</a>.
+					When executed it will return the number of rows affected.
+				</p>
+				<pre class="php"><code>// Empty the whole users table
+$result = DB::delete('users')->execute(); // (int) 20
+
+// Executes DELETE FROM `users` WHERE `email` LIKE "%@example.com"
+$result = DB::delete('users')->where('email', 'like', '%@example.com')->execute(); // (int) 7
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="joins">Joins</h3>
+				<p>When selecting data, you can also join other tables into the result.</p>
+
+				<pre class="php"><code>// Will execute SELECT * FROM `users` LEFT JOIN `roles` ON `roles`.`id` = `users`.`role_id`
+$result = DB::select()->from('users')->join('roles','LEFT')->on('roles.id', '=', 'users.role_id');
+
+// Will execute SELECT * FROM `users` RIGHT OUTER JOIN `roles` ON `roles`.`id` = `users`.`role_id`
+$result = DB::select()->from('users')->join('roles','right outer')->on('roles.id', '=', 'users.role_id');
+
+// join on a literal value 1 instead of a column name
+$result = DB::select()->from('users')->join('roles','right outer')->on('roles.id', '=', DB::expr('1'));
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="escaping">Escaping</h3>
+
+				<p>Fields and values in database calls are escaped by default. In some cases you'll want to not escape data. The DB class provides a method to create <em>database expressions</em>, <a href="./db.html#method_expr">DB::expr</a>. If you don't want a value to get escaped, just wrap it in a database expression.</p>
+				<p>Database expressions are especially helpful when dealing with thing like MySQL's native function (like <em>COUNT</em>) and predefined constants (like <em>DEFAULT</em>).</p>
+
+				<pre class="php"><code>// Set a field to its default
+DB::update('users')->where('id', '=', 1)->set(array(
+	'some_column' => DB::expr('DEFAULT'),
+))->execute();
+
+// SELECT COUNT(*) FROM `users`
+$result = DB::select(DB::expr('COUNT(*) as count'))->from('users')->execute();
+
+// Get the current/first result
+$result_arr = $result->current();
+
+// Get the number of rows
+$count = $result_arr['count'];
+</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="binding">Query binding</h3>
+
+				<p>The query builder supports query binding, a technique that allows you to assign variables to your
+				hand-written queries in a safe and secure manner.</p>
+
+				<p>Query binding works by placing uniquely identifyable placeholders in your SQL. The query builder will
+				replace these placeholders by their corresponding values when the query is compiled for execution (so not
+				when you bind it!).</p>
+
+				<p>You define placeholder using the FuelPHP standard notation, which is a string, prefixed by a colon
+				(:varname).</p>
+
+				<pre class="php"><code>$name = 'John'; // set the variable we're going to bind
+$query = "SELECT * FROM users WHERE username = :name"; // our query
+
+// bind the variable and run the query, produces SELECT * FROM users WHERE username = 'John'
+$result = DB::query($query)->bind('name', $name)->execute();</code></pre>
+
+				<p>Variables are bound by reference, so you can define your query and your bindings early in your code
+				and modify the bound variable later.</p>
+
+				<pre class="php"><code>// create the query object
+$query = DB::query("SELECT * FROM users WHERE username = :name");
+
+$name = 'unknown';                // set the variable with a default value
+$query->bind('name', $name);     // and bind it to the query
+
+// after some code, change the bound variable
+$name = 'Sally';
+
+// bind the variable and run the query, produces SELECT * FROM users WHERE username = 'Sally'
+$result = $query->execute();</code></pre>
+
+				<p>Because the variable is bound by reference, you can NOT bind a literal. If you
+				do, you'll get a "Cannot pass parameter 2 by reference" exception!</p>
+
+				<pre class="php"><code>// this will generate an exception!
+$query = DB::query("SELECT * FROM users WHERE username = :name")->bind('name', 'value')->execute();</code></pre>
+
+				<p>You can assign by value using the param() method:</p>
+
+				<pre class="php"><code>// this will work though
+$query = DB::query("SELECT * FROM users WHERE username = :name")->param('name', 'value')->execute();</code></pre>
+
+				<p>And finally, you can use the parameters() method if you want to mix the two:</p>
+
+				<pre class="php"><code>// create the query object
+$query = DB::query("SELECT * FROM users WHERE username = :name AND state = :state");
+
+$name = 'John'; // set the variable we're going to bind
+
+// bind the variable and literal
+$query->parameters(array('name' => &amp;$name, 'state' => 'new'));
+
+// and run the query, produces SELECT * FROM users WHERE username = 'John' AND state = 'new'
+$result = $query->execute();</code></pre>
+
+				<p class="note">Some frameworks use question marks as placeholders. This works for them because their
+				binding system is positional, the first question mark gets replaced by the first variable bound, and
+				so on. In FuelPHP, order of binding is not relevant, there is a one-to-one link between the placeholder
+				and the variable bound. It also means you can use the same placeholder multiple times in a single
+				query.</p>
+
+			</article>
+
+			<article>
+
+				<h3 id="caching">Query caching</h3>
+
+				<p>The query builder also supports caching a query's result to help you bring down your database access.
+					For this goal it uses the Cache class behind the scenes but handles both retrieval and regeneration
+					of the caches.<br />
+					The <code>cached()</code> method takes 3 arguments: the expiration time (cache validity in seconds)
+					a second argument to set a custom key for the query (by default a md5 hash of the SQL), and a boolean
+					that can be used to indicate that you don't want to cache empty results. Using a custom cache key
+					will allow you to manually delete specific queries more easily and group sets of query caches into
+					specific directories.</p>
+
+				<pre class="php"><code>// Run a query and cache it for 1 hour
+// If you run the exact same query the next time it will return the cached result.
+// This will happens within the 3600 seconds of the cached one, if not it will run
+// and cache another time.
+$query = DB::query("SELECT * FROM users")->cached(3600)->execute();
+
+// You can specify a key to handle the delete of cached results, useful if you
+// know that will be updated and need to delete it before it gets shown.
+// Empty query results will not be cached.
+$query = DB::query("SELECT * FROM users")->cached(3600, "foo.bar", false)->execute();
+
+// This delete the previous query from cache
+Cache::delete("foo.bar");
+// Or delete all caches in the "foo" directory
+Cache::delete_all("foo");
+
+// By default all queries are put in a "db" directory
+// Thus to delete all query caches for which the key wasn't set manully
+Cache::delete_all("db");</code></pre>
+
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

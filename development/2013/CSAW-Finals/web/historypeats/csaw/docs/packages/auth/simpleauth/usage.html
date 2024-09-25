@@ -1,0 +1,1301 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+		var class_prefix = "$object->";
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Usage - SimpleAuth - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2 id="usage">SimpleAuth Usage</h2>
+
+			<p>
+				As said in the <a href="../intro.html">introduction</a> of the Auth package, an authentication system comes with
+				three different drivers, each dealing with a part of the system:
+			</p>
+			<p>
+				The Simpleauth <kbd>login</kbd> driver provides the logic for creating, updating, deleting and validating user accounts
+				stored in a local database table, for getting information about those accounts, for generating or resetting
+				passwords, and for login and logout operations (creating a user session).
+			</p>
+
+			<p>
+				The Simpleauth <kbd>group</kbd> driver stores it's group definitions in the simpleauth configuration file.	It provides the logic
+				for checking if a user is a member of a group, and for retrieving group information, or the roles defined to to a group.
+			</p>
+
+			<p>
+				The Simpleauth <kbd>acl</kbd> driver is role driven, and stores it's acl definitions in the simpleauth configuration file.
+				It provides the logic for checking if a user has access to a named ACL.
+			</p>
+
+			<h3 id="classmethods">Static vs Dynamic</h3>
+
+			<p>As explained in the introduction, the Auth package provides a static interface to most of the method available, providing you
+			only a single driver set. These methods will be defined below as "Static: Yes". All methods are also accessable via chaining on the
+			Auth instance object, including the ones marked as static. </p>
+
+			<h3 id="classmethods">Class methods</h3>
+
+				<article>
+					<h4 id="method_validate_user" class="method">validate_user($username_or_email = '', $password = '')</h4>
+					<p>The <strong>validate_user</strong> method validates user credentials. This method supports both email address and username as valid credential.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$username_or_email</kbd></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>Either the users username or email address</td>
+									</tr>
+									<tr>
+										<th><kbd>$password</kbd></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The users password</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. <strong>false</strong> if the user didn't pass validation, or an <strong>array</strong> with the users information if the credentials were valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// validate the a username and password
+if ($user = Auth::validate_user($name, $pass))
+{
+	// the combination of $name and $pass validated, print the users screen name
+	echo $user['username'];
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">This method only validates if a given combination of username and password is correct. It does NOT log the user in!</p>
+				</article>
+
+				<article>
+					<h4 id="method_login" class="method">login($username_or_email = '', $password = '')</h4>
+					<p>The <strong>login</strong> method performs a login request. If a parameter is not given, it will attempt to
+					retrieve it from posted data, used the form fieldnames configured in the simpleauth.php configuration file.
+					Internally it calls the validate_user() method to validate the request before attempting a login.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$username_or_email</kbd></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>Either the users username or email address</td>
+									</tr>
+									<tr>
+										<th><kbd>$password</kbd></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The users password</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the login was succesful, <strong>false</strong> otherwise.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// perform a login
+if (Auth::login($name, $pass))
+{
+	// the user is succesfully logged in
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">After a succesful login, the 'username' and the current 'login_hash' will be available as a session variable.</p>
+				</article>
+
+				<article>
+					<h4 id="method_check" class="method">check()</h4>
+					<p>The <strong>check</strong> method checks if a logged-in user is present.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the is a logged-in user, <strong>false</strong> otherwise.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// login if we're not logged-in
+if ( ! Auth::check())
+{
+	Response::redirect('/login');
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_force_login" class="method">force_login($user_id = '')</h4>
+					<p>
+						The <strong>force_login</strong> method performs a forced login request. You can use this for an automated login, when you know
+						the users id, but you don't know the password. This can be used for example to implement a "remember me" feature.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$user_id</kbd></th>
+										<td>required</td>
+										<td>The id of the user you want to login</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the login was succesful, <strong>false</strong> otherwise.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// perform a forced login for user 12121
+if (Auth::force_login(12121))
+{
+	// the user is succesfully logged in. Any previously logged-in user will be logged out!
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_logout" class="method">logout()</h4>
+					<p>The <strong>logout</strong> method logs out the current logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the logout was succesful, <strong>false</strong> otherwise.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// perform a logout
+Auth::logout();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If you have enabled guest user support, the guest user will be setup after a succesful logout.</p>
+				</article>
+
+				<article>
+					<h4 id="method_create_user" class="method">create_user($username, $password, $email, $group = 1, Array $profile_fields = array())</h4>
+					<p>
+						The <strong>create_user</strong> allows method you to create a new user record in the users table.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$username</kbd></th>
+										<td>required</td>
+										<td>The name of the user you want to create</td>
+									</tr>
+									<tr>
+										<th><kbd>$password</kbd></th>
+										<td>required</td>
+										<td>The password you want to assign to the user</td>
+									</tr>
+									<tr>
+										<th><kbd>$email</kbd></th>
+										<td>required</td>
+										<td>The email address of the user you want to create</td>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td>1</td>
+										<td>The group you want to assign this user to. By default, the user is assigned to group 1.</td>
+									</tr>
+									<tr>
+										<th><kbd>$profile_fields</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>Any additional profile fields or user metadata you want to assign to this user</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Throws</th>
+							<td>SimpleUserUpdateException</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns the id of the user record created, or <strong>false</strong> if the creation failed.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// create a new user
+Auth::create_user(
+	'anewuser',
+	'thisismysecretpassword',
+	'anewuser@example.org',
+	1,
+	array(
+		'fullname' => 'A. New User',
+	)
+);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_update_user" class="method">update_user($values, $username = null)</h4>
+					<p>
+						The <strong>update_user</strong> method allows you to update values in the user record,
+						either for a named user, or for the current logged-in user.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$values</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>Associative array with column name / value pairs for the columns or profile fields you want to update.</td>
+									</tr>
+									<tr>
+										<th><kbd>$username</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the user you want to update</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Throws</th>
+							<td>SimpleUserUpdateException</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if columns were updated, or <strong>false</strong> if no columns were affected.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// update the data for the current user
+Auth::update_user(
+	array(
+		'email'        => 'anewemail@example.org',  // set a new email address
+		'password'     => 'thisismynewpassword',    // set a new password
+		'old_password' => 'thisismysecretpassword', // to do so, give the current one!
+		'phone'        => '+1 (555) 123-1212',	    // and add the phone number to the metadata
+	)
+);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">
+						This method is primary provided to allow the user to do profile updates. And as a security measure, it will <strong>not</strong> allow you
+						to change the username, and if you want to change the password, you <strong>have</strong> to pass the current password in $values as "old_password".
+					</p>
+				</article>
+
+				<article>
+					<h4 id="method_change_password" class="method">change_password($old_password, $new_password, $username = null)</h4>
+					<p>
+						The <strong>change_password</strong> method allows you to change a users password.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$old_password</kbd></th>
+										<td>required</td>
+										<td>The users current password</td>
+									</tr>
+									<tr>
+										<th><kbd>$new_password</kbd></th>
+										<td>required</td>
+										<td>The users new password</td>
+									</tr>
+									<tr>
+										<th><kbd>$username</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the user of whom you want to change the password</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Throws</th>
+							<td>SimpleUserUpdateException</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the password was changed, or <strong>false</strong> if the old password was incorrect.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// reset the password for the current user
+Auth::change_password('thisismynewpassword','thisismysecretpassword');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">
+						This method is provided to allow the user to change his password. And as a security measure, you <strong>have</strong> to
+						pass the current password in "old_password".
+					</p>
+				</article>
+
+				<article>
+					<h4 id="method_reset_password" class="method">reset_password($username)</h4>
+					<p>
+						The <strong>reset_password</strong> method allows you to assign a new random password to a user.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$username</kbd></th>
+										<td>required</td>
+										<td>The name of the user for whom you want to reset the password</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Throws</th>
+							<td>SimpleUserUpdateException</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string, the generated random password.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// reset the password for the current user
+$new_password = Auth::reset_password('thisusername');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_delete_user" class="method">delete_user($username)</h4>
+					<p>
+						The <strong>delete_user</strong> method allows you to delete a user account.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$username</kbd></th>
+										<td>required</td>
+										<td>The name of the user account you want to delete</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Throws</th>
+							<td>SimpleUserUpdateException</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the user account was deleted, or <strong>false</strong> if it failed (because the username did not exist).</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// delete the user
+Auth::delete_user('thisusername');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_create_login_hash" class="method">create_login_hash()</h4>
+					<p>The <strong>create_login_hash</strong> method generates a new login hash for the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string, the generated login hash.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// generate a new random hash
+Auth::create_login_hash();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">This method is normally used when a user logs in, but you can use this as an extra security measure by rotating
+					the hash regularly for logged-in users.</p>
+					<p class="note">Note that login hash protection is <kbd>not</kbd> used when multiple logins is enabled!</p>
+				</article>
+
+				<article>
+					<h4 id="method_get" class="method">get($field, $default = null)</h4>
+					<p>The <strong>get</strong> method is a generic getter for user properties, either from the user record, or from the metadata.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$field</kbd></th>
+										<td>required</td>
+										<td>The name of the property you want the value of</td>
+									</tr>
+									<tr>
+										<th><kbd>$default</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The value to return is the property is not set</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get the user creation date
+$created_at = Auth::get('created_at');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_get_user_id" class="method">get_user_id()</h4>
+					<p>The <strong>get_user_id</strong> method returns an array structure containing the drivers id value, and the id of
+					the currently logged-in user. It uses this structure because you can have multiple login drivers active, each can have
+					a different id for the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns a numeric array in the form <strong>array([0]=>driver_id, [1]=>user_id)</strong> if a user is logged in, or <strong>false</strong> otherwise.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get all login id information
+$id_info = Auth::get_user_id();
+
+// print driver and id info
+if ($id_info)
+{
+	foreach ($id_info as $info)
+	{
+		echo 'Driver: ',$info[0],' with ID ',$info[1],'&lt;br /&gt;';
+	}
+}
+else
+{
+	echo 'Nobody is logged in!';
+}
+
+// if you only use one driver, you can also do
+list($driver, $userid) = Auth::get_user_id();
+
+// or this if you only need the userid
+list(, $userid) = Auth::get_user_id();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If guest user support is enabled, you will never get <strong>false</strong> returned, because the method will return the user id of the guest user.</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_groups" class="method">get_groups()</h4>
+					<p>The <strong>get_groups</strong> method returns the user groups assigned to the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns an array in the form <strong>array(array(driver, group_id))</strong> if a user is logged in, or <strong>false</strong> otherwise.</td>
+						</tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get all group id information
+$id_info = Auth::get_groups();
+
+// print driver and id info
+if ($id_info)
+{
+	foreach ($id_info as $info)
+	{
+		echo 'Driver: ',$info[0],' with group ID ',$info[1],'&lt;br /&gt;';
+	}
+}
+else
+{
+	echo 'Nobody is logged in!';
+}
+
+// if you only use one driver, you can also do
+list($driver, $groupid) = Auth::get_groups();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If guest user support is enabled, you will never get <strong>false</strong> returned, because the method will return the group information of the guest user.</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_email" class="method">get_email()</h4>
+					<p>The <strong>get_email</strong> method returns the email address assigned to the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns an email address if a user is logged in, or <strong>false</strong> if there is no user logged-in.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get the current users email address
+$email = Auth::get_email();
+
+// note that there is a difference between false and empty:
+if ($email === false)
+{
+	// nobody logged in
+}
+if (empty($email))
+{
+	// a user is logged in, but doesn't have an email address
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If guest user support is enabled, you will never get <strong>false</strong> returned, because the method will return the email address of the guest user.</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_screen_name" class="method">get_screen_name()</h4>
+					<p>The <strong>get_screen_name</strong> method returns the screen- or display name of the currently logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. returns a string containing the name, or <strong>false</strong> if there is no user logged-in.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get the current users screen name
+$name = Auth::get_screen_name();
+
+// name is required, so if not present it means nobody is logged in
+if (empty($name))
+{
+	// nobody logged in
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If guest user support is enabled, you will never get <strong>false</strong> returned, because the method will return the user name of the guest user.</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_profile_fields" class="method">get_profile_fields($field = null, $default = null)</h4>
+					<p>The <strong>get_profile_fields</strong> method returns one or all stored profile fields for the logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$field</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the profile field you want to get.</td>
+									</tr>
+									<tr>
+										<th><kbd>$default</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The value you want returned if the requested profile field does not exist.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get all profile fields defined
+$profile = Auth::get_profile_fields();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_member" class="method">member($group, $user = null)</h4>
+					<p>The <strong>member</strong> method allows you to check if a user is member of a given group.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td>required</td>
+										<td>The id of the group you want to check for membership</td>
+									</tr>
+									<tr>
+										<th><kbd>$user</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>A specific user, identified by the result of get_user_id(), or <strong>null</strong> for the currently logged-in user.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. <strong>true</strong> if the user is member of the group, or <strong>false</strong> if not.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if the current user is an administrator
+if (Auth::member(100))
+{
+	// we are in the administrator group!
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_groups" class="method">groups($driver = null)</h4>
+					<p>The <strong>groups</strong> method allows you to fetch all defined groups, or all defined groups in a specific driver.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$driver</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the group driver you want to get groups of</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>array. If the group driver does not exist or no groups are defined, an empty array is returned.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Get all defined groups (for all loaded group drivers)
+$groups = Auth::groups();
+
+// Get all the groups from the default group driver
+$groups = Auth::group()->groups();
+
+// Get all the groups from a specific driver
+$groups = Auth::group('Simplegroup')->groups();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">You need to call this method on the Auth group drivers instance if you want groups defined by a specific driver.</p>
+					<p class="note">If you use multiple drivers, this method only works reliably if the group id's are unique over <strong>all</strong> drivers!</p>
+				</article>
+
+				<article>
+					<h4 id="method_roles" class="method">roles($driver = null)</h4>
+					<p>The <strong>roles</strong> method allows you to fetch all defined roles, or all defined roles in a specific driver.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$driver</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the group driver you want to get roles of</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>array. If the acl driver does not exist or no roles are defined, an empty array is returned.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Get all defined roles (for all loaded acl drivers)
+$roles = Auth::roles();
+
+// Get all the roles from the default acl driver
+$roles = Auth::acl()->roles();
+
+// Get all the roles from a specific driver
+$roles = Auth::acl('Simpleacl')->roles();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">You need to call this method on the Auth acl drivers instance if you want groups defined by a specific driver.</p>
+					<p class="note">If you use multiple drivers, this method only works reliably if the role id's are unique over <strong>all</strong> drivers!</p>
+				</article>
+
+				<article>
+					<h4 id="method_get_name" class="method">get_name($group = null)</h4>
+					<p>The <strong>get_name</strong> method allows you to fetch the name of a specific group. If no group is given, it will return the name
+					of the group of the current logged-in user.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The id of the group you want to get the name of</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed. The name of the group, or <kbd>null</kbd> if a group with the given id does not exist.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Get all the name for the group of the current logged-in user
+$name = Auth::group()->get_name();
+
+// Get the name of a specific group from a specific driver
+$name = Auth::group('Simplegroup')->get_name(100);	// returns 'Administrators'
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<p class="note">If you use multiple drivers, this method only works reliably if the group id's are unique over <strong>all</strong> drivers!</p>
+				</article>
+
+				<article>
+					<h4 id="method_has_access" class="method">has_access($condition)</h4>
+					<p>The <strong>has_access</strong> method allows you to check if the current logged-in user has access to a specific location with specific rights.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$condition</kbd></th>
+										<td>required</td>
+										<td>The access condition you want to check</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. <strong>true</strong> if the user has access, or <strong>false</strong> if not.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// check if the user has access to read blog posts
+if (Auth::has_access('blog.read'))
+{
+	// yes, the user has access
+}
+
+// if you have multiple login instances, use the instance to call this method.
+// you can also check for multiple rights in one go
+if (Auth::instance('simpleauth')->has_access('blog.[read,write,delete]'))
+{
+	// yes, the user has access and may read, write and delete
+}
+
+// you can also specify the rights to check as an array
+if (Auth::has_access(array('blog' => array('read'), 'comments' => array('read')))
+{
+	// yes, the user has access to read blogs and comments
+}
+
+// if you have multiple login instances, you can also pick a specific ACL driver
+if (Auth::acl('simpleacl')->has_access('blog.[read,write,delete]'))
+{
+	// yes, the user has access and may read, write and delete
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_guest_login" class="method">guest_login()</h4>
+					<p>The <strong>guest_login</strong> allows you to check if guest access is enabled.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean. returns <strong>true</strong> if the guest support is enabled, or <strong>false</strong> if not.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// redirect to login if we we require a user and no guest access is enabled
+if ( ! Auth::check() and ! Auth::guest_login())
+{
+	Response::redirect('/login');
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_remember_me" class="method">remember_me($user_id = null)</h4>
+					<p>The <strong>remember_me</strong> method allows you to set a remember_me cookie. If $user_id is not given, the current logged-in user is used.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$user_id</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The id of the user to be remembered</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>
+								boolean. returns <strong>true</strong> if the remember me cookie was correctly set, or <strong>false</strong>
+								if there was no user_id present, or the remember_me functionality was disabled in the configuration.
+							</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// process the login form POST, and set the remember-me cookie if needed
+if (\Input::method() == 'POST')
+{
+	// check the credentials.
+	if (\Auth::instance()->login(\Input::param('username'), \Input::param('password')))
+	{
+		// does the user want to be remembered?
+		if (\Input::param('rememberme', false))
+		{
+			// create the remember-me cookie
+			\Auth::remember_me();
+		}
+		else
+		{
+			// delete the remember-me cookie if present
+			\Auth::dont_remember_me();
+		}
+
+		// logged in, go the homepage
+		\Response::redirect('/');
+	}
+	else
+	{
+		// login failed, show an error message
+		$data['username']    = \Input::param('username');
+		$data['login_error'] = \Lang::get('login.failure');
+	}
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_dont_remember_me" class="method">dont_remember_me()</h4>
+					<p>The <strong>dont_remember_me</strong> method destroys the remember_me cookie, if present.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								See <a href="#method_remember_me">remember_me()</a> for an example
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

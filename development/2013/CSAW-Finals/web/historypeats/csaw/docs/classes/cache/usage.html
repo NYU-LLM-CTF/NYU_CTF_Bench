@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Cache::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Cache Usage - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Cache Class</h2>
+
+			<p>The cache class allows you to cache the result of a resource heavy operation.</p>
+
+			<section>
+				<h3 id="usage">Usage</h3>
+
+				<p>Using caches can be done in 2 ways: through static usage of the Cache class and through cache objects
+				returned by the Cache::forge(). This section covers static usage which will always work with the same
+				driver as specified in the <a href="config.html">configuration</a>.</p>
+
+				<p>Using cache objects and Cache::forge() is explained in the <a href="advanced.html">advanced</a>
+				section.</p>
+
+				<h3 id="gc">Garbage Collection</h3>
+
+				<p>
+					There is currently <strong>NO</strong> garbage collection mechanism build into the Cache drivers. Storage backends that
+					have built-in support for data expiration, such as APC, Memcached or Redis, will use that feature, and
+					will auto expire stale cache entries.
+				</p>
+				<p class="note">
+					This means that if you use files to store your cached entries, you will have to write a cron job that will
+					periodically delete all old files based on their last modified timestamp!
+				</p>
+
+				<article>
+					<h4 class="method" id="method_set">set($identifier, $contents = null, $expiration = false, $dependencies = array())</h4>
+					<p>Writes a cache.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$identifier</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the cache</td>
+									</tr>
+									<tr>
+										<th><kbd>$contents</kbd></th>
+										<td><i>mixed</i></td>
+										<td>Contents to be cached</td>
+									</tr>
+									<tr>
+										<th><kbd>$expiration</kbd></th>
+										<td><i>int</i></td>
+										<td>Amount of seconds until the cache expires. null will make it never expire, false
+										makes it use the default expiration set in config.</td>
+									</tr>
+									<tr>
+										<th><kbd>$dependencies</kbd></th>
+										<td><i>array</i></td>
+										<td>Array of identifiers this cache depends on, this cache expires if one of those
+										is newer or doesn't exist anymore.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Cache 'String to be cached' for 3 hours with identifier "test"
+Cache::set('test', 'String to be cached.', 3600 * 3);</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_get">get($identifier, $use_expiration = true)</h4>
+					<p>Retrieves a cache.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$identifier</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the cache</td>
+									</tr>
+									<tr>
+										<th><kbd>$use_expiration</kbd></th>
+										<td><i>true</i></td>
+										<td>Disable cache expiration for this fetching by setting this to false</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed - cache contents</td>
+						</tr>
+						<tr>
+							<th>Throws</th>
+							<td>CacheNotFoundException when Cache doesn't exist or CacheExpiredException when it has expired</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// try to retrieve the cache and save to $content var
+try
+{
+	$content = Cache::get('test');
+}
+catch (\CacheNotFoundException $e)
+{
+	/*
+		Catching the CacheNotFoundException exception will catch
+		both CacheNotFoundException and CacheExpiredException.
+		Use this when catching the exception.
+	*/
+}
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_delete">delete($identifier)</h4>
+					<p>Deletes a cache.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$identifier</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the cache</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>Cache::delete('test');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_delete_all">delete_all($section = null, $driver = null)</h4>
+					<p>Flushes the whole cache for a specific storage driver or just a subsection of it.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$section</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of a section or directory of the cache, null to delete everything</td>
+									</tr>
+									<tr>
+										<th><kbd>$driver</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the driver to use, null to use the default driver.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Delete the whole cache for the default driver
+Cache::delete_all();
+
+// Delete the subdirectory "test" of file
+Cache::delete_all('test', 'file');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 class="method" id="method_call">call($identifier, $callback, $args = array(), $expiration = null, $dependencies = array())</h4>
+					<p>Cache the result of any callable function or method.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$identifier</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the cache</td>
+									</tr>
+									<tr>
+										<th><kbd>$callback</kbd></th>
+										<td><i>mixed</i></td>
+										<td>Any valid PHP callback</td>
+									</tr>
+									<tr>
+										<th><kbd>$args</kbd></th>
+										<td><i>array</i></td>
+										<td>Any arguments for the callback</td>
+									</tr>
+									<tr>
+										<th><kbd>$expiration</kbd></th>
+										<td><i>int</i></td>
+										<td>Amount of seconds until the cache expires. null will make it never expire, false
+										makes it use the default expiration set in config.</td>
+									</tr>
+									<tr>
+										<th><kbd>$dependencies</kbd></th>
+										<td><i>array</i></td>
+										<td>Array of identifiers this cache depends on, this cache expires if one of those
+										is newer or doesn't exist anymore.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Cache the result of a model find
+Cache::call('article_something', array('Model_Article', 'find'), array("all", array( 'where' => array('something' => $something) ));
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Generate - Oil Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<section>
+
+				<h2 id="generate">Generate</h2>
+
+				<p>
+					Code Generation can be used to speed up development times by building much of the repetitive code for you. This
+					is entirely optionally - like all of oil - and all code can be edited however you like afterwards. You can generate the following items:
+				</p>
+
+				<ul>
+					<li><a href="#controllers">Controllers</a></li>
+					<li><a href="#models">Models</a></li>
+					<li><a href="#viewmodels">Viewmodels</a></li>
+					<li><a href="#migrations">Migrations</a></li>
+					<li><a href="#scaffolding">Scaffolding</a></li>
+					<li><a href="#admin">Admin scaffolding</a></li>
+					<li><a href="#tasks">Tasks</a></li>
+					<li><a href="#configs">Configs</a></li>
+					<li><a href="#packages">Packages</a></li>
+				</ul>
+
+				<h3 id="controllers">Controllers</h3>
+
+				<p>
+					To generate a skeleton <a href="../../general/controllers/base.html">Controller</a> with actions and views
+					predefined, use the following command:
+				</p>
+
+				<pre class="cli"><code>$ php oil g controller posts action1 action2 action3
+	Created view: APPPATH/views/posts/action1.php
+	Created view: APPPATH/views/posts/action2.php
+	Created view: APPPATH/views/posts/action3.php
+	Created controller: APPPATH/classes/controller/posts.php</code></pre>
+
+				<p>This will produce a controller that looks like this:</p>
+
+				<pre class="php"><code>class Controller_Posts extends Controller_Template
+{
+
+	public function action_action1()
+	{
+		$this->template->title = 'Posts &raquo; Action1';
+		$this->template->content = View::forge('posts/action1');
+	}
+
+	public function action_action2()
+	{
+		$this->template->title = 'Posts &raquo; Action2';
+		$this->template->content = View::forge('posts/action2');
+	}
+
+	public function action_action3()
+	{
+		$this->template->title = 'Posts &raquo; Action3';
+		$this->template->content = View::forge('posts/action3');
+	}
+
+}
+
+/* End of file posts.php */</code></pre>
+
+				<h3 id="models">Models</h3>
+
+				<p>
+					Generate a simple Model by listing fields and have
+					the <a href="../../general/migrations.html">Migration</a> automatically created for you to match:
+				</p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int
+	Created model: APPPATH/classes/model/post.php
+	Created migration: APPPATH/migrations/001_create_posts.php</code></pre>
+
+				<p>That will create a simple Model that uses <a href="../orm/intro.html">Orm</a>, so make sure the package is enabled in your config file. It will look like this:</p>
+
+				<pre class="php"><code>class Model_Post extends Orm\Model {
+
+	protected static $_properties = array(
+		'id',
+		'title',
+		'body',
+		'created_at',
+		'updated_at'
+	);
+
+	protected static $_observers = array(
+		'Orm\Observer_CreatedAt' => array(
+			'events' => array('before_insert'),
+			'mysql_timestamp' => false,
+		),
+		'Orm\Observer_UpdatedAt' => array(
+			'events' => array('before_save'),
+			'mysql_timestamp' => false,
+		),
+	);
+
+}
+
+/* End of file post.php */
+</code></pre>
+
+			<p>Not very exciting, but the migration is the useful part here:</p>
+
+			<pre class="php"><code>namespace Fuel\Migrations;
+
+class Create_posts
+{
+	public function up()
+	{
+		\DBUtil::create_table('posts', array(
+			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true),
+			'title' => array('constraint' => 50, 'type' => 'varchar'),
+			'body' => array('type' => 'text'),
+			'user_id' => array('constraint' => 11, 'type' => 'int'),
+			'created_at' => array('type' => 'datetime'),
+
+		), array('id'));
+	}
+
+	public function down()
+	{
+		\DBUtil::drop_table('posts');
+	}
+}</code></pre>
+
+				<p>If you do not wish to generate a migration, simply supply the <code>--no-migration</code>:</p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int --no-migration
+	Created model: APPPATH/classes/model/post.php</code></pre>
+
+				<p>By default, the class name is generated singular (it represents one post), but the corresponding table is generated
+				in plural (in contains multiple posts). You can make the table use the same name as the model by using <code>--singular</code>.</p>
+
+				<h4>Generating Model using Model_Crud</h4>
+
+				<p>FuelPHP v1.1 added a simple Model_Crud base model which offers similar functionality of using ORM without overhead of relational data. You can have the model generated using this by adding <code>--crud</code></p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int created_at:datetime --crud
+	Created model: APPPATH/classes/model/post.php
+	Created migration: APPPATH/migrations/001_create_posts.php</code></pre>
+
+				<p>That will create a simple Model that uses Fuel\Core\Model_Crud. It will look like this:</p>
+
+				<pre class="php"><code>class Model_Post extends \Model_Crud
+{
+	protected static $_properties = array(
+		'id',
+		'title',
+		'body',
+		'user_id',
+		'created_at',
+		'updated_at'
+	);
+
+	protected static $_table_name = 'posts';
+
+}</code></pre>
+
+
+				<h4 id="no_timestamp">Generating Model Without Timestamp Option</h4>
+
+				<p>Add <code>--no-timestamp</code> to exclude the created/updated fields and observers.</p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int --no-timestamp</code></pre>
+				<pre class="php"><code>class Model_Post extends \Orm\Model
+{
+  protected static $_properties = array(
+    'id',
+    'title',
+    'body',
+    'user_id'
+  );
+
+}
+</code></pre>
+
+				<pre class="php"><code>namespace Fuel\Migrations;
+
+class Create_posts
+{
+  public function up()
+  {
+    \DBUtil::create_table('posts', array(
+      'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true),
+      'title' => array('constraint' => 50, 'type' => 'varchar'),
+      'body' => array('type' => 'text'),
+      'user_id' => array('constraint' => 11, 'type' => 'int'),
+
+    ), array('id'));
+  }
+
+  public function down()
+  {
+    \DBUtil::drop_table('posts');
+  }
+}
+</code></pre>
+
+				<h4 id="timestamp_fields">Changing the Timestamp and Timestamp Fields</h4>
+
+				<p>
+					When you're using the timestamp fields in either ORM models or CRUD models (\Model_Crud) you can
+					chose your own field names. Use the <code>--created-at</code> and <code>--updated-at</code>
+					options to set your own field names.
+				</p>
+
+				<p>
+					By default, when you enable timestamps, the timestamps are stored in unixtime, as an integer. If you
+					prefer the MySQL DATETIME format, you can use the <code>--mysql-timestamp</code> option.
+				</p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int --mysql-timestamp --created-at=my_created</code></pre>
+
+				<p>Which will give you:</p>
+
+				<pre class="php"><code>&lt;?php
+
+class Model_Post extends \Orm\Model
+{
+	protected static $_properties = array(
+		'id',
+		'title',
+		'body',
+		'user_id',
+		'my_created',
+		'updated_at'
+	);
+
+	protected static $_observers = array(
+		'Orm\Observer_CreatedAt' => array(
+			'events' => array('before_insert'),
+			'mysql_timestamp' => true,
+			'property' => 'my_created',
+		),
+		'Orm\Observer_UpdatedAt' => array(
+			'events' => array('before_save'),
+			'mysql_timestamp' => true,
+		),
+	);
+}</code></pre>
+
+<pre class="php"><code>&lt;?php
+
+namespace Fuel\Migrations;
+
+class Create_posts
+{
+	public function up()
+	{
+		\DBUtil::create_table('posts', array(
+			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true),
+			'title' => array('constraint' => 50, 'type' => 'varchar'),
+			'body' => array('type' => 'text'),
+			'user_id' => array('constraint' => 11, 'type' => 'int'),
+			'my_created' => array('constraint' => 11, 'type' => 'int'),
+			'updated_at' => array('constraint' => 11, 'type' => 'int'),
+
+		), array('id'));
+	}
+
+	public function down()
+	{
+		\DBUtil::drop_table('posts');
+	}
+}</code></pre>
+
+				<h4 id="model_soft">Generating Model using Model_Soft</h4>
+
+				<p>
+					FuelPHP v1.5 added a Model_Soft based ORM model. Add <code>--soft-delete</code> to use Model_Soft.
+				</p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int --soft-delete</code></pre>
+
+				<p>Which will give you:</p>
+
+				<pre class="php"><code>&lt;?php
+
+class Model_Post extends \Orm\Model_Soft
+{
+	protected static $_properties = array(
+		'id',
+		'title',
+		'body',
+		'user_id',
+		'created_at',
+		'updated_at',
+		'deleted_at',
+	);
+
+	protected static $_observers = array(
+		'Orm\Observer_CreatedAt' => array(
+			'events' => array('before_insert'),
+			'mysql_timestamp' => false,
+		),
+		'Orm\Observer_UpdatedAt' => array(
+			'events' => array('before_update'),
+			'mysql_timestamp' => false,
+		),
+	);
+
+	protected static $_soft_delete = array(
+		'mysql_timestamp' => false,
+	);
+}
+</code></pre>
+
+<pre class="php"><code>&lt;?php
+
+namespace Fuel\Migrations;
+
+class Create_posts
+{
+	public function up()
+	{
+		\DBUtil::create_table('posts', array(
+			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
+			'title' => array('constraint' => 50, 'type' => 'varchar'),
+			'body' => array('type' => 'text'),
+			'user_id' => array('constraint' => 11, 'type' => 'int'),
+			'created_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
+			'updated_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
+			'deleted_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
+
+		), array('id'));
+	}
+
+	public function down()
+	{
+		\DBUtil::drop_table('posts');
+	}
+}</code></pre>
+
+				<p>
+					If you wish changing deleted_at field name. Use the <code>--deleted-at</code> option to set your own field name.
+				</p>
+
+				<pre class="cli"><code>$ php oil g model post title:varchar[50] body:text user_id:int --soft-delete --deleted-at=mydeleted</code></pre>
+
+				<h3 id="viewmodels">Viewmodels</h3>
+
+				<p>
+					Optionally you have have oil to generate a Viewmodel class to accompany the view.
+				</p>
+
+				<pre class="cli"><code>$ php oil g controller posts action1 action2 action3 --with-viewmodel</code></pre>
+
+				<h3 id="running_migrations">Running Migrations</h3>
+
+				<p>
+					The following commands illustrate how to use the refine command to run useful migration tasks,
+					assuming that the system is currently at migration 5. The migrate task can be given parameters to
+					move directly to a given version, or just up/down by a single version.
+				</p>
+
+				<pre class="cli"><code>$ php oil refine migrate
+	Currently on migration: 5.
+
+$ php oil refine migrate --version=4
+	Migrated to version: 4.
+
+$ php oil refine migrate --version=5
+	Migrated to version: 5.
+
+$ php oil refine migrate:down
+	Migrated to version: 4.
+
+$ php oil refine migrate:up
+	Migrated to version: 5.</code></pre>
+
+				<p class="note">The following field types are supported: <strong>string[n]</strong>, <strong>varchar[n]</strong>, <strong>int[n]</strong>, <strong>enum[value1, value2]</strong>, <strong>decimal[n, n]</strong>, <strong>float[n, n]</strong>, <strong>text</strong>, <strong>blob</strong>, <strong>datetime</strong>, <strong>date</strong>, <strong>timestamp</strong> and <strong>time</strong>.</p>
+
+				<h3 id="migrations">Generating Migrations</h3>
+
+				<p>
+					You can generate migrations without creating a model. This could be used to rename a table, or add fields to a table in a way that is easy to deploy in other environments.
+				</p>
+
+				<pre class="cli"><code>$ php oil generate migration rename_table_users_to_accounts
+	Building magic migration: rename_table
+	Created migration: APPPATH/migrations/002_rename_table_users_to_accounts.php</code></pre>
+
+				<h3 id="magic_migrations">Magic Migrations</h3>
+				<p>There are a number of "magic" migrations which automatically build you a migration based on a prefix to your migration name.</p>
+				<pre class="cli"><code>$ php oil generate migration create_users name:text email:string[50] password:string[125]
+$ php oil generate migration rename_table_users_to_accounts
+$ php oil generate migration add_bio_to_accounts bio:text
+$ php oil generate migration delete_bio_from_accounts bio:text
+$ php oil generate migration rename_field_name_to_username_in_accounts
+$ php oil generate migration drop_accounts
+</code></pre>
+				<p>Note: Be careful when naming your migrations that you don't begin with any keywords by accident.</p>
+
+				<h3 id="scaffolding">Scaffolding</h3>
+
+				<p>
+					Scaffolding is the really exciting part of Oil's code generation. This approach is heavily borrowed from Rails who have done
+					a great job with it. The idea is that you create not only the MVC skeletons and migrations, but populate them with default CRUD code
+					so the code will actually work after writing the command.
+				</p>
+
+				<pre class="cli"><code>$ php oil g scaffold monkey name:string description:text
+	Created model: APPPATH/classes/model/monkey.php
+	Created migration: APPPATH/migrations/003_create_monkeys.php
+	Created controller: APPPATH/classes/controller/monkeys.php
+	Created view: APPPATH/views/monkeys/index.php
+	Created view: APPPATH/views/monkeys/view.php
+	Created view: APPPATH/views/monkeys/create.php
+	Created view: APPPATH/views/monkeys/edit.php
+	Created view: APPPATH/views/monkeys/_form.php
+
+$ php oil refine migrate
+Migrated to latest version: 3.
+</code></pre>
+
+				<p>
+					As you can see lots of code is generated by this command including a command that is executed in the second command.
+					The controller looks like this:
+				</p>
+
+				<pre class="php"><code>class Controller_Monkey extends Controller_Template
+{
+
+	public function action_index()
+	{
+		$data['monkeys'] = Model_Monkey::find('all');
+		$this->template->title = "Monkeys";
+		$this->template->content = View::forge('monkey/index', $data);
+
+	}
+
+	public function action_view($id = null)
+	{
+		$data['monkey'] = Model_Monkey::find($id);
+
+		$this->template->title = "Monkey";
+		$this->template->content = View::forge('monkey/view', $data);
+
+	}
+
+	public function action_create($id = null)
+	{
+		if (Input::method() == 'POST')
+		{
+			$monkey = Model_Monkey::forge(array(
+				'name' => Input::post('name'),
+				'description' => Input::post('description'),
+			));
+
+			if ($monkey and $monkey->save())
+			{
+				Session::set_flash('success', 'Added monkey #'.$monkey->id.'.');
+
+				Response::redirect('monkey');
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not save monkey.');
+			}
+		}
+
+		$this->template->title = "Monkeys";
+		$this->template->content = View::forge('monkey/create');
+
+	}
+
+	public function action_edit($id = null)
+	{
+		$monkey = Model_Monkey::find($id);
+
+		if (Input::method() == 'POST')
+		{
+			$monkey->name = Input::post('name');
+			$monkey->description = Input::post('description');
+
+			if ($monkey->save())
+			{
+				Session::set_flash('success', 'Updated monkey #' . $id);
+
+				Response::redirect('monkey');
+			}
+
+			else
+			{
+				Session::set_flash('error', 'Could not update monkey #' . $id);
+			}
+		}
+
+		else
+		{
+			$this->template->set_global('monkey', $monkey, false);
+		}
+
+		$this->template->title = "Monkeys";
+		$this->template->content = View::forge('monkey/edit');
+
+	}
+
+	public function action_delete($id = null)
+	{
+		if ($monkey = Model_Monkey::find($id))
+		{
+			$monkey->delete();
+
+			Session::set_flash('success', 'Deleted monkey #'.$id);
+		}
+
+		else
+		{
+			Session::set_flash('error', 'Could not delete monkey #'.$id);
+		}
+
+		Response::redirect('monkey');
+
+	}
+
+
+}</code></pre>
+
+				<h3 id="admin">Admin scaffolding</h3>
+
+				<p>
+					You can swap scaffold with admin and generate a controller which extends Controller_Admin instead of Controller_Template.
+					On the first use of this command an admin skeleton will be generated, to expand this skeleton use the skip force argument.
+
+					To generate in subdirectories name the prefix the model's name accordingly.
+				</p>
+
+				<pre class="cli"><code>$ php oil g admin project_entry title:string abstract:text full_text:text project_id:int is_draft:int order:int -s
+	Creating migration: APPPATH/migrations/012_create_project_entries.php
+	Creating model: APPPATH/classes/model/project/entry.php
+	Creating controller: APPPATH/classes/controller/admin/project/entry.php
+	Creating view: APPPATH/views/admin/project/entry/index.php
+	Creating view: APPPATH/views/admin/project/entry/view.php
+	Creating view: APPPATH/views/admin/project/entry/create.php
+	Creating view: APPPATH/views/admin/project/entry/edit.php
+	Creating view: APPPATH/views/admin/project/entry/_form.php
+</code></pre>
+
+				<h3 id="tasks">Tasks</h3>
+
+				<p>
+					You can also have oil generate the skeleton of a new task.
+				</p>
+
+				<pre class="cli"><code>$ php oil g task newtask cmd1 cmd2</code></pre>
+
+				<p>
+					Which will generate
+				</p>
+
+				<pre class="php"><code>&lt;?php
+
+namespace Fuel\Tasks;
+
+class Newtask
+{
+	public static function run($args = NULL)
+	{
+		echo "\n===========================================";
+		echo "\nRunning DEFAULT task [Newtask:Run]";
+		echo "\n-------------------------------------------\n\n";
+
+		/***************************
+		 Put in TASK DETAILS HERE
+		 **************************/
+	}
+
+	public static function cmd1($args = NULL)
+	{
+		echo "\n===========================================";
+		echo "\nRunning task [Newtask:Cmd1]";
+		echo "\n-------------------------------------------\n\n";
+
+		/***************************
+		 Put in TASK DETAILS HERE
+		 **************************/
+	}
+
+	public static function cmd2($args = NULL)
+	{
+		echo "\n===========================================";
+		echo "\nRunning task [Newtask:Cmd2]";
+		echo "\n-------------------------------------------\n\n";
+
+		/***************************
+		 Put in TASK DETAILS HERE
+		 **************************/
+	}
+}
+/* End of file tasks/newtask.php */</code></pre>
+
+				<h3 id="configs">Configs</h3>
+
+				<p>
+					To generate a <a href="../../classes/config.html">Config</a>, use the following command:
+				</p>
+
+				<pre class="cli"><code>$ php oil g config sample hello:world
+	Created config: APPPATH/config/sample.php</code></pre>
+
+				<p>This will produce a config that looks like this:</p>
+
+				<pre class="php"><code>return array (
+	'hello' => 'world',
+);
+
+/* End of file sample.php */</code></pre>
+
+				<h3>Generate Config from COREPATH</h3>
+				<p>
+					To combine config from COREPATH/config if APPPATH/config doesn't have one
+				</p>
+
+				<pre class="cli"><code>$ php oil g config package
+	Created config: APPPATH/config/package.php</code></pre>
+
+				<p>This will produce a config that looks like this:</p>
+
+				<pre class="php"><code>return array (
+	'sources' =>
+	array (
+		0 => 'github.com/fuel-packages',
+	),
+);</code></pre>
+
+				<h3>Force Update Config from COREPATH &amp; APPPATH</h3>
+				<p>
+					To combine config from COREPATH/config and combine APPPATH/config to APPPATH/config
+				</p>
+
+				<pre class="cli"><code>$ php oil g config form --overwrite
+	Created config: APPPATH/config/form.php</code></pre>
+
+				<p>This will produce a config that looks like this:</p>
+
+				<pre class="php"><code>return array (
+	'prep_value' => true,
+	'auto_id' => true,
+	'auto_id_prefix' => '',
+	'form_method' => 'post',
+);
+
+/* End of file form.php */</code></pre>
+
+				<h3 id="packages">Packages</h3>
+
+				<p>
+					To generate a <a href="../../general/packages.html">Package</a>, use the following command:
+				</p>
+
+				<pre class="cli"><code>$ php oil g package sample
+	Creating file: PKGPATH/sample/classes/sample.php
+	Creating file: PKGPATH/sample/config/sample.php
+	Creating file: PKGPATH/sample/bootstrap.php</code></pre>
+
+				<p class="note">The path where the package is generated is PKGPATH by default, but this value can be changed to any path defined in the <code>package_paths</code> config by passing the <code>--path=package_path</code> or <code>-p=package_path</code> option to the command.</p>
+
+				<h3>Generate Driver-based Package</h3>
+
+				<p>If you wish to generate a driver-based package, simply supply the <code>--drivers</code> or <code>-d</code> option:</p>
+
+				<pre class="cli"><code>$ php oil g package sample -d
+	Creating file: PKGPATH/sample/classes/sample.php
+	Creating file: PKGPATH/sample/classes/sample/driver.php
+	Creating file: PKGPATH/sample/config/sample.php
+	Creating file: PKGPATH/sample/bootstrap.php</code></pre>
+
+				<p>You can also generate your own drivers. Simply pass the driver names separated by commas to the <code>--drivers</code> or <code>-d</code> option:</p>
+
+				<pre class="cli"><code>$ php oil g package sample -d=driver1,driver2
+	Creating file: PKGPATH/sample/classes/sample.php
+	Creating file: PKGPATH/sample/classes/sample/driver.php
+	Creating file: PKGPATH/sample/classes/sample/driver1.php
+	Creating file: PKGPATH/sample/classes/sample/driver2.php
+	Creating file: PKGPATH/sample/config/sample.php
+	Creating file: PKGPATH/sample/bootstrap.php</code></pre>
+
+				<h3>Generate Package with VCS files</h3>
+
+				<p>If you wish to generate composer.json and README.md files for your package, simply supply the <code>--vcs</code> or <code>-v</code> option:</p>
+
+				<pre class="cli"><code>$ php oil g package sample -v
+	Creating file: PKGPATH/sample/composer.json
+	Creating file: PKGPATH/sample/README.md
+	Creating file: PKGPATH/sample/classes/sample.php
+	Creating file: PKGPATH/sample/config/sample.php
+	Creating file: PKGPATH/sample/bootstrap.php</code></pre>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

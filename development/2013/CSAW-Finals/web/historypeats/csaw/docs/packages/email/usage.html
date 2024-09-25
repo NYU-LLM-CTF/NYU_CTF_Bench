@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Usage - Email Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Using the Email package</h2>
+
+			<p>The email package needs only 3 things from you in order to start sending emails.</p>
+
+			<ol>
+				<li>An address to 'send from'.</li>
+				<li>An address to send to.</li>
+				<li>And last but not least, the message</li>
+			</ol>
+
+			<h3 id="sending_mails">Let's send mails.</h3>
+
+			<pre class="php"><code>// Create an instance
+$email = Email::forge();
+
+// Set the from address
+$email->from('my@email.me', 'My Name');
+
+// Set the to address
+$email->to('receiver@elsewhere.co.uk', 'Johny Squid');
+
+// Set a subject
+$email->subject('This is the subject');
+
+// Set multiple to addresses
+
+$email->to(array(
+	'example@mail.com',
+	'another@mail.com' => 'With a Name',
+));
+
+// And set the body.
+$email->body('This is my message');
+</code></pre>
+
+			<p>At this point we're ready to start sending the mail.</p>
+
+			<h3 id="exception">Exceptions</h3>
+
+			<p>When sending a mail. You can encounter 2 exception types.</p>
+
+			<ul>
+				<li><strong>\EmailValidationFailedException</strong>: thrown when one or more email addresses doesn't pass validation</li>
+				<li><strong>\EmailSendingFailedException</strong>, thrown when the driver failed to send the exception</li>
+			</ul>
+
+			<p>The example blow shows you how to handle those exceptions.</p>
+
+			<pre class="php"><code>try
+{
+	$email->send();
+}
+catch(\EmailValidationFailedException $e)
+{
+	// The validation failed
+}
+catch(\EmailSendingFailedException $e)
+{
+	// The driver could not send the email
+}</code></pre>
+
+			<h3 id="html_mails">HTML mails.</h3>
+
+			<p>Sending HTML mail is not very different from sending normal mails:</p>
+
+			<pre class="php"><code>// Set a html body message
+$email->html_body(\View::forge('email/template', $email_data));
+
+/** By default this will also generate an alt body from the html,
+	and attach any inline files (not paths like http://...)       **/
+
+// Set an alt body, this is optional.
+$email->alt_body('This is my alt body, for non-html viewers.');</code></pre>
+
+			<h3 id="attachments">Attachments</h3>
+
+			<p>
+				The Email package supports two kinds of attachments: normal (attachment), and inline. Use an inline attachment if
+				you want to use in inside the mail. You might, for instance, want to have a graphic in your mail, and you want people to
+				that image offline also. Some clients don't cache that, and yes that's dumb. But it's the interwebs and stuff like that happens.
+			</p>
+
+			<pre class="php"><code>// Add an attachment
+$email->attach(DOCROOT.'dir/my_img.png');
+
+// Add an inline attachment
+// Add a cid here to point to the html
+$email->attach(DOCROOT.'dir/my_img.png', true, 'cid:my_conten_id');
+</code></pre>
+
+			<p>You can also add string attachments:</p>
+
+			<pre class="php"><code>$contents = file_get_contents($my_file);
+$email->string_attach($contents, $filename);
+	</code></pre>
+
+			<p>
+				By default html images are auto included, but it only includes local files.
+				Look at the following html to see how it works.
+			</p>
+
+			<pre class="html"><code>&lt;!-- This is included --&gt;
+&lt;img src="path/to/my/file.png" /&gt;
+
+&lt;!-- This is not included --&gt;
+&lt;img src="http://remote_host/file.jpeg" /&gt;
+
+&lt;!-- This is not included --&gt;
+&lt;img src="cid:my_conten_id" /&gt;
+	</code></pre>
+
+			<p>The last tag you saw (with the cid:) is also not included. In this situation the email expects you to attach that file yourself using an inline attachment.</p>
+
+			<h3 id="priorities">Priority</h3>
+
+			<p>
+				Alter a mail's priority by using the <a href="./methods.html#method_priority">priority</a> method.
+			</p>
+
+			<pre class="php"><code>$email->priority(\Email::P_HIGH);</code></pre>
+
+			<h3 id="pipelining">Pipelining</h3>
+
+			<p>
+				Pipelining is a mechanism with which you can send out multiple emails at once.
+			</p>
+
+			<pre class="php"><code>$email->pipelining($true);</code></pre>
+
+			<p>
+				Once enabled, you can use the same <code>$email</code> object to construct and send multiple emails, re-using the same connection to the mailserver.
+				You should consult with your mail server hosting company to see if this is allowed, and what the maximum amount of emails is that you
+				can send out in a single pipeline. Most hosters limit this to a specific amount, after which the server disconnects.
+			</p>
+			<p>
+				Currently, only the SMTP driver supports pipelining.
+			</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

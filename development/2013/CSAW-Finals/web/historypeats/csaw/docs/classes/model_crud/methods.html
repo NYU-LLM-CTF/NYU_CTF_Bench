@@ -1,0 +1,1414 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Model_Crud::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Model_Crud - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Model_Crud Methods</h2>
+
+			<p class="note">The classes used the examples are assumed to extend the Model_Crud class.</p>
+
+			<article>
+				<h4 class="method" id="method_forge">forge($data = array())</h4>
+				<p>The <strong>forge</strong> method returns a new Model_Crud class instance.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<th><em>array</em></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Values for the new instance.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A new instance of the extended class (Model_Crud child).</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get a new instance
+$user = Model_User::forge();
+
+// A new instance with values
+$user = Model_User::forge(array(
+	'name' => 'John',
+	'surname' => 'Doe',
+	'email' => 'john@doe.org',
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find_by_pk">find_by_pk($value)</h4>
+				<p>The <strong>find_by_pk</strong> method finds a record by the primary key.  Internally this uses the <a href="#method_find_one_by">find_one_by</a> method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<th><em>mixed</em></th>
+									<td><em>required</em></td>
+									<td>Primary key value to look for.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A Model_Crud instance with the loaded result, <em>null</em> when not found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get a record where `id` = 2
+$user = Model_User::find_by_pk(2);
+
+if($user === null)
+{
+	// not found
+}
+else
+{
+	// found
+	echo $user->email;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find_one_by">find_one_by($column, $value = null, $operator = '=')</h4>
+				<p>The <strong>find_one_by</strong> method finds one record by the given column and value.  Internally this uses the <a href="#method_find">find</a> method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$column</kbd></th>
+									<th><em>string</em></th>
+									<td><em>required</em></td>
+									<td>The column to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<th><em>mixed</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The value to check for.</td>
+								</tr>
+								<tr>
+									<th><kbd>$operator</kbd></th>
+									<th><em>string</em></th>
+									<td><pre class="php"><code>'='</code></pre></td>
+									<td>The operator to use</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A Model_Crud instance with the loaded result, <em>null</em> when not found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get a record where `email` = "info@example.com"
+$user = Model_User::find_one_by('email', 'info@example.com');
+
+if($user === null)
+{
+	// not found
+}
+else
+{
+	// found
+	echo $user->email;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find_by">find_by($column = null, $value = null, $operator = '=', $limit = null, $offset = 0)</h4>
+				<p>The <strong>find_by</strong> method finds all records matching the column and value given.  You can optionally give an operator, limit, and offset.  Internally this uses the <a href="#method_find">find</a> method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$column</kbd></th>
+									<th><em>string</em></th>
+									<td><em>required</em></td>
+									<td>The column to use or an array of where statements.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<th><em>mixed</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The value to check for.</td>
+								</tr>
+								<tr>
+									<th><kbd>$operator</kbd></th>
+									<th><em>string</em></th>
+									<td><pre class="php"><code>'='</code></pre></td>
+									<td>The operator to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$limit</kbd></th>
+									<th><em>int</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The limit.</td>
+								</tr>
+								<tr>
+									<th><kbd>$offset</kbd></th>
+									<th><em>int</em></th>
+									<td><pre class="php"><code>0</code></pre></td>
+									<td>The offset.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>An array of instances with the loaded result, <em>null</em> when none found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// SELECT * FROM `users` WHERE `email` LIKE "%@example.com" LIMIT 5 OFFSET 10
+$users = Model_User::find_by('email', '%@example.com', 'like', 5, 10);
+
+// Select * FROM `users` WHERE `name` = "John" AND `surname` LIKE "%Surname%" LIMIT 10
+$users = \Model_User::find_by(array(
+	'name' => 'John',
+	array('surname', 'like', '%Surname%'),
+), null, null, 10);
+
+if($users === null)
+{
+	// not found
+}
+else
+{
+	foreach($users as $user)
+	{
+		// Do something with $user
+	}
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find_by_magic">find_by_*($value = null)</h4>
+				<p>This is a magic method.  You can specify the column to name to find by after the <code>find_by_</code> portion of the method name.</p>
+
+				<strong>Example</strong><br>
+				<pre class="php"><code>// This is equivelent to $user = Model_User::find_by('email', 'foo@example.com');
+$user = Model_User::find_by_email('foo@example.com');
+</code></pre>
+			</article>
+						<article>
+				<h4 class="method" id="method_find_one_by_magic">find_one_by_*($value = null)</h4>
+				<p>This is a magic method which returns a single record.  You can specify the column to name to find by after the <code>find_by_</code> portion of the method name.</p>
+
+				<strong>Example</strong><br>
+				<pre class="php"><code>// This is equivelent to $user = Model_User::find_one_by('email', 'foo@example.com');
+$user = Model_User::find_one_by_email('foo@example.com');
+</code></pre>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find_all">find_all($limit = null, $offset = 0)</h4>
+				<p>The <strong>find_all</strong> method finds all record with an optional limit and offset.  Internally this uses the <a href="#method_find">find</a> method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$limit</kbd></th>
+									<th><em>int</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The limit.</td>
+								</tr>
+								<tr>
+									<th><kbd>$offset</kbd></th>
+									<th><em>int</em></th>
+									<td><pre class="php"><code>0</code></pre></td>
+									<td>The offset.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>An array of instances with the loaded result, <em>null</em> when none found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// SELECT * FROM `users` LIMIT 10 OFFSET 20
+$users = Model_User::find_all(10, 20);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find">find($config = array(), $key = null)</h4>
+				<p>The <strong>find</strong> method finds all record with a conditions array to influence the query.</p>
+				<p>This method also accepts a <code>Closure</code> as the first argument.  When a closure is sent, it is called and sent a <code>Database_Query</code> object.  You can use this to modify the query before it is executed.  The Closure must return the modified Database_Query object.</p>
+				<p class="note">This method is used by all of the other find methods.  You should use it when creating custom finders as well.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$config</kbd></th>
+									<th><em>array|Closure</em></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The conditions array or a Closure to modify the query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$key</kbd></th>
+									<th><em>string</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Set this to a table column to use that as the result array key.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>An array of instances with the loaded result, <em>null</em> when none found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<strong>Basic Usage</strong>
+							<pre class="php"><code>$users = Model_User::find(array(
+	'select' => array('id', 'name', 'email'),
+	'where' => array(
+		array('name', 'like', '%Name%'),
+		'suspended' => 'no',
+		array('id', 'in', array(1, 2, 3, 4)),
+	),
+	'order_by' => array(
+		'name' => 'asc',
+		'surname' => 'desc',
+	),
+	'limit' => 10,
+	'offset' => 20,
+));</code></pre>
+							<hr>
+							<strong>Basic Usage with a Key</strong>
+							<pre class="php"><code>$users = Model_User::find(array(
+	'where' => array(
+		'active' => 'yes',
+		'banned' => 'no',
+	),
+	'order_by' => array('id' => 'desc'),
+), 'id');</code></pre>
+							<hr>
+							<strong>Advanced Usage with Closure</strong>
+							<pre class="php"><code>$users = Model_User::find(function ($query)
+{
+	return $query->join('roles')
+	             ->on('roles.id', '=', 'users.role_id')
+	             ->where('roles.name', 'admin');
+});
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_pre_find">pre_find(&amp;$query)</h4>
+				<p>Replace the <strong>pre_find</strong> method to alter the query before executing.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$query</kbd></th>
+									<th><em>\Query_Builder_Select object</em></th>
+									<td><em>required</em></td>
+									<td>The query object.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected static function pre_find(&$query)
+{
+	// alter the query
+	$query->where('active', 'yes');
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_post_find">post_find($result)</h4>
+				<p>Replace the <strong>post_find</strong> method to alter the result before returning.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$key</kbd></th>
+									<th><em>\Query_Builder_Select object</em></th>
+									<td><em>required</em></td>
+									<td>Null when no records are found, or the result array.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Must return the result (array or null).</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected static function post_find($result)
+{
+	if($result !== null)
+	{
+		// alter the result array
+	}
+
+	// return the result
+	return $result;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set">set($values)</h4>
+				<p>The <strong>set</strong> method sets an array of values to the current model instance.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$values</kbd></th>
+									<th><em>array</em></th>
+									<td><em>required</em></td>
+									<td>An array with values.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current model instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::forge()->set(array(
+	'name' => 'My Name',
+	'surname' => 'My Surname',
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_save">save($validate = true)</h4>
+				<p>The <strong>save</strong> method inserts or updates a record.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$validate</kbd></th>
+									<th><em>boolean</em></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>Whether to run the validation.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>False when not passing validation, insert result when inserted, update result when updated.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::forge()->set(array(
+	'name' => 'My Name',
+	'surname' => 'My Surname',
+));
+
+// Insert a new user
+$result = $user->save();
+
+$user = Model_User::find_by_pk(2);
+
+$user->name = 'New Name';
+
+// Update a user
+$user->save();
+
+// Update without running validation
+$user->save(false);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete()</h4>
+				<p>The <strong>delete</strong> method deletes a record.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<em>None</em>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The delete query result, number of rows affected.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::find_by_pk(2);
+if($user)
+{
+	// delete the user;
+	$user->delete();
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_is_new">is_new($new = null)</h4>
+				<p>The <strong>is_new</strong> method checks if the record is new or sets whether it is new or not.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$new</kbd></th>
+									<th><em>null|bool</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Supply a boolean to set whether the record is new.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::forge(array(
+	'id' => 3,
+	'name' => 'John',
+	'surname' => 'Otherdoe',
+));
+
+$user->is_new(false);
+
+// Update
+$user->save();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_count">count($column = null, $distinct = true, $where = array(), $group_by = null)</h4>
+				<p>The <strong>count</strong> method returns a row count.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$column</kbd></th>
+									<th><em>string</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The name of the column to count on. If not given the primary key will be used.</td>
+								</tr>
+								<tr>
+									<th><kbd>$distinct</kbd></th>
+									<th><em>boolean</em></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>Whether or not to run a distinct query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$where</kbd></th>
+									<th><em>array</em></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Array with where clauses to filter the result.</td>
+								</tr>
+								<tr>
+									<th><kbd>$group_by</kbd></th>
+									<th><em>string</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Column to group by.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Mixed. Integer with the result of the count query, or false in case the query failed.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// count all records in the table
+$nbr_of_records = Model_User::count();
+
+// filter the result count by only counting admin users
+$nbr_of_records = Model_User::count('id', true, array('group', '=', 100));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_frozen">frozen($frozen = null)</h4>
+				<p>The <strong>frozen</strong> method checks if the record is frozen or sets whether it is frozen or not.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$frozen</kbd></th>
+									<th><em>null|bool</em></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Supply a boolean to set whether the record is frozen.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::find_by_pk(2);
+$user->frozen(true);
+
+// Pass the frozen object arround, no-one can change it...
+
+$user->frozen(false);
+// Now you can use it again.
+
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_validation">validation()</h4>
+				<p>The <strong>validation</strong> method (creates and) returns the models validation instance.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<em>None</em>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A Validation instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::find_by_pk(2);
+$validation_object = $user->validation();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_validates">validates()</h4>
+				<p>The <strong>validates</strong> method returns whether or not the instance will pass validation.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<em>None</em>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A succes boolean.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$model = new Model_User;
+$model->set(array(
+	'name' => 'John',
+	'surname' => 'Doe',
+));
+
+if ($model->validates())
+{
+	// model is valid, skip validation.
+	$model->save(false)
+}
+else
+{
+	// model is not valid
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_array">to_array()</h4>
+				<p>The <strong>to_array</strong> method returns the models public vars.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<em>None</em>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A Validation instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$user = Model_User::find_by_pk(2);
+$user_array = $user->to_array();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_pre_save">pre_save(&$query)</h4>
+				<p>Replace the <strong>pre_save</strong> method to alter the query before inserting.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$query</kbd></th>
+									<th><em>\Database_Query_Builder_Insert object</em></th>
+									<td><em>required</em></td>
+									<td>The insert query object.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function pre_save(&$query)
+{
+	// change the query
+	$query->set(array('field' => 'value'));
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_post_save">post_save($result)</h4>
+				<p>Replace the <strong>post_save</strong> method to alter/act on the insert result.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$result</kbd></th>
+									<th><em>array</em></th>
+									<td><em>required</em></td>
+									<td>The insert result array.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The insert result array.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function post_save($result)
+{
+	// Do something with the result
+	return $result;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_pre_update">pre_update(&$query)</h4>
+				<p>Replace the <strong>pre_update</strong> method to alter the query before updating.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$query</kbd></th>
+									<th><em>\Database_Query_Builder_Update object</em></th>
+									<td><em>required</em></td>
+									<td>The update query object.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function pre_update(&$query)
+{
+	// Change the update query.
+	$query->set(array('field' => 'value'));
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_post_update">post_update($result)</h4>
+				<p>Replace the <strong>post_update</strong> method to alter the update query result.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$result</kbd></th>
+									<th><em>int</em></th>
+									<td><em>required</em></td>
+									<td>The number of rows affected.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The update query object.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function post_update($result)
+{
+	// Do something with the result
+	return $result;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_pre_delete">pre_delete(&$query)</h4>
+				<p>Replace the <strong>pre_delete</strong> method to alter the query before deleting.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$query</kbd></th>
+									<th><em>\Database_Query_Builder_Delete object</em></th>
+									<td><em>required</em></td>
+									<td>The update query object.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function pre_delete(&$query)
+{
+	// Do something with the delete query
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_post_delete">post_delete($result)</h4>
+				<p>Replace the <strong>post_delete</strong> method to alter the delete result.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$result</kbd></th>
+									<th><em>int</em></th>
+									<td><em>required</em></td>
+									<td>The number of affected rows.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The number of affected rows.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function post_delete($result)
+{
+	// Do something with the result
+	return $result;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_pre_validate">pre_validate($data)</h4>
+				<p>Replace the <strong>pre_validate</strong> method to alter the insert/update data before validation.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<th><em>array</em></th>
+									<td><em>required</em></td>
+									<td>The model's record data.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The model's record data.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function pre_validate($data)
+{
+	// Do something with the data
+	return $data;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_post_validate">post_validate($data)</h4>
+				<p>Replace the <strong>post_validate</strong> method to alter the insert/update data after validation.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<th><em>array</em></th>
+									<td><em>required</em></td>
+									<td>The model's record data.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The model's record data.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function post_validate($data)
+{
+	// Do something with the data
+	return $data;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_prep_values">prep_values($data)</h4>
+				<p>Replace the <strong>prep_values</strong> method to alter the insert/update data before validation or query execution.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<th><em>array</em></th>
+									<td><em>required</em></td>
+									<td>The model's record data.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The model's record data.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Inside your model
+protected function prep_values($data)
+{
+	// Do something with the data
+	return $data;
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

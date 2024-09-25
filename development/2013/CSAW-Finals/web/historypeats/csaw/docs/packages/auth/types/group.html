@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+		var class_prefix = "$object->";
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Group - Driver types - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Auth package</h2>
+
+			<p>The Auth package provides a standardized interface for authentication in Fuel. This allows our users to
+			write their own drivers and easily integrate a new driver to work with old code by keeping the basic methods
+			consistent.</p>
+
+			<section>
+				<h2 id="driver_types">Auth_Group_Driver</h2>
+
+				<p>
+					This driver is the base class for all Auth group drivers. It is defined as an abstract class which contains
+					all methods generic to all group drivers, and abstract method definitions for all methods any group driver
+					MUST implement.
+				</p>
+
+				<h3 id="driver_config">Driver configuration</h3>
+
+				<p>
+					A group driver can load additional drivers that it depends on. Generally, these are ACL drivers. But your implementation
+					could introduce and use custom driver types as well. To do so, add this structure to your driver class:
+				</p>
+
+								<pre class="php"><code>// autoload the Simpleacl acl driver when loading this group driver
+	protected $config = array(
+		'drivers' => array('acl' => array('Simpleacl'))
+	);
+</code></pre>
+
+				<h3 id="static">Static interface</h3>
+
+				<p>For ease of use, the <kbd>member()</kbd> method is exposed through the generic Auth static interface.</p>
+
+				<p>Using the static interface, you can do</p>
+
+								<pre class="php"><code>// returns true if the current user is member of group 16.
+$is_member = Auth::member(16);
+</code></pre>
+
+				<h3 id="generic_methods">Generic methods</h3>
+
+				<p>
+					Generic methods are defined in the group base driver, and are available to all Auth group drivers through
+					extension. These methods provide functions to interact with groups, and to check for access.
+				</p>
+				<p class="note">The methods defined in the classes but not documented here are used internally, and should not be called directly.</p>
+
+				<article>
+					<h4 id="method_get_id" class="method">get_id()</h4>
+					<p>Returns the drivers unique id. This can be used to identify the driver, or to select a specific driver instance.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>The drivers id string.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns 'simpleauth'
+$id = Auth::group()->get_id();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_set_config" class="method">set_config($key, $value)</h4>
+					<p>Sets a driver configuration value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$key</kbd></th>
+										<td>required</td>
+										<td>Configuration key name</td>
+									</tr>
+									<tr>
+										<th><kbd>$value</kbd></th>
+										<td>required</td>
+										<td>Value for this configuration key</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// set a config value on the simplegroup driver
+Auth::group()->set_config('key', 'value');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_get_config" class="method">get_config($key, $default = null)</h4>
+					<p>Gets a driver configuration value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$key</kbd></th>
+										<td>required</td>
+										<td>Configuration key name</td>
+									</tr>
+									<tr>
+										<th><kbd>$default</kbd></th>
+										<td><i>null</i></td>
+										<td>Default value to be returned if the requested key does not exist</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get a config value of the simplegroup driver, return false if it doesn't exist
+$key = Auth::instance(simplegroup)->get_config('key', false);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<h3 id="abstract_methods">Abstract methods</h3>
+
+				<p>
+					Every group driver you develop MUST provide all of these methods, and the MUST return the values documented here.
+				</p>
+
+				<article>
+					<h4 id="method_member" class="method">member($group, $specific = null)</h4>
+					<p>Checks if user is a member of the given group in either all loaded Group drivers or just those
+						specified as the 2nd parameter.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><i>required</i></td>
+										<td>group id</td>
+									</tr>
+									<tr>
+										<th><kbd>$specific</kbd></th>
+										<td><i>null</i></td>
+										<td>null to check all or one ore more driver id's (single string or array of strings)</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>bool, whether one of the (given) drivers had the current user registered as a member</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>if ( ! Auth::member(100) )
+{
+	Response::redirect('no_admin');
+}
+
+// specific driver
+Auth::member(1, 'simplegroup');
+
+// Multiple drivers
+Auth::member(0, array('simplegroup', 'genericgroup'));</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_get_name" class="method">get_name($group)</h4>
+					<p>Get the display name of the given group name.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><i>null</i></td>
+										<td>name of the group you want to get the display name of</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed, the retrieved group display name, or <strong>false</strong> if the given group does not exist.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get the display name of the admin group
+Auth::group()->get_name('admin');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

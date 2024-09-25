@@ -1,0 +1,8 @@
+{
+    "name": "odd",
+    "category": "rev",
+    "description": "This ELF file looks odd.",
+    "flag": "flag{DynamicAnalysisForLife}",
+    "points": 200,
+    "files": ["odd"]
+}

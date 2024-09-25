@@ -1,0 +1,8 @@
+{
+    "name": "Palo-Alto",
+    "category": "rev",
+    "description": "First we crack the shell, then we crack the nuts inside!",
+    "flag": "CSAW{4D5DC530-5C8B-45EE-9D42-7D02A333A247}",
+    "points": 400,
+    "files": ["paloalto"]
+}

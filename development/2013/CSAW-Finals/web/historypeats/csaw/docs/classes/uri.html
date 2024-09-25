@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Uri::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Uri - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Uri Class</h2>
+
+			<p>The Uri class allows you to interact with the URI.</p>
+
+			<article>
+				<h4 class="method" id="method_base">base($include_index = true)</h4>
+				<p>
+					The <strong>base</strong> method return  the base URL, excluding the index_file when <strong>$include_index</strong>
+					is set to <em>false</em>.
+				</p>
+				<p class="note">
+					Please note: <strong>$include_index</strong> will be ignored if index_file is not set app/config/config.php
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$include_index</kbd></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>Whether to append the index to the returned url.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string, the base url with optional index file appended</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>echo Uri::base();
+// http://localhost/index.php
+
+echo Uri::base(false);
+// http://localhost/</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_create">create($uri = null, $variables = array(), $get_variables = array(), $secure = null)</h4>
+				<p>The <strong>create</strong> method allows you to create a URL with the given URI, including the base URL.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$uri</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The URL.</td>
+								</tr>
+								<tr>
+									<th><kbd>$variables</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The variables for the URL.</td>
+								</tr>
+								<tr>
+									<th><kbd>$get_variables</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The query string additions to the URL, its values &amp; keys can use variables from
+										the $variables array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$secure</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Set to false to force http, or to true to force https on the created URL</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>echo Uri::create('controller/method');
+// returns http://localhost/controller/method
+
+echo Uri::create('controller/:some', array('some' => 'thing', 'and' => 'more'), array('what' => ':and'));
+// returns http://localhost/controller/thing?what=more
+
+echo Uri::create('http://www.example.org/:some', array('some' => 'thing', 'and' => 'more'), array('what' => ':and'));
+// returns http://www.example.org/thing?what=more
+
+echo Uri::create('http://www.example.org/:some', array('some' => 'thing', 'and' => 'more'), array('what' => ':and'), true);
+// returns https://www.example.org/thing?what=more</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_current">current()</h4>
+				<p>The <strong>current</strong> method allows you to fetch the current URL, including the base URL inside HMVC pattern.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example URL: http://localhost/module/controller/method
+echo Uri::current(); // returns http://localhost/module/controller/method</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_main">main()</h4>
+				<p>The <strong>main</strong> method allows you to fetch the current URL, including the base URL.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example URL: http://localhost/controller/method
+echo Uri::main(); // returns http://localhost/controller/method</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_segment">segment($segment, $default = null)</h4>
+				<p>The <strong>segment</strong> method allows you to return the desired segment, or false if it does not exist.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$segment</kbd></th>
+									<td><i>Required</i></td>
+									<td>The segment number.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The default?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example URL: http://localhost/controller/method/param1/param2
+echo Uri::segment(3); // returns param1</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_segments">segments()</h4>
+				<p>The <strong>segments</strong> method allows you to fetch the current URI segments in an array.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example URL: http://localhost/controller/method
+echo Uri::segments(); // returns array(0 => 'controller', 1 => 'method')</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_segment_replace">segment_replace($url, $secure = null)</h4>
+				<p>The <strong>segment_replace</strong> method allows you to replace wildcards in a given url by the current URI segment in that position.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$url</kbd></th>
+									<td><i>Required</i></td>
+									<td>The url containing wildcards. A wildcard is defined by a * character.</td>
+								</tr>
+								<tr>
+									<th><kbd>$secure</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>If false, the url returned will use HTTP, if true, it will use HTTPS.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>OutOfBoundsException, if a wildcard is at a segment location for which no value exists.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example: Current URL = http://localhost/one/two, with segments 'one' and 'two'
+
+// returns http://localhost/one/two/three
+echo Uri::segment_replace('http://localhost/*/*/three');
+
+// throws an exception, as there is no third segment available
+echo Uri::segment_replace('http://localhost/this/that/*/other');
+
+// returns https://localhost/one/two/three
+echo Uri::segment_replace('http://localhost/*/*/three', true);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_update_query_string">update_query_string($vars = array(), $uri = null, $secure = null)</h4>
+				<p>
+					The <strong>update_query_string</strong> method allows you to update the query string in the current or passed URI.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$vars</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An assoc array of query variables, or a string containing the variable name.</td>
+								</tr>
+								<tr>
+									<th><kbd>$uri</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>
+										The url to use. If not given, the current url will be used. If $vars is a string, this will contain
+										the variables value (which implies you can't pass a custom uri in that case!).
+									</td>
+								</tr>
+								<tr>
+									<th><kbd>$secure</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>If false, the url returned will use HTTP, if true, it will use HTTPS.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example: Current URL = http://localhost/test?one=1&amp;two=2
+
+// returns http://localhost/test?one=1&amp;two=2&amp;three=3
+echo Uri::update_query_string(array('three' => 3));
+
+// returns http://localhost/test?one=1&amp;two=3
+echo Uri::update_query_string(array('two' => 3));
+
+// returns http://localhost/controller?four=4
+echo Uri::update_query_string(array('four' => 4), 'http://localhost/controller');
+
+// returns https://localhost/test?one=1&amp;two=2&amp;three=3
+echo Uri::update_query_string('three', 3, true);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_assoc">to_assoc($start = 1)</h4>
+				<p>The <strong>to_assoc</strong> method takes the segments array and turns it into an associative array if the number of segments is even.  If the number of segments is odd, the last array key will have a value of <code>null</code>.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$start</kbd></th>
+									<td><pre class="php"><code>1</code></pre></td>
+									<td>The segment number to start with. This allows you to strip leading segments.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Uri is /welcome/index/page/4
+$arr = Uri::to_assoc();
+/*
+Result:
+array(
+    'welcome' => 'index',
+    'page'    => 4,
+);
+*/
+
+// Uri is /welcome
+$arr = Uri::to_assoc();
+/*
+Result:
+array(
+    'welcome' => null,
+);
+*/</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_string">string()</h4>
+				<p>The <strong>string</strong> method allows you to fetch the current URI.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Example URL: http://localhost/controller/method
+echo Uri::string(); // returns controller/method</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_build_query_string">build_query_string($values ...)</h4>
+				<p>
+					The <strong>build_query_string</strong> method allows you to generate a query string from one or more passed assoc array or string values.
+					You can pass in Input::get() to construct an updated query string from the existing one. If you pass a string, it will be assumed to be a
+					switch, and will be converted to "string=1".
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$values</kbd></th>
+									<td><i>Required</i></td>
+									<td>One or more associative array's or string values</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// returns "varA=varA&amp;varB=1&amp;varC=varC"
+echo Uri::build_query_string(array('varA' => 'varA'), 'varB', array('varC' => 'varC'));</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

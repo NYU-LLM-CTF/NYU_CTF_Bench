@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6">
+    HP: <span id="hp-field"></span><br>
+    Max HP: <span id="maxhp-field"></span><br>
+    Food: <span id="food-field"></span><br>
+    Level: <span id="level-field"></span><br>
+    <p id="message"></p>
+</div>
+<div class="col-md-6">
+<p>
+  <img class="tile-1" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+  <img class="tile-2 up" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+  <img class="tile-3" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+</p>
+<p>
+  <img class="tile-4 left" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+  <img class="tile-5" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+  <img class="tile-6 right" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+</p>
+<p>
+  <img class="tile-7" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+  <img class="tile-8 down" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+  <img class="tile-9" src="{{ url_for('static', filename='img/tile/fog.png') }}" />
+</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/game.js') }}">"</script>
+{% endblock %}

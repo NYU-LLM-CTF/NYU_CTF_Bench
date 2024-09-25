@@ -1,0 +1,12 @@
+{
+	"name": "cloudb",
+	"category": "web",
+	"description": "I'm working on this new service which allows you to store notes, TODOs, and more! And all of our data is accessible over JSONP so you can integrate it into other sites!",
+	"box": "web.chal.csaw.io",
+	"files":[
+		"src.tar.gz"
+	],
+	"compose": true,
+	"internal_port": 80,
+	"flag": "flag{d0nt_Forg3t_2_San1t1ze_Y0uR_C@11back$}"
+}

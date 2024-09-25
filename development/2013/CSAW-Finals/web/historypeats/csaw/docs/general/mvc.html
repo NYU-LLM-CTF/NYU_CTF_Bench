@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Model-View-Controller - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Model-View-Controller (MVC)</h2>
+
+			<h3 id="what_is_mvc">What is MVC?</h3>
+
+			<p>MVC is an approach to separating your code depending on what role it plays in your application. In the
+			application flow it starts with a controller that is loaded. That Controller executes a method which retrieves
+			data using Models. Once it is done the controller decides what View to load, which contains the output your
+			visitors get to see.</p>
+
+			<h3 id="controllers">Controllers</h3>
+
+			<p>Fuel's routing decides based on the requested URL what controller to load and what method to call upon it.
+			This is where your application starts working. The Controller decides what actions to take, what to do with any
+			user input, what data gets manipulated and which View is shown to the user. The Controller does none of these
+			things itself however; it calls upon Models and Classes to do the work.</p>
+
+			<p>Read more about <a href="controllers/base.html">Controllers</a>.</p>
+
+			<h3 id="models">Models</h3>
+
+			<p>Whenever data needs to be retrieved, manipulated or deleted this should always be done by a model. A Model
+			is a representation of some kind of data and has the methods to change them. For example: you never put SQL
+			queries in a Controller, those are put in the Model and the Controller will call upon the Model to execute
+			the queries. This way if your database changes you won't need to change all your Controllers but just the
+			Model that acts upon it.</p>
+
+			<p>Read more about <a href="models.html">Models</a>.</p>
+
+			<h3 id="views">Views</h3>
+
+			<p>Views contain your HTML, which should never be found in your Controllers or any other class that is not
+			specifically meant to create output. By separating your layout from your logic you ensure that when you decide
+			to change your layout you only have to change the views and won't have to care about the Controllers.<br />
+			Views should thus contain little more than <kbd>echo</kbd> and <kbd>foreach</kbd> usage of PHP.</p>
+
+			<p>Read more about <a href="views.html">Views</a>.</p>
+
+			<h3 id="viewmodels">ViewModels</h3>
+
+			<p>Once your application gets more complex you'll discover that it gets hard to decide if a piece of logic
+			really belongs in the Controller, what if it is very specifically about the View and has little to do with your
+			application logic? This is where ViewModels come in; they are the glue between your controllers and your
+			views.</p>
+
+			<p>Read more about <a href="viewmodels.html">ViewModels</a>.</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

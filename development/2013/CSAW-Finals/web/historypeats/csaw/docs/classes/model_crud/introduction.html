@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Model_Crud::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Model_Crud - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Model_Crud Class</h2>
+
+			<h3 id="introduction">Introduction</h3>
+
+			<p>
+				A lot of database operations come to basic CRUD (Create Retrieve Update Delete) operations.
+				The Model_Crud class supplies there functionalities in a standardized way. The class helps you with:
+			</p>
+
+			<ul>
+				<li>Creating database entries</li>
+				<li>Retrieving database entries</li>
+				<li>Updating database entries</li>
+				<li>Deleting database entries</li>
+				<li>Entree input validation</li>
+			</ul>
+
+			<h3 id="first_model">Your first model</h3>
+
+			<p>
+				To use the Model_Crud class, create a class that extends \Model_Crud. Example:
+			</p>
+
+			<pre class="php"><code>&lt;?php
+
+class Model_Users extends \Model_Crud
+{
+	// Set the table to use
+	protected static $_table_name = 'users';
+}
+</code></pre>
+
+			<p>Now you have a basic model to work with.</p>
+
+			<h3 id="configuration">Configuration</h3>
+
+			<p>
+				Configuring a model is done by setting a few parameters:
+			</p>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Param</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+						<th>Example</th>
+					</tr>
+					<tr>
+						<th><strong>$_table_name</strong></th>
+						<td>string</td>
+						<td><em>required</em></td>
+						<td>
+							The table to use.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_table_name = 'table';</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_primary_key</strong></th>
+						<td>string</td>
+						<td><pre class="php"><code>'id'</code></pre></td>
+						<td>
+							The table's id field.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_primary_key = 'custom_id';</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_rules</strong></th>
+						<td>array</td>
+						<td><em>none</em></td>
+						<td>
+							Input validation rules
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_rules = array(
+	'name' => 'required',
+	'email' => 'required|valid_email',
+);</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_labels</strong></th>
+						<td>array</td>
+						<td><em>none</em></td>
+						<td>
+							The validation labels.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_labels = array(
+	'name' => 'Your Name',
+	'email' => 'Email Address',
+);</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_properties</strong></th>
+						<td>array</td>
+						<td><em>none</em></td>
+						<td>
+							Columns to use when updating/saving.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_properties = array(
+	'id',
+	'name',
+	'age',
+	'birth_date',
+	'gender',
+);</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_mass_whitelist</strong></th>
+						<td>array</td>
+						<td><em>none</em></td>
+						<td>
+							Array of columns which can be set with:<br />__construct,<br />::forge<br />->set()
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_mass_whitelist = array(
+	'first_name',
+	'last_name',
+	'age',
+);</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_mass_blacklist</strong></th>
+						<td>array</td>
+						<td><em>none</em></td>
+						<td>
+							Array of columns which could not be set with: __construct, ::forge and ->set() method.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_mass_blacklist = array(
+	'password',
+	'is_admin',
+);</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<p class="note">
+								$_mass_whitelist is like a allows for extra security when mass-assigning
+								propperties. Do note that this only works with <strong>__construct</strong>,
+								<strong>::forge</strong> and <strong>->set</strong>.
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_connection</strong></th>
+						<td>string</td>
+						<td><em>none</em></td>
+						<td>
+							The database connection to use, or the connection used for reads in a master/slave setup. If not configured, the DB config default will be used.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_connection = null;</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_write_connection</strong></th>
+						<td>string</td>
+						<td><em>none</em></td>
+						<td>
+							The database connection to use for writes in a master/slave setup.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_write_connection = 'master';</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_defaults</strong></th>
+						<td>array</td>
+						<td><em>none</em></td>
+						<td>
+							An array of default values
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_defaults = array(
+	'field' => 'value',
+	'other_field' => 'other value',
+);</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_created_at</strong></th>
+						<td>string</td>
+						<td><em>none</em></td>
+						<td>
+							Field name for a 'created at' field. Set <strong>$_mysql_timestamp</strong>
+							to true to use a MySQL timestamp instead of a UNIX timestamp
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_created_at = 'created_at';</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_updated_at</strong></th>
+						<td>string</td>
+						<td><em>none</em></td>
+						<td>
+							Field name for a 'updated at' field. Set <strong>$_mysql_timestamp</strong>
+							to true to use a MySQL timestamp instead of a UNIX timestamp
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_updated_at = 'modified_at';</code></pre>
+						</td>
+					</tr>
+					<tr>
+						<th><strong>$_mysql_timestamp</strong></th>
+						<td>boolean</td>
+						<td><em>none</em></td>
+						<td>
+							Set to true to use a MySQL timestamp instead of a UNIX timestamp for
+							<strong>$_created_at</strong> and <strong>$_updated_at</strong> fields.
+						</td>
+						<td>
+							<pre class="php"><code>protected static $_mysql_timestamp = true;</code></pre>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>HMVC Requests - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>HMVC requests</h2>
+
+			<p>
+				HMVC requests are a great way to separate logic and re-use controller logic in multiple places.
+				One common use of this is when you use a theme or template engine to generate your pages,
+				where every page is divided into sections, and sections are populated by widgets.
+				By using modules to produce the widget output, you can create a highly modular application with easy to re-use components.
+			</p>
+
+			<p>You call a module controller method using the <a href="../classes/request/request.html">Request</a> class:</p>
+			<pre class="php"><code>// fetch the output of a controller
+$widget = Request::forge('mycontroller/mymethod/parms')->execute();
+echo $widget;
+
+// or fetch the output of a module
+$widget = Request::forge('mymodule/mycontroller/mymethod/parms', false)->execute();
+echo $widget;
+
+// and if you need to pass in some data
+$widget = Request::forge('mymodule/mycontroller/mymethod/parms', false)->execute(array('tree'=>'apple'));
+echo $widget;
+
+</code></pre>
+			<p class="note">
+				By default, all requests made are processed by Fuel's routing engine. If you want to request something that isn't routable
+				(for example because you don't want a browser to request it), you should pass '<strong>false</strong>' as second parameter
+				to the forge() call. If you don't you will end up with a 404 error when you execute the request!
+			</p>
+
+			<p>
+				Loading views in HMVC request is the same as in normal requests and controllers accessed by HMVC request
+				are also approachable via the browser. However, in some cases you may not want the component (for example, a widget)
+				to be accessed through the browser. In those cases, you'll want to check if the request is made through HMVC or the browser.
+				The following example shows you how to check for a HMVC request:
+			</p>
+
+			<pre class="php"><code>&lt;?php
+
+class Controller_Widget extends Controller
+{
+
+	public function action_show()
+	{
+		if( ! Request::is_hmvc())
+		{
+			// this is the main request
+		}
+		else
+		{
+			// this is a HMVC request
+		}
+	}
+
+}</code></pre>
+
+			<h3>404 during HMVC requests</h3>
+
+			<p>
+				When a 404 occurs during a HMVC request, a <kbd>HttpNotFoundException</kbd> is thrown. If uncaught, it will trigger
+				the load of the frameworks default 404 page. However, you can prevent this and handle the 404
+				yourself:
+			</p>
+
+			<pre class="php"><code>try
+{
+	\Request::forge('this_will_fail');
+}
+catch (HttpNotFoundException $e)
+{
+	// deal with it
+}
+</code></pre>
+
+			<h3>Traversing Request instances</h3>
+
+			<p>If you want to access other Requests, you can traverse them using two methods:
+				<kbd>$request->parent()</kbd> and <kbd>$request->children()</kbd>. The parent is the Request during
+				which the current Request was created (<kbd>null</kbd> for the main Request). The children are all the Requests
+				created during the current Request.</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

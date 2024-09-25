@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./assets/css/combined.css">
+	<link rel="shortcut icon" href="./favicon.ico" />
+ 	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './';
+	</script>
+	<script src="./assets/js/combined.js"></script>
+	<title>FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Welcome to FuelPHP</h2>
+
+			<p>
+				FuelPHP is a simple, flexible, community driven PHP 5 web framework. It was born out of the frustrations people have with the current available frameworks and developed
+				with support from a community of developers. FuelPHP is extremely portable, works on almost any server and prides itself on clean syntax.
+			</p>
+
+			<h3 id="quick_install">Quick Installation</h3>
+
+			<p>If you value your time and want to get things up and running in seconds instead of minutes, you can use our quick installer instead. Using the <a href="http://en.wikipedia.org/wiki/CURL">curl</a> library, you can install a very basic version of oil. From there you can create new full applications of Fuel.</p>
+
+			<pre class="cli"><code># quick install oil from the web
+$ curl get.fuelphp.com/oil | sh
+# now that oil is installed, create a blog project in a directory called Sites
+$ cd Sites/
+$ oil create blog</code></pre>
+
+			<p>
+				For more information, see the <a href="installation/instructions.html#command">installation</a> page.
+			</p>
+
+			<h3 id="manual_install">Manual Installation</h3>
+
+			<p>
+				If you can't use the quick installation method, you can also install FuelPHP manually.
+				You  will find detailed instructions on the <a href="installation/instructions.html#manual">installation</a> page.
+			</p>
+
+			<h3 id="next_steps">Next steps</h3>
+
+			<ul>
+				<li>Step #1: Read about <a href="general/mvc.html">the components</a> of a FuelPHP application</li>
+				<li>Step #2: <a href="general/configuration.html">Configure</a> your new FuelPHP installation</li>
+				<li>Step #3: Learn about <a href="general/modules.html">modules</a> and <a href="general/packages.html">packages</a></li>
+				<li>Step #4: <a href="general/controllers/base.html">Create some sexy code!</a></li>
+			</ul>
+
+			<h3 id="api_docs">Class API Documentation</h3>
+
+			<p>
+				We provide full API documentation of all classes online.
+			</p>
+
+			<h3 id="dev_docs">Development Branch Documentation</h3>
+
+			<p>
+				This documentation reflects the state of the documentation at the time of the latest official FuelPHP release.
+				For documentation of Fuel's bleeding edge, see our <a href="http://www.fuelphp.com/dev-docs">Develop Branch Documentation</a>.
+			</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

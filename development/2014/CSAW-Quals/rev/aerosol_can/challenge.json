@@ -1,0 +1,8 @@
+{
+    "name": "aerosol_can",
+    "category": "rev",
+    "description": "Aerosol Can is such a great song.",
+    "flag": "flag{18ea6024aba10c2777703151f5bd1f58}",
+    "points": 500,
+    "files": ["aerosol_can"]
+}

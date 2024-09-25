@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+		var class_prefix = "$object->";
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>ACL - Driver types - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Auth package</h2>
+
+			<p>The Auth package provides a standardized interface for authentication in Fuel. This allows our users to
+			write their own drivers and easily integrate a new driver to work with old code by keeping the basic methods
+			consistent.</p>
+
+			<section>
+				<h2 id="driver_types">Auth_Acl_Driver</h2>
+
+				<p>
+					This driver is the base class for all Auth acl drivers. It is defined as an abstract class which contains
+					all methods generic to all acl drivers, and abstract method definitions for all methods any acl driver
+					MUST implement.
+				</p>
+
+
+				<h3 id="static">Static interface</h3>
+
+				<p>For ease of use, the <kbd>has_access()</kbd> method is exposed through the generic Auth static interface.</p>
+
+				<p>Using the static interface, you can do</p>
+
+								<pre class="php"><code>// returns true if the current user has the required permissions
+$may_access_comments = Auth::has_access('comments[read,write]');
+</code></pre>
+
+				<h3 id="generic_methods">Generic methods</h3>
+
+				<p>
+					Generic methods are defined in the acl base driver, and are available to all Auth acl drivers through
+					extension. These methods provide functions to interact with specific acls, and to check for access.
+				</p>
+				<p class="note">The methods defined in the classes but not documented here are used internally, and should not be called directly.</p>
+
+				<article>
+					<h4 id="method_get_id" class="method">get_id()</h4>
+					<p>Returns the drivers unique id. This can be used to identify the driver, or to select a specific driver instance.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>The drivers id string.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns 'simpleacl'
+$id = Auth::acl()->get_id();
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_set_config" class="method">set_config($key, $value)</h4>
+					<p>Sets a driver configuration value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$key</kbd></th>
+										<td>required</td>
+										<td>Configuration key name</td>
+									</tr>
+									<tr>
+										<th><kbd>$value</kbd></th>
+										<td>required</td>
+										<td>Value for this configuration key</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>void</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// set a config value on the simpleacl driver
+Auth::acl()->set_config('key', 'value');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_get_config" class="method">get_config($key, $default = null)</h4>
+					<p>Gets a driver configuration value.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$key</kbd></th>
+										<td>required</td>
+										<td>Configuration key name</td>
+									</tr>
+									<tr>
+										<th><kbd>$default</kbd></th>
+										<td><i>null</i></td>
+										<td>Default value to be returned if the requested key does not exist</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// get a config value of the simpleacl driver, return false if it doesn't exist
+$key = Auth::instance(simpleacl)->get_config('key', false);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<h3 id="abstract_methods">Abstract methods</h3>
+
+				<p>
+					Every acl driver you develop MUST provide all of these methods, and the MUST return the values documented here.
+				</p>
+
+				<article>
+					<h4 id="method_has_access" class="method">has_access($condition, Array $entity)</h4>
+					<p>The <strong>has_access</strong> method uses the defined ACL drivers to check the users access according to the given condition.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>No</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$condition</kbd></th>
+										<td>required</td>
+										<td>takes a location and the required rights on the location as either a string or
+											an array</td>
+									</tr>
+									<tr>
+										<th><kbd>$entity</kbd></th>
+										<td>required</td>
+										<td>user or group identifier in the form of array(driver_id, id).</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean, <strong>true</strong> if access was granted, <strong>false</strong> if not.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// check if user is allowed to comment
+if ( ! Auth::acl()->has_access('comments.create'), array('simplegroup', 1))
+{
+	Response::redirect('no_admin');
+}</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

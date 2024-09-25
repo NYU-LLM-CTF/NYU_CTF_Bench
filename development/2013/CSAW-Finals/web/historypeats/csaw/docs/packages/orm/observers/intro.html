@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Introduction - Obervers - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Orm</h2>
+
+			<p>Orm is short for <a href="http://en.wikipedia.org/wiki/Object_relational_mapper" target="_blank">Object
+				Relational Mapper</a> which does 2 things: it maps your database table rows to objects and it allows you
+				to establish relations between those objects.<br />
+				It follows closely the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">
+				Active Record Pattern</a>, but was also influenced by other systems.</p>
+
+			<article>
+				<h3 id="intro">Observers: Introduction</h3>
+
+				<p>An event based system to allow you to add behavior to specific events. When an event is observed the
+					Orm will automatically call all the added observers to see if there's anything for them to do.</p>
+
+				<ul>
+					<li><a href="intro.html#add_observers">Adding observers to your model</a></li>
+					<li><a href="included.html">Included observers</a></li>
+					<li><a href="creating.html">Creating your own Observers</a></li>
+				</ul>
+			</article>
+
+			<article id="add_observers">
+				<h3 id="adding">Adding observers to your model</h3>
+
+				<p>You can add observers in 2 ways: just add the name to have the observer called for all events or with
+					the observer as name and an array of specific events for which the observer is called.<br />
+					When the Observer is in the same namespace as the Model and prefixed with <kbd>Observer_</kbd> you can
+					leave out the "Observer_" prefix. In all other cases you have to provide the full classname.</p>
+
+				<pre class="php"><code>class Model_Article
+{
+	protected static $_observers = array(
+		'example', // will call Observer_Example class for all events
+		'Orm\\Observer_CreatedOn' => array(
+			'events' => array('before_insert'), // will only call Orm\Observer_CreatedOn at before_insert event
+		)
+	);
+}</code></pre>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Security - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Security</h2>
+
+			<p>
+				Fuel takes security very serious, and as a result, has implemented the following measures to ensure the safety of your web applications:
+			</p>
+
+			<ul>
+				<li><a href="#output">Output encoding</a></li>
+				<li><a href="#csrf">CSRF protection</a></li>
+				<li><a href="#xss">XSS filtering</a></li>
+				<li><a href="#input">Input filtering</a></li>
+				<li><a href="#sql">SQL injection</a></li>
+			</ul>
+			<p>
+				By default, Fuel doesn't filter POST and GET variables on input, and encodes everything on output.
+				Fuel also encodes the URI to prevent nasty surprises when using URI segments, and escapes everything going into the database.
+			</p>
+			<p>
+				This page explains the general security measures Fuel offers, the <a href="../classes/security.html">Security
+				class</a> is documented under Classes. You will also find the details on configuring Fuels security class on that page.
+			</p>
+
+			<article id="output">
+				<h3>Output encoding</h3>
+
+				<p>
+					By default, Fuel favors output encoding to input filtering. The reason behind this is twofold.
+					No matter where your data originates, and whether or not it is filtered, output encoding will make it harmless
+					when it is send to the client. It also means all input is stored in raw and unaltered form, so that no matter
+					what happens, you will always have access to the original data.
+				</p>
+				<p>
+					It also means you don't run into trouble when you need data in its unaltered form. One common example is the
+					data produced by html editors like TinyMCE or ckeditor, used in lots of application for enduser content editing.
+					In such cases you might want to run <a href="#xss">XSS Filtering</a> on these input variables to filter out
+					any nasty surprises that might have crept in, since this is a typical example of data you don't want
+					to encode on output either.
+				</p>
+				<p>
+					Since output encoding can only happen on strings, you have to pay attention to objects you want to pass to your views.
+					Either make sure your object contains a <strong>__toString()</strong> method on which the encoding can take place, add your object class
+					to the class whitelist in the security configuration (don't forget the namespace!), or pass it to the view with the <strong>$encode</strong>
+					flag set to false.
+					You can also use the <a href="../classes/view.html#method_auto_encode">auto_encode</a> method to temporary disable automatic output encoding
+					on a per-view basis.
+				</p>
+				<p>
+					See the section on <a href="views.html#security">view security</a> to see how this is implemented for views.
+				</p>
+			</article>
+
+			<article id="csrf">
+				<h3>CSRF Protection</h3>
+				<p>
+					Cross-site request forgery, also known as a one-click attack or session riding and abbreviated as CSRF, is a type of malicious exploit
+					of a website whereby unauthorized commands are transmitted from a user that the website trusts. Unlike cross-site scripting (XSS),
+					which exploits the trust a user has for a particular site, CSRF exploits the trust that a site	has in a user's browser.
+					The attack works by including a link or script in a page that accesses a site to which the user is known (or is supposed) to have been
+					authenticated.
+				</p>
+				<p>
+					For example, one user, Bob, might be browsing a chat forum where another user, Mallory, has posted a message.
+					Suppose that Mallory has crafted an HTML image element that references an action on Bob's bank's website (rather than for example an image file).
+					If Bob's bank keeps his authentication information in a cookie, and if the cookie hasn't expired, then the attempt by Bob's browser to
+					load the image will submit the withdrawal form with his cookie, thus authorizing a transaction without Bob's approval.
+					<span style="float:right;font-style:italic;"><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">source: wikipedia</a></span>
+				</p>
+				<p>
+					Fuel provides you the tools to protect your forms against this kind of attacks, by including a security token in the form, which will
+					can be validated upon form submission, and will ensure that when validated, the form was submitted by the client that has requested the form.
+				</p>
+				<p>
+					CSRF protection can be configured through the security section in the applications config/config.php file.
+				</p>
+
+
+				<p>To enable CRSF protection, start by adding the token to your form:</p>
+				<pre class="php"><code>// in plain HTML
+&lt;input type="hidden" name="&lt;?php echo \Config::get('security.csrf_token_key');?&gt;" value="&lt;?php echo \Security::fetch_token();?&gt;" /&gt;
+
+// using the Form class
+echo \Form::csrf();
+
+// using a form instance, will also add a validation rule to forms fieldset
+$form = \Form::forge();
+$form->add_csrf();
+</code></pre>
+			<p>To manually check if the form has been submitted by the client that requested the form:</p>
+		<pre class="php"><code>// check if a form was submitted
+if ($_POST)
+{
+	// check for a valid CSRF token
+	if ( ! \Security::check_token())
+	{
+		// CSRF attack or expired CSRF token
+	}
+	else
+	{
+		// token is valid, you can process the form input
+	}
+}
+</code></pre>
+
+			</article>
+
+			<article id="xss">
+				<h3>XSS filtering</h3>
+				<p>
+					Fuel provides XSS filtering using the <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/">HTMLawed</a> library,
+					a very fast and highly configurable library. By default it runs in safe and balanced mode.
+				</p>
+				<p>
+					Safe refers to HTML that is restricted to reduce the vulnerability for scripting attacks (such as XSS) based on HTML code which
+					otherwise may still be legal and compliant with the HTML standard specs. When elements such as script and object, and attributes
+					such as onmouseover and style are allowed in the input text, an input writer can introduce malevolent HTML code.
+				</p>
+				<p>
+					In balanced mode, HTMLawed checks and corrects the input to have properly balanced tags and legal element content
+					(i.e., any element nesting should be valid, and plain text may be present only in the content of elements that allow them).
+				</p>
+				<p class="note">
+					For performance reasons, it is recommended that you use the <a href="../classes/security.html#method_xss_clean">xss_clean</a> method
+					on individual input values, rather than as a generic input filter.
+				</p>
+			</article>
+
+			<article id="input">
+				<h3>Input filtering</h3>
+				<p>
+					Although not enabled by default, you can configure Fuel to filter all input ($_GET, $_POST and $_COOKIE) on every page request.
+					To do so, configure the functions or methods to be used to filter them in the application's config/config.php file.
+				</p>
+				<pre class="php"><code>/**
+ * Security settings
+ */
+'security' => array(
+    'input_filter' => array(),
+)</code></pre>
+				<p>
+					Anything that is callable in PHP and accepts a single value as parameter can be used for filtering purposes.
+					This includes PHP functions like 'htmlentities', static class methods like '\\Security::xss_clean' or even object methods
+					which are defined as <strong>array($object, 'method')</strong>. If you use an object method, make sure the object is available
+					before Fuel is initialized, as input filtering happens very early in the request process.
+				</p>
+			</article>
+
+			<article id="sql">
+				<h3>SQL injection</h3>
+				<p>
+					SQL injection is a code injection technique that exploits a security vulnerability occurring in the database layer of an application
+					(like queries). The vulnerability is present when user input is either incorrectly filtered for string literal escape characters
+					embedded in SQL statements or user input is not strongly typed and thereby unexpectedly executed.
+					It is an instance of a more general class of vulnerabilities that can occur whenever one programming or scripting language is embedded
+					inside another. SQL injection attacks are also known as SQL insertion attacks.
+					<br />
+					This form of SQL injection occurs when user input is not filtered for escape characters and is then passed into an SQL statement.
+					This results in the potential manipulation of the statements performed on the database by the end-user of the application.
+					<span style="float:right;font-style:italic;"><a href="http://en.wikipedia.org/wiki/SQL_injection">source: wikipedia</a></span>
+				</p>
+				<p>
+					Fuel protects against SQL injection by escaping all values passed to one of the Database class methods. Since this happens at the level
+					of Fuel's central Query Builder, all code that uses the Query Builder, including Fuel's ORM package, will automatically use escaping.
+				</p>
+
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

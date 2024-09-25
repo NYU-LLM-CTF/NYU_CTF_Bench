@@ -1,0 +1,11 @@
+{
+	"name": "slurp",
+	"category": "crypto",
+	"description": "We've found the source to the Arstotzka spies rendevous server, we must find out their new vault key.",
+	"box": "crypto.chal.csaw.io",
+	"files":["slurp.py"],
+    "points": 300,
+	"compose": true,
+	"internal_port": 8000,
+	"flag": "We'd all be so much safer if all primes were so free and germane"
+}

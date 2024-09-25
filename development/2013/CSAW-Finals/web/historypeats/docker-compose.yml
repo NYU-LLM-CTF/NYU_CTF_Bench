@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2013f-web-historypeats
+    ports:
+      - 80:80
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

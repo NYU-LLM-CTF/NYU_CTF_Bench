@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Troubleshooting - Installation - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Troubleshooting</h2>
+
+			<p>Fuel supports a wide variety of configurations. Sometimes the configuration needs some work in order to work properly. Listed below are a couple of scenarios that may pop up when setting up Fuel on your machine.</p>
+
+			<p>When your problem is not listed below or is listed but no proper solution is provided, please report this at the issue tracker ( http://dev.fuelphp.com ).</p>
+
+			<ul>
+				<li><a href="#500_error_with_clean_install">500 Error with clean install</a></li>
+				<li><a href="#syntax_error_clean_install">Syntax errors with clean installation</a></li>
+				<li><a href="#404_install">Got it working, but the index page is a 404.</a></li>
+				<li><a href="#oil_db_error">Oil cannot connect to DB but application can</a></li>
+				<li><a href="#htmlentities">The ORM/DB returns my data as html entities</a></li>
+				<li><a href="#orm_list_columns">Orm\Exception [ Error ]: Listing columns not failed</a></li>
+				<li><a href="#assets_error">Assets do not work after changing the location of index.php</a></li>
+				<li><a href="#symlinks_error">Core, App or Packages can not be found after I changed a symlink</a></li>
+				<li><a href="#stack_frame_error">Exception thrown without a stack frame</a></li>
+			</ul>
+			<article>
+
+				<h3 id="500_error_with_clean_install">500 Error with clean installation</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>When your HTTP server has insufficient permissions to follow symbolic links around the filesystem.</p>
+
+				<h4>Solution</h4>
+
+				<p>Check the <i>.htaccess</i> file and modify the following line</p>
+				<pre class="php"><code>Option +FollowSymLinks</code></pre>
+				<p>so that it reads:</p>
+				<pre class="php"><code>Option +SymLinksIfOwnerMatch</code></pre>
+
+			</article>
+			<article>
+
+				<h3 id="syntax_error_clean_install">Syntax errors with clean installation</h3>
+
+				<pre class="php"><code>Parse error: syntax error, unexpected T_FUNCTION, expecting ')' in /Users/info/Sites/fuel/public/index.php on line 9</code></pre>
+
+				<h4>Happens When...</h4>
+
+				<p>When running Fuel on a PHP version prior to 5.3.</p>
+
+				<h4>Solution</h4>
+
+				<p>Check the phpinfo(); in a separate testfile and see if you're running 5.3 or higher. More info on <a href="../requirements.html" title="Requirements - FuelPHP Documentation">requirements</a> is here.</p>
+
+				<p>When developing locally, update your server to the latest version of PHP 5.3. If you are not developing locally you'll need to ask your hosting company. Versions of PHP below 5.3 have lost support not just by us, but <a href="http://www.php.net/archive/2011.php#id2011-03-17-1" title="PHP: News Archive - 2011">by PHP themselves</a>.</p>
+
+			</article>
+
+			<article>
+
+				<h3 id="signal_bus_error">I get "child pid [xxxx] exit signal Bus error" in autoloader.php</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>Under unknown circumstances when using multibyte support.</p>
+
+				<h4>Solution</h4>
+
+				<p>
+					This seems to be a PHP bug, for which at the time of writing no fix has been released.
+					Most people using PHP 5.3.x and multi-byte support don't report this issue.
+					We have not seen reports of users with PHP 5.4.x that experience this same error.
+				</p>
+
+				<p>As a workaround, it is suggested to disable zend-multibyte and mbstring, or try using a different version of PHP.</p>
+
+			</article>
+
+			<article>
+
+				<h3 id="404_install">Got it working, but the index page is a 404.</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>On some php installations it's necessary to add a question-mark in the .htaccess file after <em>index.php</em></p>
+
+				<h4>Solution</h4>
+
+				<p>Add the question-mark like so:</p>
+
+				<pre class="plain"><code># Turn on URL rewriting
+RewriteEngine On
+
+# Installation directory
+RewriteBase /
+# If fuel is not a level up
+# RewriteBase /public
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?/$1 [L]
+# Notice the ? after index.php
+</code></pre>
+
+			<p>Some fcgi installations require a variant of this solution:</p>
+
+			<pre class="plain"><code>
+RewriteRule ^(.*)$ index.php?$1 [L]
+# Notice the fact that the slash has been removed after the ?
+
+#Other possible setups:
+
+RewriteRule ^(.*)$ /index.php/$1 [L]
+# Notice the leading slash added before index.php
+</code></pre>
+			</article>
+
+			<article>
+
+				<h3 id="oil_db_error">Oil cannot connect to DB but application can</h3>
+
+				<pre class="plain"><code>mysql_connect(): [2002] No such file or directory (trying to connect via unix:///var/mysql/mysql.sock) in /Users/phil/Sites/fuel/fuel/core/classes/database/mysql/connection.php on 73</code></pre>
+
+				<h4>Happens When...</h4>
+
+				<p>Happens when you try to interact with the database via the command line, often when using MAMP for your MySQL server. The reason for this is that PHP-CLI is a different installation to the MAMP provided by MAMP, so PHP knows nothing of the database server.</p>
+
+				<p>Note: Before performing the following step to fix the problem, verify the database connection via normal browser access.</p>
+
+				<h4>Solution</h4>
+
+				<p>Change "localhost" to "127.0.0.1" in your database.php</p>
+
+				<strong>Failing that:</strong>
+
+				<p>Create a symlink pointing at MAMP's mysql.socket.</p>
+
+				<pre class="cli"><code>$ sudo ln -s /Applications/MAMP/tmp/mysql/mysql.sock /var/mysql/mysql.sock</code></pre>
+
+				<p>In some cases you have to create the directory first:</p>
+
+				<pre class="cli"><code>$ sudo mkdir /var/mysql
+$ sudo ln -s /Applications/MAMP/tmp/mysql/mysql.sock /var/mysql/mysql.sock</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="htmlentities">The ORM/DB returns my data as html entities</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>Fuel has a security measure called "output encoding" which is switched on by default. This means
+					that any value passed to the View or ViewModel is considered dangerous unless you explicitly mark
+					it as safe. All values that aren't safe will be put through htmlentities, including the contents
+					of arrays and the properties of objects.</p>
+
+				<h4>Solution</h4>
+
+				<p>Learn more about <a href="../general/views.html#/security">security in the View class</a>.</p>
+
+			</article>
+
+			<article>
+
+				<h3 id="orm_list_columns">Orm\Exception [ Error ]: Listing columns not failed</h3>
+
+				<h4>Error</h4>
+
+				<pre class="php"><code>Orm\Exception [ Error ]: Listing columns not failed, you have to set the model properties with a static $_properties setting in the model.</code></pre>
+
+				<h4>Happens When...</h4>
+
+				<p>Working with ORM models when not connecting via mysql.</p>
+
+				<h4>Solution</h4>
+
+				<p>Make sure the db config values are correct and test your database connection.</p>
+
+				<p>Update the model to contain the properties.</p>
+
+				<pre class="php"><code>protected static $_properties = array('id', 'title', 'contents', 'publish');</code></pre>
+
+				<p>Or set the change the db type to "mysql" in APPATH/config/db.php</p>
+
+			</article>
+
+			<article>
+
+				<h3 id="assets_error">Assets do not work after changing the location of index.php</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>That is because your path is not defined correctly, the Asset class uses a path relative to index.php.</p>
+
+				<h4>Solution</h4>
+
+				<p>To fix that you have to modify the app/config/asset.php to set the correct path. Notice in index.php that a constant named DOCROOT is being defined:</p>
+
+				<pre class="php"><code>define('DOCROOT', __DIR__.DIRECTORY_SEPARATOR);</code></pre>
+
+				<p>You can use that in app/config/asset.php. This will set the asset path back to the default folder DOCROOT/public/assets, where the subfolders for css/ img/ and js/ are located:</p>
+
+				<pre class="php"><code>'paths' => array(DOCROOT.'public/assets/'),</code></pre>
+
+			</article>
+
+			<article>
+
+				<h3 id="symlinks_error">Core, App or Packages can not be found after I changed a symlink</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>This my happen because in DOCROOT/index.php, realpath() is used to deal with relative paths, which will cache path information, including the symlink.</p>
+
+				<h4>Solution</h4>
+
+				<p>
+					To fix that you have to modify the DOCROOT/index.php and use clearstatcache() for each of the paths containing a symlink to
+					clear the cache. Alternatively, you can reload your	webserver to clear the path cache. You can not manually issue the
+					clearstatcache() command, since it is cached per thread, and issuing the command will only clear the cache for the current thread.
+				</p>
+
+			</article>
+
+			<article>
+
+				<h3 id="stack_frame_error">Exception thrown without a stack frame</h3>
+
+				<h4>Happens When...</h4>
+
+				<p>The cause of this message is that an error occured while PHP is already in it's tear-down phase, and no error handler is available anymore.</p>
+
+				<h4>Solution</h4>
+
+				<p>
+					There are a lot of reasons why this can happen. We'll try do document the most obvious ones here:
+					<ul>
+						<li>Your webserver doesn't have write rights to the folder that stores the logfiles (by default APPPATH.'logs').</li>
+					</ul>
+				</p>
+
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

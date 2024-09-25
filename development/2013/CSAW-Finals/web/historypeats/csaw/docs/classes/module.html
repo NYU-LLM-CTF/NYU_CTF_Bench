@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Module::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Module - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Module Class</h2>
+
+			<p>The <kbd>Module</kbd> class allows you to easily load, unload, check if a module exists or if it is loaded, or get a list of all modules loaded.</p>
+
+			<article>
+				<h4 class="method" id="method_load">load($module, $path = null)</h4>
+				<p>The <strong>load</strong> method allows you to load one or more modules at runtime.  If the module cannot be found a <kbd>ModuleNotFoundException</kbd> will be thrown.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$module</kbd></th>
+									<td><i>required</i></td>
+									<td>Name of the module to be loaded, or an array of modules.</td>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><code>null</code></td>
+									<td>Path to the given module. You can use this to load modules from outside the defined module paths.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>void</i></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// load a users module
+Module::load('users');
+
+// load the users module from a specific directory
+Module::load('users', '/path/to/modules/users/');
+
+// load multiple modules from a single module installation
+Module::load( array('Users' => '/path/to/modules/users/', 'Groups' => '/path/to/modules/groups/') );
+
+// load the non-existent module
+Module::load('awesome'); // Throws a ModuleNotFoundException
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_unload">unload($module)</h4>
+				<p>The <strong>unload</strong> method allows you to unload a module at runtime.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$module</kbd></th>
+									<td><i>required</i></td>
+									<td>Name of the module to be unloaded.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>void</i></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// unload the users module
+Module::unload('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">This will remove all loaded routes that point to this module!</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_loaded">loaded($module = null)</h4>
+				<p>The <strong>loaded</strong> method allows you to check if a module is currently loaded.  If no module name is given then all loaded module are returned.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$module</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Name of the module to be checked.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>bool|array</kbd></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Check if the users module is loaded
+$loaded = Module::loaded('users');
+
+// Get all loaded modules
+$loaded = Module::loaded();
+/*
+Returns something like:
+array(
+    'users' => '/path/to/users',
+    'groups' => '/path/to/groups',
+)
+*/
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_exists">exists($module)</h4>
+				<p>
+					The <strong>exists</strong> method allows you to check if a module exists, i.e. if it can be found in one of the configured module paths.
+					If found, it returns the path to the module. If not, it returns <strong>false</strong>.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$module</kbd></th>
+									<td><kbd>null</kbd></td>
+									<td>Name of the module to be checked.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><kbd>bool|string</kbd></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Optionally load the comments module
+if (Module::exists('comments'))
+{
+	Module::load('comments');
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

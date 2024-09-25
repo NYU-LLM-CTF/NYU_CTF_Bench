@@ -1,0 +1,1424 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Theme::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Theme Methods - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Theme Class Methods</h2>
+
+			<p>
+				The Theme class provides theming to your application.
+			</p>
+
+
+			<article>
+				<h4 class="method" id="method_instance">instance($name = '_default_', array $config = array())</h4>
+				<p>
+					The <strong>instance</strong> method acts as a multiton. It will return the instance identified by $name. If this
+					instance does not exist, it will create a new Theme instance, using the configuration array passed. If no
+					parameters are passed, instance will create the default Theme instance, using the default configuration
+					specified in the theme config file.
+				</p>
+
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'_default_'</code></pre></td>
+									<td>The Theme class instance name.</td>
+								</tr>
+								<tr>
+									<th><kbd>$config</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The theme instance configuration. Will be ignored if the instance already exists.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A Theme instance</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// Get a custom instance
+$theme = \Theme::instance(
+	'custom',
+	array(
+		'active' => 'custom',
+		'view_ext' => '.twig'
+	)
+);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_forge">forge(array $config = array())</h4>
+				<p>
+					The <strong>forge</strong> method returns a new Theme instance.
+				</p>
+
+				<p class="note">
+					If no configuration is passed, the configuration is loaded from the global configuration file.
+					Note that if you pass a partial configuration, it will be merged with the defaults shown
+					in the <a href="./introduction.html#config">introduction</a>, <strong>NOT</strong> with the defaults in your configuration file!
+				</p>
+
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$config</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The theme instance configuration.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A Theme instance</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get a Theme instance
+$theme = \Theme::forge(array(
+	'active' => 'custom',
+	'fallback' => 'default',
+	'view_ext' => '.html',
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_view">view($view, $data = array(), $auto_filter = null)</h4>
+				<p>
+					The <strong>view</strong> method loads a view from the currently loaded theme.
+					It will try to load it from the active theme first. If it doesn't exist in the active theme, and a fallback
+					theme is defined, it will load it from the fallback theme instead. If it can't be found there either, the
+					request is passed to the View class where it follows the normal flow of locating the view file.
+				</p>
+
+				<p class="note">This uses <a href="../view.html#method_forge">View::forge() </a>to return the view. This means that the Parser package is supported for views defined in themes too.</p>
+
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$view</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td class="description">The view filename. View file names should be given relative to the theme path.</td>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td class="description">array of values</td>
+								</tr>
+								<tr>
+									<th><kbd>$auto_filter</kbd></th>
+									<td><em>boolean</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td class="description">set to <em>true</em> or <em>false</em> to set auto encoding, defaults to main config setting (app/config/config.php)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A new <em>View</em> object</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested view file could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// will load THEMEDIR.'/template/homepage.php' with the default settings
+$view = $theme->view('template/homepage');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_viewmodel">viewmodel($view, $method = 'view', $auto_filter = null)</h4>
+				<p>
+					The <strong>viewmodel</strong> method loads and return a Viewmodel object based on the $view string passed. It
+					will use the <strong>view</strong> method documented above to pass the theme view to the Viewmodel.
+				</p>
+
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$view</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td class="description">The viewmodel name. See the <a href="../../general/viewmodels.html">Viewmodel</a> for more information.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'view'</code></pre></td>
+									<td class="description">name of the method in the Viewmodel instance that will be called to process the data prior to rendering the view.</td>
+								</tr>
+								<tr>
+									<th><kbd>$auto_filter</kbd></th>
+									<td><em>boolean</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td class="description">set to <em>true</em> or <em>false</em> to set auto encoding, defaults to main config setting (app/config/config.php)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A new <em>ViewModel</em> object</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested view file could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+/**
+ * with the default settings, will load the ViewModel defined in
+ * APPPATH.'classes/view/template/homepage.php', using the
+ * THEMEDIR.'/template/homepage.php' view file
+ */
+$viewmodel = $theme->viewmodel('template/homepage');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_asset_path">asset_path($path)</h4>
+				<p>
+					The <strong>asset_path</strong> method returns the path to the asset requested in $path, relative to the <strong>DOCROOT</strong>.
+					If the configured asset folder is a URL to the requested $path is returned.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The asset requested.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// will return &lt;img src="/THEMEDIR/assets/img/test.png" /&gt;
+$img = \Html::img($theme->asset_path('img/test.png'));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">Note that to every Theme class instance, an instance of the Asset class assigned. See the <a href="./advanced.html">advanced</a> page on how the use the Asset class instance.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add_path">add_path($path)</h4>
+				<p>
+					The <strong>add_path</strong> method allows you to add a theme path at runtime.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The path to a folder containing themes.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// add the 'mythemes' folder to the theme search paths
+$theme->add_path(DOCROOT.'mythemes');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add_paths">add_paths(array $paths)</h4>
+				<p>
+					The <strong>add_paths</strong> method allows you to add multiple theme paths at runtime.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$paths</kbd></th>
+									<td><em>array</em></td>
+									<td><strong>required</strong></td>
+									<td>The path to a folder containing themes.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// add the 'mythemes' folder to the theme search paths
+$theme->add_paths(
+	array(
+		DOCROOT.'mythemes'
+	),
+);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_active">active($theme = null)</h4>
+				<p>
+					The <strong>active</strong> method allows you to set the active theme. It will return the active theme definition array.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$theme</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The name of the active theme to select. If <strong>null</strong>, it will return the current active theme.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested theme could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// set the active theme to 'darkglow', and return its definition
+$active = $theme->active('darkglow');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_fallback">fallback($theme = null)</h4>
+				<p>
+					The <strong>fallback</strong> method allows you to set the fallback theme. It will return the fallback theme definition array.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$theme</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The name of the fallback theme to select. If <strong>null</strong>, it will return the current fallback theme.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested theme could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// set the fallback theme to 'basic', and return its definition
+$fallback = $theme->fallback('basic');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_template">get_template()</h4>
+				<p>
+					The <strong>get_template()</strong> method will return the View instance of the currently loaded theme template.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>View</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// Retrieve the current template to set the page title
+$theme->get_template()->set('title', 'This is the page title');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_template">set_template($template)</h4>
+				<p>
+					The <strong>set_template</strong> method allow you to set the theme template for the page.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$template</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of the theme template view to load.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>View</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// set the page template to the subpage layout, and set the page title
+$theme->set_template('layouts/subpage')->set('title', 'Subpage title');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_partial">get_partial($section, $view)</h4>
+				<p>
+					The <strong>get_partial</strong> method allow you to get the view instance of a previously set partial in a named section of your page template.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$section</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of page template section you want to get the partial from.</td>
+								</tr>
+								<tr>
+									<th><kbd>$view</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of view to use for the partial</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>View</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+/**
+ * Get the View instance of the 'partials/menu' view in the 'sidebar' section of the
+ * currently loaded page template, and assign a variable to it.
+ */
+$theme->get_partial('sidebar', 'partials/menu')->set('class', 'menu green');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					When you get a partial, use the name of the view you used to set it. If you assign the same view to the same
+					section multiple times, the first one will be returned. If you have passed a View instance to set_partial(),
+					you can get it using the number of the partial, prefixed with 'partial_'.
+					Example: you retrieve the second partial using the view name 'partial_2'.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_partial">set_partial($section, $view, $overwrite = false)</h4>
+				<p>
+					The <strong>set_partial</strong> method allow you to set a view partial for a named section of your page template.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$section</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of page template section you want to add this partial to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$view</kbd></th>
+									<td><em>string|View</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of view to use for the partial, or a View object.</td>
+								</tr>
+								<tr>
+									<th><kbd>$overwrite</kbd></th>
+									<td><em>boolean</em></td>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>If <strong>false</strong>, append the partial to any partials already defined for this section. If <strong>true</strong>, existing contents will be deleted.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>View</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+/**
+ * Assign the 'partials/menu' view to the 'sidebar' section of the
+ * currently loaded page template.
+ *
+ * In the template, this partial is echo'd out as $partials['sidebar'];
+ */
+$theme->set_partial('sidebar', 'partials/menu');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_partial_count">partial_count($section)</h4>
+				<p>
+					The <strong>partial_count</strong> method returns a count of the number of partials defined for the given section.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$section</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of page template section you want to check for defined partials.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Integer</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// Get the number of partials assigned to the sidebar
+$partials = $theme->partial_count('sidebar');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_has_partials">has_partials($section)</h4>
+				<p>
+					The <strong>has_partials</strong> method allows you to check if a template section has any partials defined.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$section</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of page template section you want to check for defined partials.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// Check if we have sidebar partials defined
+if ( ! $theme->has_partials('sidebar'))
+{
+	// some code here to hide the sidebar...
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_chrome">get_chrome($section)</h4>
+				<p>
+					The <strong>get_chrome</strong> method allow you to get the view instance of a previously set partial chrome.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$section</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of section you want to get the partial chrome from.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>View</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+/**
+ * Get the View instance for the chrome assigned to the 'sidebar' of the
+ * template and assign a variable to it.
+ */
+$theme->get_chrome('sidebar')->set('title', 'This is a sidebar');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_chrome">set_chrome($section, $view, $var = 'content')</h4>
+				<p>
+					The <strong>set_chrome</strong> method allow you to define chrome for a partial section of your page template.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$section</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of page template section you want to add this partial to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$view</kbd></th>
+									<td><em>string|View</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of view to use for the chome of the partial, or a View object.</td>
+								</tr>
+								<tr>
+									<th><kbd>$var</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'content'</code></pre></td>
+									<td>The name of the variable in the chrome view used to output the partial content.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>View</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+/**
+ * Assign the 'chrome/roundedcorners' view to the 'sidebar' section of the
+ * currently loaded page template to give the partial section a border with
+ * rounded corners.
+ *
+ * In the chrome view, the partial output is echo'd out as $body;
+ */
+$theme->set_chrome('sidebar', 'chrome/roundedcorners', 'body');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_find">find($theme)</h4>
+				<p>
+					The <strong>find</strong> method will iterate over the defined search paths to find the theme requested.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$theme</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of the theme to find.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed. Returns the path to the theme if found, or <strong>false</strong> if not.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// find the 'darkglow' theme
+if ($path = $theme->find('darkglow'))
+{
+	// the theme can be found in $path
+}
+else
+{
+	// unable to find the theme
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_all">all()</h4>
+				<p>
+					The <strong>all</strong> method returns an array of all themes in all theme paths, sorted alphabetically.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>None</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// fetch all installed themes
+$themes = $theme->all();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_use_modules">use_modules($enable = true)</h4>
+				<p>
+					The <strong>use_modules</strong> method enables or disables the prefixing feature for views loaded from a
+					module. If <em>true</em>, the views loaded via the Theme class will be prefixed by the current active module
+					name (if any). If a string is passed, it will be prefixed as well, allowing you to store all modules in a
+					separate directory, to avoid name conficts between module names and non-prefixed view names. If the view can
+					not be found, it's checked again without the prefix, allowing for global views from inside a module. If that
+					doesn't exist either, the View class will be called to load the view the regular way.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$enable</kbd></th>
+									<td><em>boolean</em> | <em>string</em></td>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>True or a string containing a folder name to enable the feature, false to disable it.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Theme</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// when in the module 'test', this will load the theme view 'test/controller/view'
+$info = $theme->use_modules()->set_partial('content', 'controller/view')->use_modules(false);
+
+// when in the module 'test', this will load the theme view 'modules/test/controller/view'
+$info = $theme->use_modules('modules')->set_partial('content', 'controller/view')->use_modules(false);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">
+					You can set a global default value through the <strong>use_modules</strong> key of the theme.php configuration file.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_load_info">load_info($theme = null)</h4>
+				<p>
+					The <strong>load_info</strong> method returns the complete info array for a theme.
+					If no theme is specified, the info of the active theme is returned.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$theme</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The name of the theme.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested theme could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// get the information array for the 'basic' theme.
+$info = $theme->load_info('basic');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">
+					If no theme info file could be found, this method Throws \ThemeException if <strong>require_info_file</strong> is
+					set to <strong>true</strong>, or an empty array is returned if <strong>require_info_file</strong> is
+					set to <strong>false</strong>.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_save_info">save_info($type = 'active')</h4>
+				<p>
+					The <strong>save_info</strong> saves the contents of the theme info array
+					back to the theme info file.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$type</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'active'</code></pre></td>
+									<td>Whether the active or fallback theme info should be saved.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested theme could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// save the information array for the active theme.
+$info = $theme->save_info('active');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">
+					If no theme info file could be found, this method Throws \ThemeException if <strong>require_info_file</strong> is
+					set to <strong>true</strong>, or an empty array is returned if <strong>require_info_file</strong> is
+					set to <strong>false</strong>.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_info">get_info($var, $default = null, $theme = null)</h4>
+				<p>
+					The <strong>get_info</strong> method returns a specific variable from the theme info array.
+					If no theme is specified, the info array of the active theme is used.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$var</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of the info variable to retrieve.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><em>mixed</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The value to return if the requested $var does not exist.</td>
+								</tr>
+								<tr>
+									<th><kbd>$theme</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The name of the theme whose info file should be searched.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>\ThemeException, when the requested theme could not be found.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// get the color defined the the 'basic' theme, and if not set, use 'blue'
+$var = $theme->get_info('color', 'blue', 'basic');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					If you specify a theme, the value is loaded from the theme info file. This is true even if the theme specified
+					is currently set as active or passive theme. For those, the loaded (and possibly modified) info is not used!
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_info">set_info($var, $value = null, $type = 'active')</h4>
+				<p>
+					The <strong>set_info</strong> method allows you to set a varaible in the active or fallback theme info array.
+					If no theme is specified, the info array of the active theme is used.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$var</kbd></th>
+									<td><em>string</em></td>
+									<td><strong>required</strong></td>
+									<td>The name of the info variable to set.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><em>mixed</em></td>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The value to set.</td>
+								</tr>
+								<tr>
+									<th><kbd>$type</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'active'</code></pre></td>
+									<td>Whether the variable should be set in the active or fallback theme.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Theme</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default instance
+$theme = \Theme::instance();
+
+// set the color to blue of the fallback theme
+$theme->set_info('color', 'blue', 'fallback');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

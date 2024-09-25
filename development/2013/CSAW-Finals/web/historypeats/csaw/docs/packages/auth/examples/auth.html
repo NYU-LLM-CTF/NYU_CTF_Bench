@@ -1,0 +1,418 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Auth Controller example - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Using Auth in your application</h2>
+
+			<p>On this page you will find an example of an Auth controller, which you can use in your application to provide basic user
+			authentication using either Simpleauth or Ormauth.</p>
+
+			<h3>Assumptions</h3>
+
+			<p>This example it taken from a real application and shows you the methods for login, logout, new user registration and lost
+			password recovery, based on an Ormauth implementation. It supports the remember-me feature and uses Fieldsets to generate the
+			forms needed. To make it easier to explain the different sections, the controller has been broken up into different parts.
+			You can simply copy all example sections back into a single controller class to use it.</p>
+
+			<p>It also uses language files for all data strings (it assumes you have a language file called <i>login</i> that contains all
+			the language strings used, a central <i>application</i> configuration file to configure application	behaviour and a <i>Message</i>
+			class that deals with messaging in the application, which are all outside the scope of this example. You can replace that with
+			whatever mechanism you use in your application control behaviour and to relay messages back to the user.</p>
+
+			<p>The original code uses the Theme class, but the example has been adapted to use standard Views for simplicity reasons. If you
+			prefer to use Controller_Template, set the template content instead of returning View objects. If you're using the theme class,
+			set the required partial instead.</p>
+
+			<h3 id="login">Login</h3>
+
+			<p>This is the example code for the login method. It expects input from a form that contains the input fields
+			<strong>username</strong> (which may contain either username or email address), <strong>password</strong> and
+			<strong>remember</strong> (which is used as a toggle, so it can be a checkbox). If no form input is present,
+			or if a login failure is detected, it falls through and displays the login view.</p>
+
+<pre class="php"><code>public function action_login()
+{
+	// already logged in?
+	if (\Auth::check())
+	{
+		// yes, so go back to the page the user came from, or the
+		// application dashboard if no previous page can be detected
+		\Messages::info(__('login.already-logged-in'));
+		\Response::redirect_back('dashboard');
+	}
+
+	// was the login form posted?
+	if (\Input::method() == 'POST')
+	{
+		// check the credentials.
+		if (\Auth::instance()->login(\Input::param('username'), \Input::param('password')))
+		{
+			// did the user want to be remembered?
+			if (\Input::param('remember', false))
+			{
+				// create the remember-me cookie
+				\Auth::remember_me();
+			}
+			else
+			{
+				// delete the remember-me cookie if present
+				\Auth::dont_remember_me();
+			}
+
+			// logged in, go back to the page the user came from, or the
+			// application dashboard if no previous page can be detected
+			\Response::redirect_back('dashboard');
+		}
+		else
+		{
+			// login failed, show an error message
+			\Messages::error(__('login.failure'));
+		}
+	}
+
+	// display the login page
+	return \View::forge('login/login');
+}</code></pre>
+
+			<h3 id="logout">Logout</h3>
+
+			<p>This is the example code for the logout method. It will remove the remember-me cookie (as that would cause an automatic re-login on
+			the next page request), </p>
+
+<pre class="php"><code>public function action_logout()
+{
+	// remove the remember-me cookie, we logged-out on purpose
+	\Auth::dont_remember_me();
+
+	// logout
+	\Auth::logout();
+
+	// inform the user the logout was successful
+	\Messages::success(__('login.logged-out'));
+
+	// and go back to where you came from (or the application
+	// homepage if no previous page can be determined)
+	\Response::redirect_back();
+}</code></pre>
+
+			<h3 id="registration">Registration</h3>
+
+			<p>This is the example code for the new user registration method. As this example uses Ormauth, it's obvious that we can use the
+			Auth user model to create the fieldset for the registration form. If you're using Simpleauth, you can still use the model as a
+			fieldset template, as we're not using it to interact with the database. Using it does mean you need to have the Orm package loaded
+			though, otherwise the Model class can't be loaded.
+			</p>
+
+<pre class="php"><code>public function action_register()
+{
+	// is registration enabled?
+	if ( ! \Config::get('application.user.registration', false))
+	{
+		// inform the user registration is not possible
+		\Messages::error(__('login.registation-not-enabled'));
+
+		// and go back to the previous page (or the homepage)
+		\Response::redirect_back();
+	}
+
+	// create the registration fieldset
+	$form = \Fieldset::forge('registerform');
+
+	// add a csrf token to prevent CSRF attacks
+	$form->form()->add_csrf();
+
+	// and populate the form with the model properties
+	$form->add_model('Model\\Auth_User');
+
+	// add the fullname field, it's a profile property, not a user property
+	$form->add_after('fullname', __('login.form.fullname'), array(), array(), 'username')->add_rule('required');
+
+	// add a password confirmation field
+	$form->add_after('confirm', __('login.form.confirm'), array('type' => 'password'), array(), 'password')->add_rule('required');
+
+	// make sure the password is required
+	$form->field('password')->add_rule('required');
+
+	// and new users are not allowed to select the group they're in (duh!)
+	$form->disable('group_id');
+
+	// since it's not on the form, make sure validation doesn't trip on its absence
+	$form->field('group_id')->delete_rule('required')->delete_rule('is_numeric');
+
+	// was the registration form posted?
+	if (\Input::method() == 'POST')
+	{
+		// validate the input
+		$form->validation()->run();
+
+		// if validated, create the user
+		if ( ! $form->validation()->error())
+		{
+			try
+			{
+				// call Auth to create this user
+				$created = \Auth::create_user(
+					$form->validated('username'),
+					$form->validated('password'),
+					$form->validated('email'),
+					\Config::get('application.user.default_group', 1),
+					array(
+						'fullname' => $form->validated('fullname'),
+					)
+				);
+
+				// if a user was created succesfully
+				if ($created)
+				{
+					// inform the user
+					\Messages::success(__('login.new-account-created'));
+
+					// and go back to the previous page, or show the
+					// application dashboard if we don't have any
+					\Response::redirect_back('dashboard');
+				}
+				else
+				{
+					// oops, creating a new user failed?
+					\Messages::error(__('login.account-creation-failed'));
+				}
+			}
+
+			// catch exceptions from the create_user() call
+			catch (\SimpleUserUpdateException $e)
+			{
+				// duplicate email address
+				if ($e->getCode() == 2)
+				{
+					\Messages::error(__('login.email-already-exists'));
+				}
+
+				// duplicate username
+				elseif ($e->getCode() == 3)
+				{
+					\Messages::error(__('login.username-already-exists'));
+				}
+
+				// this can't happen, but you'll never know...
+				else
+				{
+					\Messages::error($e->getMessage());
+				}
+			}
+		}
+
+		// validation failed, repopulate the form from the posted data
+		$form->repopulate();
+	}
+
+	// pass the fieldset to the form, and display the new user registration view
+	return \View::forge('login/registration')->set('form', $form, false);
+}</code></pre>
+
+			<p>With this code, new user accounts are immediately active. You can add a validation stage by creating a separate group for users
+			in that stage, and send a confirmation email out. That email should then contain a link to a new 'confirm' method with a hash,
+			that after validation of the hash changes the group from 'validating' to 'active'. How to do this is left to the reader. You can
+			have a look at the password recovery method below to get some pointers on how to generate this hash, where to store it, and how
+			to send an email out.</p>
+
+			<h3 id="password-recovery">Password recovery</h3>
+
+			<p>This is the example code for the password-recovery method. It requires a form with an 'email' input field on which the user can
+			enter his email address. This is then used to lookup the user, and send out an email with a recovery link. There is no visible
+			feedback to the user whether or not the email was correct, to avoid account and email guessing.</p>
+
+<pre class="php"><code>public function action_lostpassword($hash = null)
+{
+	// was the lostpassword form posted?
+	if (\Input::method() == 'POST')
+	{
+		// do we have a posted email address?
+		if ($email = \Input::post('email'))
+		{
+			// do we know this user?
+			if ($user = \Model\Auth_User::find_by_email($email))
+			{
+				// generate a recovery hash
+				$hash = \Auth::instance()->hash_password(\Str::random()).$user->id;
+
+				// and store it in the user profile
+				\Auth::update_user(
+					array(
+						'lostpassword_hash' => $hash,
+						'lostpassword_created' => time()
+					),
+					$user->username
+				);
+
+				// send an email out with a reset link
+				\Package::load('email');
+				$email = \Email::forge();
+
+				// use a view file to generate the email message
+				$email->html_body(
+					\Theme::instance()->view('login/lostpassword')
+						->set('url', \Uri::create('login/lostpassword/'.$hash), false)
+						->set('user', $user, false)
+						->render()
+				);
+
+				// give it a subject
+				$email->subject(__('login.password-recovery'));
+
+				// add from- and to address
+				$from = \Config::get('application.email-addresses.from.website', 'website@example.org');
+				$email->from($from['email'], $from['name']);
+				$email->to($user->email, $user->fullname);
+
+				// and off it goes (if all goes well)!
+				try
+				{
+					// send the email
+					$email->send();
+				}
+
+				// this should never happen, a users email was validated, right?
+				catch(\EmailValidationFailedException $e)
+				{
+					\Messages::error(__('login.invalid-email-address'));
+					\Response::redirect_back();
+				}
+
+				// what went wrong now?
+				catch(\Exception $e)
+				{
+					// log the error so an administrator can have a look
+					logger(\Fuel::L_ERROR, '*** Error sending email ('.__FILE__.'#'.__LINE__.'): '.$e->getMessage());
+
+					\Messages::error(__('login.error-sending-email'));
+					\Response::redirect_back();
+				}
+			}
+		}
+
+		// posted form, but email address posted?
+		else
+		{
+			// inform the user and fall through to the form
+			\Messages::error(__('login.error-missing-email'));
+		}
+
+		// inform the user an email is on the way (or not ;-))
+		\Messages::info(__('login.recovery-email-send'));
+		\Response::redirect_back();
+	}
+
+	// no form posted, do we have a hash passed in the URL?
+	elseif ($hash !== null)
+	{
+		// get the userid from the hash
+		$user = substr($hash, 44);
+
+		// and find the user with this id
+		if ($user = \Model\Auth_User::find_by_id($user))
+		{
+			// do we have this hash for this user, and hasn't it expired yet (we allow for 24 hours response)?
+			if (isset($user->lostpassword_hash) and $user->lostpassword_hash == $hash and time() - $user->lostpassword_created &lt; 86400)
+			{
+				// invalidate the hash
+				\Auth::update_user(
+					array(
+						'lostpassword_hash' => null,
+						'lostpassword_created' => null
+					),
+					$user->username
+				);
+
+				// log the user in and go to the profile to change the password
+				if (\Auth::instance()->force_login($user->id))
+				{
+					\Messages::info(__('login.password-recovery-accepted'));
+					\Response::redirect('profile');
+				}
+			}
+		}
+
+		// something wrong with the hash
+		\Messages::error(__('login.recovery-hash-invalid'));
+		\Response::redirect_back();
+	}
+
+	// no form posted, and no hash present. no clue what we do here
+	else
+	{
+		\Response::redirect_back();
+	}
+}</code></pre>
+
+		<p>As mentioned before, this example uses Ormauth, and can therefore use the provided Orm models to access the users table. If you
+		use Simpleauth, use this code instead:</p>
+
+<pre class="php"><code>$user = \DB::select_array(\Config::get('simpleauth.table_columns', array('*')))
+	->where('email', '=', $email)
+	->from(\Config::get('simpleauth.table_name'))
+	->as_object()->execute(\Config::get('simpleauth.db_connection'))->current();
+
+	// do we know this user?
+	if ($user)
+	{
+		// etc...
+</code></pre>
+
+		<p>and likewise for the second lookup, which is on 'id'. You will also have to modify the check on the lostpassword fields, as with
+		Simpleauth they are stored in the profile fields array. This means that you have to the profile_fields column from the query result,
+		unserialize it if it's not empty, and get the hash and timestamp out of it.</p>
+
+		<p>You may also notice that the user-id is added to the hash. This is done to be able to support Simpleauth. With Ormauth, you could do
+		a metadata lookup, and get the related user object from the metadata. With Simpleauth, there is no lookup possible since the data is
+		stored in a serialized array inside the profile_fields column.</p>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

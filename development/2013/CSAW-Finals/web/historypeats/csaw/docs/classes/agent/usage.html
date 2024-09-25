@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Agent::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Agent Usage - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Agent Class</h2>
+
+			<p>The agent class allows you to retrieve information about browser type, version, platform or operating system, etc, based on the clients User Agent string.</p>
+
+			<section>
+				<h2>Usage</h2>
+
+				<article>
+					<h4 id="method_accepts_charset" class="method">accepts_charset($charset = 'utf-8')</h4>
+					<p>Check if the current browser accepts a specific character set.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$charset</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the characterset</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if the users browser accepts iso-8859-1
+if (Agent::accepts_charset('iso-8859-1'))
+{
+	echo "Yes, the browser accepts this characterset!";
+}
+	</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_accepts_language" class="method">accepts_language($language = 'en')</h4>
+					<p>Check if the current browser accepts a specific ISO language code.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$language</kbd></th>
+										<td><i>string</i></td>
+										<td>ISO language code</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if the users browser accepts Flemish (Belgian Dutch)
+if (Agent::accepts_language('nl_BE'))
+{
+	echo "Yes, the browser is configured for the Flemish language!";
+}
+	</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_browser" class="method">browser()</h4>
+					<p>Returns the normalized browser name from the user agent string.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Process based on the browser name
+switch (Agent::browser())
+{
+	case 'Firefox':
+		// do something specific here
+		break;
+	case 'IE':
+		// do something specific here
+		break;
+	case 'Chrome':
+		// do something specific here
+		break;
+	case 'Unknown':
+		// do something specific here
+		break;
+	default:
+		// these are not all supported browser...
+		break;
+}</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_platform" class="method">platform()</h4>
+					<p>Returns the normalized platform name from the user agent string.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Process based on the browser platform
+switch (Agent::platform())
+{
+	case 'Win95':
+	case 'Win98':
+	case 'WinNT':
+	case 'WinME':
+	case 'Win2000':
+		// do something specific here
+		break;
+	case 'WinXP':
+	case 'WinVista':
+	case 'Win7':
+		// do something specific here
+		break;
+	case 'Linux':
+		// do something specific here
+		break;
+	case 'MacOSX':
+	case 'MacPPC':
+		// do something specific here
+		break;
+	case 'SunOS':
+	case 'FreeBSD':
+	case 'Debian':
+	case 'HP-UX':
+	case 'IRIX64':
+		// do something specific here
+		break;
+	case 'unknown':
+		// do something specific here
+		break;
+	default:
+		// these are not all supported platforms...
+		break;
+}</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_version" class="method">version()</h4>
+					<p>Returns the browser version.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>float</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if an old Internet Explorer version is used
+if (Agent::browser() == 'IE' and Agent::version() &lt; 7)
+{
+	echo "Sorry, no support for outdated browsers!";
+}
+	</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_charsets" class="method">charsets()</h4>
+					<p>Returns an array with all charactersets accepted by the browser.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>array</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if the users browser accepts iso-8859-1
+$sets = Agent::charsets();
+if (in_array('iso-8859-1', $sets))
+{
+	echo "Yes, the browser accepts this characterset!";
+}
+	</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_languages" class="method">languages()</h4>
+					<p>Returns an array with all ISO languages accepted by the browser.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>array</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if the users browser accepts Flemish (Belgian Dutch)
+$lang = Agent::languages();
+if (in_array('nl_BE', $lang))
+{
+	echo "Yes, the browser is configured for the Flemish language!";
+}
+	</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_properties" class="method">properties()</h4>
+					<p>Returns an array with all properties of the detected browser.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>array</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Get the browser properties
+$properties = Agent::properties();
+
+/**
+ * These are the supported properties, and their default value
+ *
+ * $properties = array(
+ * 	'browser'             => "unknown",
+ * 	'version'             => 0,
+ * 	'majorver'            => 0,
+ * 	'minorver'            => 0,
+ * 	'platform'            => 'unknown',
+ * 	'alpha'               => false,
+ * 	'beta'                => false,
+ * 	'win16'               => false,
+ * 	'win32'               => false,
+ * 	'win64'               => false,
+ * 	'frames'              => false,
+ * 	'iframes'             => false,
+ * 	'tables'              => false,
+ * 	'cookies'             => false,
+ * 	'backgroundsounds'    => false,
+ * 	'javascript'          => false,
+ * 	'vbscript'            => false,
+ * 	'javaapplets'         => false,
+ * 	'activexcontrols'     => false,
+ * 	'isbanned'            => false,
+ * 	'ismobiledevice'      => false,
+ * 	'issyndicationreader' => false,
+ * 	'crawler'             => false,
+ * 	'cssversion'          => 0,
+ * 	'aolversion'          => 0,
+ * );
+ *
+ * Note that the booleans indicate a specific supported functionality.
+ * It does not indicated if it is enabled or not.
+ */</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_property" class="method">property($property = null)</h4>
+					<p>Return a specific browser property. See properties() for the list of supported properties.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$property</kbd></th>
+										<td><i>string</i></td>
+										<td>Name of the property to retrieve. The name is case-sensitive!</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>mixed</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Check if the browser supports cookies
+if (Agent::property('cookies') === true)
+{
+	echo "Yes, the browser supports Cookies!";
+}
+	</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_is_mobiledevice" class="method">is_mobiledevice()</h4>
+					<p>Checks if the browser used is running on a mobile device.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Load a platform specific view
+if (Agent::is_mobiledevice())
+{
+	$content = View::forge('mobile/viewname');
+}
+else
+{
+	$content = View::forge('standard/viewname');
+}</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_is_robot" class="method">is_robot()</h4>
+					<p>Checks if the browser agent indicates the visitor is a robot or crawler.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>None</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>boolean</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Load a crawler specific view (note: this is frowned upon!)
+if (Agent::is_robot())
+{
+	$content = View::forge('robot/viewname');
+}
+else
+{
+	$content = View::forge('standard/viewname');
+}</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

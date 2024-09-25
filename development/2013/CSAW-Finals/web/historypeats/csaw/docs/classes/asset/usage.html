@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Asset::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Asset Usage - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Asset Class</h2>
+
+			<p>The asset class is a set of methods to help with the collection, grouping and displaying of assets (js, css, img).</p>
+
+			<section>
+				<h3 id="usage">Usage</h3>
+
+				<p>
+					Using assets can be done in 2 ways: through static usage of the Asset class and through asset objects
+					returned by the Asset::forge() or Asset::instance(). This section covers static usage which will always work
+					with the default instance using the configuration specified in the <a href="config.html">configuration</a>.
+				</p>
+
+				<p class="note">
+					<strong>Note:</strong> the css, js and img methods will return the current instance when adding to a group.
+					This will happen when you supply a group or <em>auto_render</em> is <em>false</em> and no group (or
+					<em>null</em>) is supplied in the call.
+				</p>
+
+				<p>
+					Using asset objects, Asset::instance() and Asset::forge() is explained in the <a href="advanced.html">advanced</a> section.
+				</p>
+
+				<article>
+					<h4 id="method_add_path" class="method">add_path($path, $type = null)</h4>
+					<p>
+						The <strong>add_path</strong> method adds the given path to the front of the global assets search path array.
+						If a $type is specified, it will add the path to the front of the search folder array for the given type.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$path</kbd></th>
+										<td><i>required</i></td>
+										<td>The path to add to the front of the assets path array (RELATIVE to the asset url and WITH trailing slash).</td>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>
+											If adding a folder, the type to add it to. The asset class has the types 'img', 'css' and 'js' predefined.
+											If you pass an undefined type, a new paths structure will be created for this type.
+											To add the same path to multiple types, pass them as an array of types.
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>current instance</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/*
+ * These paths would need to have subfolders as defined in the config
+ * file, depending on the type of content you were trying to use.
+ */
+Asset::add_path('resources/template_1/');
+Asset::add_path('resources/template_2/');
+
+/*
+ * Add a global path for all asset types, then add individual paths
+ * for images and css files.
+ */
+Asset::add_path('assets/global/', array('css', 'js', 'img'));
+Asset::add_path('assets/icons/', 'img');
+Asset::add_path('assets/images/', 'img');
+Asset::add_path('assets/css/', 'css');
+
+/*
+ * Create a new asset type
+ */
+Asset::add_path('assets/docs/', 'pdf');
+
+/*
+ * You can chain the calls as well.
+ */
+Asset::add_path('resources/templates/dark/')
+	->add_path('resources/templates/light')
+	->add_path('resources/templates/brown');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_css" class="method">css($stylesheets = array(), $attr = array(), $group = NULL, $raw = false)</h4>
+					<p>The <strong>css</strong> method adds css to a named group, the default group, or returns the css tag.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$stylesheets</kbd></th>
+										<td><i>required</i></td>
+										<td>An array/string of stylesheet filename(s) to be added to the group or be returned as tags, or a string containing inline CSS.</td>
+									</tr>
+									<tr>
+										<th><kbd>$attr</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>An array of attributes to be applied to the css file(s).</td>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>A group name to categorize the css. If left null the method will return the css tag.</td>
+									</tr>
+									<tr>
+										<th><kbd>$raw</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>If set to true, the result css tags will include the string or file contents directly in the HTML, instead of via a link tag.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Rendered asset string or current instance when adding to group.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// adds file to group and returns '' if group is not null
+Asset::css(array('header.css', 'footer.css'), array(), 'layout', false);
+
+/* returns
+ * &lt;link href="../assets/css/inline.css" rel="stylesheet" /&gt;
+ * if auto_render in the config is set to true.
+ * if not, the asset will be added to the default group for later rendering
+ */
+echo Asset::css('inline.css');
+
+/* returns
+ * &lt;style&gt;
+ * .bold_class { font-weight: bold }
+ * #header {height: 50px}
+ * &lt;/style&gt;
+ */
+echo Asset::css('inline.css', array(), null, true);
+
+/* returns
+ * &lt;style&gt;
+ * .bold_class { font-weight: bold }
+ * #header {height: 50px}
+ * &lt;/style&gt;
+ */
+Asset::css(".bold_class { font-weight: bold }\n#header {height: 50px}", array(), 'inline', true);
+echo Asset::render('inline');
+
+/* this will do the same */
+echo Asset::css(".bold_class { font-weight: bold }\n#header {height: 50px}", array(), null, true);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_find_file" class="method">find_file($file, $type, $folder = '')</h4>
+					<p>The <strong>find_file</strong> locates a file of a given type in all defined asset search folders for that type.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$file</kbd></th>
+										<td><i>required</i></td>
+										<td>The name of the file you are searching for.</td>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><i>required</i></td>
+										<td>The type of asset being searched (css, js, img).</td>
+									</tr>
+									<tr>
+										<th><kbd>$folder</kbd></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>The name of the sub-folder to append to each search folder.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Either the path to the file or false if not found</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// find a css file
+$path = Asset::find_file('layout.css', 'css');
+
+// find an icon image (assuming icons are in an img sub-folder called 'icons')
+$path = Asset::find_file('icon.png', 'img','icons/');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_img" class="method">img($images = array(), $attr = array(), $group = NULL)</h4>
+					<p>The <strong>img</strong> method either adds the image to a named group, the default group, or returns the image tag.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$images</kbd></th>
+										<td><i>required</i></td>
+										<td>An array/string of image filename(s) to be applied to the group or returned as tags.</td>
+									</tr>
+									<tr>
+										<th><kbd>$attr</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>An array of attributes to apply to the image tag(s).</td>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The group to apply the images to.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Rendered asset string or current instance when adding to group.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/* returns
+ * &lt;img src="../assets/img/logo.png" id="logo"&gt;
+ * if auto_render in the config is set to true.
+ * if not, the asset will be added to the default group for later rendering
+ */
+echo Asset::img('logo.png', array('id' => 'logo'));
+
+Asset::img(array('bob.jpg', 'joe.jpg', 'sally.jpg'), array('class' => 'thumbnail'), 'team_avatars');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_js" class="method">js($scripts = array(), $attr = array(), $group = NULL, $raw = false)</h4>
+					<p>The <strong>js</strong> method either adds the javascript to a named group, the default group, or returns the script tag.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$scripts</kbd></th>
+										<td><i>required</i></td>
+										<td>An array/string of stylesheet filename(s) to be added to the group or be returned as tags, or a string containing inline javascript.</td>
+									</tr>
+									<tr>
+										<th><kbd>$attr</kbd></th>
+										<td><pre class="php"><code>array()</code></pre></td>
+										<td>An array of attributes to be applied to the js file(s).</td>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>A group name to categorize the js. If left null the method will return the js tag.</td>
+									</tr>
+									<tr>
+										<th><kbd>$raw</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>If set to true, the result javascript tags will include the string or file contents directly in the HTML, instead of via a script tag.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Rendered asset string or current instance when adding to group.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns '' if $raw is set to false
+Asset::js(array('jquery.js', 'jqueryui.js'), array(), 'jquery', false);
+
+/* returns
+ * &lt;script type="text/javascript"&gt;
+ * var menu = getElementById('menu');
+ * menu.initialize_menu();
+ * &lt;/script&gt;
+ */
+echo Asset::js('menu_init.js', array(), null, true);
+
+/* returns
+ * &lt;script type="text/javascript" src="../assets/js/jquery.js"&gt;&lt;/script&gt;
+ * if auto_render in the config is set to true.
+ * if not, the asset will be added to the default group for later rendering
+ */
+echo Asset::js('jquery.js');
+
+/* returns
+ * &lt;script type="text/javascript"&gt;
+ * var menu = getElementById('menu');
+ * menu.initialize_menu();
+ * &lt;/script&gt;
+ */
+Asset::js("var menu = getElementById('menu');\nmenu.initialize_menu();", array(), 'inline', true);
+echo Asset::render('inline');
+
+/* this will do the same */
+echo Asset::js("var menu = getElementById('menu');\nmenu.initialize_menu();", array(), null, true);
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_get_file" class="method">get_file($file, $type, $folder = '')</h4>
+					<p>The <strong>get_file</strong> method allows you to get the URL to an asset file.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$file</kbd></th>
+										<td><i>required</i></td>
+										<td>Name of the asset to look for.</td>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><i>required</i></td>
+										<td>Type of asset to search for. 'img', 'css', and 'js' are supported types.</td>
+									</tr>
+									<tr>
+										<th><kbd>$folder</kbd></th>
+										<td><pre class="php"><code>''</code></pre></td>
+										<td>Optionally you can specify sub-folders if the asset is in a sub-folder of one of the defined asset search paths.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Fully qualified asset URL (depending on the base_url defined) or false if not found.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns something like 'http://example.org/assets/js/jquery.js'
+echo Asset::get_file('jquery.js', 'js');</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_remove_path" class="method">remove_path($path, $type = null)</h4>
+					<p>
+						The <strong>remove_path</strong> method removes the given path from the global assets search path array.
+						If a $type is specified, it will remove the path from the search folder array for the given type.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$path</kbd></th>
+										<td><i>required</i></td>
+										<td>The path to from the assets path array.</td>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>
+											If adding a folder, the type to add it to. Currently, 'img', 'css' and 'js' are suppored.
+											To add the same path to multiple types, pass them as an array of types.
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>The current instance</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/*
+ * Remove global search paths
+ */
+Asset::remove_path('resources/template_1/');
+Asset::remove_path('resources/template_2/');
+
+/*
+ * Remove individual paths for different asset types
+ */
+Asset::remove_path('assets/global/', array('css', 'js', 'img'));
+Asset::remove_path('assets/icons/', 'img');
+Asset::remove_path('assets/images/', 'img');
+Asset::remove_path('assets/css/', 'css');
+
+/*
+ * Or chain the calls.
+ */
+Asset::remove_path('resources/templates/dark/')
+	->remove_path('resources/templates/light')
+	->remove_path('resources/templates/brown');
+</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+				<article>
+					<h4 id="method_render" class="method">render($group = null, $raw = false)</h4>
+					<p>
+						The <strong>render</strong> renders the group of assets and returns the tags.
+						If no group is specified, the default group will be rendered.
+					</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th class="legend">Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$group</kbd></th>
+										<td><pre class="php"><code>null</code></pre></td>
+										<td>The name of the group to render or null for the default group.</td>
+									</tr>
+									<tr>
+										<th><kbd>$raw</kbd></th>
+										<td><pre class="php"><code>false</code></pre></td>
+										<td>If true this method will include the contents of css/js files for embedding.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>string</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/* returns
+ * &lt;link href="../assets/css/header.css" rel="stylesheet" /&gt;
+ * &lt;link href="../assets/css/footer.css" rel="stylesheet" /&gt;
+ */
+echo Asset::render('layout');
+
+// renders the default group
+echo Asset::render();</code></pre>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</article>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

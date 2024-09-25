@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Cookie::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Cookie - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Cookie Class</h2>
+
+			<p>The cookie class allows you to get, set and delete cookies.</p>
+
+			<h3 id="configuration">Configuration</h3>
+
+			<p>The cookie class is configured through the global application configuration file, <strong>app/config/config.php</strong>. It defines a section called '<strong>cookie</strong>', in which the following settings are defined:</p>
+			<table class="method">
+				<tbody>
+					<tr>
+						<th>Variable</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th class="description">Description</th>
+					</tr>
+					<tr>
+						<th><kbd>expiration</kbd></th>
+						<td>integer</td>
+						<td><pre class="php"><code>0</code></pre></td>
+						<td>Number of seconds before the cookie expires. This value will be used when $expiration is not specified when you call the set() method.</td>
+					</tr>
+					<tr>
+						<th><kbd>path</kbd></th>
+						<td>string</td>
+						<td><pre class="php"><code>'/'</code></pre></td>
+						<td>Restrict the path that the cookie is available to. This value will be used when $path is not specified when you call the set() method.</td>
+					</tr>
+					<tr>
+						<th><kbd>domain</kbd></th>
+						<td>string</td>
+						<td><pre class="php"><code>null</code></pre></td>
+						<td>Restrict the domain that the cookie is available to. This value will be used when $domain is not specified when you call the set() method.</td>
+					</tr>
+					<tr>
+						<th><kbd>secure</kbd></th>
+						<td>boolean</td>
+						<td><pre class="php"><code>false</code></pre></td>
+						<td>Set to true if you only want to transmit cookies over secure connections.</td>
+					</tr>
+					<tr>
+						<th><kbd>httponly</kbd></th>
+						<td>boolean</td>
+						<td><pre class="php"><code>false</code></pre></td>
+						<td>Allow only transmit of cookies over HTTP, disabling Javascript access.</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>If one or more of these values are missing from the global configuration, the class will use the defaults as defined in this table.</p>
+			<p class="note">
+				When using cookies, make <strong>ABSOLUTELY</strong> sure that the timezone configured in your <em>app/config/config.php</em> and/or your
+				<em>php.ini</em> file matches the timezone set on your server. Since cookie expiry timestamps are in GMT, expiry time calculation goes
+				horribly wrong when you have a timezone mismatch, ranging from not expiring properly to cookies not set at all because they arrive at
+				the browser already expired.
+			</p>
+
+			<article>
+				<h4 class="method" id="method_get">get($name = null, $default = null)</h4>
+				<p>The <strong>get</strong> method allows you to read a $_COOKIE variable. If no name given, all cookies are returned.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><i>Optional</i></td>
+									<td>The key in the $_COOKIE array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>What value should be returned if the array item is not found?</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$theme = Cookie::get('theme', 'blue');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set">set($name, $value, $expiration = null, $path = null, $domain = null, $secure = null, $httponly = null)</h4>
+				<p>The <strong>set</strong> method allows you to create a cookie.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><i>Required</i></td>
+									<td>The key in the $_COOKIE array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>The value of the cookie.</td>
+								</tr>
+								<tr>
+									<th><kbd>$expiration</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Number of seconds the cookie should last for.</td>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The path on the server in which the cookie will be available on.</td>
+								</tr>
+								<tr>
+									<th><kbd>$domain</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The domain that the cookie is available to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$secure</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Set to true if you only want to transmit cookies over secure connections.</td>
+								</tr>
+								<tr>
+									<th><kbd>$httponly</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Allow only transmit of cookies over HTTP, disabling Javascript access.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>Cookie::set('theme', 'blue', 60 * 60 * 24);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p>For every parameter not specified or defined as <strong>null</strong>, the globally defined configuration value will be substituted.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($name, $path = null, $domain = null, $secure = null, $httponly = null)</h4>
+				<p>The <strong>delete</strong> method deletes a parameter from the $_COOKIE array.</p>
+				<p class="note">
+					When a cookie was created under a specified path or/or domain etc. you must also supply this to the delete function.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><i>Required</i></td>
+									<td>Remove a cookie item.</td>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The path on the server in which the cookie will be available on.</td>
+								</tr>
+								<tr>
+									<th><kbd>$domain</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The domain that the cookie is available to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$secure</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Set to true if you only want to transmit cookies over secure connections.</td>
+								</tr>
+								<tr>
+									<th><kbd>$httponly</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Allow only transmit of cookies over HTTP, disabling Javascript access.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Delete normal cookie
+\Cookie::delete('theme');
+
+// Set a cookie with a path
+\Cookie::set('theme', 'fuel', null, '/account/');
+
+// Delete that cookie
+\Cookie::delete('theme', '/account/');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

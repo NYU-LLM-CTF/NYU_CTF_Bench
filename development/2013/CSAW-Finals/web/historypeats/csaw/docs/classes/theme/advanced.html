@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Theme::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Theme Advanced - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Theme Class</h2>
+
+			<p>
+				The Theme class provides theming to your application.
+			</p>
+
+			<h3 id="asset">Asset support</h3>
+
+			<p>
+				Every Theme class instance has it's own instance of the Asset class, to make it easy to load assets from the theme.
+				The Asset instance is populated with the asset paths of both the active and the fallback theme, which will provide
+				the same fallback features for your assets as you have for other theme elements like templates and views.
+			</p>
+
+			<p>Example:</p>
+
+			<pre class="php"><code>// load an asset using the default theme instance
+echo \Theme::instance()->asset->css('bootstrap.css');</code></pre>
+
+			<h3 id="advanced_config">Advanced configuration</h3>
+
+			<p>
+				The methods <a href="methods.html#method_active">active()</a>, <a href="methods.html#method_fallback">fallback()</a>,
+				<a href="methods.html#method_get_info">get_info()</a> and <a href="methods.html#method_load_info">load_info()</a> by default allow you
+				to pass a string with the name of an installed theme.
+				These methods allow you to pass an theme definition array instead, which makes it possible to pass extra configuration information.
+			</p>
+
+			<p>The following theme variables are defined:</p>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Param</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<th>name</th>
+						<td>string</td>
+						<td><strong>required</strong></td>
+						<td>The name of the theme. This must match to a folder in the path specified.</td>
+					</tr>
+					<tr>
+						<th>path</th>
+						<td>string</td>
+						<td><strong>required</strong></td>
+						<td>The path of the theme. This must include the name of the theme, and end with a directory separator.</td>
+					</tr>
+					<tr>
+						<th>asset_base</th>
+						<td>string</td>
+						<td><strong>optional</strong></td>
+						<td>
+							The base path to the assets of this theme, relative to the application <strong>DOCROOT</strong>.
+							If outside the <strong>DOCROOT</strong>, the path should be fully qualified.
+							It should end with a directory separator.
+							If not specified, it will be constructed from the given theme path, the configured assets_folder,
+							and the configured base_url.
+						</td>
+					</tr>
+					<tr>
+						<th>info</th>
+						<td>array</td>
+						<td><strong>optional</strong></td>
+						<td>The theme's information array. If not defined, it will be created from the information in the theme info file.</td>
+					</tr>
+					<tr>
+						<th>find_file</th>
+						<td>boolean</td>
+						<td><strong>optional</strong></td>
+						<td>If set to <strong>true</strong>, the <a href="../finder.html#method_search">Finder::search()</a> method will be used to locate view files and theme info files.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p>Example:</p>
+
+			<pre class="php"><code>// standard usage: create an instance and set the active theme
+$theme = \Theme::forge();
+$theme->active('darkglow');
+
+// advanced usage
+\Config::load('theme', true, false, true);
+$config = \Config::get('theme', false);
+
+// override some config values
+$config['info_file_name'] = 'setup.info';
+$config['info_file_type'] = 'ini';
+
+// create the theme instance
+$theme = \Theme::forge($config);
+
+// set the active theme
+$theme->active(
+	array(
+		'name' => 'darkglow',
+		'path' => APPPATH.'themes'.DS.'darkglow'.DS,
+		'asset_base' => '/themes/darkglow/assets/',
+		'find_file' => true,
+	)
+);
+	</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

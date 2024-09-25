@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Database Introduction - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Database Introduction</h2>
+
+			<section>
+
+				<h3 id="introduction">Introduction</h3>
+
+				<p>
+					Fuel offers a driver based database abstraction layer. At the time of writing supported
+					drivers are MySQL, MySQLi and PDO. Aside from regular database interaction, fuel also
+					comes with a DBUtil class to perform database operations such as creating databases,
+					adding fields and much more.
+				</p>
+
+				<p class="note">Please note that not all features are supported by every driver.</p>
+			</section>
+
+			<section>
+				<h3 id="configuration">Configuration</h3>
+
+				<p>
+					In order to begin working with databases, you must change the database settings. The global
+					settings, that are valid for all your <a href="../../general/environments.html">environments</a>,
+					are defined in <em>APPPATH/config/db.php</em>. You define environment specific database settings
+					in the <em>db.php</em> located in the appropriate environment configuration folder. The two will
+					be merged to form the complete database configuration.
+				</p>
+				<p>
+					Database configurations are formated like so:
+				</p>
+					<pre class="php"><code>// a MySQL driver configuration
+'development' => array(
+	'type'           => 'mysqli',
+	'connection'     => array(
+		'hostname'       => 'localhost',
+		'port'           => '3306',
+		'database'       => 'fuel_db',
+		'username'       => 'your_username',
+		'password'       => 'y0uR_p@ssW0rd',
+		'persistent'     => false,
+		'compress'       => false,
+	),
+	'identifier'     => '`',
+	'table_prefix'   => '',
+	'charset'        => 'utf8',
+	'enable_cache'   => true,
+	'profiling'      => false,
+	'readonly'       => false,
+),
+
+// a PDO driver configuration, using PostgreSQL
+'production' => array(
+	'type'           => 'pdo',
+	'connection'     => array(
+		'dsn'            => 'pgsql:host=localhost;dbname=fuel_db',
+		'username'       => 'your_username',
+		'password'       => 'y0uR_p@ssW0rd',
+		'persistent'     => false,
+		'compress'       => false,
+	),
+	'identifier'     => '"',
+	'table_prefix'   => '',
+	'charset'        => 'utf8',
+	'enable_cache'   => true,
+	'profiling'      => false,
+	'readonly'       => array('slave1', 'slave2', 'slave3'),
+),
+
+'slave1' => array(
+	// configuration of the first production readonly slave db
+),
+
+'slave2' => array(
+	// configuration of the second production readonly slave db
+),
+
+'slave3' => array(
+	// configuration of the third production readonly slave db
+),
+</code></pre>
+				<h3 id="config_settings">All Config Settings</h3>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Setting</th>
+							<th>Type</th>
+							<th class="description">Description</th>
+						</tr>
+						<tr>
+							<th><kbd>type</kbd></th>
+							<td>string</td>
+							<td>What type of connection to use. Can be mysql, mysqli or pdo.</td>
+						</tr>
+						<tr>
+							<th><kbd>connection</kbd></th>
+							<td>array</td>
+							<td>Connection settings array</td>
+						</tr>
+						<tr>
+							<th><kbd>connection.dsn</kbd></th>
+							<td>string</td>
+							<td>Connection DSN for PDO.</td>
+						</tr>
+						<tr>
+							<th><kbd>connection.username</kbd></th>
+							<td>string</td>
+							<td>Connection user.</td>
+						</tr>
+						<tr>
+							<th><kbd>connection.password</kbd></th>
+							<td>string</td>
+							<td>Connection password.</td>
+						</tr>
+						<tr>
+							<th><kbd>connection.persistent</kbd></th>
+							<td>boolean</td>
+							<td>Whether to initiate a persisten connection.</td>
+						</tr>
+						<tr>
+							<th><kbd>connection.compress</kbd></th>
+							<td>boolean</td>
+							<td>Whether to use client compression when using MySQL / MySQLi.</td>
+						</tr>
+						<tr>
+							<th><kbd>identifier</kbd></th>
+							<td>string</td>
+							<td>Delimiter used to quote identifiers.</td>
+						</tr>
+						<tr>
+							<th><kbd>table_prefix</kbd></th>
+							<td>string</td>
+							<td>Table prefix.</td>
+						</tr>
+						<tr>
+							<th><kbd>charset</kbd></th>
+							<td>string</td>
+							<td>Connection charset.</td>
+						</tr>
+						<tr>
+							<th><kbd>enable_cache</kbd></th>
+							<td>boolean</td>
+							<td>Whether to allow caching, will overwrite query cache settings on a connection basis.</td>
+						</tr>
+						<tr>
+							<th><kbd>profiling</kbd></th>
+							<td>boolean</td>
+							<td>Whether to add the connections queries to the profiler.</td>
+						</tr>
+						<tr>
+							<th><kbd>readonly</kbd></th>
+							<td>array|false</td>
+							<td>If you have a database in a master/slave setup, you can use this to define an array of slave connections, which will be used at random for read operations.</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					Once you have your configuration in place, it's time to <a href="./usage.html">use it</a>.
+				</p>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

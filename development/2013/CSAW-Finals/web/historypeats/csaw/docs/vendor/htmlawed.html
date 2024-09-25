@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Vendor additions - htmLawed - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>htmLawed</h2>
+
+			<h3>Introduction</h3>
+
+			<p>
+				htmLawed is a highly customizable single-file PHP script to make text secure, and standard- and admin policy-compliant
+				for use in the body of HTML 4, XHTML 1 or 1.1, or generic XML documents. It is thus a configurable input (X)HTML filter,
+				processor, purifier, sanitizer, beautifier, etc., and an alternative to the HTMLTidy application.
+			</p>
+			<p>
+				The lawing in of input text is needed to ensure that HTML code in the text is standard-compliant, does not introduce security
+				vulnerabilities, and does not break the aesthetics, design or layout of web-pages. htmLawed tries to do this by, for example,
+				making HTML well-formed with balanced and properly nested tags, neutralizing code that may be used for cross-site scripting
+				(XSS) attacks, and allowing only specified HTML elements/tags and attributes.
+  			</p>
+
+			<h3>Documentation</h3>
+
+			<p>You can find the htmLawed documentation <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/htmLawed_README.htm" target="_blank">here</a>.</p>
+
+			<h3>FuelPHP Usage</h3>
+
+			<p>
+				The htmLawed vendor package is used by FuelPHP in the security class, to clean user input.
+			</p>
+
+			<h3>Application Usage</h3>
+
+			<p>
+				You can access htmLawed through the <a href="../classes/security.html#/method_xss_clean">Security::xss_clean()</a> method.
+			</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>File Advanced - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Advanced usage</h2>
+
+			<section>
+				<h3 id="intro">Introduction</h3>
+
+				<p>
+					Aside from the basic static <a href="usage.html">usage</a> of the File class there are also more
+					complex options available. The first are <strong>areas</strong> which are basically basepaths it
+					cannot act outside of and have some configuration options. And when using the File class's methods
+					on an area they will return objects wrapping directories &amp; files.
+				</p>
+
+				<article>
+					<h3 id="areas">Areas</h3>
+
+					<h4 id="areas_intro">Introduction</h4>
+					<p>
+						File areas are used to influence file system behaviour. By setting basic restrictions you can
+						set boundaries to allow a flexible use inside those limits without worrying about unauthorized
+						access of files and directories.
+					</p>
+
+					<h4 id="area_config">Configuration</h4>
+					<p>
+						By default file areas have unlimited access through all directories. There are two ways to set
+						these configuration values. The quickest way is to pass an array intro the
+						File::forge() method.
+					</p>
+
+					<pre class="php"><code>$config = array(
+	'basedir'		=> DOCROOT.'uploads',
+	'use_locks'		=> true,
+);
+
+$area = \File::forge($config);</code></pre>
+
+					<p>
+						A more centralized way is by defining an area (or more) inside your File config file. To do so,
+						copy <em>core/config/file.php</em> into <em>app/config/file.php</em> (or create a new one) and
+						define your area inside the <em>'areas'</em> array. Now you can get the area by supplying the
+						string identifier to the File::forge() method.
+					</p>
+
+					<pre class="php"><code>// inside app/config/file.php
+'areas' => array(
+	'my_area' => array(
+		'basedir'		=> DOCROOT.'uploads',
+		'use_locks'		=> true,
+	),
+),
+
+// Now get the area
+
+$area = \File::instance('my_area');
+					</code></pre>
+
+					<h3 id="area_usage">Usage</h3>
+
+					<p>
+						There are 2 ways to use areas in the File class. <br />
+						The first is to use areas in a static context, supply a File_Area instance or identifier to the
+						function you're calling.
+					</p>
+
+					<pre class="php"><code>// Read the contents of a directory
+try
+{
+	$dir = File::read_dir('somedir', 0, null, 'my_area');
+}
+catch(\FileAccessException $e)
+{
+	// Operation failed
+}
+</code></pre>
+
+					<p>The second way is to call the functions directly from the area itself.</p>
+
+					<pre class="php"><code>// Get the area
+$area = File::instance('my_area');
+
+try
+{
+	$dir = $area->read_dir('somedir', 0, null);
+}
+catch(\FileAccessException $e)
+{
+	// Operation failed
+}
+</code></pre>
+
+				</article>
+
+				<article>
+					<h3 id="file_handers">Files &amp; directories as objects: File Handlers</h3>
+
+					<p>
+						<a href="handlers.html">Read about File Handlers.</a>
+					</p>
+				</article>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

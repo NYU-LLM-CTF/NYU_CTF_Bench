@@ -1,0 +1,364 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+		var class_prefix = "$object->";
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Usage - Opauth - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2 id="usage">Opauth Usage</h2>
+
+			<p>As said in the <a href="intro.html">introduction</a> of the Opauth extension to Auth, the wrapper class configures itself
+			automatically for either Simpleauth or Ormauth, based on the driver configured in the <strong>auth.php</strong> configuration
+			file.</p>
+
+			<p>If you don't use these drivers, but you have enrolled your own driver set in the Auth framework, you can still use the Opauth
+			integration class, but you'll have to create the 'providers' table defined in the migration 008 manually.
+			You can name it anything you like. Also, your custom Login driver should provide the methods <strong>Auth::check()</strong>,
+			<strong>Auth::instance()->get_user_id()</strong>, <strong>Auth::instance()->force_login()</strong> and
+			<strong>Auth::create_user()</strong>, with prototypes compatible with Simpleauth. Without these, it will not work.</p>
+
+			<h3 id="runtime_config">Runtime configuration</h3>
+
+			<p>Most of the Opauth configuration is done through the <strong>opauth.php</strong> configuration file, and all of the options in that
+			file can be altered at runtime by passing a new value to the forge() using the $config array. In addition to this, there are some
+			configuration values you can only pass at runtime, they are not supported in the configuration file:
+			</p>
+
+			<table class="config">
+				<thead>
+					<tr class="header">
+						<th style="width:20%;">Param</th>
+						<th style="width:10%;">Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>table</td>
+						<td>string</td>
+						<td><pre><i>auto detected</i></pre></td>
+						<td>
+							Allows you to define the name of the table that contains the provider information manually. When using Simpleauth or
+							Ormauth, the name of this table is auto-detected. If you use a custom Auth driver set, and have created the table
+							manually, you will have to pass this table name on every forge call.
+						</td>
+					</tr>
+					<tr>
+						<td>path</td>
+						<td>string</td>
+						<td><pre><i>auto detected</i></pre></td>
+						<td>
+							URI path to the controller method that does your OAuth authentication. By default, it is set to whatever the current
+							path is when you forge an Opauth object.
+						</td>
+					</tr>
+					<tr>
+						<td>callback_url</td>
+						<td>string</td>
+						<td><pre><i>auto detected</i></pre></td>
+						<td>
+							URI path to the controller method that handles the OAuth provider callback. By default, it is set to call the 'action_callback'
+							or 'get_callback' method in the same controller that <strong>path</strong> points to.
+						</td>
+					</tr>
+					<tr>
+						<td>provider</td>
+						<td>string</td>
+						<td><pre><i>auto detected</i></pre></td>
+						<td>
+							If you have manually set the <strong>path</strong>, auto detection of the OAuth provider called doesn't work, and you will
+							have to define the provider name manually. This is case sensitive, and MUST match the case used by the strategy provider
+							and the key used to define the strategy in the <strong>opauth.php</strong> configuration file.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="note">When using Simpleauth or Ormauth, and you have followed the example code for integrating Opauth in your application,
+			none of these runtime configuration values are needed, the auto-detected values will do the	trick just fine.</p>
+
+			<h3 id="classmethods">Class methods</h3>
+
+			<article>
+				<h4 id="method_forge" class="method">forge($config = array(), $autorun = true)</h4>
+				<p>The <strong>forge</strong> method creates an instance of the Auth_Opauth class, which provides OAuth integration to your application.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$config</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Any runtime configuration values you want to pass to the instance</td>
+								</tr>
+								<tr>
+									<th><kbd>$autorun</kbd></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>If true, it will automatically initiate a connection to the OAuth provider. If false, it will just instantiate the object.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Auth_Opauth</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>/**
+ * load the wrapper, and have it process the provider defined in the URI
+ *
+ * this redirects to the providers authentication page, so it should be the
+ * last line in your method
+ */
+\Auth_Opauth::forge();
+
+// forge an object with a runtime config
+\Auth_Opauth::forge(array(
+    'default_group' => $custom_group_id,
+));
+
+// forge an object with a runtime config, to process a callback
+$opauth = \Auth_Opauth::forge(array(
+    'default_group' => $custom_group_id,
+), false);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">If you want to process a callback without passing a custom config, you don't have to pass an empty array, you
+				can use <strong>\Auth_Opauth::forge(false);</strong> as a shortcut.</p>
+			</article>
+
+			<article>
+				<h4 id="method_login_or_register" class="method">login_or_register()</h4>
+				<p>The <strong>login_or_register</strong> method processes the provider callback. If the returned provider UID is known, the user will
+				be logged in using the local account it is associated to. If not, the user is asked to either register for a new account, or login with
+				and existing account and associate the UID with that account.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							None
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>
+							string, status code. The following status codes are supported:
+							<ul>
+								<li>'linked': the UID is succesfully linked to the current logged-in user</li>
+								<li>'logged_in': the user is succesfully logged-in using the OAuth account</li>
+								<li>'registered': the UID is linked to a newly registered account, and the user is logged-in</li>
+								<li>'register': the UID is not known, and no logged-in user exists, have the user register first</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the Opauth object
+$opauth = \Auth_Opauth::forge(false);
+
+// attempt to auto-login using the provider callback data
+$status = $opauth->login_or_register();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 id="method_link_provider" class="method">link_provider(array $data)</h4>
+				<p>The <strong>link_provider</strong> method allows you to manually link a local user account to an OAuth login. You need this if you want
+				to provide the option for new users to register for a local account first, and then create the link between that account and the provider
+				UID manually.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Array with all data required to create the link (see example)</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed. The <strong>insert id</strong> of the created provider link record, or <strong>false</strong> if the creation failed.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the opauth object
+$opauth = \Auth_Opauth::forge(false);
+
+// do we have OAuth strategy data?
+if ($authentication = \Session::get('auth-strategy.authentication', array()))
+{
+	// get the current Auth userid
+	list(, $userid) = \Auth::instance()->get_user_id();
+
+	// and link it to the provider
+	$insert_id = $opauth->link_provider(array(
+		'parent_id' => $userid,
+		'provider' => $authentication['provider'],
+		'uid' => $authentication['uid'],
+		'access_token' => $authentication['access_token'],
+		'secret' => $authentication['secret'],
+		'refresh_token' => $authentication['refresh_token'],
+		'expires' => $authentication['expires'],
+		'created_at' => time(),
+	));
+}
+else
+{
+	// no data available, looks like we didn't receive an OAuth callback earlier?
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 id="method_get" class="method">get($key, $default = null)</h4>
+				<p>The <strong>get</strong> method is a getter that allows direct access to the raw provider callback response structure as
+				created by the Opauth strategy.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$key</kbd></th>
+									<td><em>required</em></td>
+									<td>Name of the key to the desired value in the response array</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Default value to return if the requested key does not exist</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed. The value referenced by the given key, or whatever was defined as $default.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the opauth object
+$opauth = \Auth_Opauth::forge(false);
+
+// get some auth data
+$provider = $opauth->get('auth.provider');
+$uid = $opauth->get('auth.uid');
+$token = $opauth->get('credentials.token', null);
+$secret = $opauth->get('credentials.secret', null);
+$expires = $opauth->get('credentials.expires', null);
+$refresh_token = $opauth->get('credentials.refresh_token', null);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">You can only use this in the method in which you are processing the callback. In all other cases, there
+				is no OAuth response available. If there was a valid response processed earlier, its basic data is stored in the session
+				using the session key "auth-strategy".</p>
+			</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

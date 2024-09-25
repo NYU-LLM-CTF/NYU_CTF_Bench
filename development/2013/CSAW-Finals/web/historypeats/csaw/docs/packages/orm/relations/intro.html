@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Introduction - Relations - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Orm</h2>
+
+			<p>Orm is short for <a href="http://en.wikipedia.org/wiki/Object_relational_mapper" target="_blank">Object
+				Relational Mapper</a> which does 2 things: it maps your database table rows to objects and it allows you
+				to establish relations between those objects.<br />
+				It follows closely the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">
+				Active Record Pattern</a>, but was also influenced by other systems.</p>
+
+			<h2 id="intro">Relations: Introduction</h2>
+
+			<ul>
+				<li><a href="#config">Configuration</a></li>
+				<li><a href="#usage">Usage</a>
+					<ul>
+						<li><a href="#usage_rel_conditions">... with where/order_by conditions</a></li>
+						<li><a href="#usage_nested_rels">... with nested relationships</a></li>
+					</ul>
+				</li>
+				<li><a href="#relation_types">Relation types</a></li>
+			</ul>
+
+			<article id="config">
+				<h2>Configuration</h2>
+
+				<h3>Basic config</h3>
+
+				<pre class="php"><code>protected static $_has_many = array('comments');</code></pre>
+
+				<p>This example, if specified in <kbd>Model_Article</kbd>, enables fetching of an array of
+					<kbd>Model_Comment</kbd> objects which have the field <kbd>article_id</kbd> matching the primary key of
+					a given Article instance through the property <kbd>comments</kbd>.</p>
+
+				<h3>Fully configured</h3>
+
+				<pre class="php"><code>protected static $_has_many = array('comments' => array(
+	'model_to' => 'Model_Fancy_Comment',
+	'key_from' => 'article_id',
+	'key_to' => 'parent_article_id',
+	'cascade_save' => true,
+	'cascade_delete' => false,
+	// there are some more options for specific relation types
+));</code></pre>
+
+				<p>In the basic example, Orm automatically assumes the model name and field mapping. This example
+					explicitly specifies the class name of the target model, the fields used to relate them, and whether
+					actions performed on the current object should be cascaded to the target. It will return an array of
+					<kbd>Model_Fancy_Comment</kbd> object where the comment's <kbd>parent_article_id</kbd> field
+					corresponds to the current object's <kbd>article_id</kbd>. When saving an object the operation is
+					also performed on its loaded relations, deleting isn't cascaded by default but can be if you switch
+					this on.</p>
+
+				<p class="note">There is a limitation when fetching relations and limiting their output: you can't use
+					complex where statements on the main object. That are queries using parenthesis for nesting conditions
+					using <kbd>where_open()</kbd>. Normal (non-nested) where queries can be applied without problems.<br />
+					Technically it works like this: to limit the output the query on the base model's
+					table is actually a subquery with a limit set on it. Any of those nested where conditions are applied
+					on the result of the subquery and further joined relations.</p>
+
+				<h3>Configuration Options</h3>
+
+				<p>All of the configurations are optional when using the most common naming conventions.</p>
+
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Option</th>
+							<th>Default</th>
+							<th>Notes</th>
+						</tr>
+						<tr>
+							<th>model_to</th>
+							<td>Calculated from alias</td>
+							<td>If specified, must the the full class name of the target model (ex. <kbd>Model_Comment</kbd>).<br />
+								By default, this value is formed by prepending 'Model_' to the singular form of the alias
+								(ex. 'comments' becomes 'Model_Comment'), it is also expected to be in the same namespace as
+								the current model.</td>
+						</tr>
+						<tr>
+							<th>key_from</th>
+							<td>The key used for the relation in the current model (Usually <kbd>id</kbd>)</td>
+							<td>Allows mapping the target model to an arbitrary field in the current model's table</td>
+						</tr>
+						<tr>
+							<th>key_to</th>
+							<td>Calculated from the current model name</td>
+							<td>By default, a relationship from a <kbd>Model_Article</kbd> to many <kbd>Model_Comment</kbd>s
+								would use the field <kbd>article_id</kbd> in the comments table</td>
+						</tr>
+						<tr>
+							<th>cascade_save</th>
+							<td>bool <kbd>true</kbd></td>
+							<td rowspan="2">Cascading means the operation on the model is repeated on its relation. Thus
+								cascading a save will save the relations as well, cascading a delete will delete the
+								relations as well. <strong>Be very careful with cascading delete!</strong><br />
+								You can override these options at runtime by passing <kbd>true</kbd> as the first
+								argument when calling <kbd>save()</kbd> or <kbd>delete()</kbd> on the originating model.</td>
+						</tr>
+						<tr>
+							<th>cascade_delete</th>
+							<td>bool <kbd>false</kbd></td>
+						</tr>
+						<tr>
+							<th>conditions</th>
+							<td><kbd>array()</kbd></td>
+							<td>Takes 'where' and 'order_by' keys. These are more limited than the normal usage:
+								<kbd>where</kbd> must be an array of arrays containing
+								<kbd>array(field, compare, value)</kbd>. <kbd>order_by</kbd> contains an array of fields or
+								associative <kbd>field => direction</kbd>.<br />
+								<strong>Note:</strong> these are always used and cannot be turned off.</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article id="usage">
+				<h2>Usage</h2>
+
+				<p>The Orm allows for both eager and lazy-loading of relationships. Eager loading means that some (or all)
+					relations are fetched in the original query. Lazy loading means that the relations aren't fetched until
+					you request them.</p>
+
+				<pre class="php"><code>// eager loading, using joins:
+$post = Model_Post::find('all', array('related' => array('comments')));
+// or
+$post = Model_Post::query()->related('comments')->get();
+// $post->comments is available without any further querying after this
+
+// or use lazy loading, it won't use joins but query a relation once requested
+// first get a "post", 1 query without join
+$post = Model_Post::find('first');
+// now request the comments (not yet loaded), which will do another query without join automatically
+$comments = $post->comments;
+
+// alternatively, you can use get(), which allows additional conditions:
+$comments = $post->get('comments', array('where' => array(array('field', '=', $value))));</code></pre>
+
+				<h3 id="usage_rel_conditions">Usage with where/order_by conditions</h3>
+
+				<p>You can also additional conditions when fetching with the Orm. Note though that would also mean the
+					data retrieved will only be valid to the conditions with which you fetched them.<br />
+					Additional conditions are only possible with eager loading, though with lazy loading any default
+					conditions (see config table above) will be used of course.</p>
+
+				<pre class="php"><code>// using array querying
+$post = Model_Post::find('first', array(
+	'related' => array(
+		'articles' => array(
+			'order_by' => array('id' => 'desc'),
+			'where' => array(
+				array('publish_date', '>', time()),
+				array('published', '=', 1),
+			),
+		),
+	),
+));
+
+// using method chaining
+$post = Model_Post::query()->related('articles', array(
+	'order_by' => array('id' => 'desc'),
+	'where' => array(
+		array('publish_date', '>', time()),
+		array('published', 1), // when using '=' it can be omitted
+	),
+)->get_one();
+
+// but the same can also be done by prefixing the relation name to the column:
+$post = Model_Post::query()->related('articles')
+	->order_by('articles.id', 'desc')
+	->where('articles.publish_date', '>', time())
+	->where('articles.published', 1)
+	->get_one();</code></pre>
+
+				<h3 id="usage_nested_rels">Usage with nested relationships</h3>
+
+				<p>It is also possible to fetch the relations of relations to an unlimited depth (though you might want to
+					be careful creating queries that require too many joins). All these can also be combined with where
+					and order_by conditions, some are exemplified below.</p>
+
+				<p class="note">Note that the order matters here, if you want to fetch the relations of a relation you must
+					load the "parent" relation before its relation. Otherwise an exception will be thrown.</p>
+
+				<pre class="php"><code>// using array querying
+$post = Model_Post::find('first', array(
+	'related' => array(
+		'articles' => array(
+			'related' => array(
+				'user' => array(
+					'related' => array('profile'),
+					'where' => array('active', 1),
+				),
+			),
+			'order_by' => array(
+				'published' => 'desc',
+			),
+		),
+	),
+));
+
+// using only method chaining
+$post = Model_Post::query()
+	->related('articles')
+	->related('articles.user')
+	->related('articles.user.profile')
+	->where('articles.user.active', '=', 1)
+	->order_by('articles.published', 'desc')
+	->get_one();
+
+// or combine array &amp; method chaining
+$post = Model_Post::query()
+	->related('articles', array(
+		'related' => array('user' => array(
+			'where' => array('active' => 1),
+		)),
+		'order_by' => array('published', 'desc'),
+	))
+	->related('articles.user.profile')
+	->get_one();</code></pre>
+			</article>
+			<article id="join_types">
+				<h2>Join types</h2>
+
+				<p>By default the Orm will join relations using a 'left' join. To specify a different join you utilize the 'join_type' condition:</p>
+
+				<pre class="php"><code>$post = Model_Post::find('first', array(
+    'related' => array(
+        'articles' => array(
+            'join_type' => 'inner',
+            'where' => array(
+                array('publish_date', '>', DB::expr(time())),
+                array('published', '=', DB::expr(1)),
+            ),
+            'order_by' => array('id' => 'desc'),
+        ),
+    ),
+));
+				</code></pre>
+
+				<p>
+					Since 'where' clauses are executed before the JOIN is executed, you can not get a full OUTER JOIN results when
+					you include a 'where' clause, it will act like a pre-join filter. The solution is to define the filter on the
+					JOIN itself:
+				</p>
+
+				<pre class="php"><code>$post = Model_Post::find('all', array(
+    'related' => array(
+        'articles' => array(
+            'join_type' => 'left outer',
+            'join_on' => array(
+                array('publish_date', '>', DB::expr(time())),
+                array('published', '=', DB::expr(1)),
+            ),
+            'order_by' => array('id' => 'desc'),
+        ),
+    ),
+));
+				</code></pre>
+				<p>This will make the selection criteria part of the ON clause, instead of the WHERE clause.</p>
+
+				<p class='note'>Note that if you want to pass a literal value to a join, you will have to encapsulate it in a DB::expr() to avoid it being escaped as a column name.</p>
+			</article>
+
+			<article id="relation_types">
+				<h2>Relation types</h2>
+
+				<p>The Orm supports the following relationship types natively:</p>
+
+				<ul>
+					<li><a href="belongs_to.html">Belongs To</a><br />
+						Has the primary key of the relation kept in its table, belongs to 1 related object.</li>
+					<li><a href="has_one.html">Has One</a><br />
+						Has its primary key saved in one other row of another table (which belongs to this), has 1
+						related object.</li>
+					<li><a href="has_many.html">Has Many</a><br />
+						Has its primary key saved in many other rows of another table (which belong to this one), has
+						many related objects.</li>
+					<li><a href="many_many.html">Many to Many</a><br />
+						Have their primary keys saved in a table in between which keeps pairs of primary keys from both
+						tables. Have and belong to many objects.</li>
+				</ul>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Introduction - Opauth - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Opauth - Introduction</h2>
+
+			<p>Opauth is a multi-provider authentication framework that offers support for authentication against OAuth or OpenID providers.
+			By using Opauth in your application, you can allow your users to use their existing credentials from one of the major web
+			applications using OAuth, instead of having to create a new set of credentials, and a new password to remember. Web applications
+			that support OAuth include Facebook, Twitter, Google, Instagram, Paypal, LinkedIn, Vimeo, Foursquare and Flickr.
+			</p>
+			<p>Besides using the OAuth service from one of these OAuth providers, Opauth also provides single-sign-on. When a user is already
+			logged-in on the website of one of these services (for example, Facebook), and they come to your website and indicate they want to
+			login using their Facebook account, Opauth will detect they are already logged in, and will not prompt the user for any
+			credentials. Instead, the user is logged into your application transparently.</p>
+
+			<h3 id="integration">Integration</h3>
+
+			<p>The Auth package provides a wrapper class for the Opauth library, which makes it easy to use in your application, and which provides
+			seamless integration with both the Simpleauth and Ormauth driver sets.</p>
+
+			<p>The complete integration means that when a user visits your application for the first time and chooses an OAuth provider as the means
+			to login, the Opauth integration class will transparently create a local user account, and logs the user in using that local account.
+			This means that all functionality of the Auth driver set you have selected (such as group assignments or ACL's) will also work for users
+			logging in through Opauth.
+			</p>
+
+			<p>You can also enable multiple provider support. This allows a user to link additional OAuth providers to an existing account,
+			whether it is an account transparently created, or an account created manually. So whether they want to use their Facebook, Twitter
+			or Google credentials, your application sees the same user account, and ACL's can be applied without having to worry about a user
+			being in your system multiple times, which would be more difficult to manage.
+			</p>
+
+			<h3 id="install_and_config">Installation and Configuration</h3>
+
+			<p>If this is your first encounter with the Auth package, check the sections on <a href="../simpleauth/intro.html">Simpleauth</a> and
+			<a href="../ormauth/intro.html">Ormauth</a> first, make a decision on which one you are going to use, and install that according to
+			the instructions. Once you have done that, come back here and read on.</p>
+
+			<p>To be able to use Opauth, you need to install the Opauth library through composer first. Add it to your <strong>composer.json</strong>
+			file in the root of your FuelPHP installation:
+			</p>
+
+<pre class="javascript"><code>"require": {
+	"php": ">=5.3.3",
+	"monolog/monolog": "1.5.*",
+	"opauth/opauth": "0.4.*",
+	"fuelphp/upload": "2.0"
+},</code></pre>
+
+			<p>Besides the Opauth library itself, you also need to install strategy packages for each of the OAuth providers you want to
+			support in your application. Check the <a href="https://packagist.org/packages/opauth/">Packagist</a> website to see which
+			ones are readily available as a composer package. Let's say you want to use Facebook, Google and Github. Your <strong>composer.json</strong>
+			should then look like this:</p>
+
+<pre class="javascript"><code>"require": {
+	"php": ">=5.3.3",
+	"monolog/monolog": "1.5.*",
+	"opauth/opauth": "0.4.*",
+	"opauth/facebook": "dev-master",
+	"opauth/google": "dev-master",
+	"opauth/github": "dev-master",
+	"fuelphp/upload": "2.0"
+},</code></pre>
+
+			<p>After this, run composer to get it all installed:</p>
+
+				<pre class="cli"><code>$ cd /data/www/myfuelwebsite
+$ php composer.phar update</code></pre>
+
+			<p>Opauth requires a database table in which the relation between the OAuth credentials and the local user account is stored.
+			This table is automatically created for you when you have installed either <a href="../simpleauth/intro.html#database">Simpleauth</a> or
+			<a href="../ormauth/intro.html#database">Ormauth</a>.</p>
+
+			<h3 id="configuration">Configuration</h3>
+
+			<p>
+				The Opauth wrapper class is configured through a configuration file, not suprisingly called
+				<strong>opauth.php</strong>. A default file is provided in the Auth package. You should copy this file
+				to your app/config folder before making any changes.
+			</p>
+
+			<p>The following configuration values can be defined:</p>
+			<table class="config">
+				<thead>
+					<tr class="header">
+						<th style="width:20%;">Param</th>
+						<th style="width:10%;">Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>link_multiple_providers</td>
+						<td>boolean</td>
+						<td><pre class="php"><code>true</code></pre>
+						</td>
+						<td>
+							Whether or not you want to support linking multiple OAuth providers to a single local account.
+							If it is set to <strong>false</strong> and a provider is already linked, the user will get an
+							error message when a second provider is used, and the login will be rejected.
+						</td>
+					</tr>
+					<tr>
+						<td>default_group</td>
+						<td>int</td>
+						<td><pre class="php"><code>1</code></pre>
+						</td>
+						<td>
+							Group ID to assign to new local user accounts transparently created when a user uses an OAuth
+							provider for the first time. By default this is the ID of the Simpleauth 'users' group.
+						</td>
+					</tr>
+					<tr>
+						<td>debug</td>
+						<td>boolean</td>
+						<td><pre class="php"><code>false</code></pre>
+						</td>
+						<td>
+							If <strong>true</strong> it enables the display of debugging messages within the Opauth library
+							and Strategy classes. Do not enable this on production sites!
+						</td>
+					</tr>
+					<tr>
+						<td>security_salt</td>
+						<td>string</td>
+						<td><pre class="php"><code>null</code></pre>
+						</td>
+						<td>
+							A random string of characters which is used to salt the signing key of the authentication response.
+							You are required to define one, make sure it is sufficiently long and completely random!
+						</td>
+					</tr>
+					<tr>
+						<td>security_iteration</td>
+						<td>int</td>
+						<td><pre class="php"><code>300</code></pre>
+						</td>
+						<td>
+							Number of iterations to use when generating the signing hash. The higher the number, the more secure
+							your signing key is, but also the slower the login process is. This seems to be an acceptable default.
+						</td>
+					</tr>
+					<tr>
+						<td>security_timeout</td>
+						<td>string</td>
+						<td><pre class="php"><code>'2 minutes'</code></pre>
+						</td>
+						<td>
+							Time limit allowed for an auth response to be considered valid. Starting from auth response generation
+							(ie. the time when callback is first requested) to the time when auth response is received and attempts
+							validation. Use any value compatible with <strong>strtotime()</strong>.
+						</td>
+					</tr>
+					<tr>
+						<td>Strategy</td>
+						<td>array</td>
+						<td><pre class="php"><code>array()</code></pre>
+						</td>
+						<td>
+							The list of strategies supported by your application, which will include per stategy at your application ID
+							and application secret (as assigned to you by the OAuth provider), and any other optional configuration
+							items. It is possible to define multiple strategies for the same provider. See
+							<a href="https://github.com/opauth/opauth/wiki/Opauth-configuration#guide-to-multiple-configurations-for-a-single-strategy">this page</a>
+							for more information.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p>
+				Pay attention to the differences in OpAuth Auth drivers when it comes to callbacks. For example, Facebook doesn't require you
+				to define a callback (redirect) URL, Twitter requires one in the form <strong>http://example.com/&lt;controller&gt;/callback/</strong>,
+				and Google one like this: <strong>http://example.com/&lt;controller&gt;/&lt;method&gt;/google/oauth2callback</strong> (where "method"
+				is the name of the method in your controller that instantiates the Auth_Opauth driver.
+			</p>
+
+			<p class="note">Pay very close attention to the value of <strong>default_group</strong>. For Ormauth, group id's are
+			not fixed as they are autoincrement in your database table. You don't want to define the wrong one, and ending up
+			giving every OAuth user administrator access!!!</p>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

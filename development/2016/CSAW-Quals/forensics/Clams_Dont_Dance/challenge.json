@@ -1,0 +1,9 @@
+{
+	"name": "Clams_Dont_Dance",
+	"category": "forensics",
+	"description": "Find the clam and open it to find the pearl",
+	"flag": "flag{TH1NK ABOUT 1T B1LL. 1F U D13D, WOULD ANY1 CARE??}",
+	"points": 100,
+	"box": "",
+	"files":["out.img"]
+}

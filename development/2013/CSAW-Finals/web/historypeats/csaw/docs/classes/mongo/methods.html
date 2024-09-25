@@ -1,0 +1,1982 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Mongo_Db::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Mongo_Db Methods - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Mongo_Db Class Methods</h2>
+
+			<p>
+				The Mongo_Db class allows you to interact with MongoDB databases. While in some cases it's
+				similar to interacting with databases like MySQL there are some distinct differences.
+			</p>
+
+			<p class="note">
+				All sorting options (order by and indexes) use -1, false, 'desc' or 'DESC' as <em>DESC</em>. Any other value will be <em>ASC</em>.
+			</p>
+
+
+			<article>
+				<h4 class="method" id="method_instance">instance($name = 'default')</h4>
+				<p>
+					The <strong>instance</strong> method returns a new Mongo_Db instance. Use the $name parameter
+					to specify which configuration and database to use.
+				</p>
+				<p class="note">
+					By default <strong>$name</strong> is <em>'default'</em> which requires you to have a default configuration in you
+					db.php config file. <a href="introduction.html#config">Read more about Mongo_Db configuration.</a>
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'default'</code></pre></td>
+									<td>The name of the config group to use.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A new Mongo_Db instance</td>
+					</tr>
+					<tr>
+						<th>Throws</th>
+						<td>Mongo_DbException, when no config if found for the given instance name.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the default group
+$mongodb = \Mongo_Db::instance();
+
+// Get a custom group
+$mongodb = \Mongo_Db::instance('my_group');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get">get($collection = "")</h4>
+				<p>
+					The <strong>get</strong> method returns the result from a collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection name.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A stdClass object containing the result arrays.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$result = $mongodb->get('users');
+foreach($result as $user)
+{
+	// Do something with $user
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_cursor">get_cursor($collection = "")</h4>
+				<p>
+					The <strong>get_cursor</strong> method returns the mongodb cursor from the specified collection. The advantage it provides over the normal get() method is when processing large datasets as documents are only loaded into memory one at a time as they are accessed instead of all at once. Very useful for long running processes.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection name.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A <a href="http://php.net/manual/en/class.mongocursor.php">MongoCursor</a> object.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$result = $mongodb->get_cursor('documents');
+foreach($result as $document)
+{
+	// Do something with $document
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get">get_one($collection = "")</h4>
+				<p>
+					The <strong>get_one</strong> method returns one result from a collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection name.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A stdClass object containing the single result array.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$user = $mongodb->get_one('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_where">get_where($collection = "", $where = array(), $limit = 99999)</h4>
+				<p>
+					The <strong>get_where</strong> method returns the result from a collection. In addition to that you can supply
+					an array for conditioning the result and provide a limit.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection name.</td>
+								</tr>
+								<tr>
+									<th><kbd>$where</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of where statements.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A stdClass object containing the result arrays.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Get the first 10 result where 'active' is "yes"
+$result = $mongodb->get_where('users', array(
+	'active' => 'yes',
+), 10);
+
+foreach($result as $user)
+{
+	// Do something with $user
+}
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_select">select($includes = array(), $excludes = array())</h4>
+				<p>
+					The <strong>select</strong> method sets which fields to include or which to exclude during the query process.
+				</p>
+				<p class="note">
+					In order to use the exclude array the includes array must be empty.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$includes</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Array of fields to include</td>
+								</tr>
+								<tr>
+									<th><kbd>$where</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Array of fields to exclude</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+// Just select these fields
+$mongodb->select(array(
+	'name',
+	'surname',
+	'email',
+));
+$users = $mongodb->get('users');
+
+// Or use the exclude array
+
+$mongodb = \Mongo_Db::instance();
+// Just select these fields
+$mongodb->select(array(), array(
+	'not_this',
+	'or_this',
+));
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where">where($wheres = array())</h4>
+				<p>
+					The <strong>where</strong> method sets the 'where is equal to' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$wheres</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of associative array with the field as the key and the value as the search criteria.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance.
+$mongodb = \Mongo_Db::instance();
+
+$mongodb->where(array(
+	'name' => 'John',
+	'surname' => 'Doe',
+));
+
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_or_where">or_where($wheres = array())</h4>
+				<p>
+					The <strong>or_where</strong> method sets the 'or where is equal to' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$wheres</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of associative array with the field as the key and the value as the search criteria.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where(array(
+	'name' => 'John',
+	'surname' => 'Doe',
+))->or_where(array(
+	'name' => 'Jim',
+));
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_in">where_in($field = "", $in = array())</h4>
+				<p>
+					The <strong>where_in</strong> method sets the 'where in' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$in</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of possible values.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_in('name', array(
+	'John', 'James', 'Frank', 'Dave',
+));
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_in_all">where_in_all($field = "", $in = array())</h4>
+				<p>
+					The <strong>where_in_all</strong> method sets the 'all where in' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$in</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of possible values.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_in_all('name', array(
+	'John', 'James', 'Frank', 'Dave',
+));
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_not_in">where_not_in($field = "", $in = array())</h4>
+				<p>
+					The <strong>where_not_in</strong> method sets the 'where not in' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$in</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of possible values.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_not_in('name', array(
+	'John', 'James', 'Frank', 'Dave',
+));
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_gt">where_gt($field = "", $x)</h4>
+				<p>
+					The <strong>where_gt</strong> method sets the 'where greater than' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_gt('age', 12);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_gte">where_gte($field = "", $x)</h4>
+				<p>
+					The <strong>where_gte</strong> method sets the 'where greater than or equal to' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_gte('age', 18);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_lt">where_lt($field = "", $x)</h4>
+				<p>
+					The <strong>where_lt</strong> method sets the 'where lower than' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_lt('age', 120);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_lte">where_lte($field = "", $x)</h4>
+				<p>
+					The <strong>where_lte</strong> method sets the 'where lower than or equal to' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_lt('age', 120);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_between">where_between($field = "", $x)</h4>
+				<p>
+					The <strong>where_between</strong> method sets the 'where between' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The low value to compare it to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$y</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The high value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_between('age', 10, 20);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_where_between_ne">where_between_ne($field = "", $x)</h4>
+				<p>
+					The <strong>where_between_ne</strong> method sets the 'where between and not equal to' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The low value to compare it to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$y</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The high value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_between_ne('age', 10, 20);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_ne">where_ne($field = "", $x)</h4>
+				<p>
+					The <strong>where_ne</strong> method sets the 'where not equal to' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>mixed</em></td>
+									<td><strong>required</strong></td>
+									<td>The low value to compare it to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->where_ne('name', 'Allerd');
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_like">like($field = '', $value = '', $flags = 'i', $enable_start_wildcard = true, $enable_end_wildcard = true)</h4>
+				<p>
+					The <strong>like</strong> method a sets a 'like' statement.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$field</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The field to query.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><em>mixed</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The value to compare it to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$flags</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>'i'</code></pre></td>
+									<td>
+										Allows you to set typical regular expression flags:
+										<ul>
+											<li>i = case insensitive</li>
+											<li>m = multiline</li>
+											<li>x = can contain comments</li>
+											<li>l = locale</li>
+											<li>s = dotall, "." matches everything, including newlines</li>
+											<li>u = match unicode</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<th><kbd>$enable_start_wildcard</kbd></th>
+									<td><em>bool</em></td>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>When set to <em>true</em> the beginning of the string must match.</td>
+								</tr>
+								<tr>
+									<th><kbd>$enable_end_wildcard</kbd></th>
+									<td><em>bool</em></td>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>When set to <em>true</em> the ending of the string must match.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->like('name', 'fran', 'im', true);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_order_by">order_by($fields = array())</h4>
+				<p>
+					The <strong>order_by</strong> method orders the result.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$fields</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>To set values to descending order, you must pass values of either -1, FALSE, 'desc', or 'DESC', else they will be set to 1 (ASC).</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+$mongodb->order_by(array(
+	'age' => 'asc',
+	'name' => 'desc'
+
+));
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_limit">limit($x = 99999)</h4>
+				<p>
+					The <strong>limit</strong> method limits the number of items fetched.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>number</em></td>
+									<td><pre class="php"><code>99999</code></pre></td>
+									<td>The number of items to fetch.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+// Get the 10 oldest
+$mongodb->order_by(array(
+	'age' => 'desc',
+))->limit(10);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_offset">offset($x = 0)</h4>
+				<p>
+					The <strong>offset</strong> method sets the number of items skip.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$x</kbd></th>
+									<td><em>number</em></td>
+									<td><pre class="php"><code>0</code></pre></td>
+									<td>The number of items to skip.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+// Get row 10 to 15
+$mongodb->order_by(array(
+	'age' => 'desc',
+))->limit(5)->offset(10);
+$users = $mongodb->get('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_count">count($collection = '', $foundonly = false)</h4>
+				<p>
+					The <strong>count</strong> method counts the result.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$foundonly</kbd></th>
+									<td><em>boolean</em></td>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>if true, it will take the current limit and skip selections into account.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The number of rows.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Get the amount of users.
+$num_users = $mongodb->count('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_insert">insert($collection = '', $insert = array())</h4>
+				<p>
+					The <strong>insert</strong> method inserts a row into the given collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$insert</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The values to insert</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The insert id, or <em>false</em> on failure.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Insert a new user
+$insert_id = $mongodb->insert('users', array(
+	'name' => 'John',
+	'surname' => 'Doe',
+	'email' => 'dont.em@ilme.com',
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_update">update($collection = "", $data = array(), $options = array())</h4>
+				<p>
+					The <strong>update</strong> method updates a given collection.
+				</p>
+				<p class="note">
+					If you do not set the <em>"multiple"</em> option to <em>true</em> only the first encountered record will be updated.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The new values.</td>
+								</tr>
+								<tr>
+									<th><kbd>$options</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>
+										Supply optional extra options
+										<a target="_blank" href="http://php.net/manual/en/mongocollection.update.php#refsect1-mongocollection.update-parameters">(?)</a>
+										to the update command.
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><em>true</em> on success</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Update a user
+$bool = $mongodb->where(array('id' => $an_id))->update('users', array(
+	'name' => 'John',
+	'surname' => 'Doe',
+	'email' => 'john@doe.com',
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_update_all">update_all($collection = "", $data = array())</h4>
+				<p>
+					The <strong>update_all</strong> method updates all records in a given collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>The new values.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><em>true</em> on success</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Update Spammer's surname.
+$bool = $mongodb->where('name', 'Spammer')->update_all('users', array(
+	'surname' => 'Don\'t believe us.',
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($collection = "")</h4>
+				<p>
+					The <strong>delete</strong> method deletes the first record in a given collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><em>true</em> on success</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Delete a user named Spammer
+$bool = $mongodb->where(array('name' => 'Spammer'))->delete('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete_all">delete_all($collection = "")</h4>
+				<p>
+					The <strong>delete_all</strong> method deletes all records in a given collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><em>true</em> on success</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+// Delete all users named Spammer
+$bool = $mongodb->where(array('name' => 'Spammer'))->delete_all('users');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_command">command($query = array())</h4>
+				<p>
+					The <strong>command</strong> method runs a MongoDB command. Find out more about commands at
+					<a href="http://www.mongodb.org/display/DOCS/Commands" target="_blank">the MongoDB docs</a>.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$query</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array of command parameters.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The command result</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$mongodb->command(array(
+	'geoNear' => 'buildings',
+	'near' => array(53.228482, -0.547847),
+	'num' => 10,
+	'nearSphere' => true
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add_index">add_index($collection = "", $keys = array(), $options = array())</h4>
+				<p>
+					The <strong>add_index</strong> method adds an index of the keys in a collection with optional parameters. Read more about the options at
+					<a href="http://php.net/manual/en/mongocollection.ensureindex.php#refsect1-mongocollection.ensureindex-parameters" target="_blank">php.net</a>.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$keys</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An associative array with fields and sorting directions.</td>
+								</tr>
+								<tr>
+									<th><kbd>$options</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An array with optional settings.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$mongodb->add_index('my_collection', array(
+	'first_name' => 'ASC',
+	'last_name' => -1)
+, array(
+	'unique' => true
+));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_remove_index">remove_index($collection = "", $keys = array())</h4>
+				<p>
+					The <strong>remove_index</strong> method removes one or more indexes from a collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+								<tr>
+									<th><kbd>$keys</kbd></th>
+									<td><em>array</em></td>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>An associative array with fields (and sorting directions).</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$mongodb->remove_index('my_collection', array(
+	'first_name' => 'ASC',
+	'last_name' => -1)
+));
+
+// or
+
+$mongodb->remove_index('first_name');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_remove_all_indexes">remove_all_indexes($collection = "")</h4>
+				<p>
+					The <strong>remove_all_indexes</strong> method removes all indexes from a collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>The current Mongo_Db instance.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$mongodb->remove_all_indexes('my_collection');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_list_indexes">list_indexes($collection = "")</h4>
+				<p>
+					The <strong>list_indexes</strong> method returns an array of index names for this collection.
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>An array of index names for this collection.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get an instance
+$mongodb = \Mongo_Db::instance();
+
+$indexes = $mongodb->list_indexes('my_collection');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="get_collection">get_collection($collection = "")</h4>
+				<p>
+					The <strong>get_collection</strong> method returns a MongoCollection object from the core MongoDB PHP Driver. <a href="http://www.php.net/manual/en/book.mongo.php">(?)</a>
+				</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Type</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$collection</kbd></th>
+									<td><em>string</em></td>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>The collection (table) to use.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>A MongoCollection object from the core MongoDB PHP Driver.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get a collection
+$mongodb       = \Mongo_Db::instance();
+$my_collection = $mongodb->get_collection('my_collection');
+$my_collection->update(array('_id' => $id), array('$push' => array('array.to.add.to' => $data)));
+</code></pre>
+						<br />
+						This was put in place due to the inherent lack of support for <a href="http://www.mongodb.org/display/DOCS/Updating#Updating-ModifierOperations">update modifier operation</a>.
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

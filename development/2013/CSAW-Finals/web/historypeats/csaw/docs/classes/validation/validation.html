@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Validation - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Validation Class</h2>
+
+			<p>The Validation class helps you validate user input, if you want to create a form &amp; its validation at
+				the same time use the <a href="../fieldset.html">Fieldset</a> class instead.</p>
+
+			<ul>
+				<li><a href="#config">Configuration</a></li>
+				<li><a href="#usage">Usage</a></li>
+				<li><a href="#rules">Validation rules</a></li>
+				<li><a href="#extending_validation">Extending the Validation class</a></li>
+				<li><a href="errors.html">Validation Errors</a></li>
+				<li><a href="methods.html">Methods</a></li>
+			</ul>
+
+			<article>
+				<h3 id="config">Configuration</h3>
+
+				<p>Optionally, the validation class can be configured through the global application configuration file, <strong>app/config/config.php</strong>. Define a section called '<strong>validation</strong>', in which the following settings can be defined:</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Variable</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th class="description">Description</th>
+						</tr>
+						<tr>
+							<th><kbd>no_errors</kbd></th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>String to return if no validation errors were discovered.</td>
+						</tr>
+						<tr>
+							<th><kbd>open_list</kbd></th>
+							<td>string</td>
+							<td><pre class="php"><code>'&lt;ul&gt;'</code></pre></td>
+							<td>String to be prepended to the list of errors. Usually this is some form of HTML to format the list. By default, it's formatted as an unordered list.</td>
+						</tr>
+						<tr>
+							<th><kbd>close_list</kbd></th>
+							<td>string</td>
+							<td><pre class="php"><code>'&lt;/ul&gt;'</code></pre></td>
+							<td>String to be appended to the list of errors.</td>
+						</tr>
+						<tr>
+							<th><kbd>open_error</kbd></th>
+							<td>string</td>
+							<td><pre class="php"><code>'&lt;li&gt;'</code></pre></td>
+							<td>String to be prepended to each individual error message.</td>
+						</tr>
+						<tr>
+							<th><kbd>close_error</kbd></th>
+							<td>string</td>
+							<td><pre class="php"><code>'&lt;/li&gt;'</code></pre></td>
+							<td>String to be appended to each individual error message.</td>
+						</tr>
+						<tr>
+							<th><kbd>quote_label</kbd></th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>If true, and the label of the validated field contains spaces, the label will be enclosed in double quotes for enhanced readability.</td>
+						</tr>
+						<tr>
+							<th><kbd>global_input_fallback</kbd></th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>If true, and value is not found in input array, the value will fall back to Input::param.</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>If one or more of these values are missing from the global configuration, the class will use the defaults as defined in this table.</p>
+
+			</article>
+
+			<article>
+				<h3 id="usage">Usage</h3>
+
+				<p>To start validation you need to create an object, this can be the default object named "default" or
+				you can name it if you need multiple validation objects.</p>
+
+				<pre class="php"><code>// Use default
+$val = Validation::forge();
+
+// ... or name it
+$val = Validation::forge('my_validation');</code></pre>
+
+				<p>After having it instantiated you can start adding fields to it. This works exactly like the when using
+				the Fieldset class, however here we'll only document the preferred usage.</p>
+
+				<pre class="php"><code>$val = Validation::forge('my_validation');
+
+// Add a field for username, give it the label "Your username" and make it required
+$val->add('username', 'Your username')->add_rule('required');
+
+// Now add another field for password, and require it to contain at least 3 and at most 10 characters
+$val->add('password', 'Your password')->add_rule('required')
+    ->add_rule('min_length', 3)
+    ->add_rule('max_length', 10);</code></pre>
+
+				<p>The first parameter of the add_rule() method can contain PHP native function names, any valid PHP
+				callback and Closures in addition to the provided validation methods. The method will get the value to
+				be validated as its first argument and any further arguments can be given to the add_rule() method.</p>
+
+				<p>We also provide a shorter syntax which is very limited in comparison. It will not accept array-callbacks,
+				closures or parameters other than strings. You can also not use the pipe symbol in your pattern when you use
+				the 'match_pattern' rule, as that is used to separate the defined rules.</p>
+
+				<pre class="php"><code>// The same fields as the example above
+$val = Validation::forge('my_validation');
+$val->add_field('username', 'Your username', 'required');
+$val->add_field('password', 'Your password', 'required|min_length[3]|max_length[10]');</code></pre>
+
+				<p>Once all the fields have been added you can run your validation. This will default to $_POST input, but
+				can be extended and overwritten when given an input array.</p>
+
+				<pre class="php"><code>// run validation on just post
+if ($val->run())
+{
+	// process your stuff when validation succeeds
+}
+else
+{
+	// validation failed
+}
+
+// alternative to above, overwriting the username in post, password will still be sought in post
+if ($val->run(array('username' => 'something')))</code></pre>
+
+				<p>When validation is ran there are three methods available for information about the input:</p>
+
+				<pre class="php"><code>// get an array of successfully validated fields => value pairs
+$vars = $val->validated();
+// get an array of validation errors as field => error pairs
+$errors = $val->error();
+// get an array of the input that was validated, this merged the post & input given to run()
+$input = $val->input();
+
+// all these methods can also get just the value for a single field
+$var = $val->validated('username');</code></pre>
+
+				<p>Validation can also run partially, in that case even required fields are ignored when they're not in
+				POST or the input given to run(). One does this by setting the 2nd parameter of run to true.</p>
+
+				<pre class="php"><code>// this will only validate the password when username isn't present in post
+$val->run(array('password' => 'whatever'), true);</code></pre>
+			</article>
+
+			<article>
+				<h3 id="rules">Validation rules</h3>
+
+				<p>Note that all methods (even min_length) will also return true on empty input. To also require the field
+				you must add the rule "required" as well.</p>
+
+				<p>All these rules can be used like below:</p>
+				<pre class="php"><code>// example normal usage with rule without and one with params
+$val->add('email', 'Email address')->add_rule('match_value', 'me@mydomain.com', true)->add_rule('valid_email');
+$val->add_field('email', 'Email address', 'match_value[me@mydomain.com,1]|valid_email');</code></pre>
+
+				<h4 id="rules_table">Rules table</h4>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Rule</th>
+							<th>Additional parameters</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>required</th>
+							<td>(none)</td>
+							<td>
+								The field must be set and have been given something other than <kbd>null</kbd>,
+								<kbd>false</kbd> or empty string.
+							</td>
+						</tr>
+						<tr>
+						  <th>required_with</th>
+						  <td><kbd>$fieldname</kbd></td>
+						  <td>
+						    The field must be set if the field with the given <kbd>$fieldname</kbd> is set.
+						  </td>
+						</tr>
+						<tr>
+							<th>match_value</th>
+							<td><kbd>$compare</kbd>, <kbd>$strict</kbd> = false</td>
+							<td>
+								The field input must match <kbd>$compare</kbd>, will be done using == unless 2nd parameter
+								is also given as true (then === is used).
+							</td>
+						</tr>
+						<tr>
+							<th>match_pattern</th>
+							<td><kbd>$pattern</kbd></td>
+							<td>
+								Will try to match the value against the given $pattern which must be a full PREG regex.
+								<p class="note"><strong>Note:</strong> you can <strong>NOT</strong> use the pipe symbol (|) in your pattern when you're using short syntax, as that symbol is used to split the rules in the string.</p>
+							</td>
+						</tr>
+						<tr>
+							<th>match_field</th>
+							<td><kbd>$field</kbd></td>
+							<td>
+								Will try to match the field to the field with the given fieldname, the matching is done
+								using ===.
+								<p class="note"><strong>Important:</strong> you can only match against a field that was added before the field this rule is added to.</p>
+							</td>
+						</tr>
+						<tr>
+							<th>min_length</th>
+							<td><kbd>$length</kbd></td>
+							<td>
+								Tests whether the string contains at least <kbd>$length</kbd>'s number of character.
+							</td>
+						</tr>
+						<tr>
+							<th>max_length</th>
+							<td><kbd>$length</kbd></td>
+							<td>
+								Tests whether the string contains no more than <kbd>$length</kbd>'s number of character.
+							</td>
+						</tr>
+						<tr>
+							<th>exact_length</th>
+							<td><kbd>$length</kbd></td>
+							<td>
+								Tests whether the string has precisely <kbd>$length</kbd>'s number of character.
+							</td>
+						</tr>
+						<tr>
+							<th>valid_date</th>
+							<td><kbd>$format</kbd>, <kbd>$strict</kbd> = true</td>
+							<td>
+								Validates if the given input is a valid date format. If the <kbd>$format</kbd> parameter is given then
+								validates using specified format. Will check date strict (example, leap year) unless 2nd parameter is given as false.
+							</td>
+						</tr>
+						<tr>
+							<th>valid_email</th>
+							<td>(none)</td>
+							<td>
+								Validates if the given input is a valid email address.
+							</td>
+						</tr>
+						<tr>
+							<th>valid_emails</th>
+							<td><kbd>$separator</kbd> (optional)</td>
+							<td>
+								Validates multiple email addresses separated by commas (or <kbd>$separator</kbd>).
+							</td>
+						</tr>
+						<tr>
+							<th>valid_url</th>
+							<td>(none)</td>
+							<td>
+								Validates if the given input is a valid URL.
+							</td>
+						</tr>
+						<tr>
+							<th>valid_ip</th>
+							<td>(none)</td>
+							<td>
+								Validates if the given input is a valid IP.
+							</td>
+						</tr>
+						<tr>
+							<th>numeric_min</th>
+							<td><kbd>$min_val</kbd></td>
+							<td>
+								Tests whether the given input is a number that is greater than <kbd>$min_val</kbd>, it does
+								not check or cast the input to a numeric value so any non-numeric value will be considered
+								to be zero. Use the PHP function <kbd>is_numeric</kbd> to check that first.
+							</td>
+						</tr>
+						<tr>
+							<th>numeric_max</th>
+							<td><kbd>$max_val</kbd></td>
+							<td>
+								Tests whether the given input is a number that is smaller than <kbd>$max_val</kbd>. (see
+								note about non-numeric values with <kbd>numeric_min</kbd> rule)
+							</td>
+						</tr>
+						<tr>
+							<th>numeric_between</th>
+							<td><kbd>$min_val</kbd>, <kbd>$max_val</kbd></td>
+							<td>
+								Tests whether the given input is a number that is between than <kbd>$min_val</kbd> and <kbd>$max_val</kbd>. (see
+								note about non-numeric values with <kbd>numeric_min</kbd> rule)
+								<p class="note"><strong>Important:</strong> specified numbers are included in the range.</p>
+							</td>
+						</tr>
+						<tr>
+							<th>valid_string</th>
+							<td><kbd>$flags</kbd> = array('alpha', 'utf8')</td>
+							<td>
+								See below.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h4 id="valid_string_rule">Valid string rule</h4>
+				<p>Validates whether a string adheres to the conditions set by the $flags parameter. The accepted flags
+				are:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Flag</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>alpha</th>
+							<td>Allow alphabetical characters.</td>
+						</tr>
+						<tr>
+							<th>uppercase</th>
+							<td>Used in combination with alpha to only allow uppercase characters.</td>
+						</tr>
+						<tr>
+							<th>lowercase</th>
+							<td>Used in combination with alpha to only allow lowercase characters.</td>
+						</tr>
+						<tr>
+							<th>numeric</th>
+							<td>Allow numeric characters.</td>
+						</tr>
+						<tr>
+							<th>spaces</th>
+							<td>Allow normal spaces.</td>
+						</tr>
+						<tr>
+							<th>newlines</th>
+							<td>Allow newline character.</td>
+						</tr>
+						<tr>
+							<th>tabs</th>
+							<td>Allow tabs.</td>
+						</tr>
+						<tr>
+							<th>dots</th>
+							<td>Allow dots.</td>
+						</tr>
+						<tr>
+							<th>commas</th>
+							<td>Allow commas.</td>
+						</tr>
+						<tr>
+							<th>punctuation</th>
+							<td>Allow dots, commas, exclamation marks, question marks, colons and semi-colons.</td>
+						</tr>
+						<tr>
+							<th>dashes</th>
+							<td>Allow dashes and underscores.</td>
+						</tr>
+						<tr>
+							<th>singlequotes</th>
+							<td>Allow single quotes.</td>
+						</tr>
+						<tr>
+							<th>doublequotes</th>
+							<td>Allow double quotes.</td>
+						</tr>
+						<tr>
+							<th>quotes</th>
+							<td>Allow single and double quotes.</td>
+						</tr>
+						<tr>
+							<th>brackets</th>
+							<td>Allow open and close brackets.</td>
+						</tr>
+						<tr>
+							<th>braces</th>
+							<td>Allow open and close curly braces.</td>
+						</tr>
+						<tr>
+							<th>utf8</th>
+							<td>Adds UTF8 modifier to regex.</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 id="extending_validation">Extending the Validation class</h4>
+				<p>There are few approaches to extend the validation class:</p>
+				<p>1. To extend the core class like described in the <a href="../../general/extending_core.html">Extending Core Classes</a></p>
+				<p>2. To create a class in <b>app/classes/myrules.php</b> (for example)</p>
+				<pre class="php"><code>// app/classes/myrules.php
+class MyRules
+{
+	// note this is a static method
+	public static function _validation_unique($val, $options)
+	{
+		list($table, $field) = explode('.', $options);
+
+		$result = DB::select("LOWER (\"$field\")")
+		->where($field, '=', Str::lower($val))
+		->from($table)->execute();
+
+		return ! ($result->count() > 0);
+	}
+
+	// note this is a non-static method
+	public function _validation_is_upper($val)
+	{
+		return $val === strtoupper($val);
+	}
+
+}
+
+// and call it like:
+$val = Validation::forge();
+
+// Note the difference between static and non-static validation rules:
+
+// Add it staticly, will only be able to use static methods
+$val->add_callable('MyRules');
+
+// Adds it non-static, will be able to use both static and non-static methods
+$val->add_callable(new MyRules());
+
+$val->add('username', 'Your username', array(), array('trim', 'strip_tags', 'required', 'is_upper'))
+	->add_rule('unique', 'users.username');</code></pre>
+
+				<p>3. Calling callbacks from a model. It works like a method described above, but we only need to call it in other way:</p>
+
+				<pre class="php"><code>$val = Validation::forge();
+$val->add_model('Model_User');</code></pre>
+
+				<p class="note">
+					<strong>Note: </strong>
+					You need the '_validation_' prefix for a method to be available in validation.
+				</p>
+
+				<p class="note">
+					<strong>Note: </strong>
+					if you pass the class name as a string, the validation method must be defined as static. If the method is not static, you will have to pass an object instance as callable().
+				</p>
+
+				<p>It can be useful to use <a href="methods.html#method_active">Validation::active()</a> and <a href="methods.html#method_active_field">Validation::active_field()</a> to get the currently active validation instance and field currently being validated, respectively.</p>
+
+				<p>For example, in the above you could do:</p>
+
+				<pre class="php"><code>public static function _validation_unique($val, $options)
+{
+	Validation::active()->set_message('unique', 'The field :label must be unique, but :value has already been used');
+...
+}</code></pre>
+			</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

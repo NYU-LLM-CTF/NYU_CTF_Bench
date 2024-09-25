@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Vendor additions - PHPSecLib - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>PHPSecLib</h2>
+
+			<h3>Introduction</h3>
+
+			<p>
+				The PHP Secure Communications Library contains LGPL-licensed pure-PHP implementations of arbitrary-precision integers,
+				fully PKCS#1 (v2.1) compliant RSA, DES, 3DES, RC4, Rijndael, AES, SSH-1, SSH-2, and SFTP. This book discusses how to use them.
+			</p>
+
+			<h3>Documentation</h3>
+
+			<p>You can find the original PHPSecLib documentation <a href="http://phpseclib.sourceforge.net/documentation/" target="_blank">here</a>.</p>
+
+			<h3>FuelPHP Usage</h3>
+
+			<p>
+				The PHPSecLib vendor package is used by FuelPHP in the Crypt class, to generate secure hashes, and in the Auth package, which uses PBKDF2.
+			</p>
+
+			<h3>Application Usage</h3>
+
+			<p>
+				For use in your application the PHPSecLib package has been converted to a namespaced, autoloader friendly library.
+				You can use it directly from your application.
+			</p>
+<pre class="php"><code>&lt;?php
+/**
+ * Example controller that does an SSH login
+ */
+
+class Controller_Ssh extends Controller
+{
+	public function action_index()
+	{
+		// connect to my server
+		$ssh = new \PHPSecLib\Net_SSH2('myserver.example.org');
+
+		// login
+		if ( ! $ssh->login('username', 'password'))
+		{
+			throw new \Exception('ssh login failed');
+		}
+
+		// return the view that formats the directory list
+		return View::forge('ssh/dirinfo', array(
+			'pwd' => $ssh->exec('pwd'),
+			'info' => $ssh->exec('ls -la'),
+		));
+	}
+}
+</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.10
+-- http://www.phpmyadmin.net
+--
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `cloudb`
+--
+
+USE cloudb;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `note`
+--
+
+CREATE TABLE `note` (
+  `uid` int(11) NOT NULL,
+  `note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tile`
+--
+
+CREATE TABLE `tile` (
+  `uid` int(11) NOT NULL,
+  `url` varchar(1024) NOT NULL,
+  `template` varchar(32) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `todo`
+--
+
+CREATE TABLE `todo` (
+`todo_id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `todo` text NOT NULL,
+  `done` bit(1) NOT NULL DEFAULT b'0'
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+`uid` int(11) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(40) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`uid`, `username`, `password`) VALUES
+(0, 'admin', '*REDACTED*');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `note`
+--
+ALTER TABLE `note`
+ ADD PRIMARY KEY (`uid`);
+
+--
+-- Indexes for table `tile`
+--
+ALTER TABLE `tile`
+ ADD PRIMARY KEY (`uid`,`position`);
+
+--
+-- Indexes for table `todo`
+--
+ALTER TABLE `todo`
+ ADD PRIMARY KEY (`todo_id`), ADD KEY `todo_uid_idx` (`uid`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+ ADD PRIMARY KEY (`uid`), ADD UNIQUE KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `todo`
+--
+ALTER TABLE `todo`
+MODIFY `todo_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `note`
+--
+ALTER TABLE `note`
+ADD CONSTRAINT `note_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tile`
+--
+ALTER TABLE `tile`
+ADD CONSTRAINT `tile_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `todo`
+--
+ALTER TABLE `todo`
+ADD CONSTRAINT `todo_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;

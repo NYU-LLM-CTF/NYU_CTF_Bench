@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Many to Many - Relations - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Orm</h2>
+
+			<p>Orm is short for <a href="http://en.wikipedia.org/wiki/Object_relational_mapper" target="_blank">Object
+				Relational Mapper</a> which does 2 things: it maps your database table rows to objects and it allows you
+				to establish relations between those objects.<br />
+				It follows closely the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">
+				Active Record Pattern</a>, but was also influenced by other systems.</p>
+
+			<section>
+				<h2 id="many_many">Relations: Many to Many</h2>
+
+				<p>Specifies a many-to-many relationship to another model. The target model will have the same type of
+					relationship in the other direction. To allow for these relations you need a table in between with just
+					the 2 IDs from both sides of the relation as dual-primary key.</p>
+
+				<h4>Keeping values with the relationship</h4>
+
+				<p>If you need to save values with the relationship table you don't want to use ManyMany but create a model
+					in between instead which belongs to both sides of what you would otherwise call the ManyMany
+					relationship. It is described under "<a href="intro.html#usage_nested_rels">Usage with nested
+					relationships</a> how you can fetch all this.</p>
+
+				<h3>Configuration Options</h3>
+
+				<p>ManyMany relations have three additional configuration options compared to the others. All of these
+					are still optional when using the most common naming conventions.</p>
+
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Option</th>
+							<th>Default</th>
+							<th>Notes</th>
+						</tr>
+						<tr>
+							<th>table_through</th>
+							<td>Calculated from model_to and model_from alphabetically ordered</td>
+							<td>This is the table that connects the 2 models and has both their IDs in it. For 2 models
+								like Model_User and Model_Post it will be named posts_users by default (both plural).</td>
+						</tr>
+						<tr>
+							<th>key_through_from</th>
+							<td>Calculated from the current model name</td>
+							<td>The key that matches the current model's primary key. If your current model is Model_Post
+								this will be post_id by default</td>
+						</tr>
+						<tr>
+							<th>key_through_to</th>
+							<td>Calculated from the related model name</td>
+							<td>The key that matches the related model's primary key. If your related model is Model_User
+								this will be user_id by default</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h4>Ordering on a column in the through table</h4>
+
+				<p>
+					In addition to the normal default order you can define in a relationship definition, you can also
+					define now the records from <kbd>table_through</kbd> need to be ordered:
+
+				<pre class="php"><code>protected static $_many_many = array(
+	'users' => array(
+		'table_through' => 'posts_users', 	// both models plural without prefix in alphabetical order
+		'order_by' => array(
+			'posts_users.status' => 'ASC'	// define custom through table ordering
+		),
+	)
+);
+// other fields that may be required have been ommitted for this example</code></pre>
+
+				<h3>Example</h3>
+
+				<p>Let's say we have a model <kbd>Model_Post</kbd> and it <em>has many and belongs to many</em>
+					<kbd>Model_User</kbd>s. The ID of the Model_Post is along with the ID of the Model_User in a table
+					called <kbd>posts_users</kbd> (default order is alphabetical). That table has just 2 columns:
+					<kbd>post_id</kbd> and <kbd>user_id</kbd> which are together the primary key of that table.<br />
+					If you keep to the defaults all you need to do is add <kbd>'users'</kbd> to the
+					<kbd>$_many_many</kbd> static property of the Model_Post:</p>
+
+				<pre class="php"><code>protected static $_many_many = array('users');</code></pre>
+
+				<p>And you need to add a table like this one to your SQL:</p>
+
+				<pre class="sql"><code>CREATE TABLE IF NOT EXISTS `posts_users` (
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`,`user_id`)
+);</code></pre>
+
+				<p>Below are examples for establishing and breaking has-many relations:</p>
+
+				<pre class="php"><code>// both main and related object are new:
+$post = new Model_Post();
+$post->users[] = new Model_User();
+$post->save();
+
+// both main and related object already exist
+$user = Model_User::find(8);
+$user->posts[1] = Model_Post::find(1);
+$user->save();
+
+// break the relationship established above
+$post = Model_Post::find(1);
+unset($post->users[8]);
+$post->save();</code></pre>
+
+				<h3>Full config example with defaults as values</h3>
+
+				<pre class="php"><code>// in a Model_Post which has and belongs to many Users
+// = multiple posts per user and multiple users (authors) per post
+protected static $_many_many = array(
+	'users' => array(
+		'key_from' => 'id',
+		'key_through_from' => 'post_id', // column 1 from the table in between, should match a posts.id
+		'table_through' => 'posts_users', // both models plural without prefix in alphabetical order
+		'key_through_to' => 'user_id', // column 2 from the table in between, should match a users.id
+		'model_to' => 'Model_User',
+		'key_to' => 'id',
+		'cascade_save' => true,
+		'cascade_delete' => false,
+	)
+);</code></pre>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

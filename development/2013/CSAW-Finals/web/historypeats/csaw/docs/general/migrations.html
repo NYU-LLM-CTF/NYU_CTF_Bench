@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Migrations - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Migrations</h2>
+
+			<p>Migrations are a convenient way for you to alter your database in a structured and organized manner. You could edit fragments of SQL by hand but you would then be responsible for telling other developers that they need to go and run them. You’d also have to keep track of which changes need to be run against the production machines next time you deploy.</p>
+
+			<p>The database table `migration` tracks which migrations have already been run so all you have to do is update your application files and call <kbd>Migrate::current()</kbd> to work out which migrations should be run. The current version is found in core/config/migration.php so like any other config file you should copy this to app/config to make changes.</p>
+
+			<h3><a class="internal_link" href="#/config">Configuration</a></h3>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Key</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<th>folder</th>
+						<td>string</td>
+						<td>
+							<pre class="php">
+								<code>'migrations/'</code>
+							</pre>
+						</td>
+						<td>
+							The folder in which migration files will be found.
+						</td>
+					</tr>
+					<tr>
+						<th>connection</th>
+						<td>string</td>
+						<td>
+							<pre class="php">
+								<code>null</code>
+							</pre>
+						</td>
+						<td>
+							Configuration name of a database connection to use to write migrations.
+						</td>
+					</tr>
+					<tr>
+						<th>table</th>
+						<td>string</td>
+						<td>
+							<pre class="php">
+								<code>'migration'</code>
+							</pre>
+						</td>
+						<td>
+							The database table used to store migration data.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p class="note">
+				<strong>Note: </strong>
+				After migrations have been run, the configuration file will be rewritten with version information included. These version numbers are used internally and should not be changed.
+			</p>
+
+			<h3>Creating a Migration</h3>
+
+			<p>Create a file in the app/migrations folder. The prefix should be an incremental count starting at 001, do not skip numbers and do not have two numbers that match. The first would be something like <kbd>app/migrations/001_example.php</kbd>.</p>
+			<pre class="php"><code>namespace Fuel\Migrations;
+
+class Example
+{
+
+    function up()
+    {
+        \DBUtil::create_table('posts', array(
+			'id' => array('type' => 'int', 'constraint' => 5),
+			'title' => array('type' => 'varchar', 'constraint' => 100),
+			'body' => array('type' => 'text'),
+		), array('id'));
+    }
+
+    function down()
+    {
+       \DBUtil::drop_table('posts');
+    }
+}</code></pre>
+
+			<h3 id="run_a_migration">Run a Migration</h3>
+
+			<p>A migration can be run in two ways:</p>
+
+			<ol>
+				<li><a href="../classes/migrate.html">Migrate class</a></li>
+				<li><a href="../packages/oil/refine.html">Oil Refine Command</a></li>
+			</ol>
+
+			<p>The oil command there uses the Refine command to call the migrate <a href="tasks.html">task</a>.</p>
+
+			<pre class="cli"><code>$ php oil refine migrate
+$ php oil refine migrate:current
+$ php oil refine migrate:up
+$ php oil refine migrate:down
+$ php oil refine migrate --version=10</code></pre>
+
+			<p>
+				Migrations are supported for modules and packages too. You can specify on the oil commandline if you want to
+				migrate all, or only specific modules and/or packages. If you do, you can use '--default' to indicate you want
+				to include app migrations.
+			</p>
+
+			<pre class="cli"><code>$ php oil refine migrate -all
+$ php oil refine migrate --modules=module1,module2 --packages=package1
+$ php oil refine migrate:up --packages=package1
+$ php oil refine migrate:down --modules=module1,module2 --default
+$ php oil refine migrate --version=10</code></pre>
+
+			<p class="note">
+				<strong>Note: </strong>
+				The migrate:current task is to match your schema to the version listed in <kbd>fuel/[app|core]/config/migrate.php</kbd> as if you have just got
+				a copy of the application, the very latest migration not be the one considered stable. Using oil for migrations will modify this migration
+				config number so the current command will not be relevant in many situations.
+			</p>
+
+			<h3 id="skip_migrations">Skipping migrations</h3>
+
+			<p>
+				You can abort the migration process by having your <kbd>up()</kbd> or <kbd>down()</kbd> method return
+				<kbd>false</kbd>. This can be useful if your migration has external dependencies, for example the existence of a table created in a different
+				migration.
+			</p>
+			<p class="note">
+				This will only abort the migration stack currently being processed, either the application migrations, or the migrations in a single module or package.
+				All migrations in other stacks will be processed as normal.
+			</p>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>
