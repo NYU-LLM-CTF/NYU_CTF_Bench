@@ -11,11 +11,32 @@ from .utils import SafeDict, get_canonical_name, CATEGORY_FRIENDLY
 
 logger = logging.getLogger("CTFChallenge")
 
+category_friendly = {
+    "rev": "reverse engineering",
+    "pwn": "binary exploitation",
+    "web": "web security",
+    "crypto": "cryptography",
+    "misc": "miscellaneous",
+    "forensics": "forensics",
+}
+
+category_short = {
+    "crypto": "cry",
+    "forensics": "for",
+    "misc": "msc",
+    "pwn": "pwn",
+    "rev": "rev",
+    "web": "web",
+}
+
 class CTFChallenge:
     def __init__(self, challenge: dict, basedir: Path|str):
         self.challenge_info = challenge
         self.challenge_dir = Path(basedir) / challenge["path"]
         self.challenge_dir = self.challenge_dir.expanduser().resolve()
+
+        self.challenge_server_log = None
+        self.challenge_server_output = None
 
         # Load challenge details from JSON
         self.load_challenge(self.challenge_dir / "challenge.json")
@@ -46,6 +67,7 @@ class CTFChallenge:
         self.server_name = self.challenge.get("box", None)
         self.port = self.challenge.get("internal_port", None)
         self.server_description = self.challenge.get("server_description", None)
+        self.solved = False
 
         # If the chal description contains {box} or {port} but we don't have
         # a server name, raise an error
@@ -59,6 +81,23 @@ class CTFChallenge:
         return self.challenge["description"].format_map(
             SafeDict(box=self.server_name, port=self.port)
         )
+    
+    def get_compose_logs(self):
+        return subprocess.check_output(
+            ['docker', 'compose', '-f', self.chaldir / 'docker-compose.yml', 'logs'],
+            text=True,
+        )
+    
+    def get_server_logs(self):
+        if self.disable_docker:
+            return None
+        if self.is_compose:
+            return self.get_compose_logs()
+        if not self.challenge_server_log:
+            return None
+        self.challenge_server_log.flush()
+        self.challenge_server_log.seek(0)
+        return self.challenge_server_log.read().decode('utf-8', errors='replace')
 
     @cached_property
     def canonical_name(self):
