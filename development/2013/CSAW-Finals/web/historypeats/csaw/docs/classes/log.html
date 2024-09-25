@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Log::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Log - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Log Class</h2>
+
+			<p>The log class allows you to write messages to the log files.</p>
+
+			<h3 id="configuration">Configuration</h3>
+
+			<p>The log files are being placed in the folder specified by the attribute '<strong>log_path</strong>' in the <strong>config.php</strong>. You can also set the '<strong>log_threshold</strong>' and the '<strong>log_date_format</strong>' parameters there.<br/>These settings can also be changed on the fly by using the <a href="config.html">Config Class</a>.</p>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Param</th>
+						<th>Type</th>
+						<th>Default</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<th>log_threshold</th>
+						<td>constant</td>
+						<td><pre class="php"><code>Fuel::L_WARNING</code></pre></td>
+						<td>
+							Can be any of the following: <code>Fuel::L_NONE, Fuel::L_ERROR, Fuel::L_WARNING, Fuel::L_DEBUG, Fuel::L_INFO or Fuel::L_ALL</code>
+						</td>
+					</tr>
+					<tr>
+						<th>log_path</th>
+						<td>string</td>
+						<td><pre class="php"><code>APPPATH.'logs/'</code></pre></td>
+						<td>
+							Where to put the log files. (Folder must be writable)
+						</td>
+					</tr>
+					<tr>
+						<th>log_date_format</th>
+						<td>string</td>
+						<td><pre class="php"><code>'Y-m-d H:i:s'</code></pre></td>
+						<td>
+							The date format for the log entries. This format must follow the PHP date format rules. See <a href="http://www.php.net/date">http://www.php.net/date</a> for a complete list.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3 id="usage">Usage</h3>
+
+			<p>There are four predefined functions for ease of use:</p>
+			<pre class="php"><code>Log::info()
+Log::debug()
+Log::warning()
+Log::error()</code></pre>
+
+			<p>They all use the main function <strong>Log::write()</strong> which requires the <strong>$level</strong> parameter as the first argument.</p>
+
+			<h6>Some examples:</h6>
+			<pre class="php"><code>// Write a log entry with the level "Info" to the log file for the current day
+$var = 1;
+Log::info('Application started (with $var = '.$var.')', 'my_init_function()');
+
+// Save the new value of $var to the log file, without the $method parameter
+$var = 5;
+Log::debug('$var is now '.$var);
+
+// Send a warning log entry
+if($var !== 1) Log::warning('Although $var has been changed, we will keep going.');
+
+// Send an error log entry
+if($var !== 1) Log::error('We cannot keep going, $var has been changed! :o');
+
+// Finally, create a log entry with a custom $level
+Log::write('Link', 'More info on http://fuelphp.com/');</code></pre>
+
+			<h5 id="output">Output</h5>
+
+			<p>All log files are being placed in the defined folder (see above), composed in folders named by the current <strong>year</strong> followed by the <strong>month</strong> (<em>"2011/06"</em> for example) with the day of the month as the filename (<em>"15.php"</em> for example).<br/>The complete path to our example log file would be: <strong>APPPATH.'logs/2011/06/15.php'</strong></p>
+
+			<p><strong>The examples above would write the following code to the log file:</strong></p>
+			<pre class="php"><code>&lt;?php defined('COREPATH') or exit('No direct script access allowed'); ?&gt;<br/><br/>Info - 2011-01-03 18:44:45 --> my_init_function() - Application started (with $var = 1)<br/>Debug - 2011-01-03 18:44:45 --> $var is now 5<br/>Warning - 2011-01-03 18:44:45 --> Although $var has been changed, we will keep going.<br/>Error - 2011-01-03 18:44:45 --> We cannot keep going, $var has been changed! :o<br/>Link - 2011-01-03 18:44:45 --> More info on http://fuelphp.com/</code></pre>
+
+			<article>
+				<h4 class="method" id="method_info">info($msg, $method = null)</h4>
+				<p>The <strong>info</strong> method allows you to write a log entry with the <strong>$level</strong> "Info".</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$msg</kbd></th>
+									<td><em>required</em></td>
+									<td>The message for the info log entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Information about the method which created the log entry.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$var = 1;<br/>Log::info('Application started (with $var = '.$var.')', 'my_init_function()');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_debug">debug($msg, $method = null)</h4>
+				<p>The <strong>debug</strong> method allows you to write a log entry with the <strong>$level</strong> "Debug".</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$msg</kbd></th>
+									<td><em>required</em></td>
+									<td>The message for the info log entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Information about the method which created the log entry.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$var = 5;<br/>Log::debug('$var is now '.$var);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_warning">warning($msg, $method = null)</h4>
+				<p>The <strong>warning</strong> method allows you to write a log entry with the <strong>$level</strong> "Warning".</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$msg</kbd></th>
+									<td><em>required</em></td>
+									<td>The message for the info log entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Information about the method which created the log entry.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// we send a warning log entry<br/>if($var !== 1) Log::warning('Although $var has been changed, we will keep going.');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_error">error($msg, $method = null)</h4>
+				<p>The <strong>error</strong> method allows you to write a log entry with the <strong>$level</strong> "Error".</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$msg</kbd></th>
+									<td><em>required</em></td>
+									<td>The message for the info log entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Information about the method which created the log entry.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// we send an error log entry<br/>if($var !== 1) Log::error('We cannot keep going, $var has been changed! :o');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_write">write($level, $msg, $method = null)</h4>
+				<p>The <strong>write</strong> method allows you to write a log entry with a custom <strong>$level</strong>.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$level</kbd></th>
+									<td><em>required</em></td>
+									<td>A custom Level.</td>
+								</tr>
+								<tr>
+									<th><kbd>$msg</kbd></th>
+									<td><em>required</em></td>
+									<td>The message for the info log entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Information about the method which created the log entry.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>boolean</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// and finally, we create a log entry with a custom $level
+Log::write('Link', 'More info on http://fuelphp.com/')</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<h3 id="procedural_helpers">Procedural helpers</h3>
+
+			<article>
+				<h4 id="function_logger">logger($level, $msg, $method = null)</h4>
+				<p>The <strong>logger</strong> function is an alias for <a href="#method_write">Log::write</a>.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$level</kbd></th>
+									<td><em>required</em></td>
+									<td>A custom Level.</td>
+								</tr>
+								<tr>
+									<th><kbd>$msg</kbd></th>
+									<td><em>required</em></td>
+									<td>The message for the info log entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Information about the method which created the log entry.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>logger(\Fuel::L_INFO, 'My Message', 'SomeMethod');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

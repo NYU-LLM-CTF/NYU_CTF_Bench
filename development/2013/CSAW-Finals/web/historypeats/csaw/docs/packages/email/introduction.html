@@ -1,0 +1,343 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Introduction - Email Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Email package</h2>
+
+			<p>
+				The Email package provides an interface for sending email using either php's mail function, sendmail
+				or SMTP. The package supports:
+			</p>
+
+			<ul>
+				<li>Plain-text mails</li>
+				<li>HTML mails, with and optional alternative body</li>
+				<li>Attachments</li>
+				<li>Inline attachments.</li>
+			</ul>
+
+			<section>
+
+				<h3 id="installation">Installation</h3>
+
+				<p>
+					The Email package is part of the official download (since version 1.1). You will have to enable the package
+					either in the app config or include it on the fly.
+				</p>
+
+					<pre class="php"><code>'always_load' => array(
+	'packages' => array(
+		'email',
+	),
+),
+
+// Or in a controller:
+
+\Package::load('email');
+</code></pre>
+
+			</section>
+
+			<section>
+
+				<h3 id="configuration">Configuration</h3>
+
+				<p>
+					Create (or copy from the package) a config file at <em>app/config/email.php</em>. And change the settings needed.
+				</p>
+
+				<p class="note">
+					<strong>Please note:</strong> The Email package loads the email config for you, so there is no need to autoload it.
+				</p>
+
+				<h4 id="general_config">General configuration</h4>
+
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>defaults</th>
+							<td>array</td>
+							<td><pre class="php"><code>array( /* default config array */ )</code></pre></td>
+							<td>
+								Default settings for every setup group to use. In your setup group you overwrite these values.
+							</td>
+						</tr>
+						<tr>
+							<th>default_setup</th>
+							<td>string</td>
+							<td><pre class="php"><code>'default'</code></pre></td>
+							<td>
+								The default setup to use if none is profided.
+							</td>
+						</tr>
+						<tr>
+							<th>setups</th>
+							<td>array</td>
+							<td><pre class="php"><code>array(
+		'default' => array(),
+	)</code></pre></td>
+							<td>
+								A setups array with one default setup. Add your own or modify the default setup group.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h4 id="group_config">Group configuration</h4>
+
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>useragent</th>
+							<td>string</td>
+							<td><pre class="php"><code>'FuelPHP, PHP 5.3 Framework'</code></pre></td>
+							<td>
+								The user agent.
+							</td>
+						</tr>
+						<tr>
+							<th>driver</th>
+							<td>string</td>
+							<td><pre class="php"><code>'mail'</code></pre></td>
+							<td>
+								The driver to use. Can be mail, smtp, sendmail or noop (only logs writes to log). Must be lowercase.
+							</td>
+						</tr>
+						<tr>
+							<th>is_html</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								Whether to send as html mail or as plain mail.
+							</td>
+						</tr>
+						<tr>
+							<th>encode_headers</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								Whether to encode subject and recipient names.
+								Requires the <a href="http://www.php.net/manual/en/ref.mbstring.php" target="_blank">mbstring extension</a>.
+							</td>
+						</tr>
+						<tr>
+							<th>charset</th>
+							<td>string</td>
+							<td><pre class="php"><code>'utf-8'</code></pre></td>
+							<td>
+								The email message charset.
+							</td>
+						</tr>
+						<tr>
+							<th>encoding</th>
+							<td>string</td>
+							<td><pre class="php"><code>'8bit'</code></pre></td>
+							<td>
+								The email message encoding. Can be 7bit, 8bit, quoted-printable and base64.
+							</td>
+						</tr>
+						<tr>
+							<th id="config_priority">priority</th>
+							<td>string</td>
+							<td><pre class="php"><code>\Email::P_NORMAL</code></pre></td>
+							<td>
+								The email's priority. Can be:
+								<ul style="padding-bottom: 5px; padding-top: 5px;">
+									<li>\Email::P_LOWEST</li>
+									<li>\Email::P_LOW</li>
+									<li>\Email::P_NORMAL</li>
+									<li>\Email::P_HIGH</li>
+									<li>\Email::P_HIGHEST</li>
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<th>from.email</th>
+							<td>string|false</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								Use this to set a default from email address.
+							</td>
+						</tr>
+						<tr>
+							<th>from.name</th>
+							<td>string|false</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								Use this to set a default from name.
+							</td>
+						</tr>
+						<tr>
+							<th>validate</th>
+							<td>bool</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								Set to false if you don't want to validate the addresses. Can result in failure in sending.
+							</td>
+						</tr>
+						<tr>
+							<th>auto_attach</th>
+							<td>bool</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								Whether to auto attach (background) images from a html body.
+							</td>
+						</tr>
+						<tr>
+							<th>generate_alt</th>
+							<td>bool</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								Whether to automatically generate an alt body from a html body.
+							</td>
+						</tr>
+						<tr>
+							<th>wordwrap</th>
+							<td>int|false</td>
+							<td><pre class="php"><code>76</code></pre></td>
+							<td>
+								Word wrap size. If lower than anything above 0 will wrap. This setting is ignored when using base64 or quoted-printable.
+							</td>
+						</tr>
+						<tr>
+							<th>sendmail_path</th>
+							<td>string</td>
+							<td><pre class="php"><code>'/usr/sbin/sendmail'</code></pre></td>
+							<td>
+								Path to sendmail.
+							</td>
+						</tr>
+						<tr>
+							<th>smtp.host</th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>
+								SMTP host.
+							</td>
+						</tr>
+						<tr>
+							<th>smtp.port</th>
+							<td>int</td>
+							<td><pre class="php"><code>25</code></pre></td>
+							<td>
+								SMTP port.
+							</td>
+						</tr>
+						<tr>
+							<th>smtp.username</th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>
+								SMTP username.
+							</td>
+						</tr>
+						<tr>
+							<th>smtp.password</th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>
+								SMTP password.
+							</td>
+						</tr>
+						<tr>
+							<th>smtp.timeout</th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>
+								SMTP timeout. Increase this when a SMTP servers times out during the sending proccess.
+							</td>
+						</tr>
+						<tr>
+							<th>newline</th>
+							<td>string</td>
+							<td><pre class="php"><code>"\n"</code></pre></td>
+							<td>
+								New line.
+							</td>
+						</tr>
+						<tr>
+							<th>attach_paths</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('');</code></pre></td>
+							<td>
+								Array of attachment paths. When adding attachments,
+								the driver will look in these paths and attach the first on found.
+								Leave the empty ('') in there to allow absolute paths.
+							</td>
+						</tr>
+						<tr>
+							<th>return-path</th>
+							<td>string|false</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								Use this to set a default return-path email address.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

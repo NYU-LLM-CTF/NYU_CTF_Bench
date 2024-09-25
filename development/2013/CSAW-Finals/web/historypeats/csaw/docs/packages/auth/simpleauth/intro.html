@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Introduction - SimpleAuth - Auth Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>SimpleAuth - Introduction</h2>
+
+			<p>
+				Simpleauth is, as it's name implies, a simple authentication system which is included in the Auth package.
+				Besides being a working Auth implementation, it is also an example for other Auth drivers.
+				You can use this as a reference when building your own driver.
+			</p>
+
+			<h3 id="setup">Auth setup</h3>
+
+			<p>
+				Configuration starts with telling the Auth package that you are going to use the Simpleauth driver.
+				This is done through the auth.php configuration file. A default file is provided in the Auth package.
+				You should copy this file to your app/config folder before making any changes. The default file is already
+				configured for the Simpleauth package. You will find an explaination of this config file <a href="../intro.html#/configuration">here</a>.
+			</p>
+			<p>
+				After you have done this, you can choose to autoload the package through the <strong>always_load</strong> section of the app/config/config.php.
+			</p>
+
+			<h3 id="acl">ACL's</h3>
+
+			<p>
+				SimpleAuth comes with an ACL driver that supports the following ACL structure:
+			</p>
+
+			<ul>
+				<li>Every user is a member of one, and exactly one, group</li>
+				<li>Every group has zero or more roles assigned to it</li>
+				<li>Every role can have zero or more rights assigned to it</li>
+			</ul>
+
+			<p>
+				When checking for access, you specify the required access as either <code>role.right</code> (when you want to check for
+				a single right, or <code>role.[right,right]</code> when you want to check for multiple rights at once. This is an AND check,
+				so when you specify multiple rights, the user must have ALL of them assigned to be granted access.
+			</p>
+
+			<h3 id="configuration">Configuration</h3>
+
+			<p>
+				The Simpleauth authentication system is configured through a configuration file, not suprisingly called
+				'simpleauth.php'. A default file is provided in the Auth package. You should copy this file
+				to your app/config folder before making any changes.
+			</p>
+
+				<p>The following configuration values can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>db_connection</th>
+							<td>string</td>
+							<td><pre class="php"><code>null</code></pre>
+							</td>
+							<td>
+								Name of the database connection to use. This should match the definition in your applications db.php configuration file.
+								Set it to <strong>null</strong> to use the default DB instance.
+							</td>
+						</tr>
+						<tr>
+							<th>table_name</th>
+							<td>string</td>
+							<td><pre class="php"><code>'users'</code></pre>
+							</td>
+							<td>
+								Name of the users table to use.
+							</td>
+						</tr>
+						<tr>
+							<th>table_columns</th>
+							<td>array</td>
+							<td><pre class="php"><code>array('*')</code></pre>
+							</td>
+							<td>
+								List of columns to select from the users table, or '*' to select all columns. You have to at least include
+								'username', 'password', 'email', 'last_login', 'login_hash', 'group' and 'profile_fields'.
+							</td>
+						</tr>
+						<tr>
+							<th>guest_login</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre>
+							</td>
+							<td>
+								If true a dummy 'guest' user will be created if no one is logged in. This allows you to use the group and
+								acl drivers even when no one is logged in.
+							</td>
+						</tr>
+						<tr>
+							<th>remember_me</th>
+							<td>array</td>
+							<td><pre class="php"><code>array(
+	'enabled' => false,
+	'cookie_name' => 'rmcookie',
+	'expiration' => 86400*31
+)</code></pre>
+							</td>
+							<td>
+								Configuration for the Simpleauth 'remember_me' functionality
+							</td>
+						</tr>
+						<tr>
+							<th>multiple_logins</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre>
+							</td>
+							<td>
+								If true multiple concurrent logins of the same user are allowed. If false, when a user logs in, any previous login will be
+								cancelled. Note that enabling this will disable some login session hijacking measures!
+							</td>
+						</tr>
+						<tr>
+							<th>groups</th>
+							<td>array</td>
+							<td><pre class="php"><code>array()</code></pre>
+							</td>
+							<td>
+								Defined groups, to be used by the SimpleAuth groups driver. See the default configuration file for an
+								description of the groups array structure.
+							</td>
+						</tr>
+						<tr>
+							<th>roles</th>
+							<td>array</td>
+							<td><pre class="php"><code>array()</code></pre>
+							</td>
+							<td>
+								Defined roles, to be used by the SimpleAuth acl driver. See the default configuration file for an
+								description of the roles array structure.
+							</td>
+						</tr>
+						<tr>
+							<th>login_hash_salt</th>
+							<td>string</td>
+							<td><pre class="php"><code>'put_some_salt_in_here'</code></pre>
+							</td>
+							<td>
+								To make the passwords used by the SimpleAuth drivers extra secure, a salt value is used when hashing
+								the passwords to store them into the database. Make sure you change this default to a very random string!
+								To hash passwords, SimpleAuth uses <a href="http://en.wikipedia.org/wiki/PBKDF2" target="_blank">PBKDF2</a>, a very secure hashing mechanism.
+							</td>
+						</tr>
+						<tr>
+							<th>username_post_key</th>
+							<td>string</td>
+							<td><pre class="php"><code>'username'</code></pre>
+							</td>
+							<td>
+								Name of the input field on the login form that contains the username.
+							</td>
+						</tr>
+						<tr>
+							<th>password_post_key</th>
+							<td>string</td>
+							<td><pre class="php"><code>'password'</code></pre>
+							</td>
+							<td>
+								Name of the input field on the login form that contains the password.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			<p class="note">
+				If you want to use the 'remember-me' functionality, make sure you have a valid <a href="../../../classes/crypt.html">Crypt</a> configuration, as it
+				uses an encrypted cookie to store the user information to be remembered.
+			</p>
+
+			<h3 id="database">Database table</h3>
+
+			<p>
+				SimpleAuth relies on a single table. The Auth package contains the required migration files to create this table.<br />
+				Just run <code>oil refine migrate --packages=auth</code> to have the table created for you.
+			</p>
+
+			<h3 id="example">Example</h3>
+
+			<p>This is a sample login action:</p>
+
+			<pre class="php"><code>public function action_login()
+{
+	$data = array();
+
+	// If so, you pressed the submit button. Let's go over the steps.
+	if (Input::post())
+	{
+		// Check the credentials. This assumes that you have the previous table created and
+		// you have used the table definition and configuration as mentioned above.
+		if (Auth::login())
+		{
+			// Credentials ok, go right in.
+			Response::redirect('success_page');
+		}
+		else
+		{
+			// Oops, no soup for you. Try to login again. Set some values to
+			// repopulate the username field and give some error text back to the view.
+			$data['username']    = Input::post('username');
+			$data['login_error'] = 'Wrong username/password combo. Try again';
+		}
+	}
+
+	// Show the login form.
+	echo View::forge('auth/login',$data);
+}</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

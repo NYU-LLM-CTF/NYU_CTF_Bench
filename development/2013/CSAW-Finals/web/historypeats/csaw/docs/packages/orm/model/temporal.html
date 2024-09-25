@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+                var class_prefix = 'Model_Temporal::';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Temporal Model - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+            <div id="main">
+                <section>
+                    <h2 id="introduction">Introduction</h2>
+                    <p>The temporal model is a lot less scary than it sounds. </p>
+                    <p>Usually in a database entities are represented by a row in a table, when this row is updated the old information is overwritten. The temporal model allows data to be referenced in time, it makes it possible to query the state of an entity at a given time.</p>
+                    <p>For example, say you wanted to keep track of changes to products so when an order is placed you know the state of the product without having to duplicate data in the orders table. You can make the products temporal and use the time of the order to reference the state of the ordered products at that time rather than how they currently are, as would happen without using temporal data.</p>
+                    <p>The temporal model could also be used for auditing changes to things like wiki pages. Any changes would be automatically logged without having to use a separate log table.</p>
+					<p>An "entity" would be any item in your design, for example, a product, a user, a gallery folder, anything that you would use as a Model can be considered an entity. The Temporal Model allows you to track changes to these entities over time by storing changes, each new set of changes is called a "revision". Because each revision is saved along with time (temporal) data it makes it possible to get the state of an entity at any given time.</p>
+                    <p>This implementation of a temporal model stores revisions of entities in the same table as the original data, removing the need for duplicate "log" tables. While the implementation here is not the only way of implementing revisions, it is the most flexible given the limitations of the ORM and the fact that it must work in multiple database environments.</p>
+                    <h1>Why do this in the ORM and not just choose a database system that allows it?</h1>
+                    <p>Implementing the temporal functionality within the ORM allows the mechanics to be abstracted out of the database level, this allows the use of any database that the ORM supports with temporal models, providing greater flexibility. This model does not replace the ability to use a database that supports temporal information but provides an "out of the box" implementation.</p>
+                </section>
+                
+                <section>
+                    <h2 id="use">Use</h2>
+                    <p>The table must be set up with a compound primary key of the entity ID, just a standard auto-incrementing number (for example), and the timestamps that represent the valid time span of the row.</p>
+                    <pre id="php"><code>class Model_MyTemporal extends Orm\Model_Temporal
+{
+	protected static $_primary_key = array('id', 'temporal_start', 'temporal_end');
+	protected static $_temporal = array(
+		'start_column' => 'temporal_start', //The name of the column that contains the time this row is valid from
+		'end_column' => 'temporal_end', //The name of the column that contains the time this row is valid to
+		'mysql_timestamp' => false, //If set to true will use MySQL timestamps rather than unix timestamps
+	);
+}</code></pre>
+                    <p class="note">Please note that the primary key must be a compound key between the entity id and the temporal timestamps.</p>
+                    <p class="note">Any relations that are defined using temporal models should relate only on the id and <strong>not</strong> both id and timestamp.</p>
+                </section>
+                
+                <article>
+                    <h4 id="method_find" class="method"><a class="interal_link" href="#/method_find">find()</a></h4>
+                    <p>The find method works exactly the same as the regular model's implementation except that a where clause is added to select only the latest revision of an entity.</p>
+                </article>
+                
+                <article>
+                    <h4 id="method_find_revision" class="method"><a class="interal_link" href="#/method_find_revision">find_revision($id, $timestamp=null, $relations = array())</a></h4>
+                    <p>This method can be used to query the state of an entity at the given time.</p>
+                    <table class="method">
+                        <tbody>
+                            <tr>
+                                <th class="legend">Static</th>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <th>Parameters</th>
+                                <td>
+                                    <table class="parameters">
+                                        <tr>
+                                            <th>Param</th>
+                                            <th>Default</th>
+                                            <th class="description">Description</th>
+                                        </tr>
+                                        <tr>
+                                            <th><kbd>$id</kbd></th>
+                                            <td><em>required</em></td>
+                                            <td>The ID of the entity to search for.</td>
+                                        </tr>
+                                        <tr>
+                                            <th><kbd>$timestamp</kbd></th>
+                                            <td><pre class="php"><span class="keyword">null</span></pre></td>
+                                            <td>The time to reference the entity at. <kbd>null</kbd> will return the most current revision.</td>
+                                        </tr>
+                                        <tr>
+                                            <th><kbd>$relations</kbd></th>
+                                            <td><pre class="php"><span class="keyword">array</span></pre></td>
+                                            <td>Names of the relations to load with the entity.</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Returns</th>
+                                <td>A single subclass of <kbd>Model_Temporal</kbd></td>
+                            </tr>
+                            <tr>
+                                <th>Example</th>
+                                <td>
+                                    <pre class="php"><code>Model_Product::find_revision($id, '2012-11-09 12:04:00', array('images', 'reviews'));</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<p class="note">Any model fetched through <kbd>find_revision</kbd> or <kbd>find_revisions</kbd> should be considered <strong>read only</strong> as it should not be possible to modify the past!.</p>
+                </article>
+                <article>
+                    <h4 id="method_find_revisions_between" class="method"><a class="interal_link" href="#/method_find_revisions_between">find_revisions_between($id, $earliestTime = null, $latestTime = null)</a></h4>
+                    <p>This method will return the states of an entity between the given times.</p>
+                    <table class="method">
+                        <tbody>
+                            <tr>
+                                <th class="legend">Static</th>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <th>Parameters</th>
+                                <td>
+                                    <table class="parameters">
+                                        <tr>
+                                            <th>Param</th>
+                                            <th>Default</th>
+                                            <th class="description">Description</th>
+                                        </tr>
+                                        <tr>
+                                            <th><kbd>$id</kbd></th>
+                                            <td><em>required</em></td>
+                                            <td>The ID of the entity to search for.</td>
+                                        </tr>
+                                        <tr>
+                                            <th><kbd>$earliestTime</kbd></th>
+                                            <td><pre class="php"><span class="keyword">null</span></pre></td>
+                                            <td>The time of the earliest revision to find or <kbd>null</kbd> for an infinite number of previous revisions.</td>
+                                        </tr>
+                                        <tr>
+                                            <th><kbd>$latestTime</kbd></th>
+                                            <td><pre class="php"><span class="keyword">null</span></pre>, <pre class="php"><span class="keyword">string</span></pre> or <pre class="php"><span class="keyword">integer</span></pre></td>
+                                            <td>The time of the latest revision to find or <kbd>null</kbd> for an infinite number of revisions (up to the latest).</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Returns</th>
+                                <td>An array of subclasses of <kbd>Model_Temporal</kbd></td>
+                            </tr>
+                            <tr>
+                                <th>Example</th>
+                                <td>
+                                    <pre class="php"><code>Model_Product::find_revisions_between($id, '2012-11-09 12:04:00', '2012-12-10 19:00:00');</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="note">It is currently not possible to select relations at the same time using find_revisions_between.</p>
+                </article>
+				<article>
+                    <h4 id="method_delete" class="method"><a class="interal_link" href="#/method_delete">delete($cascade = null, $use_transaction = false)</a></h4>
+                    <p>This method will delete the object from the database. It works in exactly the same way as the normal Model's delete function except that the information is not removed from the database. This means that you can still reference the object at a given time, but it is no longer valid for the present.</p>
+                    <table class="method">
+                        <tbody>
+                            <tr>
+                                <th class="legend">Static</th>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <th>Example</th>
+                                <td>
+                                    <pre class="php"><code>Model_Product::find(5)->delete();</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<p class="note">Cascade delete will delete as normal. Any relations that are not Soft or Temporal will be deleted as normal.</p>
+                </article>
+				<article>
+                    <h4 id="method_overwrite" class="method"><a class="interal_link" href="#/method_overwrite">overwrite($cascade = null, $use_transaction = false)</a></h4>
+                    <p>Allows information to be saved without creating a new revision. Works the same as Model::save()</p>
+                    <table class="method">
+                        <tbody>
+                            <tr>
+                                <th class="legend">Static</th>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <th>Example</th>
+                                <td>
+                                    <pre class="php"><code>$product = Model_Product::find(5);
+$product->name = 'Super Awesome 12000';
+//Product is updated without creating a new row in the database.
+$product->overwrite();</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+				<article>
+                    <h4 id="method_restore" class="method"><a class="interal_link" href="#/method_restore">restore()</a></h4>
+                    <p>If an entity has been deleted this method restores the entity to the current state. Nothing will happen if the entity has not been deleted.</p>
+                    <table class="method">
+                        <tbody>
+                            <tr>
+                                <th class="legend">Static</th>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <th>Example</th>
+                                <td>
+                                    <pre class="php"><code>Model_Product::find_revision(5, '2012-11-09 12:04:00')->restore();</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+				<article>
+                    <h4 id="method_purge" class="method"><a class="interal_link" href="#/method_purge">purge()</a></h4>
+                    <p>Removes all revisions of this entity from the database. This is <strong>permanent</strong>! It cannot be undone.</p>
+                    <table class="method">
+                        <tbody>
+                            <tr>
+                                <th class="legend">Static</th>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <th>Example</th>
+                                <td>
+                                    <pre class="php"><code>Model_Product::find(5)->purge();</code></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<p class="note">This cannot be undone, it will delete all revisions of the entity from the database. If you do this the data will be destroyed!</p>
+                </article>
+            </div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

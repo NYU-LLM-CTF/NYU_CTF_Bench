@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2013q-pwn-csaw_diary
+    ports:
+      - 34266:34266
+    networks:
+      ctfnet:
+        aliases:
+          - pwn.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Instruction - Upgrade - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h3 id="intro">Introduction</h3>
+			<p>
+				How to upgrade depends on how you use FuelPHP in your development project.
+			</p>
+			<p>
+				In all cases, we assume you have followed the directive not to make any changes to core files,
+				have used class extensions in app/classes to extend core functionality, and copied core
+				configuration files to app/config when you wanted to modify the default configuration.
+			</p>
+			<h4 id="plain">I just downloaded and installed the zip file</h4>
+			<p>
+				If you have taken this route, you can take it again. Download the zipfile of the new version,
+				and replace fuel/core, and all fuel/packages you have installed. Once you have done that, take
+				the changelog and check for each item if that change has impact on your application.
+			</p>
+
+			<h4 id="own_git">My project is in it's own repository, including the framework files</h4>
+			<p>
+				Use the same procedure. Download the zip, and replace the files. Having them in a repository
+				gives you the benefit though to see the diff's, which makes it easier to work with the changelog
+				to make the required modifications your application (if needed).
+			</p>
+			<p class="note"><strong>Note</strong> that if you (still) use SubVersion, pay attention to the hidden svn directories in each folder. Don't delete them when replacing the files!</p>
+
+			<h4 id="git_with_subs">My project is in it's own repository, I use submodules for the FuelPHP repositories</h4>
+			<p>
+				If you have created the submodules manually, you know how it works, and how to update them. If you started with a clone
+				of the fuel/fuel repository, add it as an upstream repository, and pull the master branch of the new version. Deal with
+				any merge issues that may pop up, and run a `git submodule update` to update the submodules to the release version.
+			</p>
+
+			<h4 id="git_with_git">My project is in it's own repository, I use separate repositories for the FuelPHP components</h4>
+			<p>
+				If these repositories are your own, add the fuel repositories as upstream remotes, and pull the release branch to
+				update your files. Then push to your repositories to complete the update. If you use fuel's repositories directly,
+				simply switch branches. If the files are included in your app repository, push the changes this creates to your application
+				repository to complete the update.
+			</p>
+			<p class="note">
+				There are probably more scenario's possible. If you have a different scenario that you think is worth mentioning
+				here, let us know or send us a pull request for this page.
+			</p>
+
+			<h3 id="app">And what about the application?</h3>
+			<p>
+				In most cases, when a new version is released there are also changes to the primary FuelPHP repository, the
+				one that has become your application (i.e. everything in the app folder). As you have made extensive modifications
+				to this folder while creating your application, you have to be a bit careful here. Potentionally three things
+				might have been changed:
+			</p>
+
+			<h4 id="app_index">The index.php file in public</h4>
+			<p>
+				The index.php is an integral part of the FuelPHP framework, which takes care of setting up the environment and
+				bootstrapping the framework. When you upgrade to a newer FuelPHP version, don't forget to replace this file from
+				the fuel/fuel repository. If you have made changes to it, don't forget to port these changes to the new file!
+			</p>
+
+			<h4 id="app_assets">Included asset files in public</h4>
+			<p>
+				Although the files in public/assets that are included with FuelPHP aren't critical to the framework, they do
+				contain the files of Twitter Bootstrap, which are used in admin code generated by the <em>Oil</em> package.
+				Since a new version of Bootstrap will introduce changes to the way that framework is used, you will have to
+				check the markup of your generated admin code to make sure it still works with the new Bootstrap version.
+			</p>
+
+			<h4 id="app_others">Other included files</h4>
+			<p>
+				Other files that might need upgrading are the 'Oil' bootstrap script and the .htaccess file, and the files needed
+				by PHPUnit. If you haven't changed them, just replace them by the new version, to make sure you don't run into
+				issues when using them.
+			</p>
+
+			<h3 id="tips">Using upstream repositories</h3>
+
+			<p>
+				If you use git to manage your repository, you can add the fuel/fuel repository as an upstream remote to your
+				repository. This will allow you to pull in updates easily. If you use separate repositories for each of the
+				FuelPHP core components, you can do the same for them. This can save you lots of time when it comes to
+				upgrading to a newer version.
+			</p>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

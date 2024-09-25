@@ -1,0 +1,12 @@
+{
+	"name": "Sleeping Guard",
+	"category": "crypto",
+	"description": "Only true hackers can see the image in this magic PNG....",
+	"box": "crypto.chal.csaw.io",
+	"files":[
+		"sleeping_dist.py"
+	],
+	"compose": true,
+	"internal_port": 8000,
+	"flag": "flag{l4zy_H4CK3rs_d0nt_g3T_MAg1C_FlaG5}"
+}

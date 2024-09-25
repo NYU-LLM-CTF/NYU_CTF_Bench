@@ -1,0 +1,12 @@
+{
+	"name": "Seizure-Cipher",
+	"category": "web",
+	"description": "Throwback to last year",
+	"box": "web.chal.csaw.io",
+	"files":[
+		"Seizure-Cipher.tar.gz"
+	],
+	"compose": true,
+	"internal_port": 9000,
+	"flag": "FLAG{DENNO_SENSHI_PORYGON}"
+}

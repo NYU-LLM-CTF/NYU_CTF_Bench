@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Introduction - Oil Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Oil utility</h2>
+
+			<p>The Oil utility is a special package command can be used in several ways to facilitate quick development, help with
+			testing your application and for running <a href="../../general/tasks.html">Tasks</a>.</p>
+
+			<section>
+
+				<p>Oil is an optional command line utility designed to help speed up development by providing several functions:</p>
+
+				<ul>
+					<li><a href="../../packages/oil/generate.html">Generate</a> - Build MVC components, migrations and entire scaffolding.</li>
+					<li><a href="../../packages/oil/refine.html">Refine</a> - Run tasks such as migrate and your own custom ones.</li>
+					<li><a href="../../packages/oil/package.html">Package</a> - Install, update and remove packages.</li>
+					<li><a href="../../packages/oil/console.html">Console</a> - Test your code in real time using an interactive shell.</li>
+					<li><a href="../../packages/oil/test.html">Test</a> - Run PHPUnit tests.</li>
+				</ul>
+
+				<p>
+					Each of these commands works in a different way to achieve different things, but before getting into them it's best to make sure
+					you are in the correct folder and oil is available and running.
+				</p>
+
+				<pre class="cli"><code>$ cd Sites/fuel
+$ php oil -v
+Fuel: 1.2</code></pre>
+
+				<h3 id="environments">Environments</h3>
+
+				<p>
+					Oil won’t use any instructions you’ve made for HTTP requests, such as defining the server environment using .htaccess. Oil will use whichever environment is the default unless you instruct it.
+				</p>
+
+				<pre class="cli"><code>$ FUEL_ENV=production php oil refine migrate</code></pre>
+
+				<p>In place of <code>production</code> you can use any of the defined environments.</p>
+
+				<h3 id="help">In-line help</h3>
+
+				<p>Oil contains its own basic documentation which can be found by typing the command:</p>
+
+				<pre class="cli"><code>$ php oil help
+
+Usage:
+  php oil [console|generate|package|refine|help|test]
+
+Runtime options:
+  -f, [--force]    # Overwrite files that already exist
+  -s, [--skip]     # Skip files that already exist
+  -q, [--quiet]    # Suppress status output
+  -t, [--speak]    # Speak errors in a robot voice
+
+Description:
+  The 'oil' command can be used in several ways to facilitate quick development, help with
+  testing your application and for running Tasks.
+
+Documentation:
+  http://docs.fuelphp.com/packages/oil/intro.html
+</code></pre>
+
+				<p>Each of these commands has its own help section which can be found by typing:</p>
+
+				<pre class="cli"><code>$ php oil generate help</code></pre>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

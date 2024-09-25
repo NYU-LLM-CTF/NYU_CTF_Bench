@@ -1,0 +1,1960 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+		var class_prefix = "Model_Nestedset::";
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>NestedSets Model - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+            <div id="main">
+                <section>
+                    <h2 id="introduction">Introduction</h2>
+
+					<p>
+						<i>This introduction is based on <a href="http://www.codeproject.com/Articles/4155/Improve-hierarchy-performance-using-nested-sets">this article</a>, (c) James Simpson.</i>
+					</p>
+                    <p>
+						The nested set model is a particular technique for representing nested sets (also known as trees or hierarchies) in
+						relational databases. The term was apparently introduced by Joe Celko; others describe the same technique without naming
+						it or using different terms. (<a href="http://en.wikipedia.org/wiki/Nested_set_model">Source: Wikipedia</a>)
+					</p>
+					<p>
+						A typical example of a tree structure is an organigram of an organisation. We'll be using this to explain how nested sets work.
+                    </p>
+
+                    <div class="image">
+						<img src="./../../../assets/img/nestedset.gif" alt="nested set visual" />
+                    </div>
+
+					<p>
+						The above diagram is indicating that each node is aware of all its descendants, and vice versa. For example, we can see easily
+						enough from the diagram that Ben and Angela are "children" of Bill. We can also see that Tim and James are "children" of Ben.
+						This ultimately gives us a link between each member of the hierarchy.
+					</p>
+					<p>
+						For us to represent this we need to store two more values per node, that define the relationship between the nodes of the
+						tree structure. These are shown on the diagram in blue and red. We call these Left (<span style="color:red;">red</span> values)
+						and Right (<span style="color:blue;">blue</span> values) pointers.
+						These values are stored on the table, this is all we need to fully represent a nested sets hierarchy.
+					</p>
+
+					<p>
+						Those who are into Mathematics know that you can use a different diagram to represent tree structures:
+					</p>
+
+                    <div class="image">
+						<img src="./../../../assets/img/nestedset2.gif" alt="nested set visual" />
+                    </div>
+
+                    <p>
+						Although this might look confusing at first, and certainly more difficult to read, it is immediately clear why this is called
+						nested sets, and why this way of storing hierarchical data in a flat table is efficient: you can directly see the relation
+						between parent and children (all children are contained within their parent), and every node is aware of its parent, and all
+						its descendants. Using this representation you can clearly see that all pointers line up beautifully. This will come in very
+						handy when we need to access the tree.
+                    </p>
+
+					<h3>Storing multiple tree structures in a single table</h3>
+
+					<p>
+						You can store multiple tree structures into a single database table. To make this possible, you can add a tree-id
+						column to the table. The tree-id identifies the tree the node belongs to.
+					</p>
+					<p>
+						A tree-id may either be an integer or a string, and it can be auto-generated for you when you create a new tree, in case integers
+						are used. Integers also make it easier to use the tree-id as a foreign key in a one-to-many relation, and their index lookup
+						in the database is faster. It's strongly suggested you don't use a string value as a tree-id.
+					</p>
+
+					<h3>Table structure</h3>
+
+					<p>
+						You can add as many columns to the table as you want, but to be able to work, the Nestedset Model requires certain
+						columns to be present:
+					</p>
+
+					<ul>
+						<li>Left node pointer, default column name is 'left_id'</li>
+						<li>Right node pointer, default column name is 'right_id'</li>
+						<li>Tree id, a required column only if the table contains multiple trees (no default)</li>
+					</ul>
+					<p>
+						The actual names of the columns used for these functions can be configured in the model. Altough not strictly needed,
+						several methods require a "title" or "name" field. The name of this column can be configured in the model as well.
+						If you use a method that requires it to be present, but you haven't defined it, an exception will be thrown.
+					</p>
+					<p>
+						This is a minumal stucture for a nested sets table:
+					</p>
+
+                    <pre class="php"><code>CREATE TABLE `tree` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `left_id` int(11) unsigned NOT NULL,
+  `right_id` int(11) unsigned NOT NULL,
+  `tree_id` int(11) unsigned NOT NULL,
+  `name` varchar(50),
+  PRIMARY KEY (`id`),
+  KEY `left_id` (`left_id`),        // optional, might speed up certain lookups
+  KEY `right_id` (`right_id`),      // optional, might speed up certain lookups
+)
+</code></pre>
+                </section>
+
+                <section>
+                    <h2 id="configuration">Configuration</h2>
+
+                    <p>The Nestedset Model adds an additional property, <kbd>$_tree</kbd>, to the model, with which you can configure the model:</p>
+                    <ul>
+						<li><kbd>left_field</kbd> defines the name of the table column that is used to store the tree's <strong>left pointer</strong>. The column name defaults to "left_id".</li>
+						<li><kbd>right_field</kbd> defines the name of the table column that is used to store the tree's <strong>right pointer</strong>. The column name defaults to "right_id".</li>
+						<li><kbd>tree_field</kbd> defines the name of the table column that is used to store the tree's <strong>id</strong>, a value that uniquely identifies a tree in case you
+							want to store multiple trees in a single table. If you use a numeric value as tree-id, the model can automatically assign it when you
+							create new tree root nodes. If it is not numeric, you have to supply the value before you call <kbd>save()</kbd>.  There is no default value.</li>
+						<li><kbd>title_field</kbd> defines the name of the table column that is used to store the tree node's <strong>title</strong> or <strong>name</strong>. It is optional, the
+							Model works well without it, but it is required for some of the models methods. Where applicable this is mentioned in the documentation
+							of the method. There is no default value.</li>
+                    </ul>
+                    <p>The next section show you what a basic Nestedset model looks like, and how you configure it.</p>
+                </section>
+
+                <section>
+                    <h2 id="model">Defining the model</h2>
+
+                    <p>
+						Using the nested sets model is as easy as extending <kbd>\Orm\Model_Nestedset</kbd> instead of <kbd>\Orm\Model</kbd>.
+						This marks your model as being a nested sets model, adds a lot of methods to manipulate trees and nodes, and changes
+						the default behaviour of the <kbd>delete()</kbd> and <kbd>save()</kbd> methods to make sure the tree stays consistent.
+					</p>
+
+                    <pre class="php"><code>&lt;?php
+class Model_Tree extends \Orm\Model_Nestedset
+{
+	/**
+	* @var  string  name of the table to be used by this model
+	*/
+    protected static $_table_name = 'tree';
+
+	/**
+	 * @var  array  array of object properties
+	 */
+    protected static $_properties = array(
+		'id',
+		'left_id',
+		'right_id',
+		'tree_id',
+		'name',
+    );
+
+	/**
+	 * @var  array  array with the tree configuration
+	 */
+    protected static $_tree = array(
+		'left_field'     =&gt; 'left_id',		// name of the tree node left index field
+		'right_field'    =&gt; 'right_id',		// name of the tree node right index field
+		'tree_field'     =&gt; 'tree_id',		// name of the tree node tree index field
+		'title_field'    =&gt; 'name',		//  name of the tree node title field
+    );
+
+}
+?&gt;</code></pre>
+                    <p>
+						As you can see, a pretty standard ORM model configuration. The only additional class property is <strong>$_tree</strong>, which defines
+						the tree configuration. The model is then set up like a normal <a href="../creating_models.html">ORM model</a>, including any relations
+						or other properties that you wish to use.
+					</p>
+
+                </section>
+
+                <section>
+                    <h2 id="usage">Using the model</h2>
+
+					<p>
+						Based on the example in the introduction and the model defined above, let's start by creating this tree.
+					</p>
+                    <pre class="php"><code>&lt;?php
+// Bill, our MD, is the root of the tree
+$bill = Model_Tree::forge(array('name' => 'Bill'));
+
+// if you save a new node, it will automatically become a tree root node
+$bill->save();
+
+// give our MD some subordinates
+$angela = Model_Tree::forge(array('name' => 'Angela'));
+$ben = Model_Tree::forge(array('name' => 'Ben'));
+
+// they are children of Bill in the tree
+$angela->child($bill)->save();
+$ben->child($bill)->save();
+
+// add the rest of Customer service
+$henry = Model_Tree::forge(array('name' => 'Henry'));
+$henry->child($angela)->save();
+$nicola = Model_Tree::forge(array('name' => 'Nicola'));
+$nicola->child($angela)->save();
+
+// and the development team
+$kerry = Model_Tree::forge(array('name' => 'Kerry'));
+$kerry->child($ben)->save();
+// a sibling of Kerry is a child of Ben too...
+$james = Model_Tree::forge(array('name' => 'James'));
+$james->sibling($kerry)->save();
+
+// assign the teams benjamin to Kerry
+$tim = Model_Tree::forge(array('name' => 'Tim'));
+$tim->child($kerry)->save();
+?&gt;</code></pre>
+
+					<p>
+						As you can see, creating a tree and adding tree nodes is pretty straitforward. One of the main differences between the
+						Nestedset model and other ORM models, it that is has methods that operate on other model objects. You don't just query
+						the model, or save an object, you do it in relation to another object in the tree. That doesn't mean you can't use the
+						traditional methods, <kbd>Model::find()</kbd> and <kbd>Model::query()</kbd> still work like for any other ORM model.
+					</p>
+					<p>
+						Let's move on to describing the methods that are available for getting information out of our tree and manupulating the
+						tree structure.
+					</p>
+                </section>
+
+                <section>
+					<h2 id="behavioral_changes">Behavioral changes</h2>
+
+					<p>
+						In addition to the primary key, which is read-only in every ORM model object once set, a Nestedset model doesn't allow
+						you to make	changes to the left- and right pointers of the node, and to the tree-id if defined. Attempting to do so, either
+						via assigment, using a call to <kbd>set()</kbd> or by using <kbd>unset()</kbd>, will result in a <strong>InvalidArgumentException</strong>.
+					</p>
+
+					<article>
+						<h4 id="method_save" class="method">save($cascade = null, $use_transaction = false)</h4>
+						<p>
+							The <kbd>save</kbd> method works exactly the same as the regular model's implementation.
+						</p>
+						<p>
+							However, when you use this method on new tree node objects, additional functionality is added to make sure the tree structure
+							stays consistent. When you call it on an object and you have used one of the collection methods documented below, the
+							new object is inserted in the tree relative to the object passed to the collection method.
+						</p>
+						<p>
+							If you haven't used a collection method, <kbd>save</kbd> will assume you want to insert a new root node. If the model is
+							a multi-tree model, it will create a new root with the next available tree-id (if the id is numeric. If not, assign a new
+							tree-id to the node object yourself).
+						</p>
+						<p class="note">
+							 If a root node can not be created because one already exists, an <strong>OutOfBoundsException</strong> will be thrown. If
+							 the tree-id is not numeric, and you haven't supplied one manually, the result is <strong><u>unpredicable</u></strong>!
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_delete" class="method">delete($cascade = null, $use_transaction = false)</h4>
+						<p>
+							The <kbd>delete</kbd> method works exactly the same as the regular model's implementation.
+						</p>
+						<p>
+							If the node you delete is not a leaf node (i.e. is has children), all descendants of the node will move one level up in the
+							tree, they will become descendants of the nodes parent. If you want to delete an entire (subsection of the) tree, use the
+							<a href="#method_delete_tree">delete_tree()</a> method instead.
+						</p>
+						<p class="note">
+							You can not use the <strong>delete()</strong> method on a root node if the root node has more then one child node.
+							Doing so would create an inconsistent tree, as you can't have multiple nodes at the highest level. Trying do to so
+							will throw a <strong>DomainException</strong>!
+						</p>
+					</article>
+
+                </section>
+
+                <section>
+					<h2 id="collection_methods">Collection methods</h2>
+
+					<p>
+						Collection methods are methods that allow you to perform an operation, either a <strong>get()</strong> or a <strong>save()</strong>,
+						on a part of a nestedset tree. Some methods are available for both, some are only relevant for one. For clarity, they are documented
+						seperately. Using a collection method on an operation that doesn't support it will cause an <strong>OutOfBoundsException</strong> to
+						be thrown.
+					</p>
+
+					<h3 id="collection_methods_get">Collection methods for getting nodes</h3>
+
+					<p>
+						Like with standard ORM models, you can use the <strong>get()</strong> method to return an array of objects, and the
+						<strong>get_one()</strong> method to return a single object. If a collection method is supposed to return a single result,
+						like for example <strong>root()</strong>, <strong>get()</strong> will return an array with that single object. If
+						a collection method returns multiple objects, like for example <strong>children()</strong>, <strong>get_one()</strong>
+						will return the first object from the result set. It is undetermined which one that will be.<br />
+						<strong>get()</strong> and <strong>get_one()</strong> return <strong>null</strong> if no result was found.
+					</p>
+
+					<article>
+						<h4 id="method_get_root" class="method">root()</h4>
+						<p>
+							The <strong>root</strong> method allows you to get the root of the tree of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the root of the tree $henry belongs to
+$root = $henry->root()->get_one();
+
+// echos 'true'
+echo $root == $bill ? 'true' : 'false';
+
+// get the root of a specific tree
+$root = Model_Tree::forge()->set_tree_id($mytreeid)->root()->get_one();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_roots" class="method">roots()</h4>
+						<p>
+							The <strong>roots</strong> method allows you to get all the root nodes. If the model is not a multi-tree model,
+							only the one root node is returned.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get all roots in the tree
+$roots = $henry->roots()->get();
+
+// echos 'true' (there's only one root in the tree)
+echo reset($roots) == $bill ? 'true' : 'false';
+
+// get alls root without having an existing object
+$roots = Model_Tree::forge()->roots()->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_parent" class="method">parent()</h4>
+						<p>
+							The <strong>parent</strong> method allows you to get the parent node of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the parent of $nicola
+$parent = $nicola->parent()->get_one();
+
+// echos 'true'
+echo $parent == $angela ? 'true' : 'false';
+
+// returns null, it won't work without a node tree context
+$parent = Model_Tree::forge()->parent()->get_one();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_children" class="method">children()</h4>
+						<p>
+							The <strong>children</strong> method allows you to get all child nodes of the object you call this method on.
+							Note that this returns only children, no grandchildren. If you are interested in the entire sub-tree, use
+							the <a href="#method_get_descendants">descendants</a> method instead.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the children of $angela
+$children = $angela->children()->get();
+
+// echos 'true'
+echo $children == array($henry->id => $henry, $nicola->id => $nicola) ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->children()->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_ancestors" class="method">ancestors()</h4>
+						<p>
+							The <strong>ancestors</strong> method allows you to get all ancestor nodes of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the ancestors of $henry
+$ancestors = $henry->children()->get();
+
+// echos 'true'
+echo $ancestors == array($bill->id => $bill, $angela->id => $angela) ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->ancestors()->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="note">
+							Ancestors are returned in order of their position in the tree, with the root node first.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_get_descendants" class="method">descendants()</h4>
+						<p>
+							The <strong>descendants</strong> method allows you to get all descendant nodes of the object you call this method on.
+							This allows you to fetch an entire sub-tree.The result will NOT include the start node itself.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the descendants of $ben
+$descendants = $ben->descendants()->get();
+
+// echos 'true'
+echo $descendants == array($kerry->id => $kerry, $tim->id => $tim, $james->id => $james) ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->descendants()->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="note">
+							Descendants are returned in order of their position in the tree.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_get_leaf_descendants" class="method">leaf_descendants()</h4>
+						<p>
+							The <strong>leaf_descendants</strong> method allows you to get leaf descendant nodes of the object you call this method on.
+							Unlike the <a href="#method_get_descendants">descendants</a> method, this method only returns nodes that do not have
+							children (the leafs of the tree).
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the leaf descendants of $ben
+$descendants = $ben->leaf_descendants()->get();
+
+// echos 'true'. Note that $kerry is not returned now, as that has a child object
+echo $descendants == array($tim->id => $tim, $james->id => $james) ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->leaf_descendants()->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="note">
+							Leaf descendants are returned in order of their position in the tree.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_get_siblings" class="method">siblings()</h4>
+						<p>
+							The <strong>siblings</strong> method allows you to get all sibling nodes of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the siblings of $kerry
+$siblings = $kerry->siblings()->get();
+
+// echos 'true'
+echo $siblings == array($kerry->id => $kerry, $james->id => $james) ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->siblings()->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="note">
+							Siblings are returned in order of their position in the tree. Note that the result set will include the current node!
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_get_child" class="method">child()</h4>
+						<p>
+							The <strong>child</strong> method is an alias for the <a href="#method_get_last_child">last_child</a> method.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_get_first_child" class="method">first_child()</h4>
+						<p>
+							The <strong>first_child</strong> method allows you to get the first child node of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the first child of $bill
+$child = $bill->first_child()->get_one();
+
+// echos 'true'
+echo $child == $angela ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->first_child()->get_one();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_last_child" class="method">last_child()</h4>
+						<p>
+							The <strong>last_child</strong> method allows you to get the last child node of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the last child of $bill
+$child = $bill->last_child()->get_one();
+
+// echos 'true'
+echo $child == $ben ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->last_child()->get_one();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_sibling" class="method">sibling()</h4>
+						<p>
+							The <strong>sibling</strong> method is an alias for the <a href="#method_get_next_sibling">next_sibling</a> method.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_get_previous_sibling" class="method">previous_sibling()</h4>
+						<p>
+							The <strong>previous_sibling</strong> method allows you to get the previous_sibling node of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the previous sibling of $nicola
+$sibling = $nicola->previous_silbing()->get_one();
+
+// echos 'true'
+echo $sibling == $henry ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->previous_sibling()->get_one();
+
+// will return null too, $henry has no previous sibling
+$sibling = $henry->previous_silbing()->get_one();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_next_sibling" class="method">next_sibling()</h4>
+						<p>
+							The <strong>next_sibling</strong> method allows you to get the next sibling node of the object you call this method on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the next sibling of $henry
+$sibling = $henry->next_silbing()->get_one();
+
+// echos 'true'
+echo $sibling == $nicola ? 'true' : 'false';
+
+// returns null, it won't work without a current node context
+$parent = Model_Tree::forge()->previous_sibling()->get_one();
+
+// will return null too, $nicola has no previous sibling
+$sibling = $nicola->next_silbing()->get_one();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_path" class="method">path($addroot = true)</h4>
+						<p>
+							The <strong>path</strong> method returns the path to the current node as a string, using the column identified
+							by the "title_field" in the models tree configuration.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$addpath</kbd></th>
+												<td><pre class="php"><span class="keyword">true</span></pre></td>
+												<td>If false, the root node will be excluded from the result.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Throws</th>
+									<td>OutOfBoundsException, if the model doesn't define a "title_field" column.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the path to Tim, returns "Bill/Ben/Kerry/Tim"
+$path = $tim->path()->get();
+
+// get the path to Nicola, returns "Bill/Angela/Nicola"
+$path = $nicola->path()->get();
+
+// get the path to Kerry, and exclude the boss. returns "Ben/Kerry"
+$path = $kerry->path(false)->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<h3 id="collection_methods_save">Collection methods for saving nodes</h3>
+
+					<p>
+						Like with a standard ORM model, <strong>save()</strong> will either insert the object as a new record in the table,
+						or it updates an existing record in case the object was retrieved from the database.
+					</p>
+					<p>
+						However, unlike a standard ORM model in a nestedset tree is is very relevant <u>where</u> exactly in the tree an object
+						is saved. If you don't specify a collection method before save, saving an existing object will just do that, identical to
+						normal ORM model behaviour. If you did specify a collection method, the object will be relocated in the tree when you save.
+						If your saving a new object, not specifing a collection method will create a new root node. If you did specify one, it will
+						determine where in the tree the new node will be inserted.
+					</p>
+
+					<article>
+						<h4 id="method_save_child" class="method">child($to = null)</h4>
+						<p>
+							The <strong>child</strong> method is an alias for the <a href="#method_save_last_child">last_child</a> method.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_save_first_child" class="method">first_child($to = null)</h4>
+						<p>
+							The <strong>first_child</strong> method tells the model you want to save the object you call this method on
+							as the first child of the (primary key of the) node object passed.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node object or the primary key of the node which has to become the parent of the object on which this method is called.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// give bill a new subordinate, before Angela in the tree
+$john = Model_Tree::forge(array('name' => 'John'))->first_child($bill)->save();
+
+// promote Kerry to a subordinate of Bill
+$kerry->first_child($bill)->save();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_save_last_child" class="method">last_child($to = null)</h4>
+						<p>
+							The <strong>last_child</strong> method tells the model you want to save the object you call this method on
+							as the last child of the (primary key of the) node object passed.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node object or the primary key of the node which has to become the parent of the object on which this method is called.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// give bill a new subordinate, after Ben in the tree
+$john = Model_Tree::forge(array('name' => 'John'))->last_child($bill)->save();
+
+// promote Kerry to a subordinate of Bill
+$kerry->last_child($bill)->save();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<p class="note">
+						From a hierarchy perspective, <strong>first_child</strong> and <strong>last_child</strong> do the same. Only the
+						exact position in the tree, the relation to it's siblings after the insert or relocation of the node, is different.
+					</p>
+
+					<article>
+						<h4 id="method_save_sibling" class="method">sibling($to = null)</h4>
+						<p>
+							The <strong>sibling</strong> method is an alias for the <a href="#method_save_next_sibling">next_sibling</a> method.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_save_previous_sibling" class="method">previous_sibling($to = null)</h4>
+						<p>
+							The <strong>previous_sibling</strong> method tells the model you want to save the object you call this method on
+							as the previous sibling of the (primary key of the) node object passed (just before the passed object, on the same level in the tree).
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node object or the primary key of the node which has to become the next sibling of the object on which this method is called.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// give bill a new subordinate, before Angela in the tree
+$john = Model_Tree::forge(array('name' => 'John'))->previous_sibling($angela)->save();
+
+// demote James to be a subordinate of Ben, besides Tim
+$james->previous_sibling($tim)->save();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_save_next_sibling" class="method">next_sibling($to = null)</h4>
+						<p>
+							The <strong>next_sibling</strong> method tells the model you want to save the object you call this method on
+							as the next sibling of the (primary key of the) node object passed (just after the passed object, on the same level in the tree).
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node object or the primary key of the node which has to become the previous sibling of the object on which this method is called.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// give bill a new subordinate, after Angela in the tree
+$john = Model_Tree::forge(array('name' => 'John'))->next_sibling($angela)->save();
+
+// demote James to be a subordinate of Ben, besides Tim
+$james->next_sibling($tim)->save();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+                </section>
+
+                <section>
+					<h2 id="test_methods">Test methods</h2>
+
+					<p>
+						Test methods are used to query a particular state of the object with regards to their position in the tree.
+					</p>
+
+					<article>
+						<h4 id="method_is_root" class="method">is_root()</h4>
+						<p>
+							The <strong>is_root</strong> method tells you if the object you're calling it on is a root node or not.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is a root node, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Bill a root node? echo's 'true'
+echo $bill->is_root() ? 'true' : 'false';
+
+// is Tim a root node? echo's 'false'
+echo $tim->is_root() ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_is_leaf" class="method">is_leaf()</h4>
+						<p>
+							The <strong>is_leaf</strong> method tells you if the object you're calling it on is a leaf, i.e. that is doesn't have child nodes.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is a leaf node, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Tim a leaf node? echo's 'true'
+echo $tim->is_leaf() ? 'true' : 'false';
+
+// is Angela a leaf node? echo's 'false'
+echo $angela->is_leaf() ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_is_child" class="method">is_child()</h4>
+						<p>
+							The <strong>is_child</strong> method tells you if the object you're calling it on is a child node, i.e. that is has
+							a parent node. This is the reverse of <strong>is_root()</strong>, as all non-root nodes have a parent.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is a child node, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Henry a root node? echo's 'true'
+echo $henry->is_child() ? 'true' : 'false';
+
+// is Bill a root node? echo's 'false'
+echo $bill->is_child() ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_is_child_of" class="method">is_child_of(Model_Nestedset $to = null)</h4>
+						<p>
+							The <strong>is_child_of</strong> method allows you to check if the object you call this method on
+							is a child node (a direct descendant) of the node object passed.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node which you want to check against.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is a child node of the node passed, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Ben a child node of Bill? echo's 'true'
+echo $ben->is_child_of($bill) ? 'true' : 'false';
+
+// is James a child node of Bill? echo's 'false', as it's a grandchild
+echo $james->is_child_of($bill) ? 'true' : 'false';
+
+// is Nicola a child node of Ben? echo's 'false', different part of the tree
+echo $nicola->is_child_of($ben) ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_is_descendant_of" class="method">is_descendant_of(Model_Nestedset $to = null)</h4>
+						<p>
+							The <strong>is_descendant_of</strong> method allows you to check if the object you call this method on
+							is a descendant node of the node object passed.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node which you want to check against.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is a descendant node of the node passed, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Ben a descendant node of Bill? echo's 'true'
+echo $ben->is_descendant_of($bill) ? 'true' : 'false';
+
+// is James a descendant node of Bill? echo's 'true', as it's a grandchild
+echo $james->is_descendant_of($bill) ? 'true' : 'false';
+
+// is Nicola a descendant node of Ben? echo's 'false', different part of the tree
+echo $nicola->is_descendant_of($ben) ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+
+					<article>
+						<h4 id="method_is_parent_of" class="method">is_parent_of(Model_Nestedset $to = null)</h4>
+						<p>
+							The <strong>is_parent_of</strong> method allows you to check if the object you call this method on
+							is the parent node of the node object passed.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node which you want to check against.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is the parent node of the node passed, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Bill the parent of Ben? echo's 'true'
+echo $bill->is_parent_of($ben) ? 'true' : 'false';
+
+// is Bill the parent of James? echo's 'false', as it's a grandparent
+echo $bill->is_parent_of($james) ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_is_ancestor_of" class="method">is_ancestor_of(Model_Nestedset $to = null)</h4>
+						<p>
+							The <strong>is_ancestor_of</strong> method allows you to check if the object you call this method on
+							is a ancestor of the node object passed.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$to</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The node which you want to check against.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object is an ancestor of the node passed, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// is Bill an ancestor of Ben? echo's 'true'
+echo $bill->is_ancestor_of($ben) ? 'true' : 'false';
+
+// is Bill an ancestor of James? echo's 'true', as it's a grandparent
+echo $bill->is_ancestor_of($james) ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_is_same_model_as" class="method">is_same_model_as(Model_Nestedset $to = null)</h4>
+						<p>This method is mainly used internally to avoid operations across two different Nestedset models.</p>
+					</article>
+
+					<article>
+						<h4 id="method_is_same_tree_as" class="method">is_same_tree_as(Model_Nestedset $to = null)</h4>
+						<p>
+							This method is mainly used internally to avoid operations across two different Nestedset models.
+							It not only checks if both objects are instances of the same model, but also if both instances belong
+							to the same tree in a multi-tree model.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_has_parent" class="method">has_parent()</h4>
+						<p>
+							The <strong>has_parent</strong> method is an alias for the <a href="#method_is_child">is_child</a> method.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_has_children" class="method">has_children()</h4>
+						<p>
+							The <strong>has_children</strong> method is the reverse of the <a href="#method_is_leaf">is_leaf</a> method.
+							If an object is not a leaf, it implies it has child nodes.
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_has_previous_sibling" class="method">has_previous_sibling()</h4>
+						<p>
+							The <strong>has_previous_sibling</strong> method tells you if the object you're calling it on has a previous sibling.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object has a previous sibling, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// Does James have a previous sibling? echo's 'true'
+echo $james->has_previous_sibling() ? 'true' : 'false';
+
+// Does Tim have a previous sibling? echo's 'false'
+echo $tim->has_previous_sibling() ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_has_next_sibling" class="method">has_next_sibling()</h4>
+						<p>
+							The <strong>has_next_sibling</strong> method tells you if the object you're calling it on has a next sibling.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Bool, true if the object has a next sibling, false if not</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// Does Henry have a next sibling? echo's 'true'
+echo $henry->has_next_sibling() ? 'true' : 'false';
+
+// Does Ben have a next sibling? echo's 'false'
+echo $ben->has_next_sibling() ? 'true' : 'false';
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+                </section>
+
+                <section>
+					<h2 id="miscellaneous_methods">Miscellaneous methods</h2>
+
+					<article>
+						<h4 id="method_delete_tree" class="method">delete_tree($cascade = null, $use_transaction = false)</h4>
+						<p>
+							The <kbd>delete_tree</kbd> works identical to the <a href="#method_delete">delete()</a> method, which the difference that
+							this method DOES delete all children as well.
+						</p>
+						<p class="note">
+							If you use the <strong>delete_tree()</strong> method on a root node, the entire tree will be deleted!
+						</p>
+					</article>
+
+					<article>
+						<h4 id="method_tree_config" class="method">tree_config($name = null)</h4>
+						<p>
+							You use this method to get one or all tree configuration options of the model. It is mainly used internally
+							to construct queries that operate on parts of the tree, or on a specific tree in a multi-tree model.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>Yes</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$name</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The name of the configuration property to return.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>A configuration value, an array of values, or null if the requested value does not exist.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the name of the tree-id column
+$tree_id = Model_Tree::tree_config('tree_id');</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_tree_id" class="method">get_tree_id()</h4>
+						<p>
+							You use this method to get the tree-id in a multi-tree environment. If there is a valid node to operate on, the
+							tree-id of that node is returned. If not, the value set using <strong>set_tree_id()</strong> is returned.
+							If no tree-id has been set, an exception is thrown. This method is mainly used internally to make sure queries
+							run in the context of the current tree in a multi-tree environment.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>mixed, the tree-id of the current tree, or the default tree-id set.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the tree_id (returns 1)
+$current_tree = $bill->get_tree_id();</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_set_tree_id" class="method">set_tree_id($tree = null)</h4>
+						<p>
+							You use this method to set the tree-id in a multi-tree environment. You mainly use this when you want to
+							run	a <strong>get()</strong> or <strong>get_one()</strong> but you don't have an existing node to work on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$tree</kbd></th>
+												<td><pre class="php"><span class="keyword">null</span></pre></td>
+												<td>The tree-id of the tree to select. If no value, or null, is passed, the stored tree-id is reset.</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Model_Nestedset, for chaining.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get the root of a tree without having a previous node to work with
+$root = Model_Tree::forge()->set_tree_id($mytreeid)->get_one();</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_build_query" class="method">build_query()</h4>
+						<p>
+							The <strong>build_query</strong> method returns an ORM query object, like <strong>Model_Nestedset::query()</strong>
+							but with an added <strong>where</strong> clause in case of a multi-tree model, to make sure the query runs in the context of the
+							current tree. It requires a tree-id to be available, so if you call this on a new object, use <strong>set_tree_id</strong> to make
+							sure a valid id is defined.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>an ORM Query object.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get all nodes in the current tree with an enabled status set
+$enabled = Model_Tree::forge()
+	->set_tree_id($mytreeid)
+	->build_query()
+	->where('enabled', '=', 1)
+	->get();
+
+// using an existing object, this will use the tree-id of the $bill object
+$enabled = $bill
+	->build_query()
+	->where('enabled', '=', 1)
+	->get();</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_get_query" class="method">get_query()</h4>
+						<p>
+							The <strong>get_query</strong> method returns an ORM query object, but unlike <strong>build_query()</strong>
+							this method requires a collection methods to be used. It allows you to use the standard Model methods to
+							constuct a first selection of nodes, and use the returned Query object to fine-tune the query.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>an ORM Query object.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// get all child nodes of Bill with an enabled status set
+$enabled = $bill
+	->children()
+	->get_query()
+	->where('enabled', '=', 1)
+	->get();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_count_children" class="method">count_children()</h4>
+						<p>
+							The <strong>count_children</strong> method returns the number of children (direct descendants) of the object you're calling it on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Integer</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// Get the number of Bill's children, echo's 2
+echo $bill->count_children();
+
+// Get the number of Kerry's children, echo's 1
+echo $kerry->count_children();
+
+// Get the number of Tim's children, echo's 0
+echo $tim->count_children();
+
+// echo's 0 too, a new object can't have children
+echo Model_Tree::forge()->count_children();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_count_descendants" class="method">count_descendants()</h4>
+						<p>
+							The <strong>count_descendants</strong> method returns the number of descendants of the object you're calling it on.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Integer</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// Get the number of Bill's descendants, echo's 7
+echo $bill->count_descendants();
+
+// Get the number of Ben's children, echo's 3
+echo $ben->count_descendants();
+
+// echo's 0, a new object can't have descendants
+echo Model_Tree::forge()->count_descendants();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_depth" class="method">depth()</h4>
+						<p>
+							The <strong>depth</strong> method returns the depth or level the current node is in the tree, where
+							the level of the root node is 0.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										None.
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Mixed, integer or false if the current object is not valid</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// Get the level of Bill in the organisation
+echo $bill->depth(); // echo's 0, he's top dog!
+
+// Get the level of Angela in the organisation
+echo $angela->depth(); // echo's 1, as she's an N+1
+
+// Get the level of Tim in the organisation
+echo $tim->depth(); // echo's 3, as low as you can go...
+
+// returns false, you can't get the depth of a new node
+$result = Model_Tree::forge()->depth();
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+
+					<article>
+						<h4 id="method_dump_tree" class="method">dump_tree($as_object = false, $children = 'children', $path = 'path')</h4>
+						<p>
+							The <strong>dump_tree</strong> method returns the entire tree, using the current object as root node
+							into a multi-dimensional array.
+						</p>
+						<table class="method">
+							<tbody>
+								<tr>
+									<th class="legend">Static</th>
+									<td>No</td>
+								</tr>
+								<tr>
+									<th>Parameters</th>
+									<td>
+										<table class="parameters">
+											<tr>
+												<th>Param</th>
+												<th>Default</th>
+												<th class="description">Description</th>
+											</tr>
+											<tr>
+												<th><kbd>$as_object</kbd></th>
+												<td><pre class="php"><span class="keyword">false</span></pre></td>
+												<td>If true, it will return a hierarchical tree of objects instead of a multi-dimensional array.</td>
+											</tr>
+											<tr>
+												<th><kbd>$children</kbd></th>
+												<td><pre class="php">'children'</pre></td>
+												<td>data for child nodes will be added to a property or array key with this name.</td>
+											</tr>
+											<tr>
+												<th><kbd>$path</kbd></th>
+												<td><pre class="php">'path'</pre></td>
+												<td>
+													a property by this name is created and will contain the path to the node, starting at the root.
+													This requires the 'title_field' to be configured!
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>Returns</th>
+									<td>Mixed, multi-dimensional array, or the current object, with added children.</td>
+								</tr>
+								<tr>
+									<th>Example</th>
+									<td>
+										<pre class="php"><code>// returns a multi-dimensional array. $tree['children'] will contain the children of Bill
+$tree = $bill->dump_tree();
+
+// returns the 'bill' object with a property 'children' containing the children of Bill
+$tree = $bill->dump_tree(true);
+
+// using $tree, this returns array($angela, $ben)
+$children = $tree->children;
+
+// and this returns array($henry, $nicola), the children of $angela
+$grandchildren = reset($children)->children;
+
+// ORM objects are always used by reference!
+$bill->dump_tree(true);
+
+// so this works fine too...
+$children = $bill->children;
+</code></pre>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p class="note">
+							As with all ORM array's, the table's primary key is used as array index. Note that because the ORM uses objects by
+							reference from a single cache, if you choose to use 'as_object', children will be added to existing objects too.</p>
+					</article>
+                </section>
+			</div>
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

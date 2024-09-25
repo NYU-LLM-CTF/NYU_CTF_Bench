@@ -1,0 +1,11 @@
+{
+	"name": "CSAWpad",
+	"category": "crypto",
+	"description": "We recovered these texts, and sample program from the great nation of Astorkia's new communication system.  Included is the file we recovered, as well as the texts.",
+	"box": "",
+	"files":[
+		"csawpad.py"
+	],
+    "points": 200,
+	"flag": "And yes the nsa can read this to"
+}

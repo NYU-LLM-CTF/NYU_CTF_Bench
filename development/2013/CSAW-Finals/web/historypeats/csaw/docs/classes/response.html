@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Response::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Response - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Response Class</h2>
+
+			<p>The response class contains the methods to deal with HTTP response and browser output.</p>
+
+			<article>
+				<h4>Setting the Status Header</h4>
+				<p>The status header is treated as a &quot;special&quot; header in Fuel.  You do not set it as you would
+					other headers. The status header is set as follows in the controller:</p>
+				<pre class="php"><code>$response = new Response($body, 404);</code></pre>
+
+				<h4>Setting the Status Header and other headers</h4>
+				<pre class="php"><code>$headers = array (
+    'Cache-Control'     => 'no-cache, no-store, max-age=0, must-revalidate',
+    'Expires'           => 'Mon, 26 Jul 1997 05:00:00 GMT',
+    'Pragma'            => 'no-cache',
+);
+$response = new Response($body, 404, $headers);</code></pre>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_forge">forge($body = null, $status = 200, array $headers = array())</h4>
+				<p>The <strong>forge</strong> method creates a new instance of the Response class.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$body</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The response body, i.e. the response you want to return to the caller.</td>
+								</tr>
+								<tr>
+									<th><kbd>$status</kbd></th>
+									<td><pre class="php"><code>200</code></pre></td>
+									<td>HTTP status code for this response. Defaults to 200 OK.</td>
+								</tr>
+								<tr>
+									<th><kbd>$headers</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Any HTTP headers that should be part of the response.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Response object</td>
+					</tr>
+					<tr>
+						<th>Triggers</th>
+						<td>Event 'response_created' after object instantiation</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// create a response object, use a View as body, and a 404 NOT FOUND status code
+return Response::forge(View::forge('errors/404page'), 404);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_redirect">redirect($url = '', $method = 'location', $redirect_code = 302)</h4>
+				<p>The <strong>redirect</strong> method offers different methods of redirecting to a new URL.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$url</kbd></th>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>URL to redirect to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>'location'</code></pre></td>
+									<td>Redirection method to use. Supported are 'location' and 'refresh'.</td>
+								</tr>
+								<tr>
+									<th><kbd>$redirect_code</kbd></th>
+									<td><pre class="php"><code>302</code></pre></td>
+									<td>HTTP status code to send back as part of the redirect.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>This method terminates the current script, it does not return.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// use a URL
+Response::redirect('http://example.com/home', 'refresh');
+
+// or use a relative URI
+Response::redirect('site/about');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					This method supports wildcard replacement in the URL. See <a href="uri.html#method_segment_replace">Uri::segment_replace()</a>
+					for more information. You can disable this by setting <code>response.redirect_with_wildcards</code> to <code>false</code> in your applications config.php.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_redirect_back">redirect_back($url = '', $method = 'location', $redirect_code = 302)</h4>
+				<p>The <strong>redirect_back</strong> method allows you to redirect back to the page you came from, and offers different methods
+				of redirecting to a new URL. If the previous page is not part of your application (i.e. the user came from another website), or
+				no URL is given, it will redirect to the application homepage.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$url</kbd></th>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>URL to redirect to.</td>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><pre class="php"><code>'location'</code></pre></td>
+									<td>Redirection method to use. Supported are 'location' and 'refresh'.</td>
+								</tr>
+								<tr>
+									<th><kbd>$redirect_code</kbd></th>
+									<td><pre class="php"><code>302</code></pre></td>
+									<td>HTTP status code to send back as part of the redirect.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>This method terminates the current script, it does not return.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// redirect back. If there is no 'back', go to the dashboard page
+Response::redirect_back('/dashboard', 'refresh');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					This method supports wildcard replacement in the URL. See <a href="uri.html#method_segment_replace">Uri::segment_replace()</a>
+					for more information. You can disable this by setting <code>response.redirect_with_wildcards</code> to <code>false</code> in your applications config.php.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_status">set_status($status = 200)</h4>
+				<p>The <strong>set_status</strong> method allows you to update the HTTP status code set on a Response object.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$status</kbd></th>
+									<td><pre class="php"><code>200</code></pre></td>
+									<td>HTTP status code for this response. Defaults to 200 OK.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Current object, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$response = new Response();
+
+// This will be a NOT FOUND response
+$response->set_status(404);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_header">set_header($name, $value, $replace)</h4>
+				<p>The <strong>set_header</strong> method allows set custom HTTP headers.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><i>Required</i></td>
+									<td>Name of the header to add.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>Required</i></td>
+									<td>The string that needs to be added to the HTTP header.</td>
+								</tr>
+								<tr>
+									<th><kbd>$replace</kbd></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>All headers will replace any previous value for the same name by default. If you set
+										this parameter to <kbd>false</kbd> the header won't overwrite and can't be overwritten.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$response = new Response();
+
+// We'll be outputting a PDF
+$response->set_header('Content-Type', 'application/pdf');
+
+// It will be called downloaded.pdf
+$response->set_header('Content-Disposition', 'attachment; filename="downloaded.pdf"');
+
+// Set no cache
+$response->set_header('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
+$response->set_header('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT');
+$response->set_header('Pragma', 'no-cache');
+
+// More examples
+$response->set_header('Content-Language', 'en');
+$response->set_header('Content-Type', 'text/html; charset=utf-8');
+
+return $response;</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note"> Note that names are unique, overwriting each other if the same name is used.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_header">get_header($name = null)</h4>
+				<p>The <strong>get_header</strong> method allows you to retrieve a custom HTTP headers set previously.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$name</kbd></th>
+									<td><i>optional</i></td>
+									<td>Name of the header to get. If not given, all headers are returned.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Mixed. String in case of a single header, Array in case all headers are returned.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$response = new Response();
+$response->set_header('Pragma', 'no-cache');
+
+// returns 'no-cache'
+$header = $response->get_header('Pragma');
+
+// returns array('Pragma' => 'no-cache')
+$header = $response->get_header();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_body">body($value = false)</h4>
+				<p>The <strong>body</strong> method allows get the current response body, or set a new one.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>optional</i></td>
+									<td>Response body to set. If not given, the current response body is returned.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Mixed. Current response body, or the current response object for chaining.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$response = new Response();
+$response->body('This is the response body');
+
+// returns 'This is the response body'
+$body = $response->body();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_send_headers">send_headers()</h4>
+				<p>The <strong>send_headers</strong> method sends the set headers out to the browser, including the HTTP status of the request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td><i>None</i></td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$response->send_headers();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">Note that you normally don't have to call this method manually. Fuel will take care of this as part of processing the request.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_send">send($send_headers = false)</h4>
+				<p>The <strong>send</strong> method sends the response body to the output buffer (i.e. it is echo'd out).</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$send_headers</kbd></th>
+									<td><i>optional</i></td>
+									<td>If true, send any defined HTTP headers before sending the response body.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>void</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// echo whatever the response body is
+$response->send();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">Note that you normally don't have to call this method manually. Fuel will take care of this as part of processing the request.</p>
+			</article>
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

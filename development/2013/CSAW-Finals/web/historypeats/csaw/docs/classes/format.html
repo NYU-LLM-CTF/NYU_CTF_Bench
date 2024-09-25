@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+		var class_prefix = "Form::";
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Format - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Format Class</h2>
+			<p>The Format class helps you convert between various formats such as XML, JSON, CSV, etc.</p>
+
+			<article>
+				<h3 id="configuration">Configuration</h3>
+
+				<p>The Format class is configured through the <kbd>fuel/core/config/format.php</kbd> configuration file. It is already populated with a default configuration group. You can override this configuration by copying this config file to your application config directory, and modify that file as needed.</p>
+				<p>The following configuration settings can be defined:</p>
+
+				<h4>CSV</h4>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>delimiter</th>
+							<td>string</td>
+							<td><pre class="php"><code>','</code></pre></td>
+							<td>The field delimiter</td>
+						</tr>
+						<tr>
+							<th>enclosure</th>
+							<td>string</td>
+							<td><pre class="php"><code>'"'</code></pre></td>
+							<td>The enclosure character</td>
+						</tr>
+						<tr>
+							<th>newline</th>
+							<td>string</td>
+							<td><pre class="php"><code>'\n'</code></pre></td>
+							<td>The newline character used by to_csv() method</td>
+						</tr>
+						<tr>
+							<th>regex_newline</th>
+							<td>string</td>
+							<td><pre class="php"><code>'\n'</code></pre></td>
+							<td>The newline character used by regex to convert input data</td>
+						</tr>
+						<tr>
+							<th>escape</th>
+							<td>string</td>
+							<td><pre class="php"><code>'\\'</code></pre></td>
+							<td>The escape character</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h4>XML</h4>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>basenode</th>
+							<td>string</td>
+							<td><pre class="php"><code>'xml'</code></pre></td>
+							<td>XML basenode name</td>
+						</tr>
+						<tr>
+							<th>use_cdata</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>Whether to use CDATA in nodes</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_forge">forge($data = null, $from_type = null)</h4>
+				<p>The <strong>forge</strong> method returns a new format object.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Data to be converted.</td>
+								</tr>
+								<tr>
+									<th><kbd>$from_type</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Format of the data provided.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Format Object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$array = array('foo' => 'bar');
+print_r(Format::forge($array));
+
+// Returns
+Fuel\Core\Format Object
+(
+	[_data:protected] => Array
+	(
+		[foo] => bar
+	)
+)</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_array">to_array($data = null)</h4>
+				<p>The <strong>to_array</strong> method returns the given data as an array. Do not call this directly, use the <strong>forge</strong> method as described in the example.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Data to be converted.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$json_string = '{"foo":"bar","baz":"qux"}';
+print_r(Format::forge($json_string, 'json')->to_array());
+
+// Returns
+Array
+(
+	[foo] => bar
+	[baz] => qux
+)</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_xml">to_xml($data = null, $structure = null, $basenode = 'xml', $use_cdata = false)</h4>
+				<p>The <strong>to_xml</strong> method returns the given data as an XML string. Do not call this directly, use the <strong>forge</strong> method as described in the example.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Data to be converted.</td>
+								</tr>
+								<tr>
+									<th><kbd>$structure</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Object of class SimpleXMLElement.</td>
+								</tr>
+								<tr>
+									<th><kbd>$basenode</kbd></th>
+									<td>"xml"</td>
+									<td>Basenode of XML markup.</td>
+								</tr>
+								<tr>
+									<th><kbd>$use_cdata</kbd></th>
+									<td>false</td>
+									<td>Whether to use CDATA in nodes.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$array = array('foo' => 'bar', 'baz' => 'qux');
+print_r(Format::forge($array)->to_xml());
+
+// Returns
+// &lt;?xml version="1.0" encoding="utf-8"?&gt;
+// &lt;xml&gt;
+// 	&lt;foo&gt;bar&lt;/foo&gt;
+// 	&lt;baz&gt;qux&lt;/baz&gt;
+// &lt;/xml&gt;</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_csv">to_csv($data = null, $separator = ',')</h4>
+				<p>The <strong>to_csv</strong> method returns the given data as a CSV string. Do not call this directly, use the <strong>forge</strong> method as described in the example.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$data</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Data to be converted.</td>
+								</tr>
+								<tr>
+									<th><kbd>$separator</kbd></th>
+									<td><pre class="php"><code>','</code></pre></td>
+									<td>CSV field separator. Defaults to a comma.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$json_string = '{"foo":"bar","baz":"qux"}';
+print_r(Format::forge($json_string, 'json')->to_csv());
+
+// Returns
+// foo,baz
+// "bar","qux"</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+			<article>
+				<h4 class="method" id="method_to_json">to_json()</h4>
+				<p>The <strong>to_json</strong> method returns the given data as a JSON string. Do not call this directly, use the <strong>forge</strong> method as described in the example.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$array = array('foo' => 'bar', 'baz' => 'qux');
+print_r(Format::forge($array)->to_json());
+
+// Returns
+// {"foo":"bar","baz":"qux"}</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_serialized">to_serialized()</h4>
+				<p>The <strong>to_serialized</strong> method returns the given data as a serialized string. Do not call this directly, use the <strong>forge</strong> method as described in the example.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$array = array('foo' => 'bar', 'baz' => 'qux');
+print_r(Format::forge($array)->to_serialized());
+
+// Returns
+// a:2:{s:3:"foo";s:3:"bar";s:3:"baz";s:3:"qux";}</code>
+							</pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_to_php">to_php()</h4>
+				<p>The <strong>to_php</strong> method returns the given data as a PHP representation of the data in a string. You could pass this into eval() or use it for other crazy things.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>string</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$array = array(1, 2, array('a', 'b', 'c'));
+print_r(Format::forge($array)->to_php());
+
+// Returns
+Array
+(
+	0 => 1,
+	1 => 2,
+	2 => array(
+		0 => 'a',
+		1 => 'b',
+		2 => 'c',
+	),
+)</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+    "name": "detective",
+    "category": "pwn",
+    "description": "Dear detective, my 'program' got pwned again. Can you find the culprit for me?",
+    "flag": "FLAG{SHERLOCK_HOMLES_NEVER_DIES_HOPE_YOU_ENJOY_REST_OF_CHALLENGES_CSAW2016}",
+    "points": 150,
+    "compose": true,
+    "internal_port": 4242,
+    "box": "pwn.chal.csaw.io",
+    "files": ["detective"]
+}

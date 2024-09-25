@@ -1,0 +1,12 @@
+{
+	"name": "silkgoat",
+	"category": "web",
+	"description": "hacker manifesto",
+	"box": "web.chal.csaw.io",
+	"files":[
+		"silkgoat_templates.tar.gz"
+	],
+	"compose": true,
+	"internal_port": 5000,
+	"flag": "flag{silkroad4ever}"
+}

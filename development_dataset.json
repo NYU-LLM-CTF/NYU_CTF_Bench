@@ -1,0 +1,394 @@
+{
+  "2013f-cry-stfu": {
+    "year": "2013",
+    "event": "CSAW-Finals",
+    "category": "crypto",
+    "challenge": "stfu",
+    "path": "development/2013/CSAW-Finals/crypto/stfu"
+  },
+  "2013f-web-historypeats": {
+    "year": "2013",
+    "event": "CSAW-Finals",
+    "category": "web",
+    "challenge": "historypeats",
+    "path": "development/2013/CSAW-Finals/web/historypeats"
+  },
+  "2013q-cry-csawpad": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "CSAWpad",
+    "path": "development/2013/CSAW-Quals/crypto/CSAWpad"
+  },
+  "2013q-cry-slurp": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "slurp",
+    "path": "development/2013/CSAW-Quals/crypto/slurp"
+  },
+  "2013q-cry-onlythisprogram": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "onlythisprogram",
+    "path": "development/2013/CSAW-Quals/crypto/onlythisprogram"
+  },
+  "2013q-msc-life": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "misc",
+    "challenge": "Life",
+    "path": "development/2013/CSAW-Quals/misc/Life"
+  },
+  "2013q-msc-networking_2": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "misc",
+    "challenge": "Networking 2",
+    "path": "development/2013/CSAW-Quals/misc/Networking 2"
+  },
+  "2013q-msc-networking_1": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "misc",
+    "challenge": "Networking 1",
+    "path": "development/2013/CSAW-Quals/misc/Networking 1"
+  },
+  "2013q-web-guess_harder": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "Guess Harder",
+    "path": "development/2013/CSAW-Quals/web/Guess Harder"
+  },
+  "2013q-pwn-csaw_diary": {
+    "year": "2013",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "csaw_diary",
+    "path": "development/2013/CSAW-Quals/pwn/csaw_diary"
+  },
+  "2014f-rev-return_of_the_weiner": {
+    "year": "2014",
+    "event": "CSAW-Finals",
+    "category": "rev",
+    "challenge": "return-of-the-weiner",
+    "path": "development/2014/CSAW-Finals/rev/return-of-the-weiner"
+  },
+  "2014f-rev-odd": {
+    "year": "2014",
+    "event": "CSAW-Finals",
+    "category": "rev",
+    "challenge": "odd",
+    "path": "development/2014/CSAW-Finals/rev/odd"
+  },
+  "2014f-msc-pps": {
+    "year": "2014",
+    "event": "CSAW-Finals",
+    "category": "misc",
+    "challenge": "pps",
+    "path": "development/2014/CSAW-Finals/misc/pps"
+  },
+  "2014f-web-webroot": {
+    "year": "2014",
+    "event": "CSAW-Finals",
+    "category": "web",
+    "challenge": "webroot",
+    "path": "development/2014/CSAW-Finals/web/webroot"
+  },
+  "2014f-pwn-kernel": {
+    "year": "2014",
+    "event": "CSAW-Finals",
+    "category": "pwn",
+    "challenge": "kernel",
+    "path": "development/2014/CSAW-Finals/pwn/kernel"
+  },
+  "2014q-rev-aerosol_can": {
+    "year": "2014",
+    "event": "CSAW-Quals",
+    "category": "rev",
+    "challenge": "aerosol_can",
+    "path": "development/2014/CSAW-Quals/rev/aerosol_can"
+  },
+  "2014q-rev-weissman": {
+    "year": "2014",
+    "event": "CSAW-Quals",
+    "category": "rev",
+    "challenge": "weissman",
+    "path": "development/2014/CSAW-Quals/rev/weissman"
+  },
+  "2014q-web-silkgoat": {
+    "year": "2014",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "silkgoat",
+    "path": "development/2014/CSAW-Quals/web/silkgoat"
+  },
+  "2014q-pwn-ish": {
+    "year": "2014",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "ish",
+    "path": "development/2014/CSAW-Quals/pwn/ish"
+  },
+  "2014q-pwn-the_road_less_traveled": {
+    "year": "2014",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "the road less traveled",
+    "path": "development/2014/CSAW-Quals/pwn/the road less traveled"
+  },
+  "2016f-rev-palo_alto": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "rev",
+    "challenge": "Palo-Alto",
+    "path": "development/2016/CSAW-Finals/rev/Palo-Alto"
+  },
+  "2016f-cry-katy": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "crypto",
+    "challenge": "Katy",
+    "path": "development/2016/CSAW-Finals/crypto/Katy"
+  },
+  "2016f-cry-killer_cipher": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "crypto",
+    "challenge": "Killer_cipher",
+    "path": "development/2016/CSAW-Finals/crypto/Killer_cipher"
+  },
+  "2016f-for-pure_poetry": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "forensics",
+    "challenge": "pure_poetry",
+    "path": "development/2016/CSAW-Finals/forensics/pure_poetry"
+  },
+  "2016f-web-cloudb": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "web",
+    "challenge": "cloudb",
+    "path": "development/2016/CSAW-Finals/web/cloudb"
+  },
+  "2016f-web-seizure_cipher": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "web",
+    "challenge": "Seizure-Cipher",
+    "path": "development/2016/CSAW-Finals/web/Seizure-Cipher"
+  },
+  "2016f-pwn-detective": {
+    "year": "2016",
+    "event": "CSAW-Finals",
+    "category": "pwn",
+    "challenge": "detective",
+    "path": "development/2016/CSAW-Finals/pwn/detective"
+  },
+  "2016q-rev-rock": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "rev",
+    "challenge": "Rock",
+    "path": "development/2016/CSAW-Quals/rev/Rock"
+  },
+  "2016q-rev-deedeedee": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "rev",
+    "challenge": "deedeedee",
+    "path": "development/2016/CSAW-Quals/rev/deedeedee"
+  },
+  "2016q-cry-sleeping_guard": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "Sleeping_Guard",
+    "path": "development/2016/CSAW-Quals/crypto/Sleeping_Guard"
+  },
+  "2016q-cry-broken_box": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "Broken_Box",
+    "path": "development/2016/CSAW-Quals/crypto/Broken_Box"
+  },
+  "2016q-for-watchword": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "Watchword",
+    "path": "development/2016/CSAW-Quals/forensics/Watchword"
+  },
+  "2016q-for-kill": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "Kill",
+    "path": "development/2016/CSAW-Quals/forensics/Kill"
+  },
+  "2016q-for-yaar_haar_fiddle_dee_dee": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "Yaar_Haar_Fiddle_Dee_Dee",
+    "path": "development/2016/CSAW-Quals/forensics/Yaar_Haar_Fiddle_Dee_Dee"
+  },
+  "2016q-for-clams_dont_dance": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "Clams_Dont_Dance",
+    "path": "development/2016/CSAW-Quals/forensics/Clams_Dont_Dance"
+  },
+  "2016q-for-evidence_zip": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "evidence.zip",
+    "path": "development/2016/CSAW-Quals/forensics/evidence.zip"
+  },
+  "2016q-msc-coinslot": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "misc",
+    "challenge": "coinslot",
+    "path": "development/2016/CSAW-Quals/misc/coinslot"
+  },
+  "2016q-msc-regexpire": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "misc",
+    "challenge": "regexpire",
+    "path": "development/2016/CSAW-Quals/misc/regexpire"
+  },
+  "2016q-web-i_got_id": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "I Got Id",
+    "path": "development/2016/CSAW-Quals/web/I Got Id"
+  },
+  "2016q-web-mfw": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "MFW",
+    "path": "development/2016/CSAW-Quals/web/MFW"
+  },
+  "2016q-pwn-warmup": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "WarmUp",
+    "path": "development/2016/CSAW-Quals/pwn/WarmUp"
+  },
+  "2016q-pwn-tutorial": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "Tutorial",
+    "path": "development/2016/CSAW-Quals/pwn/Tutorial"
+  },
+  "2016q-pwn-hungman": {
+    "year": "2016",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "Hungman",
+    "path": "development/2016/CSAW-Quals/pwn/Hungman"
+  },
+  "2015f-rev-wyvern2": {
+    "year": "2015",
+    "event": "CSAW-Finals",
+    "category": "rev",
+    "challenge": "wyvern2",
+    "path": "development/2015/CSAW-Finals/rev/wyvern2"
+  },
+  "2015f-for-mandiant": {
+    "year": "2015",
+    "event": "CSAW-Finals",
+    "category": "forensics",
+    "challenge": "mandiant",
+    "path": "development/2015/CSAW-Finals/forensics/mandiant"
+  },
+  "2015f-pwn-hipster": {
+    "year": "2015",
+    "event": "CSAW-Finals",
+    "category": "pwn",
+    "challenge": "hipster",
+    "path": "development/2015/CSAW-Finals/pwn/hipster"
+  },
+  "2015q-rev-ftp": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "rev",
+    "challenge": "ftp",
+    "path": "development/2015/CSAW-Quals/rev/ftp"
+  },
+  "2015q-rev-wyvern": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "rev",
+    "challenge": "wyvern",
+    "path": "development/2015/CSAW-Quals/rev/wyvern"
+  },
+  "2015q-cry-eps": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "eps",
+    "path": "development/2015/CSAW-Quals/crypto/eps"
+  },
+  "2015q-cry-bricks_of_gold": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "bricks_of_gold",
+    "path": "development/2015/CSAW-Quals/crypto/bricks_of_gold"
+  },
+  "2015q-for-sharpturn": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "sharpturn",
+    "path": "development/2015/CSAW-Quals/forensics/sharpturn"
+  },
+  "2015q-for-flash": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "flash",
+    "path": "development/2015/CSAW-Quals/forensics/flash"
+  },
+  "2015q-for-pcapin": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "forensics",
+    "challenge": "pcapin",
+    "path": "development/2015/CSAW-Quals/forensics/pcapin"
+  },
+  "2015q-web-k_stairs": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "k_stairs",
+    "path": "development/2015/CSAW-Quals/web/k_stairs"
+  },
+  "2015q-web-throwback": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "throwback",
+    "path": "development/2015/CSAW-Quals/web/throwback"
+  },
+  "2015q-pwn-meme_shop": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "pwn",
+    "challenge": "meme-shop",
+    "path": "development/2015/CSAW-Quals/pwn/meme-shop"
+  }
+}

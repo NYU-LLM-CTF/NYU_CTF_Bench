@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Mongo_Db Introduction - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Mongo_Db class</h2>
+
+			<h3 id="intro">Introduction</h3>
+			<p>
+				The Mongo_Db class provides methods to interact with
+				<a href="http://www.mongodb.org/" target="_blank">Mongo databases</a>.
+			</p>
+			<p>
+				Besides providing the normal insert, select, delete and update functionality it has some management
+				methods to help you with database utility operations.
+			</p>
+
+			<h3 id="config">Configuration</h3>
+
+			<p>
+				For every Mongo database connection there must be a config in mongo array in <em>app/config/db.php</em>.
+				Configuration options and explanation are listed below. Every config requires to contain a hostname
+				and database name.
+			</p>
+
+			<table class="config">
+				<tbody>
+					<tr class="header">
+						<th>Param</th>
+						<th>Type</th>
+						<th>Required</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<th>hostname</th>
+						<td>string</td>
+						<td>yes</td>
+						<td>the hostname</td>
+					</tr>
+					<tr>
+						<th>database</th>
+						<td>string</td>
+						<td>yes</td>
+						<td>the database name</td>
+					</tr>
+					<tr>
+						<th>port</th>
+						<td>number</td>
+						<td>no</td>
+						<td>the port to use in the connection</td>
+					</tr>
+					<tr>
+						<th>replicaset</th>
+						<td>string</td>
+						<td>no</td>
+						<td>the name of the replicaset to use for the connection</td>
+					</tr>
+					<tr>
+						<th>username</th>
+						<td>string</td>
+						<td>no</td>
+						<td>username used for authentication, ignored if no password has been set</td>
+					</tr>
+					<tr>
+						<th>password</th>
+						<td>string</td>
+						<td>no</td>
+						<td>password used for authentication, ignored if no password has been set</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p>Example config:</p>
+
+			<pre class="php"><code>// Inside app/config/db.php
+
+		'mongo' => array(
+			// This group is used when no instance name has been provided.
+			'default' => array(
+				'hostname'   => 'localhost',
+				'database'   => 'mongo_fuel',
+			),
+
+			// List your own groups below.
+			'my_mongo_connection' => array(
+				'hostname'   => 'localhost',
+				'database'   => 'my_db',
+				'replicaset' => 'replica',
+				'username'   => 'user',
+				'password'   => 'p@s$w0rD',
+			),
+		),
+	</code></pre>
+
+			<p>Once you have your setting in place you can start using MongoDB.</p>
+
+			<p class="note">
+				In order to use MongoDB this must be available on your server. To see if you have mongo
+				support on you server, look for the Mongo section in your <em>phpinfo()</em> or ask you hosting company.
+			</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

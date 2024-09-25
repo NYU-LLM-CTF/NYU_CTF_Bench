@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../../';
+	</script>
+	<script src="./../../../assets/js/combined.js"></script>
+	<title>Creating - Observers - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Orm</h2>
+
+			<p>Orm is short for <a href="http://en.wikipedia.org/wiki/Object_relational_mapper" target="_blank">Object
+				Relational Mapper</a> which does 2 things: it maps your database table rows to objects and it allows you
+				to establish relations between those objects.<br />
+				It follows closely the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">
+				Active Record Pattern</a>, but was also influenced by other systems.</p>
+
+			<article>
+				<h3 id="creating_observers">Observers: Creating your own</h3>
+
+				<p>You can add any class as an observer by adding the full classname (namespace included) to the Observers
+					property of your model. There's 2 ways of creating classes that can be used as observers:</p>
+
+				<h3>Extend the Orm\Observer class</h3>
+
+				<p>Create a new class that extends <kbd>Orm\Observer</kbd> and create methods for the events upon which you
+					want your Observer to act. In the example below you want it to act upon <kbd>after_insert</kbd>. The
+					method will be passed the Model instance it is acting upon.</p>
+
+				<pre class="php"><code>class Observer_Something extends Orm\Observer
+{
+
+	public function after_insert(Orm\Model $model)
+	{
+		\Log::info('Succesfully created new object of class '.get_class($model));
+	}
+}</code></pre>
+
+				<p class="note">Extensions of the type Orm\Observer are singletons by default, as such you can't use a
+					method <kbd>instance()</kbd> or property <kbd>$_instance</kbd> or it won't work anymore. Because of this
+					methods may be both static or non-static.</p>
+
+				<h3>Have an orm_notify() method</h3>
+
+				<p>When you extend the <kbd>Orm\Observer</kbd> class it inherits an <kbd>orm_notify()</kbd> method that
+					will check if there's a method that matches the event and call it when possible. But you can use any
+					class as an observer as long as it has an <kbd>orm_notify()</kbd> method. That will be called on events
+					and be passed the event name and a Model instance.</p>
+
+				<pre class="php"><code>class Some_Other_Class
+{
+
+	// it may have many methods and properties before or after the orm_notify method
+
+	public static function orm_notify(Orm\Model $model, $event)
+	{
+		\Log::info('I was notified of the event '.$event.' on a Model of class '.get_class($model));
+	}
+}</code></pre>
+				<h3 id="event_names">Event names</h3>
+
+				<ul>
+					<li><kbd>after_create</kbd>, called by the __construct() method once the object was created</li>
+					<li><kbd>after_load</kbd>, called by the __construct() method once an object was loaded from the database</li>
+					<li><kbd>before_save</kbd>, called by the save() method before anything is done</li>
+					<li><kbd>after_save</kbd>, called by the save() method after it has completed</li>
+					<li><kbd>before_insert</kbd>, called when an object is first saved to the database</li>
+					<li><kbd>after_insert</kbd>, called after an object is first saved to the database</li>
+					<li><kbd>before_update</kbd>, called when an object is saved to the database (except for the first time)</li>
+					<li><kbd>after_update</kbd>, called after an object is saved to the database (except for the first time)</li>
+					<li><kbd>before_delete</kbd>, called when you delete an object from the database</li>
+					<li><kbd>after_delete</kbd>, called after you delete an object from the database</li>
+					<li><kbd>after_clone</kbd>, called after an object was successfully cloned</li>
+				</ul>
+
+				<p class="note">
+					<kbd>before_insert</kbd> and <kbd>before_update</kbd> are triggered <em>only</em> if the object has been changed. If you need to trigger an event even if the object has not been changed (ex.: to handle $_FILES datas), you should use <kbd>before_save</kbd>.
+				</p>
+
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

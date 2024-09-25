@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Tasks - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Tasks</h2>
+
+			<h3 id="what_are_tasks">What is a task?</h3>
+
+			<p>Tasks are classes that can be run through the command line or set up as a cron job. They are generally used for background processes, timed tasks and maintenance tasks. Tasks can calls models and other classes just like controllers.</p>
+
+			<h3 id="creating_tasks">Creating a task</h3>
+
+			<p>In Fuel Controllers are put in the <kbd>fuel/app/tasks</kbd> directory. Below is an example of the task "example": </p>
+
+	<pre class="php"><code>namespace Fuel\Tasks;
+
+class Example
+{
+
+	public function run($message = 'Hello!')
+	{
+		echo $message;
+	}
+}</code></pre>
+
+			<p>That will be called via the refine utility within oil:</p>
+
+			<pre class="cli"><code>$ php oil refine example "Good morning"</code></pre>.
+
+			<p>When just the name of the task is used in the command, the method <kbd>"run()"</kbd> is referenced.</p>
+
+			<h3 id="more_methods">Splitting tasks into more methods</h3>
+
+			<p>You can add more methods to your task class to break a group of tasks down into more specific tasks which can be called separately.</p>
+
+	<pre class="php"><code>public function current_date()
+{
+	echo date('Y-m-d');
+}</code></pre>
+
+			<p>We can then call this method using:</p>
+
+			<pre class="cli"><code>$ php oil refine example:current_date</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

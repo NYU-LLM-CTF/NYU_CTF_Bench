@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>CRUD - Orm Package - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+			<h2>Orm</h2>
+
+			<p>Orm is short for <a href="http://en.wikipedia.org/wiki/Object_relational_mapper" target="_blank">Object
+				Relational Mapper</a> which does 2 things: it maps your database table rows to objects and it allows you
+				to establish relations between those objects.<br />
+				It follows closely the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">
+				Active Record Pattern</a>, but was also influenced by other systems.</p>
+
+			<section>
+				<h2 id="crud">CRUD: Create, Read, Update and Delete</h2>
+
+				<p>Once you've configured your Model it's time to start creating, reading, updating and deleting entries
+					in your database.</p>
+
+				<article id="create">
+					<h2>Create</h2>
+
+					<pre class="php"><code>// option 1
+$new = new Model_Example();
+$new->property = 'something';
+$new->save();
+
+// option 2, use forge instead of new
+$new = Model_Example::forge();
+$new->property = 'something';
+$new->save();</code></pre>
+
+					<p class="note">After <kbd>save()</kbd> the model has been saved to the database and if you're using an
+						<kbd>auto_increment</kbd> primary key it will automatically be set on the instance after successful
+						saving it.</p>
+
+					<p>You can also set properties on the model from an array:</p>
+
+					<pre class="php"><code>$props = array('property' =&gt; 'something');
+
+// using "new"
+$new = new Model_Example($props);
+$new->save();
+
+// option 2, use forge instead of new
+$new = Model_Example::forge($props);
+$new->save();</code></pre>
+				</article>
+
+				<article id="read">
+					<h2>Read</h2>
+
+					<p>Or actually <kbd>find()</kbd>. The find method can be used in 3 ways: find a specific id (primary
+						key), find first/last or all entries with conditions. All possible selection methods (where,
+						or_where, order_by, etc) can be found at the bottom of the page.</p>
+
+					<h3 id="find_by_id">Find by ID</h3>
+
+					<pre class="php"><code>// you know there's an article with ID=2
+$entry = Model_Article::find(2);
+
+// ...or when using compound primary keys
+$entry = Model_Article::find(array(2, 'foo'));</code></pre>
+
+					<p>In this example it will return either an instance of Model_Article or null when the ID wasn't found.</p>
+
+					<h3 id="find_first_last">Find first/last</h3>
+
+					<pre class="php"><code>// find the first entry
+$entry = Model_Article::find('first');
+
+// find the last entry added when ordered by date
+$entry = Model_Article::find('last', array('order_by' =&gt; 'date'));</code></pre>
+
+					<p>In this example it will return either an instance of Model_Article or null when the ID wasn't found.</p>
+
+					<h3 id="find_all">Find all</h3>
+
+					<pre class="php"><code>// find all articles
+$entry = Model_Article::find('all');
+
+// find all articles from category 1 order descending by date
+$entry = Model_Article::find('all', array(
+	'where' =&gt; array(
+		array('category_id', 1),
+	),
+	'order_by' =&gt; array('date' =&gt; 'desc'),
+));
+
+// find all articles from category 1 or category 2
+$entry = Model_Article::find('all', array(
+	'where' =&gt; array(
+		array('category_id', 1),
+		'or' =&gt; array(
+			array('category_id', 2),
+		),
+	),
+));</code></pre>
+
+					<p>In this example it will always return an array of instances of Model_Article.</p>
+
+					<h3 id="find_chaining">Find using method chaining</h3>
+
+					<p class="note">
+						You can not call the <kbd>find()</kbd> method without properties, or call it with <kbd>null</kbd> or a variable
+						that contains <kbd>null</kbd> as argument. If you do, <kbd>null</kbd> is returned. If you want to chain methods,
+						use the <kbd>query()</kbd> method instead.</p>
+
+					<pre class="php"><code>$query = Model_Article::query()->where('category_id', 1)->order_by('date', 'desc');
+
+// We want to know the total number of articles for pagination
+$number_of_articles = $query->count();
+
+// We want to know the last id issued
+$number_of_articles = $query->max('id');
+
+// We want to know the date of the first article posted
+$number_of_articles = $query->min('date');
+
+// fetch one Article
+$newest_article = $query->get_one();
+
+// we re-use but add a return limitation to the previous query to fetch multiple articles
+$all_articles = $query->limit(15)->get();</code></pre>
+
+					<p>All these methods are equally valid, the four other methods of find actually use the Query object as
+						well but don't return it.</p>
+
+					<h3 id="partial_selects">Partial column selects</h3>
+					<p>By default all ORM find methods will select all table columns. You can use the <kbd>select</kbd> array
+						entry or the <kbd>select()</kbd> method to alter this behavior.
+					</p>
+
+					<pre class="php"><code>// using the array method. select only the 'name' and 'date' columns
+$entry = Model_Article::find('last', array('select' =&gt; array('name', 'date')));
+
+// same, but then using the chaining method
+$entry = Model_Article::query()->select('name', 'date')->get();
+
+// using the array method. select all columns except the 'date' column
+$entry = Model_Article::find('all', array('select' =&gt; array(array('date' =&gt; false))));
+
+// same, but then using the chaining method
+$entry = Model_Article::query()->select(array('date' =&gt; false))->get();
+</code></pre>
+				</article>
+
+				<article id="update">
+					<h2>Update</h2>
+
+					<pre class="php"><code>$entry = Model_Article::find(4);
+$entry->title = 'My first edit';
+$entry->author = 'Total n00b';
+$entry->save();</code></pre>
+
+					<p>That's it, nothing more to it: Find, change properties and save.</p>
+
+					<p>You can also set properties on the model from an array:</p>
+
+					<pre class="php"><code>$entry = Model_Article::find(4);
+$entry->set(array(
+	'title'  => 'My first edit',
+	'author' => 'Total n00b'
+));
+
+$entry->save();</code></pre>
+				</article>
+
+				<article id="delete">
+					<h2>Delete</h2>
+
+					<pre class="php"><code>$entry = Model_Article::find(4);
+$entry->delete();</code></pre>
+
+					<p>Again nothing more to it: Find and delete.</p>
+
+					<p class="note">In the previous example the <kbd>$entry</kbd> variable and its object still exist. The
+						primary keys are however set to <kbd>null</kbd> and the object itself is considered a new instance. If
+						you save it after deletion it will be re-entered into the database and be given a new primary key when
+						<kbd>auto_increment</kbd> is switched on.</p>
+				</article>
+
+				<article id="functions">
+					<h2>All selection methods when using find</h2>
+
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Method</th>
+								<th>Params</th>
+								<th>Examples</th>
+							</tr>
+							<tr>
+								<th>select</th>
+								<td>string <kbd>$column</kbd>, [string <kbd>$more_columns</kbd>,] | array <kbd>$filter</kbd></td>
+								<td>
+									<pre class="php"><code>// Find only some columns
+Model_Article::query()-&gt;select('id', 'name');
+Model_Article::find('all', array('select' =&gt; array('id', 'name')));
+
+// Find all columns except 'name'
+Model_Article::query()-&gt;select(array('name' =&gt; false));
+Model_Article::find('all', array('select' =&gt; array(array('name' =&gt; false))));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>related</th>
+								<td>string|array <kbd>$relation</kbd>, [array <kbd>$conditions</kbd>]</td>
+								<td>
+									<pre class="php"><code>// include related models in the find
+Model_Article::query()-&gt;related(array('author', 'comments'));
+Model_Article::find('all', array('related' =&gt; array('author', 'comments')));
+
+// include conditions on the relation (only supported when chaining)
+Model_Article::query()
+    -&gt;related('author', array('where' =&gt; array(array('active', '=', 1))));
+
+// include multiple conditions on the relation
+Model_Article::query()
+    -&gt;related('author', array('where' =&gt; array(array('active', '=', 1), array('status', '=', 'X'))));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>use_view</th>
+								<td>string <kbd>$viewname</kbd></td>
+								<td>
+									<pre class="php"><code>// use a view to retrieve data
+Model_Article::query()-&gt;use_view('with_comments');
+Model_Article::find('all', array('use_view' =&gt; 'with_comments'));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>where</th>
+								<td>string <kbd>$column</kbd>, [string <kbd>$operator</kbd>,] mixed <kbd>$value</kbd></td>
+								<td>
+									<pre class="php"><code>// Single where
+Model_Article::query()-&gt;where('id', 4);
+Model_Article::find('all', array('where' =&gt; array('category_id' =&gt; 5)));
+
+// Multiple where usage examples
+Model_Article::query()-&gt;where('id', 4)->where('category_id', '&gt;', 1);
+Model_Article::query()-&gt;where(array('id' =&gt; 4, 'category_id' =&gt; 6));
+Model_Article::find('all', array('where' =&gt; array(array('category_id', '=', 5), array('publish', '&lt;', time()))));
+
+// Using or where
+Model_Article::query()-&gt;where('id', 4)-&gt;or_where('id', 5);
+</code></pre>
+								</td>
+							<tr>
+								<th>order_by</th>
+								<td>string <kbd>$column</kbd>, [string <kbd>$direction</kbd>]</td>
+								<td>
+									<pre class="php"><code>// Single order_by
+Model_Article::query()-&gt;order_by('name', 'desc');
+Model_Article::find('all', array('order_by' =&gt; array('name' =&gt; 'desc')));
+
+// Multiple order_by usage examples
+Model_Article::query()-&gt;order_by('name', 'desc')->order_by('category_id', 'asc');
+Model_Article::query()-&gt;order_by(array('name' => 'desc', 'category_id' =&gt; 'asc'));
+Model_Article::find('all', array('order_by' => array(array('name' =&gt; 'desc', 'category_id' =&gt; 'asc'))));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>from_cache</th>
+								<td>bool<kbd>$cache</kbd></td>
+								<td>
+									<pre class="php"><code>// disable the ORM object cache on this query
+Model_Article::query()-&gt;from_cache(false);
+Model_Article::find('all', array('from_cache' =&gt; false));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>limit</th>
+								<td>int <kbd>$limit</kbd></td>
+								<td>
+									<pre class="php"><code>// limit with relation consistence
+Model_Article::query()-&gt;limit(10);
+Model_Article::find('all', array('limit' =&gt; 10));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>rows_limit</th>
+								<td>int <kbd>$limit</kbd></td>
+								<td>
+									<pre class="php"><code>// limit without relation consistence
+Model_Article::query()-&gt;rows_limit(10);
+Model_Article::find('all', array('rows_limit' =&gt; 10));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>offset</th>
+								<td>int <kbd>$offset</kbd></td>
+								<td>
+									<pre class="php"><code>// offset with relation consistence
+Model_Article::query()-&gt;offset(10);
+Model_Article::find('all', array('offset' =&gt; 10));
+</code></pre>
+								</td>
+							</tr>
+							<tr>
+								<th>rows_offset</th>
+								<td>int <kbd>$offset</kbd></td>
+								<td>
+									<pre class="php"><code>// offset without relation consistence
+Model_Article::query()-&gt;rows_offset(10);
+Model_Article::find('all', array('rows_offset' =&gt; 10));
+</code></pre>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="note">
+						Do not mix the two limit/offset types! A combination of <kbd>limit</kbd> and <kbd>rows_offset</kbd> (or the other way around) will
+						lead to unexpected results!
+					</p>
+					<p class="note">
+						In this context, <kbd>relation consistence</kbd> means that by default when you query including related models,
+						the ORM will make sure the related results are consistent. This means that your results aren't always exactly
+						limited. For example, if the first parent in the result has 12 children, your resultset will contain 12 records
+						even if you have used <kbd>limit(10)</kbd>. When you use <kbd>rows_limit(10)</kbd>, the resultset will only contain
+						10 records, but 2 related records will be missing, and can not be retrieved later because the results will be cached
+						and the cache handler doesn't know the results were incomplete!
+					</p>
+
+					<h3 id="complex_wheres">Complex where clauses</h3>
+
+					<p>Using chaining you can create more complex where clauses, using and, or and nesting</p>
+
+					<pre class="php"><code>// complex where clause
+Model_Article::query()
+  -&gt;where('author', '=', 16)
+  -&gt;and_where_open()
+      -&gt;where('date', '&lt;', time())
+      -&gt;or_where('draft', '=', 1)
+  -&gt;and_where_close();
+
+// creates WHERE `author` = 16 AND (`date` &lt; 1348404127 OR `draft` = 1)
+</code></pre>
+					<p class="note">
+						To create a nested OR, use <kbd>or_where_open()</kbd> and <kbd>or_where_close()</kbd>. Allways make sure
+						your open and close methods match!
+					</p>
+				</article>
+
+                                <article>
+                                    <h3 id="subqueries"><a class="internal_link" href="#/custom_sql">Subqueries</a></h3>
+                                    <p>Subqueries can be created by constructing a seperate query object and using get_query() to parse it.</p>
+                                    <pre id="php"><code>$subQuery = Model_Article::query()
+        -&gt;select('author')
+        -&gt;where('date', '&lt;', time())
+        -&gt;where('draft', '=', 1);
+
+Model_Article::query()
+        -&gt;where('author', '=', 16)
+        -&gt;or_where('author', $subQuery-&gt;get_query(true))
+        -&gt;get();</code></pre>
+                                </article>
+
+                                <article>
+                                    <h3 id="custom_sql"><a class="internal_link" href="#/custom_sql">Custom SQL</a></h3>
+                                    <p>It is also possible to perform custom SQL statements and have the result returned as an Orm model (or list of models). Although this is not part of the Orm itself it is useful to know. Take a look at the <a href="../../classes/database/db.html#/method_query">DB::query()</a> function for more information.</a></p>
+                                    <pre class="php"><code>DB::query('SELECT * FROM `articles` WHERE `id` = 1')-&gt;as_object('Model_Article')-&gt;execute();</code></pre>
+                                    <p class="note">It is recommended that you use the <kbd>query()</kbd> function where ever possible though</p>
+                               </article>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

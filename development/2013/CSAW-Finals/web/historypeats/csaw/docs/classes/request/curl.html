@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Request_Curl::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Request_Curl - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Request_Curl Class</h2>
+
+			<p>
+				The Request_Curl class is mainly intended to process REST requests through PHP's cURL extension, but can be used to fetch
+				any content through an HTTP request.
+			</p>
+
+			<h3>Creating an instance</h3>
+
+			<p>
+				You can forge an instance of this class through the Request class:
+			</p>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// note that this only creates the object, it does not execute the request!</code></pre>
+
+			<article>
+				<h4 class="method" id="method_set_method">set_method($method)</h4>
+				<p>The <strong>set_method</strong> method allows you to set the HTTP request method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td><i>required</i></td>
+									<td>The HTTP method (GET, HEAD, POST, PUT, DELETE) to use for this request.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// this is going to be an HTTP POST
+$curl->set_method('post');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_method">get_method()</h4>
+				<p>The <strong>get_method</strong> method allows you to get the current HTTP request method set.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							None.
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed, defined HTTP method in uppercase, or <strong>null</strong> if none set.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// this is going to be an HTTP POST
+$curl->set_method('post');
+
+// returns 'POST'
+$method = $curl->get_method();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_params">set_params($params)</h4>
+				<p>The <strong>set_params</strong> method allows you to set parameters to pass on the HTTP request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$params</kbd></th>
+									<td><i>required</i></td>
+									<td>Array of parameters for the request.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// set some parameters
+$curl->set_params(array('userid' => 12, 'data' => $payload));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					The way these parameters are used depends on the request generated. For GET requests, these will be converted
+					to a query string. For POST requests, they will become the POST body.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_option">set_option($option, $value)</h4>
+				<p>The <strong>set_option</strong> method allows you to define a CURL option to be passed to the request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$option</kbd></th>
+									<td><i>required</i></td>
+									<td>cURL option to set. Usually, this is one of the cURL constants.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><i>required</i></td>
+									<td>Value to set this option to.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// set a username and password to be used in the request
+$curl->set_option(CURLOPT_USERPWD, $username . ':' . $password);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_options">set_options(array $options)</h4>
+				<p>The <strong>set_options</strong> method allows you to define multiple CURL options to be passed to the request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$options</kbd></th>
+									<td><i>required</i></td>
+									<td>Array of cURL options and values to set.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// set some options to be used in the request
+$curl->set_options(array(
+	CURLOPT_TIMEOUT => 30,
+	CURLOPT_FOLLOWLOCATION => true,
+	)
+);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add_param">add_param($param, $value = null)</h4>
+				<p>The <strong>add_param</strong> method allows you to add one or more parameters to the ones already defined.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$param</kbd></th>
+									<td><i>required</i></td>
+									<td>Name of the parameter to set, or an array of parameters and values.</td>
+								</tr>
+								<tr>
+									<th><kbd>$value</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Value to be defined. Only used when $param is a string value.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// add some parameters
+$curl->add_param(array('userid' => 12, 'data' => $payload));
+
+// or add a single one
+$curl->add_param('data', $payload);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_header">set_header($header, $content = null)</h4>
+				<p>The <strong>set_header</strong> method allows you to set a HTTP request header as part of the request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$header</kbd></th>
+									<td><i>required</i></td>
+									<td>The name of the HTTP header entry.</td>
+								</tr>
+								<tr>
+									<th><kbd>$content</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The header value to be set.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// pass an authentication token to the backend server
+$curl->set_header('auth-token', 'WV4YaeV8QeWVVVOE');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">If you need to set a header that is not in the form "Name: Value", pass the value in $header, and do not pass any content.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_headers">get_headers()</h4>
+				<p>The <strong>get_headers</strong> method allows you to retrieve all currently defined HTTP request headers.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							None.
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Array, all headers set.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// pass an authentication token to the backend server
+$curl->set_header('auth-token', 'WV4YaeV8QeWVVVOE');
+
+// returns array('auth-token:WV4YaeV8QeWVVVOE')
+$headers = $curl->get_headers();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_mime_type">set_mime_type($mime)</h4>
+				<p>The <strong>set_mime_type</strong> method allows you to define the HTTP ACCEPT header.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$mime</kbd></th>
+									<td><i>required</i></td>
+									<td>
+										The mime type of the requested response. This will be used to set the ACCEPT header.
+			<pre class="php"><code>// currently supported types are:
+'xml' => 'application/xml',
+'json' => 'application/json',
+'serialize' => 'application/vnd.php.serialized',
+'php' => 'text/plain',
+'csv' => 'text/csv',
+</code></pre>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// tell the backend we want json returned
+$curl->set_mime_type('json');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					This is only a request. You should verify if the service you're calling actually supports
+					and uses the mime type in the HTTP ACCEPT header, and if it supports the type you're requesting.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_auto_format">set_auto_format($auto_format)</h4>
+				<p>The <strong>set_auto_format</strong> method allows you to switch auto formatting on or off.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$auto_format</kbd></th>
+									<td><i>required</i></td>
+									<td>True if you want the returned response to be converted into an array, false if you want to access it as it is received.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// we want an array returned
+$curl->set_auto_format(true);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_execute">execute(array $additional_params = array())</h4>
+				<p>The <strong>execute</strong> method executes the defined cURL request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$additional_params</kbd></th>
+									<td><pre class="php"><code>array()</code></pre></td>
+									<td>Any additional parameters you want to pass to the request.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request_Curl, for chaining</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// execute the request
+$result = $curl->execute();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_response">set_response($body, $status, $mime = null, $headers = array())</h4>
+				<p>The <strong>set_response</strong> method sets the response received from the request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$body</kbd></th>
+									<td><i>required</i></td>
+									<td>The data to be set as the response body.</td>
+								</tr>
+								<tr>
+									<th><kbd>$status</kbd></th>
+									<td><i>required</i></td>
+									<td>The HTTP status of the created response.</td>
+								</tr>
+								<tr>
+									<th><kbd>$mime</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The mime type the data is in. This is used with <em>auto_format</em> to convert the body into an array.</td>
+								</tr>
+								<tr>
+									<th><kbd>$headers</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Any HTTP response headers you want to set.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Response, the created response object.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// create a custom response
+$curl->set_response($body, $this->response_info('http_code', 200), 'json', array('auth-token' => 'WV4YaeV8QeWVVVOE'));
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">Normally you should not use this method. It is used after the request is executed to prepare the requests response object.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_response">response()</h4>
+				<p>The <strong>response</strong> method returns the current request response.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							None.
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Response, the created response object.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// assume some parameters and options were set, and execute
+$curl->execute();
+
+// fetch the resulting Response object
+$result = $curl->response();
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_response_info">response_info($key = null, $default = null)</h4>
+				<p>The <strong>response_info</strong> method allows you to retrieve a cURL response value, or all response values.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$key</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Specific response value to retrieve. Don't specify it when you want to retrieve all values.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>Value to be returned when the requested value does not exist.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Mixed, depending on the data type of the requested value.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// assume some parameters and options were set, and execute
+$curl->execute();
+
+// get the number of bytes downloaded in the request
+$size = $curl->response_info(CURLINFO_SIZE_DOWNLOAD, false);
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_http_login">http_login($username = '', $password = '', $type = 'any')</h4>
+				<p>The <strong>http_login</strong> method allows you to use basic authentication when executing the request.</p>
+					<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$username</kbd></th>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>Name of the user you want to use to perform the authentication.</td>
+								</tr>
+								<tr>
+									<th><kbd>$password</kbd></th>
+									<td><pre class="php"><code>''</code></pre></td>
+									<td>That users password.</td>
+								</tr>
+								<tr>
+									<th><kbd>$type</kbd></th>
+									<td><pre class="php"><code>'any'</code></pre></td>
+									<td>Type of authentication to perform. Supported are: BASIC, DIGEST, GSSNEGOTIATE, NTLM, ANY and ANYSAFE.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Response, the created response object.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+			<pre class="php"><code>// create a Request_Curl object
+$curl = Request::forge('http://rest.example.org/api/v1/this/info', 'curl');
+
+// authenticate against an IIS server
+$curl->http_login('username', 'mypass', 'NTLM');
+</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+	"name": "mandiant",
+	"category": "forensics",
+	"description": "We found this file. Help Mandiant figure out what APT1 is trying to send",
+	"flag": "flag{s3v3r4l_l4y3r5_d33p_&_2m4ny_l4yers_w1d3}",
+	"points": 300,
+	"box": "",
+	"files":["Mandiant_c920fc463eaf996489749457abc9b2eb.pdf"]
+}

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Environments - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Environments</h2>
+
+			<p>
+				The support of environments helps FuelPHP and your app to make decisions based on the environment setting.
+				FuelPHP itself uses the environment setting to load/overwrite additional config setting based on which
+				environment is currently active.
+			</p>
+
+			<h3 id="possible_envs">Environments list</h3>
+
+			<p>
+				FuelPHP has four predefined environments.
+			</p>
+
+			<ul>
+				<li>
+					<strong>\Fuel::DEVELOPMENT</strong><br/>
+					The development environment.
+				</li>
+				<li>
+					<strong>\Fuel::TEST</strong><br/>
+					The test environment.
+				</li>
+				<li>
+					<strong>\Fuel::STAGING</strong><br/>
+					The staging environment.
+				</li>
+				<li>
+					<strong>\Fuel::PRODUCTION</strong><br/>
+					The production environment.
+				</li>
+			</ul>
+
+			<h3 id="setting_env">Set Your Environment</h3>
+
+			<p>
+				Setting your environment is done by setting the <em>FUEL_ENV</em> server var or manually changing the
+				setting in <em>fuel/app/bootstrap.php</em>.
+			</p>
+
+			<pre class="php"><code>// Inside app/bootstrap.php
+
+/**
+ * Your environment.  Can be set to any of the following:
+ *
+ * Fuel::DEVELOPMENT
+ * Fuel::TEST
+ * Fuel::STAGING
+ * Fuel::PRODUCTION
+ *
+ * But you can also pick any string you want (for example the developers username)
+ */
+Fuel::$env = (isset($_SERVER['FUEL_ENV']) ? $_SERVER['FUEL_ENV'] : Fuel::DEVELOPMENT);</code></pre>
+
+			<h3 id="env_config">Environments and Config</h3>
+
+			<p>
+				Based on the environment the app is set to, the Config class looks for environment-specific config files.
+				The config class will look for the same config file name in a directory that's named after the current environment.
+				Here is an example to illustrate this:
+			</p>
+
+			<pre class="plain"><code>app/
+  config/
+    stuff.php
+      development/
+        stuff.php
+      staging/
+        stuff.php
+      test/
+        stuff.php
+      production/
+        stuff.php</code></pre>
+
+			<p>
+				When your environment is set to <kbd>\Fuel::DEVELOPMENT</kbd>, the settings from <em>stuff.php</em> are merged with <em>development/stuff.php</em>.
+				If the environment setting is set to any other than <kbd>\Fuel::DEVELOPMENT</kbd>, the extra config file is not loaded. The same goes
+				for any other environment setting you might use.
+			</p>
+
+			<p>
+				A real-life example for this is the database configuration. There are no default configuration settings (this is possibly
+				very dangerous).  There are only environment-specific config settings.
+			</p>
+
+			<h3 id="env_apache">Using Apache configuration</h3>
+
+			<p>
+				You can use the Apache configuration statement <strong>SetEnv</strong> to set the environment your application should run in.
+				In most cases this is easier then using an environment variable, and in some cases the only option if you don't have commandline
+				access to your server.
+			</p>
+
+			<pre class="php"><code>// run this application in production mode
+SetEnv FUEL_ENV production</code></pre>
+
+			<p class="note">The variable name <strong>FUEL_ENV</strong> should be specified in UPPERCASE, the environment name in lowercase.</p>
+
+			<h3 id="env_oil">Setting the environment for oil</h3>
+
+			<p>
+				When using a *unix operating system, you can use the <kbd>env</kbd> command to define the variable before starting oil.
+			</p>
+
+			<pre class="cli"><code><strong>$</strong> env FUEL_ENV=production php oil -v</code></pre>
+
+			<p>
+				When using Windows, this has been reported to work:
+			</p>
+
+			<pre class="cli"><code><strong>C:\> </strong>set FUEL_ENV=production&php oil -v</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Classes - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Classes</h2>
+
+			<h3 id="what_is_a_class">What is a class?</h3>
+
+			<p>A class is just a normal PHP class. It doesn't need to extend anything or follow any conventions other than the naming convention which is the same as all other classes in Fuel.</p>
+
+			<pre class="php"><code>class Session</code></pre>
+
+			<p>That will be loaded from app/classes/session.php.</p>
+
+			<h3 id="loading_classes">Loading Classes</h3>
+
+			<p>Unlike some other frameworks classes do not need to be loaded manually. They will be auto-loaded when you refer to them in your code (Controllers, Models, etc).</p>
+
+			<h3 id="classes_subdirectories">Classes in a sub-directory</h3>
+
+			<p>Just like <a href="controllers/base.html">Controllers</a>, classes must be lower-case with first-letter upper case, while underscores will put the class into a sub-directory.</p>
+
+			<pre class="php"><code>Class Session_Driver</code></pre>
+
+			<p>That will be loaded from app/classes/session/driver.php</p>
+
+			<h3 id="classes_namespaces">Classes and Namespaces</h3>
+
+			<p>
+				To determine which PHP file to load, FuelPHP's autoloader will treat namespaces and class names with underscores exactly the same.
+				This means that for classes in sub-directories, you can mix-and-match namespaces and underscores to suit your needs.
+			</p>
+
+			<p>Take for example a class in the file app/classes/core/system/messages.php. The class in this file can be defined as:</p>
+
+				<pre class="php"><code>// global namespace, fully underscored class name
+class Core_System_Messages {}
+
+// combine a namespace and underscores
+namespace Core;
+class System_Messages {}
+
+// or fully namespaced
+namespace Core\System;
+class Messages {}
+</code></pre>
+
+			<p class="note">
+				The first method is the one most commonly used and easiest to understand. The namespaced versions are particularly handy if you
+				combine them with the Use statement in the classes that use the defined class.
+			</p>
+
+			<article>
+				<h2 id="init_method">Initializing your class</h2>
+
+				<p>It is possible to have Fuel's autoloader perform certain automated tasks once a class is loaded,
+					sort of like what <code>__construct()</code> does for instances of a class. You do this by adding
+					a public static <code>_init()</code> method to the class.</p>
+
+				<pre class="php"><code>class Example {
+	public static function _init()
+	{
+		// this is called upon loading the class
+	}
+}</code></pre>
+
+				<p class="note">If a loaded class has its own <code>_init()</code> method and a parent must be loaded
+					alongside it, that parent's init method isn't called unless you call it using
+					<code>parent::_init();</code></p>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

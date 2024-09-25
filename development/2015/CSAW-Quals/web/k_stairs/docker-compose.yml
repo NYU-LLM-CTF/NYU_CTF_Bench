@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2015q-web-kstairs
+    ports:
+      - 4567:4567
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

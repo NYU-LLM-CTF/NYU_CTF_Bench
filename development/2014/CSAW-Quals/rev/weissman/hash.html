@@ -1,0 +1,324 @@
+<html>
+<head>
+<title>Hash Functions and Block Ciphers</title>
+<meta name="keywords" content="hash, hash function, hash table lookup,
+checksum, cipher, block cipher, stream cipher, rng, prng, random number">
+</head>
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" 
+vlink="#00ff00" alink="#ff0000">
+
+<center><h2>Hash Functions and Block Ciphers</h2></center>
+
+<p>I have a lot of material related to hashing.
+<UL>
+<LI>Definitions and my offerings:
+  <UL>
+  <LI><a href="#lookup">Hash functions for hash table lookup</a>
+  <LI><a href="#correction">Error Correction Codes</a>
+  <LI><a href="#checksum">Noncryptographic Checksums</a>
+  <LI><a href="nandhash.html">A noncryptographic hardware hash</a>
+  <LI><a href="#one-way">One-way functions (cryptographic hash
+functions, digital signatures)</a>
+  <LI><a href="#block">Block Ciphers</a>
+  <LI><a href="#random">Random Number Generators</a>
+  <LI><a href="#stream">Stream Ciphers</a>
+  </UL>
+<LI>My functions:
+  <UL>
+  <LI><a href="../c/lookup3.c">LOOKUP3.C, for hash table lookup</a>
+  <LI><a href="spooky.html">SpookyHash, for hash table lookup and
+noncryptographic checksums on 64-bit machines</a> 
+  <LI><a href="../crypto/maraca/nist/">Maraca, a completely broken
+ attempt at a cryptographic checksum</a>
+  <LI><a href="integer.html">A hash function for integers</a>
+  <LI><a href="perfect.html">Minimal Perfect Hashing</a>
+  <LI><a href="hashtab.html">An in-memory Hash Table</a>
+  <LI><a href="lockfree.html">Musings about lock-free hash tables</a>
+  <LI><a href="pearson.html">Pearson's Hash, for BASIC users</a>
+  <LI><a href="../math/errorcor.html">A 1-bit error correction code</a>
+  <LI><a href="../crypto/myblock.html">Work in progress: two new block
+ciphers</a>
+  <LI><a href="../rand/isaacafa.html">ISAAC, a random number generator</a>
+  <LI><a href="../rand/smallprng.html">a small noncryptographic random 
+number generator</a>
+  <LI><a href="../c/rand.c">RAND.C</a> and <a
+href="../c/rand.h">RAND.H</a>, which implement ISAAC.
+  </UL>
+<LI>Tests (used to choose those functions):
+  <UL>
+  <LI><a href="avalanche.html">Avalanche test for hashing and block ciphers</a>
+  <LI><a href="../rand/testsfor.html">Finding bias in random sequences</a>
+  <LI><a href="../crypto/findingc.html">Finding iterated
+characteristics in block ciphers</a>
+  <LI><a href="../c/sort.c">SORT.C</a> and <a
+href="../c/distinct.c">DISTINCT.C</a>
+  </UL>
+<LI>Analysis:
+  <UL>
+  <LI><a href="evahash.html">Hash Functions for Hash Table Lookup</a>
+  <LI><a href="doobs.html">The same paper, revised for Dr. Dobb's</a>
+  <LI><a href="hashfaq.html">A FAQ for hash functions</a>
+  <LI><a href="../rand/isaac.html">ISAAC and RC4, two stream ciphers</a>
+  <LI><a href="birthday.html">A proof of the birthday paradox</a>
+  <LI><a href="../rand/random.html">Random number results</a>
+  <LI><a href="../crypto/magnitude.html">Orders of magnitude</a>
+  <LI><a href="../crypto/kfk.html">k XOR f(k XOR x) as a way to add a key to
+f</a>
+  <LI><a href="../crypto/protocol.html">Some new protocols for cryptography
+and security</a>
+  </UL>
+</UL>
+
+<hr line=1>
+
+<a name="lookup"><h3>Hash functions for hash table lookup</h3></a>
+
+<p>A hash function for hash table lookup should be fast, and it should
+cause as few collisions as possible.  If you know the keys you will be
+hashing before you choose the hash function, it is possible to get
+zero collisions -- this is called <a href="perfect.html">perfect
+hashing</a>.  Otherwise, the best you can do is to map an equal number
+of keys to each possible hash value and make sure that similar keys
+are not unusually likely to map to the same value.
+
+<p>The standard reference for this is Knuth's "The Art of Computer
+Programming", volume 3 "Sorting and Searching", chapter 6.4.  He
+recommends the hash
+<pre>
+   for (hash=len; len--;) 
+   {
+     hash = ((hash&lt;&lt;5)^(hash&gt;&gt;27))^*key++;
+   }
+   hash = hash % prime;
+</pre>
+Unfortunately, that hash is only mediocre.  The problem is the
+per-character mixing: it only rotates bits, it doesn't really mix
+them.  Every input bit affects only 1 bit of hash until the final %.
+If two input bits land on the same hash bit, they cancel each other
+out.  Also, % can be extremely slow (230 times slower than addition on
+a Sparc).
+
+<p>I had <a href="doobs.html">an article</a> in <a
+href="http://www.ddj.com">Dr. Dobb's Journal</a> on hash functions for
+hash table lookup.  A generally good, fast hash function is <a
+href="../c/lookup3.c">LOOKUP3.C</a>.  Simon Stapleton provided <a 
+href="lookup3_thumb2.s">thumb2 assembly</a> for lookup3.c.  More recently
+I published <a href="spooky.html">SpookyHash</a>, which is many 
+times faster than lookup3 on 64-bit platforms, even for short keys.
+
+<p>If you are using a language with no shift or xor, like BASIC, try
+<a href="pearson.html">Pearson's hash</a>.
+
+<hr line=1>
+
+<a name="correction"><h3>Error Correction Codes</h3></a>
+
+<p>I have a short spiel on <a href="../math/errorcor.html">1-bit error
+correction codes</a> prompted by a discussion on the A-Phi-O alumni
+mailing list.
+
+<p><b>Error Correction Codes</b> are checksums of length m+2d+1 that
+assume that no more than d of the m+2d+1 values will change.  If d or
+less values change, the checksum and the modified text can be used to
+deduce what the original m values were.  Values in the checksum can be
+among the d values changed.  If more than d values changed, then you
+lose.  It is easy to produce two documents with the same checksum (if
+you try).
+
+<p>Error correction codes, I hear, have recently become much better.
+Look at <a
+href="http://www.ee.caltech.edu/EE/Faculty/rjm/">McEliece's page
+on Turbo Codes</a> and <a
+href="http://www.inference.phy.cam.ac.uk/mackay/CodesFiles.html">
+David MacKay's competing research on Gallager codes</a>.  These 
+easily beat the old
+convolution codes, Goppa codes, Viterbi codes and Reed Solomon codes,
+I am told.
+
+<p>I just noticed that you could use Gallager codes as public key
+encryption, by sending something random as the message then putting
+your real message in the noise.  This is similar to McEliece's public
+key encryption scheme.  It's also an example of a public key scheme
+that could be broken by finding the smallest basis for a lattice.
+Algorithms for reducing bases of lattices are <a
+href="http://www.dice.ucl.ac.be/~fkoeune/LLL.html">here</a>.
+
+
+<hr line=1>
+
+<a name="checksum"><h3>Checksums, to identify documents</h3></a>
+
+<p>Here's the problem.  You've got two documents that are supposed to be
+the same, but you're not sure.  One of them is somewhere inaccessible,
+either a remote version or a previous version of the local document,
+so you can't compare them directly.  So you want to find a checksum
+for both and compare them, and if the checksums are the same then you
+will be convinced the documents are the same.  It should be
+incomprehensibly rare for two documents to have the same checksum by
+chance (that works out to probability of 
+<a href="../crypto/magnitude.html">2<sup>-128</sup> or less</a>).  <i>We
+assume that nobody is maliciously trying to produce documents with the
+same checksum</i>.  That same assumption holds for
+<a href="#correction">error correction codes</a>, which are often more
+useful than simple checksums.
+
+<p>Cryptographic hashes produce hash values of 256 bits or greater, and 
+are more than good enough quality for checksums.  The current recommendation
+is <a href="http://en.wikipedia.org/wiki/SHA-3">SHA-3</a>.  Their main problem 
+is they're slow, 12.5 cycles per byte.
+
+<p>Noncryptographic checksums are <a href="spooky.html">SpookyHash</a>, 
+and Google's <a href="https://code.google.com/p/cityhash/">CityHash</a>.
+They produce 128-bit results.  They're good if you have under 
+2<sup>n</sup> keys and can tolerate a probability of 2<sup>2n-128</sup> 
+of getting at least one collision.  SpookyHash is .3 cycles per byte on 
+64-bit platforms.  CityHash is .16 cycles per byte, but only on 64-bit 
+platforms with the SSE CRC32 instruction.  Only use a noncryptographic 
+checksum if you don't have an opponent.  If you need the probability of 
+getting any collisions at all to be less than 2<sup>-32</sup>, um, I'd 
+say the chance of you having an unknown opponent are greater than that.
+
+<p>CRCs have a place too.  A CRC has some quality issues that are tolerable
+in many circumstances, but it has this amazing property that you can 
+calculate CRC(A+B) (the CRC of A with B concatenated to the end of it) 
+straight from CRC(A), CRC(B), length(A), and length(B), without actually 
+looking at A, B.  CRCs come in 32-bit, 64-bit, 128-bit variants.
+
+<hr line=1>
+
+<a name="one-way"><h3>One-Way Functions (cryptographic checksums) </h3></a>
+
+<p>These are like <a href="#checksum">checksums</a>, but they are
+designed to even thwart malicious people.  A one-way function is
+considered broken if you can find two keys that have the same hash
+value.  (If hash values have n bits, it should take 2<sup>n</sup>
+tries to find a key mapping to a given hash value, and
+sqrt(2<sup>n</sup>) tries to find two keys that map to some common
+hash value.)
+
+<p>The current recommendation is <a 
+href="http://en.wikipedia.org/wiki/SHA-3">SHA-3</a> (Keccak).
+
+<p>Go to the newsgroup 
+<a href="http://groups.google.com/group/sci.crypt/topics">sci.crypt</a> to
+discuss one-way functions. 
+
+<hr line=1>
+
+<a name="block"><h3>Block Ciphers</h3></a>
+
+<p>A <b>block cipher</b> is a reversible function g:KxB-&gt;C, which
+maps a key in K and a block in B into a block in C.  Usually B and C
+are the same set, so the block cipher permutes B in a key-specific
+way.  There should be no way to deduce the key given any number of
+pairs (b,g(b)) in (B,C), and no way to deduce g(b) from b,
+or b from g(b), without the key.  No efficient way, that is.
+
+<p>Go to the newsgroup sci.crypt to discuss block ciphers.  You can
+find newsgroups through 
+<a href="http://groups.google.com">google groups</a>.
+
+<p>See <a href =
+"http://www.eskimo.com/~weidai/">Wei Dai</a>'s page for <a href =
+"http://www.eskimo.com/~weidai/cryptlib.html">source code</a> or <a href=
+"http://www.eskimo.com/~weidai/benchmarks.html">benchmarks</a> for most
+popular block ciphers.  Also see <a href =
+"http://theory.lcs.mit.edu/~rivest/crypto-security.html">
+Ron Rivest's security page</a> for more cryptographic pointers.
+
+<p>I <a href="../crypto/myblock.html">tried designing one of
+these</a>.  It has a mixing function that is called several times,
+then wraps a key around that.  Calling the mixing function 100 times
+is secure.  Calling the mixing function 1 time isn't secure.
+Somewhere in between is the smallest number of iterations that is
+secure.  My current guess is 12.  Designing block ciphers is like
+that.  Sufficient security is easy, it's just a question of
+performance, and of proving security (as in, unbreakable under all
+known attacks) at that level of performance.
+
+<p>I also wrote code to <a href="../crypto/findingc.html">find
+characteristics in block ciphers</a>, <a href="avalanche.html">choose
+magic constants</a>, and <a href="../rand/testsfor.html">test for
+bias</a> in supposedly random sequences.  Go <a
+href="../crypto/kfk.html">here</a> to see how to add a key to a
+pseudorandom permutation, making it a block cipher.
+
+<hr line=1>
+
+<a name="random"><h3>Random Number Generators (for simulation)</h3></a>
+
+<p><b>Pseudorandom number generators</b> mix up a state like hash
+functions, but they don't take any input.  They have a state of their
+own, and they just keep churning it.  They produce random-looking
+sequences, which can be used as fake data.
+
+<p>The standard reference for this is Knuth's "The Art of Computer
+Programming", volume 2 "Seminumerical Algorithms", chapter 3.  He
+recommends the random number generator
+<pre>
+   for (i=0; i&lt;55; ++i) rsl[i] = rsl[i] + rsl[(i+24) % 55];
+</pre>
+although not quite as succinctly as that.  It's really quite good, and
+it's hard to beat it for speed.  Properly optimized, it takes about 8
+instructions to produce each 32 bit word.  The whole 32 bit word can
+be used, although the low-order bit is less random than the other 31
+bits.  Any set of 55 consecutive results has no statistically
+significant patterns, because every such set of results is possible.
+
+<p>If you have an application that is sensitive to obscure biases (like
+every result being the sum of the results 31 and 55 before it) then a
+better generator to use is <a href="../rand/isaacafa.html">ISAAC</a>,
+which takes 19 instructions to produce each 32 bit word, and has no
+known biases.  I also have <a href="../rand/smallprng.html">a small
+generator</a>, which initializes and runs faster than ISAAC and the
+Mersenne Twister and has only a four-word internal state, but still
+passes all known tests.
+
+<p>Here are some <a href="../rand/testsfor.html">tests</a> for
+detecting bias in sequences that are supposed to be random.  The
+standard test suite is Marsaglia's DIEHARD (I need to add a link), but
+that's pretty easy to pass because it doesn't test a long enough
+sequence. 
+
+<hr line=1>
+
+<a name="stream"><h3>Random Number Generators (for stream ciphers)</h3></a>
+
+<p>A <b>cryptographic pseudorandom number generator</b> is a random
+number generator where it is intractible to deduce the generator's
+internal state given any number of its results.  To use such a random
+number generator as a <b>stream cipher</b>, give Alice and Bob the
+internal state of the generator.  Alice generates the pseudorandom
+sequence and adds it to a message which she sends.  Bob generates the
+pseudorandom sequence and subtracts it from the message he receives.
+Eve, who is watching the stuff being sent, can't read the message.
+
+<p>Go to the newsgroup sci.crypt to discuss stream ciphers.
+
+<p><a href=
+"http://theory.lcs.mit.edu/~rivest/crypto-security.html#Algorithms">
+RC4</a> is a popular stream cipher.  It is used in Lotus Notes and
+Netscape and (its name at least) is the property of RSA.  ISAAC is one 
+I wrote.  I have <a href="../rand/isaacafa.html">code for ISAAC</a> 
+and a <a href="../rand/isaac.html">paper comparing ISAAC and RC4</a>.
+There's also an <a href="http://www.wisdom.weizmann.ac.il/~itsik/RC4/rc4.html">external
+collection of analysis of RC4 on the web</a>.
+
+<hr size=1>
+
+<p><a href="../physics/whythere.html">Why there are no perpetual
+motion machines</a>
+<br><a href="../other/sql.html">Oracle SQL tricks</a>
+<br><a href="../scifi/itzuorb.html">Noncolliding orbits that fill 3-space</a>
+<br><a href="../java/color/index.html">A rather odd color chooser</a>
+<br><a href="../index.html">Table of Contents</a>
+
+<!--
+  MODIFIED
+  ??/??/96 - creation
+  04/20/97 - add "modified" comment
+  07/19/99 - converted to burtleburtle.net
+-->
+
+</body>
+</html>

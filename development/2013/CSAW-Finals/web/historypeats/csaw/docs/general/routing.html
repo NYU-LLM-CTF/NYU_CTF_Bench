@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Routing - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Routing</h2>
+
+			<p>Fuel's routing can range from simple static routes to advanced routes using HTTP verb based routing.</p>
+
+			<p>Routes are set in <kbd>fuel/app/config/routes.php</kbd>.</p>
+
+			<h3 id="reserved">Reserved Routes</h3>
+
+			<p>In Fuel there are 2 reserved routes.	 They are <kbd>_root_</kbd> and <kbd>_404_</kbd>.</p>
+
+			<ul>
+				<li><kbd>_root_</kbd> - The default route when no URI is specified.</li>
+				<li><kbd>_404_</kbd> - The route used when no controller or action can be found. Can also be used as a
+					catch-all route.</li>
+			</ul>
+
+			<pre class="php"><code>return array(
+    '_root_'  => 'welcome/index',
+    '_404_'   => 'welcome/404',
+);</code></pre>
+
+			<h3 id="basics">Basic Routing</h3>
+
+			<p>The route on the left is compared to the request URI.  If a match is found, the request is routed to the URI on the right.</p>
+
+			<p>This allows you to do things like the following:</p>
+
+			<pre class="php"><code>return array(
+    'about'   => 'site/about',
+    'contact' => 'contact/form',
+    'admin'   => 'admin/login',
+);</code></pre>
+
+
+			<h3 id="slightly_advanced">Slightly Advanced Routing</h3>
+
+			<p>You can include any regex into your routes.	The left side is matched against the
+			requests URI, and the right side is the replacement for the left, so you can use
+			backreferences in the right side from the regex on the left.  There are also a few
+			special statements that allow you match anything or just a segment:</p>
+
+			<ul>
+				<li><kbd>:any</kbd> - This matches anything from that point on in the URI</li>
+				<li><kbd>:segment</kbd> - This matches only 1 segment in the URI, but that segment can be anything</li>
+				<li><kbd>:num</kbd> - This matches any numbers</li>
+				<li><kbd>:alpha</kbd> - This matches any alpha characters, including UTF-8</li>
+				<li><kbd>:alnum</kbd> - This matches any alphanumeric characters, including UTF-8</li>
+			</ul>
+
+			<p>Here are some examples:</p>
+
+			<pre class="php"><code>return array(
+    'blog/(:any)'      => 'blog/entry/$1', // Routes /blog/entry_name to /blog/entry/entry_name
+    '(:segment)/about' => 'site/about/$1', // Routes /en/about to /site/about/en
+    '(\d{2})/about'    => 'site/about/$1', // Routes /12/about to /site/about/12
+);</code></pre>
+
+
+			<h3 id="advanced">Advanced Routing</h3>
+
+			<p>You can also have named parameters in your routes.  This allows you to give your URI segments
+			names which can then be accessed from within your actions.</p>
+
+			<p>Example:</p>
+
+			<pre class="php"><code>return array(
+    'blog/:year/:month/:id' => 'blog/entry', // Routes /blog/2010/11/entry_name to /blog/entry
+);</code></pre>
+
+			<p>In the above example it would catch the following <kbd>/blog/2010/11/entry_name</kbd>.  It would then
+			route that request to your 'entry' action in your 'blog' controller.  There, the named params
+			will be available like this:</p>
+
+			<pre class="php"><code>$this->param('year');
+$this->param('month');
+$this->param('id');</code></pre>
+
+			<p class="note">
+				Note that as a named parameter is a regex, every named parameter counts as a backreference.
+				So in a route like ':name/(\d{2})', the backreference for your two-digit segment is $2, not $1!</p>
+
+
+			<h3 id="http_verb">HTTP verb based routing</h3>
+
+			<p>You can route your URLs to controllers and actions based on the HTTP verb used to call them.
+			This makes it quick and easy to make RESTful controllers.</p>
+
+			<p>Example:</p>
+
+			<pre class="php"><code>return array(
+    // Routes GET /blog to /blog/all and POST /blog to /blog/create
+    'blog' => array(array('GET', new Route('blog/all')), array('POST', new Route('blog/create'))),
+);</code></pre>
+
+			<p>You can use named parameters and regexes within your URL just like normal:</p>
+
+	        <pre class="php"><code>return array(
+    'blog/(:any)' => array(array('GET', new Route('blog/show/$1'))),
+);</code></pre>
+
+			<p>You can also specify if this route is supported for only http, or only https, by passing <kbd>false</kbd> or <kbd>true</kbd> as third parameter:</p>
+
+	        <pre class="php"><code>// route only valid if this is an https request
+return array(
+    'blog/(:any)' => array(array('GET', new Route('blog/show/$1'), true)),
+);</code></pre>
+
+
+			<h3 id="named_routes">Named routes and reverse routing</h3>
+
+			<p>The idea of reversed routing is like this: say you got an admin area and you have a route setup for it.
+			In your views, you would like to that admin area using an HTML anchor that links to for example 'admin/start/overview'.
+			Now you decide to move stuff around and end up moving that specific page to 'admin/overview'.
+			As a result of this you now you need to update the links in all your views...</p>
+
+			<p>When using reverse routing with these name routes you can link an anchor to a named route, so that when the route changes,
+			the links in your views will automatically follow the change</p>
+
+			<p>Example route:</p>
+
+			<pre class="php"><code>return array(
+    'admin/start/overview' => array('admin/overview', 'name' => 'admin_overview'), // add a named route for the admin/overview page
+);</code></pre>
+
+			<p>Example anchor:</p>
+
+			<pre class="php"><code>// produces &lt;a href="http://your_base_url/admin/start/overview"&gt;Overview&lt;/a&gt;
+echo Html::anchor(Router::get('admin_overview'), 'Overview');</code></pre>
+
+			<p class="note">
+				Note that this currently only works for routes that are defined in <kbd>app/config/routes.php</kbd>, not for module routes.
+			</p>
+
+			<h3 id="inline_routes">Inline routes</h3>
+
+			<p>
+				A route does not have to resolve to a controller method. FuelPHP also supports inline routes, which are defined as a Closure
+				that replaces the controller method. Like controller methods, inline routes MUST return a Response object, either by forging
+				one manually, or as the result of executing a forged Request.
+			</p>
+
+			<p>Example route:</p>
+
+			<pre class="php"><code>return array(
+    'secret/mystuff' => function () {
+		// this route only works in development
+		if (\Fuel::$env == \Fuel::DEVELOPMENT)
+		{
+			return \Request::forge('secret/mystuff/keepout', false)->execute();
+		}
+		else
+		{
+			throw new HttpNotFoundException('This page is only accessable in development.');
+		}
+};</code></pre>
+
+			<h3 id="module_routing">Modules &amp; Routing</h3>
+
+			<p><a href="modules.html#module_routing">Read about how modules handle routing</a>.</p>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

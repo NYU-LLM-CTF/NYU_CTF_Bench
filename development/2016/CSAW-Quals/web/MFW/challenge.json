@@ -1,0 +1,12 @@
+{
+	"name": "MFW",
+	"category": "web",
+	"description": "<div>Hey, I made my first website today. It's pretty cool and web7.9.</div><div>http://web.chal.csaw.io:8000/</div>",
+	"box": "web.chal.csaw.io",
+	"files":[
+		"src.tar.gz"
+	],
+	"internal_port": 8000,
+	"compose": true,
+	"flag": "flag{3vald_@ss3rt_1s_best_a$$ert}"
+}

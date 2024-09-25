@@ -1,0 +1,12 @@
+{
+	"name": "webroot",
+	"category": "web",
+	"description": "hackerhaikus.com http://web.chal.csaw.io:80",
+	"box": "web.chal.csaw.io",
+	"files":[
+		"webroot.tar.gz"
+	],
+	"compose": true,
+	"internal_port": 80,
+	"flag": "flag{rise_and_shine,_mr._freeman._rise_and_shine}"
+}

@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Session::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Session Config - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Session Class</h2>
+
+			<p>The session class allows you to maintain state for your application in the stateless environment of the web.
+				It allows you to store variables on the server using a variety of storage solutions, and recall these variables on the next page request.</p>
+
+			<section>
+				<h2 id="configuration">Configuration</h2>
+
+				<p>The session class is configured through the fuel/core/config/session.php configuration file. It is already populated with a default configuration. You can override this configuration by copying this config file to your application config directory, and modify that file as needed.</p>
+				<p>The following global configuration values can be defined:</p>
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Param</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>auto_initialize</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								If true, the default driver defined in the configuration will be automatically loaded and initialized.
+								Set it to false if you want to load a specific session configuration manually.
+							</td>
+						</tr>
+						<tr>
+							<th>driver</th>
+							<td>string</td>
+							<td><pre class="php"><code>'cookie'</code></pre></td>
+							<td>
+								Name of the session driver to load. Currently, you can use 'cookie', 'db', 'memcached', 'redis' and 'file'.
+								Other values will generate an error.
+								Check the advanced section on how you can load a session driver manually, or how to use multiple drivers concurrently.
+							</td>
+						</tr>
+						<tr>
+							<th>match_ip</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								If true, the IP address stored in the session cookie will be compared with the client IP address as reported by the webserver.
+								In case of a mismatch, the session is discarded. This function uses both the clients real IP address and the public IP address,
+								so that users behind proxy servers can be uniquely identified (if the proxy reveils this information).
+							</td>
+						</tr>
+						<tr>
+							<th>match_ua</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								If true, the User Agent string stored in the session cookie will be compared with the User Agent string as reported by the webserver.
+								In case of a mismatch, the session is discarded.
+							</td>
+						</tr>
+						<tr>
+							<th>cookie_domain</th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>
+								The domain for which the session cookie is valid. If you leave it blank, it will default to the hostname as specified in the URL.
+								<br />Make sure you follow the rules for cookie domain names, as defined in http://www.faqs.org/rfcs/rfc2109.html!
+							</td>
+						</tr>
+						<tr>
+							<th>cookie_path</th>
+							<td>string</td>
+							<td><pre class="php"><code>'/'</code></pre></td>
+							<td>
+								If you want the cookie to be only valid for a certain path, enter the path here.
+								You use this mainly if you have installed your application in a folder instead of in the webservers DOCROOT.
+							</td>
+						</tr>
+						<tr>
+							<th>cookie_http_only</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								if true, allow only transmit of cookies over HTTP, disabling Javascript access.
+							</td>
+						</tr>
+						<tr>
+							<th>expiration_time</th>
+							<td>integer</td>
+							<td><pre class="php"><code>7200</code></pre></td>
+							<td>
+								Number of seconds of idle time after which the session will expire. This value must be greater than zero.
+								If an invalid value is defined, it will be set to 7200 seconds.
+							</td>
+						</tr>
+						<tr>
+							<th>expire_on_close</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>false</code></pre></td>
+							<td>
+								When set to true, the session will expire when the browser (not the current window!) is closed.
+								If set, it has precedence over the expiration_time defined.
+							</td>
+						</tr>
+						<tr>
+							<th>rotation_time</th>
+							<td>integer</td>
+							<td><pre class="php"><code>300</code></pre></td>
+							<td>
+								To prevent session hijacking due to session fixation, Fuel automatically encrypts the session cookie data.
+								It also changes the session IDs at the interval specified here.
+								If not given, or an invalid value is defined, the rotation time defaults to 300 seconds.
+							</td>
+						</tr>
+						<tr>
+							<th>flash_id</th>
+							<td>string</td>
+							<td><pre class="php"><code>'flash'</code></pre></td>
+							<td>
+								Flash variables are identified in the session by the flash id and the session variable name.
+								You can use this flash id as a session variable namespace, to avoid variable name collisions,
+								or to make sure session variables from a module don't interfere with variables used in the application.
+							</td>
+						</tr>
+						<tr>
+							<th>flash_auto_expire</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								Flash variables are intended to be used only once. If you set this parameter to true, flash variables will auto expire
+								after the next page request, whether or not there are read back.
+								If you set this to false, flash variables will remain stored in the session until you retrieve them.
+							</td>
+						</tr>
+						<tr>
+							<th>post_cookie_name</th>
+							<td>string</td>
+							<td><pre class="php"><code>''</code></pre></td>
+							<td>
+								For situations where no cookies are sent to the server (for example, when you use Flash objects), you can use client side code to copy the contents of the session cookie into a variable that will be send to the server as part of a POST request.
+								You can use this variable to define the name of the POST variable.
+								<br />Note that this variable will only be checked when no session cookie can be found.
+							</td>
+						</tr>
+						<tr>
+							<th>http_header_name</th>
+							<td>string</td>
+							<td><pre class="php"><code>'Session-Id'</code></pre></td>
+							<td>
+								For situations where no cookies are sent to the server, you can also use client side code to set a custom HTTP header
+								to pass the session cookie to the server.
+								<br />Note that this variable will only be checked when no session cookie can be found.
+							</td>
+						</tr>
+						<tr>
+							<th>enable_cookie</th>
+							<td>boolean</td>
+							<td><pre class="php"><code>true</code></pre></td>
+							<td>
+								When set to false, no session cookie will be created and added to the response send back to the client. This means
+								you have to use other means (GET, POST or HTTP-HEADER) to pass the session-id back from the client to the server
+								on the next request.
+							</td>
+						</tr>
+						<tr>
+							<th>cookie</th>
+							<td>array</td>
+							<td>
+								<pre class="php"><code>array(
+	'cookie_name'    => 'fuelcid',
+	'write_on_set'   => true
+ )</code></pre>
+							</td>
+							<td>Specific configuration for cookie based sessions.</td>
+						</tr>
+						<tr>
+							<th>file</th>
+							<td>array</td>
+							<td>
+								<pre class="php"><code>array(
+	'cookie_name'    => 'fuelfid',
+	'path'           => '/tmp',
+	'gc_probability' => 5
+ )</code></pre>
+							</td>
+							<td>Specific configuration for file based sessions.</td>
+						</tr>
+						<tr>
+							<th>db</th>
+							<td>array</td>
+							<td>
+								<pre class="php"><code>array(
+	'cookie_name'    => 'fueldid',
+	'database'       => 'development',
+	'table'          => 'sessions',
+	'gc_probability' => 5
+ )</code></pre>
+							</td>
+							<td>Specific configuration for database based sessions.</td>
+						</tr>
+						<tr>
+							<th>memcached</th>
+							<td>array</td>
+							<td>
+								<pre class="php"><code>array(
+	'cookie_name'    => 'fuelmid',
+	'servers'        => array( 'default' =>
+							array(
+								'host' => '127.0.0.1',
+								'port' => 11211,
+								'weight' => 100
+							)
+						)
+ )</code></pre>
+							</td>
+							<td>Specific configuration for memcached based sessions.</td>
+						</tr>
+						<tr>
+							<th>redis</th>
+							<td>array</td>
+							<td>
+								<pre class="php"><code>array(
+	'cookie_name'    => 'fuelrid',
+	'database'       => 'default'
+ )</code></pre>
+							</td>
+							<td>Specific configuration for redis based sessions.</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<p>
+					For each of the session storage drivers, a separate configuration section exists.
+					This section contains the driver specific parameters, and you can use it to override
+					global parameters for that specific storage driver.
+				</p>
+
+				<p>
+					The Session class checks the following locations for a session id, in this order. It doesn't validate at this point, the
+					first value found is used, and if that turns out not to be valid, a new session is created:
+				</p>
+				<ul>
+					<li>Posted data, it will check <code class="php">Input::post</code> for the variable defined in "post_cookie_name".</li>
+					<li>Cookies, it will check for a valid cookie with the name defined in "cookie_name".</li>
+					<li>Get data, it will check <code class="php">Input::get</code> for the variable with the name defined in "cookie_name".</li>
+					<li>http headers, it will check for the header with the name defined in "http_header_name".</li>
+				</ul>
+
+				<p class="note">
+					The session class configuration is independent from the cookie class configuration.
+					It is important that you configure the <kbd>cookie_domain</kbd> and <kbd>cookie_path</kbd> items
+					correctly. Notably, the domain 'localhost' is not accepted as valid by most modern browsers!
+				</p>
+
+				<section>
+					<h5 id="cookie_driver_config">Cookie driver configuration</h5>
+
+					<p>The cookie driver doesn't use any server based storage. Instead, all session variables will be stored in the cookie that is sent to the browser after each request. Use this only if you don't have to store much data, as the maximum payload size of a cookie is 4Kb, which you will reach quite quickly, due to the overhead of array serialization and encryption.</p>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>cookie_name</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fuelcid'</code></pre></td>
+								<td>Name of the cookie used to store the session. If not set, it defaults to 'fuelcid'. If you use multiple session drivers in your application, make sure the cookie name for each of the drivers is unique!</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="file_driver_config">File driver configuration</h5>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>cookie_name</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fuelfid'</code></pre></td>
+								<td>Name of the cookie used to store the session. If not set, it defaults to 'fuelfid'. If you use multiple session drivers in your application, make sure the cookie name for each of the drivers is unique!</td>
+							</tr>
+							<tr>
+								<th>path</th>
+								<td>string</td>
+								<td><pre class="php"><code>'/tmp'</code></pre></td>
+								<td>Location on disk where the session data has to be stored. File based session data is not encrypted for performance reasons. Make sure you select a location that can not be read by other applications and/or users. Pay specific attention to this fact when you run your application on a shared host!</td>
+							</tr>
+							<tr>
+								<th>gc_probability</th>
+								<td>integer</td>
+								<td><pre class="php"><code>5</code></pre></td>
+								<td>To keep the number of expired session files under control, regular garbage collection is performed. The gc_probability is an integer between 0 and 100, indicating the chance that this process will start, where 0 = never, and 100 = always. The session driver executes this task as a shutdown event, to minimize the impact on the application.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="db_driver_config">Database session configuration</h5>
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>cookie_name</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fueldid'</code></pre></td>
+								<td>Name of the cookie used to store the session. If not set, it defaults to 'fueldid'. If you use multiple session drivers in your application, make sure the cookie name for each of the drivers is unique!</td>
+							</tr>
+							<tr>
+								<th>database</th>
+								<td>string</td>
+								<td><pre class="php"><code>null</code></pre></td>
+								<td>
+									Name of the database which is going to be used to store the session data. This is the name defined in the application database configuration file, app/config/db.php. If not defined, or set to null, the current active database will be selected.
+									<p class="note">
+										Note that if you use multiple databases, it is not wise to use null here, as your application flow determines what the active database is at any given time.
+										Either use <strong>Config::get('environment')</strong> to use the configured current environment, or use a named database configuration.
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>table</th>
+								<td>string</td>
+								<td><pre class="php"><code>'sessions'</code></pre></td>
+								<td>
+									Name of the table that will be used to store the session data. You should make sure this table exists, and has these fields (MySQL syntax):
+								<br /><br /><pre>
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `session_id` varchar(40) NOT NULL,
+  `previous_id` varchar(40) NOT NULL,
+  `user_agent` text NOT NULL,
+  `ip_hash` char(32) NOT NULL DEFAULT '',
+  `created` int(10) unsigned NOT NULL DEFAULT '0',
+  `updated` int(10) unsigned NOT NULL DEFAULT '0',
+  `payload` longtext NOT NULL,
+  PRIMARY KEY (`session_id`),
+  UNIQUE KEY `PREVIOUS` (`previous_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+</pre><br />
+									Note that the sessions table has a unique index on both the session_id and the previous_id columns. This is both to speed up the query (which is always by id), and to make sure no duplicate id's are inserted.
+								</td>
+							</tr>
+							<tr>
+								<th>gc_probability</th>
+								<td>integer</td>
+								<td><pre class="php"><code>5</code></pre></td>
+								<td>To keep the number of expired session files under control, regular garbage collection is performed. The gc_probability is an integer between 0 and 100, indicating the chance that this process will start, where 0 = never, and 100 = always. The session driver executes this task as a shutdown event, to minimize the impact on the application.</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h3 id="oil_session_setup">Using Oil to Create/Control Your Sessions Table</h3>
+						<p>
+							An oil task has been provided to allow you to create, remove and clear your sessions table using
+							the oil command line utility.
+						</p>
+						<pre class="cli"><code># display menu
+$ php oil r session
+
+#reate the sessions table
+$ php oil r session:create
+
+# remove the sessions table
+$ php oil r session:remove
+
+# clear (truncate) the sessions table
+$ php oil r session:clear</code></pre>
+
+				</section>
+
+				<section>
+					<h5 id="memcache_driver_config">Memcached session configuration</h5>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>cookie_name</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fuelmid'</code></pre></td>
+								<td>Name of the cookie used to store the session. If not set, it defaults to 'fuelmid'. If you use multiple session drivers in your application, make sure the cookie name for each of the drivers is unique!</td>
+							</tr>
+							<tr>
+								<th>servers</th>
+								<td>array</td>
+								<td>
+									<pre class="php"><code>array (
+	'default' =>
+		array(
+			'host' => '127.0.0.1',
+			'port' => 11211,
+			'weight' => 100
+		)
+)
+</code></pre>
+								</td>
+								<td>Array containing a list of available memcached servers, as defined by <a href="http://php.net/manual/en/memcached.addservers.php">http://php.net/manual/en/memcached.addservers.php</a>. If you don't specify this parameter, it will default to a single memcached server, running on the local machine, and the listening to default port.
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="redis_driver_config">Redis session configuration</h5>
+
+					<p>Specific driver configuration:</p>
+					<table class="config">
+						<tbody>
+							<tr class="header">
+								<th>Param</th>
+								<th>Type</th>
+								<th>Default</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<th>cookie_name</th>
+								<td>string</td>
+								<td><pre class="php"><code>'fuelrid'</code></pre></td>
+								<td>Name of the cookie used to store the session. If not set, it defaults to 'fuelrid'. If you use multiple session drivers in your application, make sure the cookie name for each of the drivers is unique!</td>
+							</tr>
+							<tr>
+								<th>database</th>
+								<td>string</td>
+								<td><pre class="php"><code>'default'</code></pre></td>
+								<td>Name of the redis database which is going to be used to store the session data. This is the name defined in the redis section of the application database configuration file, app/config/db.php. If not defined or not found, the 'default' database configuration will be selected.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+	"name": "pps",
+	"category": "misc",
+	"description": "No description provided",
+	"box": "misc.chal.csaw.io",
+	"files":[
+		
+	],
+	"compose": true,
+	"internal_port": 5665,
+	"flag": "flag{ConsiderThisPUNishmentEnough}"
+}

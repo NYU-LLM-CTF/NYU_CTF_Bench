@@ -1,0 +1,1266 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "DB::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>DB - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>DB Class</h2>
+
+			<p>The DB class allows you to build and execute database queries and fetch the result.</p>
+
+			<article>
+				<h4 class="method" id="method_query">query($sql, $type = null)</h4>
+				<p>
+					The <strong>query</strong> method returns a new Database_Query_Builder object. The exact
+					object depends on the type passed. If no type was passed, Fuel chooses DB::SELECT if the SQL query begins with 'SELECT', and it will return a
+					<a href="qb_select.html">Database_Query_Builder_Select</a> object.
+				</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$query</kbd></th>
+										<td><em>required</em></td>
+										<td>SQL query</td>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><em>null</em></td>
+										<td>SQL query type. Possible types are: DB::SELECT, DB::INSERT, DB::UPDATE and DB::DELETE.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a Database_Query_Builder</a> object of the requested type.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Will prepare: SELECT * FROM `users`
+$query = DB::query('SELECT * FROM `users`');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					Note that it is important to pass the correct type. The database driver
+					will treat them differently.
+					If you have a query that must return a resultset, but is not a SELECT, use
+					DB::SELECT to make sure the result is returned correctly.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_last_query">last_query()</h4>
+				<p>The <strong>last_query</strong> method returns the last executed SQL query.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><em>null</em></td>
+										<td>The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>The last executed SQL query.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// execute a query
+$user = DB::select()->from('users')->where('id', 1);
+
+echo DB::last_query();
+// SELECT * FROM `users` WHERE `id` = 1
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+					<h4 class="method" id="method_select">select()</h4>
+					<p>The <strong>select</strong> method returns a new <a href="qb_select.html">Database_Query_Builder_Select</a> object.</p>
+					<table class="method">
+						<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$columns</kbd></th>
+										<td><strong>null</strong></td>
+										<td>Columns to select.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a <a href="qb_select.html">Database_Query_Builder_Select</a> object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Will prepare: SELECT *
+$query = DB::select();
+
+// Will prepare: SELECT `id`, `name`
+$query = DB::select('id', 'name');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_select_array">select_array($columns)</h4>
+				<p>The <strong>select_array</strong> method returns a <a href="qb_select.html">new Database_Query_Builder_Select</a> object.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$columns</kbd></th>
+										<td><strong>array();</strong></td>
+										<td>Array of columns to select.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a <a href="qb_select.html">Database_Query_Builder_Select</a> object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Will prepare: SELECT *
+$query = DB::select_array();
+
+// Will prepare: SELECT `id`, `name`
+$query = DB::select_array(array('id', 'name'));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_insert">insert($table = null, $columns = array())</h4>
+				<p>The <strong>insert</strong> method returns a new <a href="qb_insert.html">Database_Query_Builder_Insert</a> object.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The table to insert into.</td>
+									</tr>
+									<tr>
+										<th><kbd>$columns</kbd></th>
+										<td><strong>array();</strong></td>
+										<td class="description">Array of columns to insert.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a <a href="qb_insert.html">Database_Query_Builder_Insert</a> object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Will prepare: INSERT INTO `table_name`
+$query = DB::insert('table_name');
+
+// Will prepare: INSERT INTO `table_name` (`id`, `name`)
+$query = DB::insert('table_name', array('id', 'name'));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_update">update($table = null)</h4>
+				<p>The <strong>update</strong> method returns a new <a href="qb_update.html">Database_Query_Builder_Update</a> object.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">Table to update.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a <a href="qb_update.html">Database_Query_Builder_Update</a> object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Will prepare: UPDATE `table_name`
+$query = DB::update('table_name');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_delete">delete($table = null)</h4>
+				<p>The <strong>delete</strong> method returns a new <a href="qb_delete.html">Database_Query_Builder_Delete</a> object.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The table to delete from.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a <a href="qb_delete.html">Database_Query_Builder_Delete</a> object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// Will prepare: DELETE FROM `table_name`
+$query = DB::delete('table_name');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_expr">expr($expression)</h4>
+				<p>The <strong>expr</strong> method returns a new Database_Expression object.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$expression</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The expression.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a Database_Expression object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns new Database_Expression('COUNT(table_name.table_column)');
+$expr = DB::expr('COUNT(table_name.table_column)');
+
+// prevents incorrect quoting of this expression in the generated query
+$expr = DB::expr('columnname + 1');</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="note">
+					You have to use DB:expr() in your query for all expressions, i.e. for everything that is not a fieldname,
+					to make sure the value you pass isn't enclosed in quotes or backticks.
+				</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_quote">quote($string, $db = null)</h4>
+				<p>The <strong>quote</strong> method returns a quoted string for an SQL query.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The string to quote</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a Database_Expression object.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// returns 'something\'s quoted'.
+$query = DB::quote("'something's quoted'");
+
+// returns 'something\'s quoted' through a defined database connection.
+$query = DB::quote("'something's quoted'", $db_connection);
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_quote_identifier">quote_identifier($string, $db)</h4>
+				<p>The <strong>quote_identifier</strong> method returns a quoted string for an SQL query.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The string, or array of strings, to quote.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a quoted string for an SQL query.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// `users`.`name`
+print_r(DB::quote_identifier('users.name'));
+
+// array(
+//    [0] => `users`.`name`
+// )
+print_r(DB::quote_identifier(array('users.name')));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_quote_table">quote_table($string, $db = null)</h4>
+				<p>The <strong>quote_table</strong> method returns a quoted string for an SQL query.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The string, or array of strings, to quote.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a quoted string for an SQL query.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// `users`
+print_r(DB::quote_table('users'));
+
+// array(
+//    [0] => `users`
+// )
+print_r(DB::quote_identifier(array('users')));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_table_prefix">table_prefix($table, $db = null)</h4>
+				<p>The <strong>table_prefix</strong> method returns the table name with the configured prefix.
+				If not, then just the prefix is returned.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The table name to prefix.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the prefixed table name or the table name.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// prefixed_table_name
+print_r(DB::table_prefix('table_name'));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_escape">escape($string, $db = null)</h4>
+				<p>The <strong>escape</strong> method returns a escaped string for an SQL query.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$string</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The string to escape.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns an escaped string for an SQL query.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// 'or *\' \"'
+print_r(DB::escape('or *\' "'));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_list_columns">list_columns($table, $like = null, $db = null)</h4>
+				<p>The <strong>list_columns</strong> method return a lists all of the columns in a table.
+				Optionally, a LIKE string can be used to search for specific fields.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><em>null</em></td>
+										<td class="description">The table to look in.</td>
+									</tr>
+									<tr>
+										<th><kbd>$like</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The column to search for.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns an array with field data.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/*
+Array
+(
+	[id] => Array
+	(
+		[type] => int
+		[min] => -2147483648
+		[max] => 2147483647
+		[column_name] => id
+		[column_default] =>
+		[data_type] => int
+		[is_nullable] =>
+		[ordinal_position] => 1
+		[display] => 255
+		[comment] =>
+		[extra] => auto_increment
+		[key] => PRI
+		[privileges] => select,insert,update,references
+	)
+
+	[name] => Array
+	(
+		[type] => string
+		[column_name] => name
+		[column_default] =>
+		[data_type] => varchar
+		[is_nullable] =>
+		[ordinal_position] => 3
+		[character_maximum_length] => 255
+		[collation_name] => utf8_unicode_ci
+		[comment] =>
+		[extra] =>
+		[key] =>
+		[privileges] => select,insert,update,references
+	)
+)
+*/
+print_r(DB::list_columns('users'));
+
+/*
+Array
+(
+	[name] => Array
+	(
+		[type] => string
+		[column_name] => name
+		[column_default] =>
+		[data_type] => varchar
+		[is_nullable] =>
+		[ordinal_position] => 3
+		[character_maximum_length] => 255
+		[collation_name] => utf8_unicode_ci
+		[comment] =>
+		[extra] =>
+		[key] =>
+		[privileges] => select,insert,update,references
+	)
+)
+*/
+print_r(DB::list_columns('users','%name%'));
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_list_tables">list_tables($like = null, $db = null)</h4>
+				<p>The <strong>list_tables</strong> method return a lists all of the tables in a database.
+				Optionally, a LIKE string can be used to search for specific tables.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$like</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The table to search for.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns an array with table names.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/*
+Array
+(
+    [0] => areas
+    [1] => fuel_sessions
+    [2] => config
+    [3] => files
+)
+*/
+DB::list_tables();
+
+/*
+Array
+(
+    [0] => fuel_sessions
+
+)
+*/
+DB::list_tables('%sessions%');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_datatypes">datatype($type, $db = null)</h4>
+				<p>The <strong>datatype</strong> method returns a normalized array describing the SQL data type.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$type</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The SQL data type.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns a normalized array describing the SQL data type.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>/*
+Array
+(
+    [type] => string
+    [exact] => 1
+)
+*/
+DB::datatype('char');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_count_records">count_records($table, $db = null)</h4>
+				<p>The <strong>count_records</strong> method returns the number of records in a table.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$table</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The table to count records from.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the number of records in a table.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// (int) 14
+DB::count_records('users');
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_count_last_query">count_last_query($db = null)</h4>
+				<p>The <strong>count_last_query</strong> method returns the number of records in the last query, without LIMIT or OFFSET applied.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td>Returns the number of records in the last query, without LIMIT or OFFSET applied.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>// SELECT * FROM `users` WHERE `active` = "yes" LIMIT 10;
+$limited_result = DB::select()->from('users')->where('active', '=', 'yes')->limit(10)->execute();
+
+// SELECT count(*) as count FROM `users` WHERE `active` = "yes";
+DB::count_last_query();
+</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_charset">set_charset($charset, $db)</h4>
+				<p>The <strong>set_charset</strong> method sets the connection character set. This is called automatically by [static::connect].</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$charset</kbd></th>
+										<td><em>required</em></td>
+										<td class="description">The character set name.</td>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td><em>void</em></td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>DB::set_charset('utf8');</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_error_info">error_info()</h4>
+				<p>The <strong>error_info</strong> returns an array with information about the last database error.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								None
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td><em>array($unified_code, $platform_code, $error_text)</em></td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>$lasterror = DB::error_info();</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_in_transaction">in_transaction($db = null)</h4>
+				<p>The <strong>in_transaction</strong> method checks whether a connection is in transaction.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tbody>
+										<tr>
+											<th>Param</th>
+											<th>Default</th>
+											<th class="description">Description</th>
+										</tr>
+										<tr>
+											<th><kbd>$db</kbd></th>
+											<td><strong>null</strong></td>
+											<td class="description">The database connection.</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td><em>bool</em> - only meaningful with PDO driver. If in the transaction return true. Otherwise return false.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code class="php" >DB::in_transaction();</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_start_transaction">start_transaction($db = null)</h4>
+				<p>The <strong>start_transaction</strong> method begins a transaction on an instance.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td><em>bool</em> - only meaningful with PDO driver. All others always return true, but
+								throw an Exception when the SQL command fails.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>DB::start_transaction();</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_commit_transaction">commit_transaction($db = null)</h4>
+				<p>The <strong>commit_transaction</strong> method commits all pending transactional queries.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td><em>bool</em> - only meaningful with PDO driver. All others always return true, but
+								throw an Exception when the SQL command fails.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>DB::commit_transaction();</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_rollback_transaction">rollback_transaction($db = null)</h4>
+				<p>The <strong>rollback_transaction</strong> method rolls back all pending transactional queries.</p>
+				<table class="method">
+					<tbody>
+						<tr>
+							<th>Static</th>
+							<td>Yes</td>
+						</tr>
+						<tr>
+							<th>Parameters</th>
+							<td>
+								<table class="parameters">
+									<tr>
+										<th>Param</th>
+										<th>Default</th>
+										<th class="description">Description</th>
+									</tr>
+									<tr>
+										<th><kbd>$db</kbd></th>
+										<td><strong>null</strong></td>
+										<td class="description">The database connection.</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>Returns</th>
+							<td><em>bool</em> - only meaningful with PDO driver. All others always return true, but
+								throw an Exception when the SQL command fails.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td>
+								<pre class="php"><code>DB::rollback_transaction();</code></pre>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<h3 id="transaction">Transaction example</h3>
+
+				<pre class="php"><code>// typical transaction code flow
+try
+{
+    DB::start_transaction();
+
+    // some query ...
+
+    DB::commit_transaction();
+
+    // return query result
+}
+catch (Exception $e)
+{
+    // rollback pending transactional queries
+    DB::rollback_transaction();
+
+    throw $e;
+}
+</code></pre>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

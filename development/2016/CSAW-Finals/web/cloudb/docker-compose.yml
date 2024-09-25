@@ -1,0 +1,16 @@
+version: '3'
+services:
+  server:
+    image: llmctf/2016f-web-cloudb
+    ports:
+      - 80:80
+    environment:
+      - MYSQL_PASS='S0meR3@11yG00dPa$$w0rdThatY0u5hou1dntCar3@b0uT'
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true

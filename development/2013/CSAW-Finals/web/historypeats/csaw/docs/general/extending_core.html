@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../';
+	</script>
+	<script src="./../assets/js/combined.js"></script>
+	<title>Extending Core - General - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Extending Core Classes</h2>
+
+			<p><strong>Be sure to know what you are doing, extended core methods under the same name will be used by the
+			core as well as by your application and this may result in unexpected behavior.</strong></p>
+
+			<ul>
+				<li><a href="#extend_dont_replace">Extending but not replacing the core class</a></li>
+				<li><a href="#extend_and_replace">Extending &amp; replacing core classes</a></li>
+				<li><a href="#extend_from_packages">Extending the Core from packages</a></li>
+				<li><a href="#extension_limitations">Extension limitations</a></li>
+			</ul>
+
+			<article>
+				<h3 id="extend_dont_replace">Extending but not replacing the core class</h3>
+
+				<p>These are the easiest and will work like any other class you create; just make them extend the core class
+				in the global namespace:</p>
+
+				<pre><code>class MyConfig extends Config {}</code></pre>
+			</article>
+
+			<article>
+				<h3 id="extend_and_replace">Extending &amp; replacing core classes</h3>
+
+				<p>If you want your core extension to be used by the core as well as by your own application you need to extend
+				it under the same name but take it from the "Fuel\Core" namespace. Below is an example for the Lang class
+				which you create in "fuel/app/classes/lang.php":</p>
+
+				<pre><code>class Lang extends Fuel\Core\Lang {}</code></pre>
+
+				<p>But classes that have the same name as core classes are ignored by default. To make the Autoloader recognize
+				your replacement you need to register it in the application bootstrap file. Search for the lines below:</p>
+
+				<pre><code>Autoloader::add_classes(array(
+	// Add classes you want to override here
+	// Example: 'View' => APPPATH.'classes/view.php',
+));</code></pre>
+
+				<p>As is explained in the comments you need to add the new Lang class as follows:</p>
+
+				<pre class="php"><code>Autoloader::add_classes(array(
+	// Add classes you want to override here
+	// Example: 'View' => APPPATH.'classes/view.php',
+	'Lang' => APPPATH.'classes/lang.php',
+));</code></pre>
+
+				<p>After this the core class will have been replaced by your extension.</p>
+				<p class="note">The core class will still be available when used with full namespace prefixed. With the above example of
+				extending "Lang" you can still use the original by calling "Fuel\Core\Lang".</p>
+			</article>
+
+			<article>
+				<h3 id="extend_from_packages">Extending the Core from packages</h3>
+
+				<p>By adding your package as a core namespace the autoloader will attempt to load any class from your package
+					before it attempts it from the core. You must register these classes with the Autoloader though in order
+					for them to be detected (filesystem autoloader doesn't support aliasing to global). Below is an example for
+					extending the <kbd>View</kbd> class.</p>
+
+				<pre class="php"><code>Autoloader::add_core_namespace('Example');
+
+Autoloader::add_classes(array(
+	'Example\\View'  => __DIR__.'/classes/view.php',
+));</code></pre>
+			</article>
+
+			<article>
+				<h3 id="extension_limitations">Extension limitations</h3>
+
+				<p>All classes can be extended from app. Most classes can be extended from packages but there are a few exceptions:</p>
+
+				<ul>
+					<li><kbd>Fuel</kbd></li>
+					<li><kbd>Config</kbd></li>
+					<li><kbd>Config_Php</kbd></li>
+					<li><kbd>Config_File</kbd></li>
+					<li><kbd>Config_Interface</kbd></li>
+					<li><kbd>Finder</kbd></li>
+					<li><kbd>Arr</kbd></li>
+					<li><kbd>Input</kbd></li>
+					<li><kbd>Security</kbd></li>
+					<li><kbd>Event</kbd></li>
+					<li><kbd>Event_Instance</kbd></li>
+					<li>And any class you use in your main <kbd>app/config/config.php</kbd></li>
+				</ul>
+
+				<p>If you have activated the profiler in your configuration, you can not extend these classes from packages too:</p>
+
+				<ul>
+					<li><kbd>Cookie</kbd></li>
+					<li><kbd>Session</kbd></li>
+					<li><kbd>Session_Cookie</kbd> (or another session driver class, depending on your session configuration)</li>
+					<li><kbd>Session_Driver</kbd></li>
+					<li><kbd>Date</kbd></li>
+					<li><kbd>Profiler</kbd></li>
+				</ul>
+
+				<p>
+					You can work around some of these limitations by manually load your package in the <kbd>app/bootstrap.php</kbd> file,
+					by adding <kbd>Package::load('mypackagename');</kbd> just before the <kbd>Fuel::init()</kbd> call. If you do,
+					your package can only not extend:
+				</p>
+
+				<ul>
+					<li><kbd>Fuel</kbd></li>
+					<li><kbd>Config</kbd></li>
+					<li><kbd>Package</kbd></li>
+					<li><kbd>Arr</kbd></li>
+					<li><kbd>Finder</kbd></li>
+				</ul>
+
+				<h4>Autoloader</h4>
+				<p>The Autoloader class is a special case, you can only extend it once as <code>Autoloader</code> and
+					have it used. After extending it you have to require it manually in the <kbd>app/bootstrap.php</kbd>
+					file after the original <code>Fuel\Core\Autoloader</code>, don't forget to remove the line that
+					aliases the core class to global.</p>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

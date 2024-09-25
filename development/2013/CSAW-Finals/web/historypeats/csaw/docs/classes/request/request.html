@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Request::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Request - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Request Class</h2>
+
+			<p>The Request class processes URI requests. It is used by Fuel in index.php to process the users URI request, and you need it to generate requests in an HMVC context.</p>
+
+			<article>
+				<h4 class="method" id="method_forge">forge($uri = null, $route = true)</h4>
+				<p>The <strong>forge</strong> method returns a new request object.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$uri</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>The URI being requested. If this parameter is not present, the URI class will be used to detect the URI.</td>
+								</tr>
+								<tr>
+									<th><kbd>$route</kbd></th>
+									<td><pre class="php"><code>true</code></pre></td>
+									<td>If true, the URI passed or detected will be processed by the routing class. If no route is present, a 404 will be generated. If you request a non-public URI, set this to <strong>false</strong>.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Request Object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// create the request object for the admin controller, login method
+$request = Request::forge('admin/login');
+
+// note that this only creates the object, it does not execute the request!</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">You can also use Request::forge() to forge a <a href="curl.html">cURL</a> or a <a href="soap.html">SOAP</a> request object.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_execute">execute($method_params = null)</h4>
+				<p>The <strong>execute</strong> method executes a request and stores the resulting response in the request object to be used later.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$method_params</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>An array of optional parameters to pass to the controller being called.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Request Object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// create and execute the request object for the admin controller, login method
+$request = Request::forge('admin/login')->execute();
+
+// pass an object to the login controller
+$object = new Object();
+$request = Request::forge('admin/login')->execute(array('object' => $object);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_response">response()</h4>
+				<p>The <strong>response</strong> method fetches the response object of the executed request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Response Object</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// execute the request, fetch the response, and display it
+$response = Request::forge('admin/login')->execute()->response();
+echo $response;
+
+// The Request object contains a __toString() method as an alternative way to fetch the output
+$output = Request::forge('admin/login')->execute();
+echo $output;</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_params">params()</h4>
+				<p>Returns an array of all named parameters in the route that triggered this request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>array</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the list of named parameters
+$params = Request::active()->params();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_method">get_method()</h4>
+				<p>Gets the request method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>none</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Request method</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Get the request method on a forged request
+$method = Request::main()->get_method();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_set_method">set_method($method)</h4>
+				<p>Sets the request method.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$method</kbd></th>
+									<td>string, required</td>
+									<td>The name of the parameter to be returned. This must be exactly the same as defined in the route.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>current instance</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// Set the request method on a forged request
+$params = Request::forge('some/route')->set_method('POST');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_param">param($param, $default = null)</h4>
+				<p>Returns a specific named parameter in the route that triggered this request, of the default if the parameter is not found.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$param</kbd></th>
+									<td>string, required</td>
+									<td>The name of the parameter to be returned. This must be exactly the same as defined in the route.</td>
+								</tr>
+								<tr>
+									<th><kbd>$default</kbd></th>
+									<td><pre class="php"><code>null</code></pre></td>
+									<td>value to be returned if the named parameter requested is not defined.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>mixed</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get a specific named parameter called 'name'
+$param = Request::active()->param('name', 'none');</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<p class="note">The <a href="../../general/routing.html#/named_routes">routing</a> section explains how named paramaters can be defined in a route.</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_parent">parent()</h4>
+				<p>The <strong>Request</strong> that created this Request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Request Object or null when it's the main request</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the parent of the current active Request
+$parent = Request::active()->parent();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_children">children()</h4>
+				<p>The <strong>Request</strong> objects that were created during this Request.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Array of Fuel\Core\Request Objects</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the Requests that were created during the main Request
+$children = Request::main()->children();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_main">main()</h4>
+				<p>The <strong>main</strong> method returns the main Request instance (the one created by the initial
+					page request).</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Request Object, or false if no main request instance exists.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$main = Request::main();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<p class="note">This is the first executed Request instance, not necessarily the root parent of the
+					current Request. That might be the case for example if the main Request 404s and you create a new
+					Request after that (which is what happens in the <kbd>_404_</kbd> route).</p>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_active">active()</h4>
+				<p>The <strong>active</strong> method returns the currently active Request instance.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>Yes</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td>Fuel\Core\Request Object, or false if no active request instance exists.</td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>$active = Request::active();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_add_path">add_path($path, $prefix = false)</h4>
+				<p>The <strong>add_path</strong> method allows you to add a search path to the current request instance. The search paths are used by Finder::search() to locate files within your application.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>
+							<table class="parameters">
+								<tr>
+									<th>Param</th>
+									<th>Default</th>
+									<th class="description">Description</th>
+								</tr>
+								<tr>
+									<th><kbd>$path</kbd></th>
+									<td><i>required</i></td>
+									<td>Path to be added to the list of Request local search paths</td>
+								</tr>
+								<tr>
+									<th><kbd>$prefix</kbd></th>
+									<td><pre class="php"><code>false</code></pre></td>
+									<td>If <strong>false</strong>, the path will be appended to the search path. If <strong>true</strong>, it will be prepended.</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>void</i></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// add the applications myfiles folder to the search path of the active request instance
+Request::active()->add_path(APPPATH.'myfiles'.DS);</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+			<article>
+				<h4 class="method" id="method_get_paths">get_paths()</h4>
+				<p>The <strong>get_paths</strong> method returns the defined list of search paths.</p>
+				<table class="method">
+					<tbody>
+					<tr>
+						<th class="legend">Static</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Parameters</th>
+						<td>No</td>
+					</tr>
+					<tr>
+						<th>Returns</th>
+						<td><i>void</i></td>
+					</tr>
+					<tr>
+						<th>Example</th>
+						<td>
+							<pre class="php"><code>// get the defined search paths of the active request instance
+$paths = Request::active()->get_paths();</code></pre>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

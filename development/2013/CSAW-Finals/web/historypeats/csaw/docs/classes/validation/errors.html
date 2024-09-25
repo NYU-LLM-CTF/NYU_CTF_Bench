@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./../../assets/css/combined.css">
+	<link rel="shortcut icon" href="./../../favicon.ico" />
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+		var path = './../../';
+		var class_prefix = "Validation_Error::";
+	</script>
+	<script src="./../../assets/js/combined.js"></script>
+	<title>Validation Errors - Classes - FuelPHP Documentation</title>
+</head>
+<body>
+	<div id="container">
+		<header id="header">
+			<div class="table">
+				<h1>
+					<strong>FuelPHP, a PHP 5.3 Framework</strong>
+					Documentation
+				</h1>
+
+				<form id="google_search">
+					<p>
+						<span id="search_clear">&nbsp;</span>
+						<input type="submit" name="search_submit" id="search_submit" value="search" />
+						<input type="text" value="" id="search_input" name="search_input" />
+					</p>
+				</form>
+			</div>
+			<nav>
+
+				<div class="clear"></div>
+			</nav>
+			<a href="#" id="toc_handle">table of contents</a>
+			<div class="clear"></div>
+		</header>
+
+		<div id="cse">
+			<div id="cse_point"></div>
+			<div id="cse_content"></div>
+		</div>
+
+		<div id="main">
+
+			<h2>Validation Class</h2>
+
+			<p>
+				The Validation class helps you validate user input, if you want to create a form &amp; its validation at
+				the same time use the <a href="../fieldset.html">Fieldset</a> class instead.
+			</p>
+
+			<ul>
+				<li><a href="#errors">Introduction</a></li>
+				<li><a href="#naming_rules">Naming callback/closure rules</a></li>
+				<li><a href="#error_objects">Validation Error objects</a></li>
+			</ul>
+
+			<section>
+				<h3 id="errors">Error messages</h3>
+
+				<p class="note">Errors are returned as Validation_Error objects which you can work with for more flexible
+				output, if you don't need that just cast the Validation_Error object to a string to get the error message.</p>
+
+				<p>Error messages are set using a language file "validation.php" which is loaded automatically.</p>
+
+				<p>There are 2 ways of manipulating the error messages during validation.</p>
+
+				<pre class="php"><code>// change the error message for a specific validation object
+$val->set_message('required', 'The field :label is required.');
+
+// or change the message for a specific field, no matter the actual error
+echo $val->error('username')->get_message('The field :label must be filled out before auth is attempted.');
+// Outputs "The field Your username must be filled out before auth is attempted." when validation for username
+// failed, or nothing when not yet validated or validation succeeded.</code></pre>
+
+				<p>As you may have noticed the error messages accept a couple of variables that are replaced by the
+				field's properties. Below is a list of the available variables:</p>
+
+				<table class="config">
+					<tbody>
+						<tr class="header">
+							<th>Variable</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<th>:field</th>
+							<td>Will be substituted by the field's name.</td>
+						</tr>
+						<tr>
+							<th>:label</th>
+							<td>Will be substituted by the field's label.</td>
+						</tr>
+						<tr>
+							<th>:value</th>
+							<td>Will be substituted by the field's value which could not be validated.</td>
+						</tr>
+						<tr>
+							<th>:rule</th>
+							<td>Will be substituted by the rule that failed. The included rules will be just their name,
+							others will be the string callback or classname:method (which will also be the key for which
+							you must add a validation rule if you want to).</td>
+						</tr>
+						<tr>
+							<th>:param:1</th>
+							<td>Will be replaced by the first additional parameter's value, :param:2 will be the second,
+							etc.</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section>
+				<h3 id="naming_rules">Naming callback/closure rules</h3>
+
+				<p>Full callback rules or closures can be named as well, by default their names will be:</p>
+				<ul>
+					<li><strong>Closure:</strong> "closure"</li>
+					<li><strong>array($class, $method):</strong> "$class:$method"</li>
+					<li><strong>array($object, $method):</strong> get_class($object).":$method"</li>
+				</ul>
+
+				<p>If you want to give them custom names instead you can do that like this:</p>
+
+				<pre class="php"><code>// Add a rule which checks if the input is odd
+// It can either use ->set_message('odd', ':label is not odd.') or use a lang key 'validation.odd'
+$field->add_rule(array('odd' => function($val) { return (bool) ($val % 2); }));
+</code></pre>
+			</section>
+
+			<section>
+				<h3 id="error_objects">Validation Error objects</h3>
+
+				<p>Validation returns error objects which are actually exceptions thrown during validation. These
+					objects can be cast to string in order to get their actual message or be used as objects to fetch
+					metadata about the error.</p>
+
+				<h4 id="property_field">$field</h4>
+
+				<p>The <code>$error->field</code> contains a reference to the <code>Fieldset_Field</code> object that
+					caused this error.</p>
+
+				<h4 id="property_value">$value</h4>
+
+				<p><code>$error->value</code> contains the value that failed to validate.</p>
+
+				<h4 id="property_rule">$rule</h4>
+
+				<p><code>$error->rule</code> contains the name of the validation rule that failed. For most
+					rules this will be the string that was passed as the validation rule. It can however also be
+					another string <a href="#naming_rules">when specificly named</a>.<br />
+					For callbacks passed like <code>'Class::method'</code>, <code>array('Class', 'method')</code> or
+					<code>array($object, 'method')</code> it will be a simplified form:
+					<code>'Classname:methodname'</code>.</p>
+
+				<h4 id="property_params">$params</h4>
+
+				<p>This will contain any additional parameters passed to the validation rule. For example
+					when using <code>->add_rule('max_length', 25)</code> this will contain <code>array(25)</code>.</p>
+
+				<article>
+					<h4 class="method" id="method_get_message">get_message($msg = false, $open = '', $close = '')</h4>
+
+					<p>
+						Fetches the error message and allows rewriting it.
+					</p>
+
+					<table class="method">
+						<tbody>
+							<tr>
+								<th class="legend">Static</th>
+								<td>No</td>
+							</tr>
+							<tr>
+								<th>Parameters</th>
+								<td>
+									<table class="parameters">
+										<tr>
+											<th>Param</th>
+											<th>Type</th>
+											<th>Default</th>
+											<th class="description">Description</th>
+										</tr>
+										<tr>
+											<th><kbd>$msg</kbd></th>
+											<td><em>false | string</em></td>
+											<td><pre class="php"><code>false</code></pre></td>
+											<td>Will attempt to fetch the message from the Validation instance it belongs
+												to or from config when <code>false</code> was given. Will return a default
+												placeholde message on empty input or when there was no message to be found.<br />
+												Or it will use the given input as the message and replace the variables
+												in it.</td>
+										</tr>
+										<tr>
+											<th><kbd>$open</kbd></th>
+											<td><em>string</em></td>
+											<td><pre class="php"><code>''</code></pre></td>
+											<td>Adds HTML before the message.</td>
+										</tr>
+										<tr>
+											<th><kbd>$close</kbd></th>
+											<td><em>string</em></td>
+											<td><pre class="php"><code>''</code></pre></td>
+											<td>Adds HTML after the message.</td>
+										</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<th>Returns</th>
+								<td>string</td>
+							</tr>
+							<tr>
+								<th>Example</th>
+								<td>
+									<pre class="php"><code>// Fetch the message inside &lt;p&gt; tags
+	$message = $error->get_message(false, '&lt;p&gt;', '&lt;/p&gt;');
+
+	// Will use a standard message: Validation rule :rule failed for :label
+	$message = $error->get_message(null);
+
+	// Overwrite whetever error message might have been given
+	$message = $error->get_message('Validation failed for field :label.');</code></pre>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</article>
+			</section>
+
+		</div>
+
+		<footer>
+			<p>
+				&copy; FuelPHP Development Team 2010-2013 - <a href="http://fuelphp.com">FuelPHP</a> is released under the MIT license.
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

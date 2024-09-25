@@ -1,0 +1,9 @@
+{
+	"name": "Watchword",
+	"category": "forensics",
+	"description": "Canned epic hidden snek flavored cookies have shy gorilla",
+	"flag": "flag{We are fsociety, we are finally free, we are finally awake!}",
+	"points": 100,
+	"box": "",
+	"files":["powpow.mp4"]
+}
