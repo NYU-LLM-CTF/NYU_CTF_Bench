@@ -846,6 +846,13 @@
     "challenge": "rainbow-notes",
     "path": "test/2023/CSAW-Quals/web/rainbow-notes"
   },
+  "2023q-web-smug_dino": {
+    "year": "2023",
+    "event": "CSAW-Quals",
+    "category": "web",
+    "challenge": "smug-dino",
+    "path": "test/2023/CSAW-Quals/web/smug-dino"
+  },
   "2023q-pwn-unlimited_subway": {
     "year": "2023",
     "event": "CSAW-Quals",
