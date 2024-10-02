@@ -370,13 +370,6 @@
     "challenge": "modus_operandi",
     "path": "test/2020/CSAW-Quals/crypto/modus_operandi"
   },
-  "2020q-web-whistleblow": {
-    "year": "2020",
-    "event": "CSAW-Quals",
-    "category": "web",
-    "challenge": "whistleblow",
-    "path": "test/2020/CSAW-Quals/web/whistleblow"
-  },
   "2020q-pwn-thebardsfail": {
     "year": "2020",
     "event": "CSAW-Quals",
@@ -495,6 +488,13 @@
     "category": "pwn",
     "challenge": "Salt Server",
     "path": "test/2022/CSAW-Finals/pwn/Salt Server"
+  },
+  "2022f-pwn-cryptopwn": {
+    "year": "2022",
+    "event": "CSAW-Finals",
+    "category": "pwn",
+    "challenge": "CryptoPwn",
+    "path": "test/2022/CSAW-Finals/pwn/CryptoPwn"
   },
   "2022q-rev-dockreleakage": {
     "year": "2022",
