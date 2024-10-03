@@ -2,7 +2,7 @@
     "name": "open-ELLIPTI-PH!",
     "category": "crypto",
     "author": "rollingcoconut",
-    "description": "Crack the curve to get a key! Note: please wrap the flag you get in flag{...} before submitting.",
+    "description": "Crack the curve to get a key! Note: please wrap the flag you get in flag{{...}} before submitting.",
     "type": "dynamic",
     "initial": 500,
     "minimum": 50,
