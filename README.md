@@ -6,7 +6,8 @@ The main dataset contains 200 challenges across 6 CTF categories: web, binary ex
 
 ## Dataset structure
 
-The `test/` folder contains the main dataset of 200 challenges. A smaller development dataset will be added soon.
+The `test/` folder contains the main dataset of 200 challenges. A smaller development dataset of 55 challenges is present in the `development/` folder.
+The development dataset can be treated equivalent to a "train" split and used for building the agent, so that design decisions made to improve the agent do not bias the test scores.
 
 The folder structure is as follows: `<year>/<event>/<category>/<challenge>`.
 `<year>` is the year of the competition, `<event>` is either "CSAW-Quals" or "CSAW-Finals", `<category>` is among the 6 categories, and `<challenge>` is the challenge name.
@@ -18,17 +19,17 @@ The docker image is loaded directly using `docker compose up`.
 
 ## Setup 
 
-Download this repository.
+Install the python package:
 
 ```
-git clone --depth 1 https://github.com/NYU-LLM-CTF/NYU_CTF_Bench
+pip install nyuctf
 ```
 
-Install the python package.
+The repository is automatically cloned when the `CTFDataset` is first instantiated with the `split` argument.
+If needed, you can manually clone it by running:
 
 ```
-cd python
-pip install .
+python3 -m nyuctf.download
 ```
 
 ## Usage
@@ -39,8 +40,8 @@ The following python snippet shows how to load challenge details using the pytho
 from nyuctf.dataset import CTFDataset
 from nyuctf.challenge import CTFChallenge
 
-# Edit the dataset path
-ds = CTFDataset("~/NYU_CTF_Bench/test_dataset.json")
+# Clones the repository for the first time, which takes a while
+ds = CTFDataset(split="test")
 chal = CTFChallenge(ds.get("2021f-rev-maze"), ds.basedir)
 
 print(chal.name)
