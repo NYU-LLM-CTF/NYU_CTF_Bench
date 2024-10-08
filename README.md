@@ -1,13 +1,13 @@
-# NYU CTF Dataset
+# NYU CTF Bench
 
-This repository hosts the NYU CTF Dataset, a collection of CTF challenges from the CSAW CTF competitions, designed for evaluation of LLM agents.
+This repository hosts the NYU CTF Bench, a collection of CTF challenges from the CSAW CTF competitions, designed for evaluation of LLM agents.
 The CTF challenges are dockerized and easily deployable to allow an LLM-based automation framework to interact with the challenge and attempt a solution.
-The main dataset contains 200 challenges across 6 CTF categories: web, binary exploitation (pwn), forensics, reverse engineering (rev), cryptography (crypto), and miscellaneous (misc).
+The main benchmark dataset contains 200 challenges across 6 CTF categories: web, binary exploitation (pwn), forensics, reverse engineering (rev), cryptography (crypto), and miscellaneous (misc).
 
-## Dataset structure
+## Benchmark structure
 
-The `test/` folder contains the main dataset of 200 challenges. A smaller development dataset of 55 challenges is present in the `development/` folder.
-The development dataset can be treated equivalent to a "train" split and used for building the agent, so that design decisions made to improve the agent do not bias the test scores.
+The `test/` folder contains the main benchmark dataset of 200 challenges. A smaller development set of 55 challenges is present in the `development/` folder.
+The development set can be treated equivalent to a "train" split and used for building the agent, so that design decisions made to improve the agent do not bias the test scores.
 
 The folder structure is as follows: `<year>/<event>/<category>/<challenge>`.
 `<year>` is the year of the competition, `<event>` is either "CSAW-Quals" or "CSAW-Finals", `<category>` is among the 6 categories, and `<challenge>` is the challenge name.
