@@ -1,12 +1,27 @@
 import json
 import logging
 from pathlib import Path
+from typing import Optional
+
+from .download import DEFAULT_DIRECTORY, DEFAULT_VERSION, AVAILABLE_VERSIONS, download_dataset
 
 logger = logging.getLogger("CTFDataset")
 
 class CTFDataset(dict):
-    def __init__(self, dataset_json: Path|str):
-        dataset_json = Path(dataset_json).expanduser().resolve()
+    def __init__(self, dataset_json: Optional[Path|str]=None, split: Optional[str]=None, version: str=DEFAULT_VERSION):
+        if dataset_json is not None:
+            dataset_json = Path(dataset_json).expanduser().resolve()
+        elif split in ("test", "development") and version in AVAILABLE_VERSIONS:
+            dataset_json = Path(DEFAULT_DIRECTORY) / version / f"{split}_dataset.json"
+            dataset_json = dataset_json.expanduser().resolve()
+            if not dataset_json.exists():
+                download_dataset(version)
+        else:
+            raise ValueError("Pass either dataset_json or split (one of 'test' or 'development')")
+
+        # Confirm that dataset is present
+        if not dataset_json.exists():
+            raise ValueError(f"Dataset not found: {dataset_json.parent}")
         self.dataset_dir = dataset_json.parent
         self.dataset = json.loads(dataset_json.open().read())
 

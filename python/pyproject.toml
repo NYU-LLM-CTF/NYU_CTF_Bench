@@ -6,6 +6,7 @@ build-backend = "hatchling.build"
 name = "nyuctf"
 version = "1.0"
 authors = [
+  { name="NYU CTF", email="nyuctf@gmail.com" },
   { name="Meet Udeshi", email="m.udeshi@nyu.edu" },
 ]
 description = "NYU CTF Dataset loader package"
@@ -18,12 +19,10 @@ classifiers = [
 ]
 dependencies = [
   "pathlib",
-  "pygit2",
-  "tqdm",
 ]
 
 [project.urls]
-Homepage = "NYU-LLM-CTF.github.io"
+Homepage = "https://nyu-llm-ctf.github.io"
 
 [tool.hatch.build.targets.wheel]
 packages = ["nyuctf"]
