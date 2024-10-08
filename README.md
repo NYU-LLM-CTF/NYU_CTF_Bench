@@ -21,13 +21,13 @@ The docker image is loaded directly using `docker compose up`.
 Download this repository.
 
 ```
-git clone --depth 1 https://github.com/NYU-LLM-CTF/LLM_CTF_Database
+git clone --depth 1 https://github.com/NYU-LLM-CTF/NYU_CTF_Bench
 ```
 
 Install the python package.
 
 ```
-cd LLM_CTF_Database/python
+cd python
 pip install .
 ```
 
@@ -39,7 +39,8 @@ The following python snippet shows how to load challenge details using the pytho
 from nyuctf.dataset import CTFDataset
 from nyuctf.challenge import CTFChallenge
 
-ds = CTFDataset("~/LLM_CTF_Database/test_dataset.json")
+# Edit the dataset path
+ds = CTFDataset("~/NYU_CTF_Bench/test_dataset.json")
 chal = CTFChallenge(ds.get("2021f-rev-maze"), ds.basedir)
 
 print(chal.name)
@@ -53,7 +54,7 @@ Run tests on the challenges, for docker setup and network connection.
 Requires the docker network to be setup.
 
 ```
-cd LLM_CTF_Database/python
+cd python
 python -m unittest -v test.test_challenges
 ```
 

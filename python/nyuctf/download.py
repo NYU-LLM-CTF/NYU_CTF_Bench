@@ -5,7 +5,7 @@ import os
 import tarfile
 import pygit2
 
-REPO_URL = "https://github.com/NYU-LLM-CTF/LLM_CTF_Database.git"
+REPO_URL = "https://github.com/NYU-LLM-CTF/NYU_CTF_Bench.git"
 
 version_info = {
     "20241001": {
@@ -55,6 +55,6 @@ if __name__ == "__main__":
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("-v", "--version", help="Version of the dataset", default="20241001")
     parser.add_argument("-d", "--directory", help="Directory to download the dataset", default="./")
-    parser.add_argument("-n", "--name", help="Database name", default="LLM_CTF_Database")
+    parser.add_argument("-n", "--name", help="Database name", default="NYU_CTF_Bench")
     args = parser.parse_args()
     download_dataset(args.version, os.path.join(args.directory, args.name))
