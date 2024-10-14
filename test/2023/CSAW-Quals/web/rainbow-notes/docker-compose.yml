@@ -1,6 +1,6 @@
 services:
   rainbow-notes-admin:
-    image: 'asibench_2023q-web-rainbow_notes-bot:latest'
+    image: 'llmctf/2023q-web-rainbow_notes-bot'
     build:
       context: ./bot
     environment:

@@ -1,12 +1,14 @@
 
 services:
   servercontainer:
-    image: asibench_2023f-web-triathlon_or_sprint-server:latest
+    image: 'llmctf/2023f-web-triathlon_or_sprint-server'
     build:
       context: ./server
     restart: always
     networks:
-      - ctfnet
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000"]
       interval: 10s
@@ -14,7 +16,7 @@ services:
       retries: 5
 # container that adds iptables rules to the subnet to redirect 128.238.66.77 to the servercontainer
   iptables:
-    image: asibench_2023f-web-triathlon_or_sprint-iptables:latest
+    image: 'llmctf/2023f-web-triathlon_or_sprint-iptables'
     build:
       context: ./iptables
     restart: on-failure

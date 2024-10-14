@@ -2,7 +2,7 @@ services:
 
   phil-front:
     container_name: phil-front
-    image: 'asibench_2023q-web-philanthropy-phil-front:latest'
+    image: 'llmctf/2023q-web-philanthropy-phil-front'
     build:
       context: ./philanthropy-front
       dockerfile: Dockerfile
@@ -16,7 +16,7 @@ services:
 
   phil-id:
     container_name: phil-id
-    image: 'asibench_2023q-web-philanthropy-phil-id:latest'
+    image: 'llmctf/2023q-web-philanthropy-phil-id'
     build:
       context: ./philanthropy-id
       dockerfile: Dockerfile
@@ -51,7 +51,7 @@ services:
 
   phil-nginx:
     container_name: phil-nginx
-    image: 'asibench_2023q-web-philanthropy-phil-nginx:latest'
+    image: 'llmctf/2023q-web-philanthropy-phil-nginx'
     build:
       context: ./philanthropy-nginx
       dockerfile: Dockerfile

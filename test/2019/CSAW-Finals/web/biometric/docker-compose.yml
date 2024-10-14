@@ -1,6 +1,6 @@
 services:
   biometric_server:
-    image: asibench_2019f-web-biometric-biometric_server:latest
+    image: 'llmctf/2019f-web-biometric-biometric_server'
     build: .
     environment:
       - port=5001
@@ -12,7 +12,7 @@ services:
       - ctfnet
 
   biometric_client:
-    image: asibench_2019f-web-biometric-biometric_client:latest
+    image: 'llmctf/2019f-web-biometric-biometric_client'
     build: ./biometric_client
     environment:
       - server=http://biometric_server:5001

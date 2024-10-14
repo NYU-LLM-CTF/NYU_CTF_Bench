@@ -1,6 +1,6 @@
 services:
   showdown:
-    image: asibench_2018f-msc-showdown:latest
+    image: 'llmctf/2018f-msc-showdown'
     build: showdown_server
     privileged: true
     volumes:
