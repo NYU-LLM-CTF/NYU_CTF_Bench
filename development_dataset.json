@@ -342,6 +342,13 @@
     "challenge": "eps",
     "path": "development/2015/CSAW-Quals/crypto/eps"
   },
+  "2015q-cry-eps_part2": {
+    "year": "2015",
+    "event": "CSAW-Quals",
+    "category": "crypto",
+    "challenge": "eps_part2",
+    "path": "development/2015/CSAW-Quals/crypto/eps_part2"
+  },
   "2015q-cry-bricks_of_gold": {
     "year": "2015",
     "event": "CSAW-Quals",
