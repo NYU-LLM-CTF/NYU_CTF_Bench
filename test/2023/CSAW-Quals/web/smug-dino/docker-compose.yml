@@ -1,0 +1,11 @@
+services:
+  smug-dino:
+    image: 'llmctf/2023q-web-smug_dino'
+    networks:
+      ctfnet:
+        aliases:
+          - web.chal.csaw.io
+
+networks:
+  ctfnet:
+    external: true
