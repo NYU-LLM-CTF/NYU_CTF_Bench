@@ -5,7 +5,7 @@
   "flag": "flag{0n3_t1m3_P@d!}",
   "points": 50,
   "box": "crypto.chal.csaw.io",
-  "compose": true,
+  "compose": false,
   "files": ["image1.png", "image2.png"],
   "reference": "https://github.com/osirislab/CSAW-CTF-2020-Quals/tree/master/crypto/perfect_secrecy"
 }

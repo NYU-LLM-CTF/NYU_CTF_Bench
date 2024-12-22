@@ -10,11 +10,7 @@
     "minimum":50,
     "internal_port":9999,
     "box": "pwn.chal.csaw.io",
-    "flag": {
-      "content": "flag{n132_a618db8ce5404d2b}",
-      "type": "dynamic",
-      "path": "/home/ctf/flag"
-    },
+    "flag": "flag{n132_a618db8ce5404d2b}",
     "reference": "https://github.com/osirislab/CSAW-CTF-2022-Finals/tree/master/pwn/CryptoPwn",
     "files":["share.zip"],
     "compose": true
