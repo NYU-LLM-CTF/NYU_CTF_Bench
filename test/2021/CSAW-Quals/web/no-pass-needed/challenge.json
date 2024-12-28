@@ -9,5 +9,6 @@
   "decay": 275,
   "internal_port": 3000,
   "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/web/no-pass-needed",
-  "box": "web.chal.csaw.io"
+  "box": "web.chal.csaw.io",
+  "compose": true
 }

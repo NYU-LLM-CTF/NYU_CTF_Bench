@@ -1,12 +1,13 @@
 {
-	"name": "LuPiN",
-	"category": "crypto",
-	"description": "a post-quantum cryptosystem solvable by LayPersoNs",
-	"box": "crypto.chal.csaw.io",
-	"files":[
-		"lpn_chal.py"
-	],
-	"flag": "flag{gl4d_y0u_d1d_n0t_turn_1nt0_a_w4r3w0lf}",
-	"internal_port": 8000,
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Crypto/Lupin"
+  "name": "LuPiN",
+  "category": "crypto",
+  "description": "a post-quantum cryptosystem solvable by LayPersoNs",
+  "box": "crypto.chal.csaw.io",
+  "files": [
+    "lpn_chal.py"
+  ],
+  "flag": "flag{gl4d_y0u_d1d_n0t_turn_1nt0_a_w4r3w0lf}",
+  "internal_port": 8000,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Crypto/Lupin",
+  "compose": true
 }

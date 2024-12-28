@@ -1,13 +1,14 @@
 {
-	"name": "gopherz",
-	"category": "rev",
-	"description": "gopher://rev.chal.csaw.io:7070",
-	"port": 7070,
-	"files": [
-		"gopherz",
-		"main.test"
-	],
-	"flag": "flag{tunnel_gopherz_ro0l}",
-	"box": "rev.chal.csaw.io",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/gopherz"
+  "name": "gopherz",
+  "category": "rev",
+  "description": "gopher://rev.chal.csaw.io:7070",
+  "port": 7070,
+  "files": [
+    "gopherz",
+    "main.test"
+  ],
+  "flag": "flag{tunnel_gopherz_ro0l}",
+  "box": "rev.chal.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/gopherz",
+  "compose": true
 }

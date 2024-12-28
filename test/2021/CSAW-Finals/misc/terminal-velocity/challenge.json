@@ -11,5 +11,6 @@
   "files": [],
   "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/misc/terminal-velocity",
   "box": "misc.chal.csaw.io",
-  "internal_port": 3535
+  "internal_port": 3535,
+  "compose": true
 }

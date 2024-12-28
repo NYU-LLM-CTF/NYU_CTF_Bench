@@ -10,5 +10,6 @@
   "minimum": 50,
   "decay": 275,
   "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/misc/Save-the-Tristate",
-  "box": "misc.chal.csaw.io"
+  "box": "misc.chal.csaw.io",
+  "compose": true
 }

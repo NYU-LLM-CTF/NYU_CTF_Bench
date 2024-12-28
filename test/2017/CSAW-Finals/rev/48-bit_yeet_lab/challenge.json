@@ -1,10 +1,13 @@
 {
-	"name": "48-bit_yeet_lab",
-	"category": "rev",
-	"description": "what, you've never seen an x86-48 bomb lab before?",
-	"port": 4848,
-	"files": ["bomblab"],
-	"flag": "flag{turns_out_heavens_gate_works_on_linux_too_yote}",
-	"box": "",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Reversing/48-bit_yeet_lab"
+  "name": "48-bit_yeet_lab",
+  "category": "rev",
+  "description": "what, you've never seen an x86-48 bomb lab before?",
+  "port": 4848,
+  "files": [
+    "bomblab"
+  ],
+  "flag": "flag{turns_out_heavens_gate_works_on_linux_too_yote}",
+  "box": "",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Finals/tree/master/Reversing/48-bit_yeet_lab",
+  "compose": true
 }

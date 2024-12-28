@@ -1,10 +1,11 @@
 {
-	"name": "baby_crypt",
-	"category": "crypto",
-	"description": "baby crypto",
-	"internal_port": 8000,
-	"box": "crypto.chal.csaw.io",
-	"flag": "flag{Crypt0_is_s0_h@rd_t0_d0...}",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/crypto/baby_crypts",
-	"files": []
+  "name": "baby_crypt",
+  "category": "crypto",
+  "description": "baby crypto",
+  "internal_port": 8000,
+  "box": "crypto.chal.csaw.io",
+  "flag": "flag{Crypt0_is_s0_h@rd_t0_d0...}",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/crypto/baby_crypts",
+  "files": [],
+  "compose": true
 }

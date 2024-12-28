@@ -1,10 +1,13 @@
 {
-	"name": "prophecy",
-	"category": "rev",
-	"description": "> 'The prophecy is more important than either of us! Reveal its secrets, Zeratul! The future rests on it!' -Karass-",
-	"port": 8027,
-	"files": ["prophecy"],
-	"flag": "flag{N0w_th3_x3l_naga_that_f0rg3d_us_a11_ar3_r3turn1ng_But d0_th3y_c0m3_to_sav3_0r_t0_d3str0y?}",
-	"box": "rev.chal.csaw.io",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/prophecy"
+  "name": "prophecy",
+  "category": "rev",
+  "description": "> 'The prophecy is more important than either of us! Reveal its secrets, Zeratul! The future rests on it!' -Karass-",
+  "port": 8027,
+  "files": [
+    "prophecy"
+  ],
+  "flag": "flag{N0w_th3_x3l_naga_that_f0rg3d_us_a11_ar3_r3turn1ng_But d0_th3y_c0m3_to_sav3_0r_t0_d3str0y?}",
+  "box": "rev.chal.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/prophecy",
+  "compose": true
 }

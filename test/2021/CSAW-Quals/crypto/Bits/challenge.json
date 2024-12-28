@@ -13,5 +13,6 @@
     "src/main.rs"
   ],
   "reference": "https://github.com/osirislab/CSAW-CTF-2021-Quals/tree/main/crypto/Bits",
-  "box": "crypto.chal.csaw.io"
+  "box": "crypto.chal.csaw.io",
+  "compose": true
 }

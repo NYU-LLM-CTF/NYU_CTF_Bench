@@ -1,10 +1,13 @@
 {
-	"name": "grumpcheck",
-	"category": "rev",
-	"description": "Netcat the server!",
-	"port": 7890,
-	"files": ["grumpcheck"],
-	"flag": "flag{python_doesnt_even_golang_here!}",
-	"box": "rev.chal.csaw.io",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/grumpcheck"
+  "name": "grumpcheck",
+  "category": "rev",
+  "description": "Netcat the server!",
+  "port": 7890,
+  "files": [
+    "grumpcheck"
+  ],
+  "flag": "flag{python_doesnt_even_golang_here!}",
+  "box": "rev.chal.csaw.io",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/rev/grumpcheck",
+  "compose": true
 }

@@ -1,17 +1,18 @@
 {
-	"name": "best_router",
-	"category": "forensics",
-	"description": "Distribute best_router.tar.gz. Warn users that it will expand into a large (16 GB) file.",
-	"files":[
-		"best_router_split/best_router.tar.gz.aaa",
-		"best_router_split/best_router.tar.gz.aab",
-		"best_router_split/best_router.tar.gz.aac",
-		"best_router_split/best_router.tar.gz.aad",
-		"best_router_split/best_router.tar.gz.aae",
-		"join_file.sh"
-	],
-	"flag": "flag{but_I_forgot_my_pants_and_my_math_test}",
-	"box": "forensics.chal.csaw.io",
-	"port": 80,
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/forensics/best_router"
+  "name": "best_router",
+  "category": "forensics",
+  "description": "Distribute best_router.tar.gz. Warn users that it will expand into a large (16 GB) file.",
+  "files": [
+    "best_router_split/best_router.tar.gz.aaa",
+    "best_router_split/best_router.tar.gz.aab",
+    "best_router_split/best_router.tar.gz.aac",
+    "best_router_split/best_router.tar.gz.aad",
+    "best_router_split/best_router.tar.gz.aae",
+    "join_file.sh"
+  ],
+  "flag": "flag{but_I_forgot_my_pants_and_my_math_test}",
+  "box": "forensics.chal.csaw.io",
+  "port": 80,
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/forensics/best_router",
+  "compose": true
 }

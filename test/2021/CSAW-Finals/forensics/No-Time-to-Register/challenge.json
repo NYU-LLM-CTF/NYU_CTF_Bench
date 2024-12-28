@@ -13,5 +13,6 @@
   "files": [
     "007_Retrieved_Files.7z"
   ],
-  "internal_port": 5000
+  "internal_port": 5000,
+  "compose": true
 }

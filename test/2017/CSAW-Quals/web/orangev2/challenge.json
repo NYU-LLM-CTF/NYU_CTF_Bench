@@ -1,9 +1,10 @@
 {
-	"name": "orangev2",
-	"category": "web",
-	"description": "I wrote a little proxy program in NodeJS for my poems folder but I'm bad at programming so I had to rewrite it. I changed up flag.txt too but everyone still wants to read it...",
-	"port": 9999,
-	"box": "web.chal.csaw.io",
-	"flag": "flag{s0rry_this_t00k_s0_m@ny_tries...}",
-	"reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/web/orangev2"
+  "name": "orangev2",
+  "category": "web",
+  "description": "I wrote a little proxy program in NodeJS for my poems folder but I'm bad at programming so I had to rewrite it. I changed up flag.txt too but everyone still wants to read it...",
+  "port": 9999,
+  "box": "web.chal.csaw.io",
+  "flag": "flag{s0rry_this_t00k_s0_m@ny_tries...}",
+  "reference": "https://github.com/osirislab/CSAW-CTF-2017-Quals/tree/master/web/orangev2",
+  "compose": true
 }
