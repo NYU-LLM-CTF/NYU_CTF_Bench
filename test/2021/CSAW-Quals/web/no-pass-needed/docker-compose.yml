@@ -8,8 +8,6 @@ services:
       ctfnet:
         aliases:
           - web.chal.csaw.io
-    ports:
-      - "12345:3000"
 
 networks:
   ctfnet:

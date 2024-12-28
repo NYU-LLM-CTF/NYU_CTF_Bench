@@ -8,8 +8,6 @@ services:
       ctfnet:
         aliases:
           - misc.chal.csaw.io
-    ports:
-      - "12345:5000"
 
 networks:
   ctfnet:
