@@ -62,7 +62,6 @@ class CTFChallenge:
             self.flag_format = "not provided"
         else:
             self.flag_format = re.sub(r'\{.*?\}', '{...}', self.flag)
-        assert self.flag_format != self.flag, f"Flag format for {self.asiname} would leak the flag!"
 
         self.server_name = self.challenge.get("box", None)
         self.port = self.challenge.get("internal_port", None)

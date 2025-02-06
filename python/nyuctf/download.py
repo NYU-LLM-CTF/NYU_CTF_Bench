@@ -3,8 +3,8 @@ import subprocess
 from pathlib import Path
 
 REPO_URL = "https://github.com/NYU-LLM-CTF/NYU_CTF_Bench.git"
-AVAILABLE_VERSIONS = ["v20241008"]
-DEFAULT_VERSION = "v20241008"
+AVAILABLE_VERSIONS = ["v20250206", "v20241008"]
+DEFAULT_VERSION = "v20250206"
 DEFAULT_DIRECTORY = "~/.nyuctf"
 
 def download_dataset(version=DEFAULT_VERSION, download_dir=DEFAULT_DIRECTORY):
