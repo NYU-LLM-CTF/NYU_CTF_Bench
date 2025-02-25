@@ -23,7 +23,8 @@ class CTFDataset(dict):
         if not dataset_json.exists():
             raise ValueError(f"Dataset not found: {dataset_json.parent}")
         self.dataset_dir = dataset_json.parent
-        self.dataset = json.loads(dataset_json.open().read())
+        with dataset_json.open() as f:
+            self.dataset = json.load(f)
 
     @property
     def basedir(self):
