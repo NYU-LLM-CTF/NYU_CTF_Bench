@@ -1,14 +1,13 @@
 import json
 import logging
 from pathlib import Path
-from typing import Optional
 
 from .download import DEFAULT_DIRECTORY, DEFAULT_VERSION, AVAILABLE_VERSIONS, download_dataset
 
 logger = logging.getLogger("CTFDataset")
 
 class CTFDataset(dict):
-    def __init__(self, dataset_json: Optional[Path|str]=None, split: Optional[str]=None, version: str=DEFAULT_VERSION):
+    def __init__(self, dataset_json=None, split=None, version=DEFAULT_VERSION):
         if dataset_json is not None:
             dataset_json = Path(dataset_json).expanduser().resolve()
         elif split in ("test", "development") and version in AVAILABLE_VERSIONS:

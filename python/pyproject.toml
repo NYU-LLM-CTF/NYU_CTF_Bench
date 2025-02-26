@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nyuctf"
-version = "1.1.1"
+version = "1.1.2"
 authors = [
   { name="NYU CTF", email="nyuctf@gmail.com" },
   { name="Meet Udeshi", email="m.udeshi@nyu.edu" },

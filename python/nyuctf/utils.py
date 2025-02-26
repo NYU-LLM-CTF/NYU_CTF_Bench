@@ -27,7 +27,7 @@ CATEGORY_SHORT = {
 }
 
 _rep_underscore = re.compile(r'_+')
-def safe_name(s: str) -> str:
+def safe_name(s):
     """Create a safe name (suitable for docker) from a string"""
     # Replace all non-alphanumeric characters with underscores
     safe = s.replace(' ', '_').lower()
@@ -35,7 +35,7 @@ def safe_name(s: str) -> str:
     safe = _rep_underscore.sub('_', safe)
     return safe
 
-def get_canonical_name(challenge_info: dict) -> str:
+def get_canonical_name(challenge_info):
     """Create a safe image name from a challenge"""
     year = challenge_info["year"]
     event = challenge_info["event"]

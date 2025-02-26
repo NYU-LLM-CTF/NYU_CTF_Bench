@@ -3,7 +3,6 @@ import json
 import re
 import subprocess
 import tempfile
-from typing import List
 from pathlib import Path
 import logging
 
@@ -30,7 +29,7 @@ category_short = {
 }
 
 class CTFChallenge:
-    def __init__(self, challenge: dict, basedir: Path|str):
+    def __init__(self, challenge, basedir):
         self.challenge_info = challenge
         self.challenge_dir = Path(basedir) / challenge["path"]
         self.challenge_dir = self.challenge_dir.expanduser().resolve()
@@ -41,7 +40,7 @@ class CTFChallenge:
         # Load challenge details from JSON
         self.load_challenge(self.challenge_dir / "challenge.json")
 
-    def load_challenge(self, challenge_json : Path):
+    def load_challenge(self, challenge_json):
         # Load in all the challenge information from the challenge.json file
         self.challenge_json = challenge_json
         self.challenge = json.loads(challenge_json.read_text())
