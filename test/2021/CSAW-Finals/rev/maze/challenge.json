@@ -10,7 +10,7 @@
   "decay": 10,
   "internal_port": "5000",
   "files": [
-    "maze_public"
+    "maze"
   ],
   "reference": "https://github.com/osirislab/CSAW-CTF-2021-Finals/tree/main/rev/maze",
   "box": "rev.chal.csaw.io",
